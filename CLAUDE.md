@@ -80,7 +80,7 @@ history/CONTESTED.md                         disputed points and our handling
 history/PEOPLE.md                            names, sides, spellings, card ids
 history/PURANDARE-CHECK.md                   each chronology entry checked against the standard reference
 history/AI-REPORTS-REVIEW.md                 what was checked in AI research reports (leads only, never sources)
-data/chapters.json                           the campaign: 22 chapters with refs
+data/chapters.json                           the campaign: 23 chapters with refs (one proposed)
 data/cards.draft.json                        draft cards (not loaded by the game)
 scripts/check-refs.mjs                       the ref checker (part of npm test)
 ```
