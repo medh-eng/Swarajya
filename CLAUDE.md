@@ -61,8 +61,9 @@ and record the check in `history/AI-REPORTS-REVIEW.md`.
 
 ## Engine rules (inherited from YUDDH)
 - Engine baseline: YUDDH commit `6f1c852`. The engine (`src/engine/`) has no DOM code; screens go in `src/game/`.
-- **Never break the golden test** (YUDDH's 154 classic-rules games). New rules go behind
-  `st.rules === 'swarajya'` (which includes everything in `'yuddh'`).
+- **Never break the golden test** (YUDDH's 154 classic-rules games). A Swarajya-only rule goes behind
+  `isSwarajyaRules(st.rules)`; a YUDDH rule is checked with `isYuddhRules(st.rules)` (true for 'yuddh'
+  and 'swarajya'). Never write `st.rules === 'yuddh'` (it would switch the rule off for Swarajya).
 - All numbers live in `src/data/*.json` (cards, decks, rules, chapters). A balance change is a JSON edit.
 - Every new mechanic ships with: engine code, an AI value (`ai.ts`, and `search.ts` if needed), a
   rules test, a glossary entry, and a playtest.
