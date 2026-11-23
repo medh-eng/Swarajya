@@ -1,0 +1,680 @@
+{
+  "_about": "The campaign 'Hindavi Swarajya'. One entry per chapter, in story order. refs = IDs in history/CHRONOLOGY.md (checked by scripts/check-refs.mjs). titleMr = draft Marathi, needs review by a Marathi reader. objective uses the engine's Objective shape (types marked NEW need engine work). invented = what the game makes up, shown in the History note as INVENTED. status: proposed | planned | blocked | built | approved.",
+  "campaign": {
+    "id": "hindavi_swarajya",
+    "title": "Hindavi Swarajya",
+    "titleMr": "हिंदवी स्वराज्य"
+  },
+  "acts": [
+    {
+      "id": "act1",
+      "title": "The Rebel of the Sahyadri",
+      "years": "1646–1659"
+    },
+    {
+      "id": "act2",
+      "title": "Two Empires Against One",
+      "years": "1660–1665"
+    },
+    {
+      "id": "act3",
+      "title": "The Lion in the Cage",
+      "years": "1666"
+    },
+    {
+      "id": "act4",
+      "title": "The Return of the Lion",
+      "years": "1670–1674"
+    },
+    {
+      "id": "act5",
+      "title": "Chhatrapati",
+      "years": "1675–1680"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "ch00_maval",
+      "act": "act1",
+      "order": 0,
+      "phase": 1,
+      "status": "planned",
+      "title": "The Mavlas of the Maval",
+      "titleMr": "मावळचे मावळे",
+      "date": "c. 1640s",
+      "place": "Pune jagir, the Maval valleys",
+      "kind": "tutorial",
+      "objective": {
+        "type": "destroy"
+      },
+      "conditions": {
+        "coached": true
+      },
+      "enemy": "neutral (a border post)",
+      "heroCard": "sw_shivaji",
+      "refs": [
+        "C-1630-CONTEXT",
+        "C-1630-BIRTH",
+        "C-1640-PUNE"
+      ],
+      "invented": "The whole training fight. Jijabai's counsel lines are the game's words."
+    },
+    {
+      "id": "ch01_torna",
+      "act": "act1",
+      "order": 1,
+      "phase": 1,
+      "status": "planned",
+      "title": "Torna",
+      "titleMr": "तोरणा",
+      "date": "1646",
+      "place": "Torna fort, Pune district",
+      "kind": "capture",
+      "objective": {
+        "type": "capture",
+        "gads": [
+          "as_gad_torna_held"
+        ],
+        "turns": 14,
+        "_engine": "NEW"
+      },
+      "conditions": {
+        "season": "sharad"
+      },
+      "enemy": "adilshahi (fort garrison)",
+      "heroCard": "sw_shivaji",
+      "enemyHero": null,
+      "refs": [
+        "C-1646-TORNA",
+        "C-1647-EXPANSION"
+      ],
+      "invented": "The fight itself: sources say only that he took the fort while Bijapur was distracted. No commandant is named, so the enemy has no hero."
+    },
+    {
+      "id": "ch02_purandar1648",
+      "act": "act1",
+      "order": 2,
+      "phase": 2,
+      "status": "blocked",
+      "title": "Purandar, 1648",
+      "titleMr": "पुरंदर, १६४८",
+      "date": "1648",
+      "place": "Purandar",
+      "kind": "defend",
+      "objective": {
+        "type": "survive",
+        "turns": 12
+      },
+      "conditions": {},
+      "enemy": "adilshahi",
+      "heroCard": "sw_shivaji",
+      "refs": [
+        "C-1648-SHAHAJI"
+      ],
+      "invented": "Blocked: the Fateh Khan battle is VERIFY in the chronology. Do not build until a primary source is found."
+    },
+    {
+      "id": "ch03_jaoli",
+      "act": "act1",
+      "order": 3,
+      "phase": 2,
+      "status": "planned",
+      "title": "Jaoli",
+      "titleMr": "जावळी",
+      "date": "April–May 1656",
+      "place": "Jaoli valley (Satara district)",
+      "kind": "battle",
+      "objective": {
+        "type": "destroy"
+      },
+      "conditions": {
+        "season": "varsha_or_sharad_tbd"
+      },
+      "enemy": "jaoli",
+      "heroCard": "sw_shivaji",
+      "enemyHero": "jm_chandrarao",
+      "refs": [
+        "C-1656-JAOLI",
+        "C-1656-PRATAPGAD-BUILT"
+      ],
+      "invented": "Played as an assault on the More strongholds. The real method is disputed (CONTESTED #4) and is told in the History note, not celebrated in play."
+    },
+    {
+      "id": "ch04_pratapgad",
+      "act": "act1",
+      "order": 4,
+      "phase": 1,
+      "status": "planned",
+      "title": "Pratapgad",
+      "titleMr": "प्रतापगड",
+      "date": "10 November 1659",
+      "place": "Below Pratapgad fort",
+      "kind": "bhet+battle",
+      "objective": {
+        "type": "destroy"
+      },
+      "conditions": {
+        "bhet": "pratapgad",
+        "season": "hemanta"
+      },
+      "enemy": "adilshahi",
+      "heroCard": "sw_shivaji",
+      "enemyHero": "as_afzal_khan",
+      "refs": [
+        "C-1659-AFZAL-MARCH",
+        "C-1659-PRATAPGAD",
+        "C-1656-PRATAPGAD-BUILT"
+      ],
+      "invented": "The Bhet choices and their effects. The battle after the meeting is the game's. No army sizes."
+    },
+    {
+      "id": "ch05_kolhapur",
+      "act": "act1",
+      "order": 5,
+      "phase": 2,
+      "status": "planned",
+      "title": "Kolhapur",
+      "titleMr": "कोल्हापूर",
+      "date": "28 December 1659",
+      "place": "Near Kolhapur and Panhala",
+      "kind": "battle",
+      "objective": {
+        "type": "destroy"
+      },
+      "conditions": {
+        "season": "hemanta"
+      },
+      "enemy": "adilshahi",
+      "heroCard": "sw_shivaji",
+      "enemyHero": "as_rustam_zaman",
+      "refs": [
+        "C-1659-KOLHAPUR"
+      ],
+      "invented": "Deployment and card effects. No troop numbers (CONTESTED #15)."
+    },
+    {
+      "id": "ch06_pavankhind",
+      "act": "act2",
+      "order": 6,
+      "phase": 2,
+      "status": "planned",
+      "title": "Panhala and the Pass",
+      "titleMr": "पन्हाळा आणि पावनखिंड",
+      "date": "12–13 July 1660",
+      "place": "Panhala to Vishalgad; Ghod Khind",
+      "kind": "survive",
+      "objective": {
+        "type": "survive",
+        "turns": 8
+      },
+      "conditions": {
+        "frontSize": 2,
+        "season": "varsha",
+        "_engine": "frontSize NEW"
+      },
+      "enemy": "adilshahi",
+      "heroCard": "sw_bajiprabhu",
+      "enemyHero": "as_siddi_masud",
+      "refs": [
+        "C-1660-PANHALA-SIEGE",
+        "C-1660-PAVANKHIND",
+        "C-1660-PANHALA-FALL"
+      ],
+      "invented": "Turn count and card effects. The signal from Vishalgad that ends the chapter is TRADITION and labelled so."
+    },
+    {
+      "id": "ch07_chakan",
+      "act": "act2",
+      "order": 7,
+      "phase": 2,
+      "status": "planned",
+      "title": "Fifty-six Days at Chakan",
+      "titleMr": "चाकणचे छप्पन्न दिवस",
+      "date": "23 June – 14 August 1660",
+      "place": "Chakan (Sangramdurg)",
+      "kind": "survive",
+      "objective": {
+        "type": "survive",
+        "turns": 10
+      },
+      "conditions": {
+        "playerGad": "sw_gad_chakan"
+      },
+      "enemy": "mughal",
+      "heroCard": "sw_firangoji",
+      "enemyHero": "mg_shaista_khan",
+      "refs": [
+        "C-1660-CHAKAN"
+      ],
+      "invented": "Winning means holding the turns (the 56 days). History: the fort fell and Firangoji was given safe passage; the epilogue says so."
+    },
+    {
+      "id": "ch08_umberkhind",
+      "act": "act2",
+      "order": 8,
+      "phase": 2,
+      "status": "planned",
+      "title": "Umberkhind",
+      "titleMr": "उंबरखिंड",
+      "date": "early 1661",
+      "place": "Umberkhind pass, near Pen",
+      "kind": "ambush",
+      "objective": {
+        "type": "destroy"
+      },
+      "conditions": {
+        "frontSize": 2,
+        "bhet": "rai_bagan_offer",
+        "enemyStartsOnFront": true
+      },
+      "enemy": "mughal",
+      "heroCard": "sw_shivaji",
+      "enemyHero": "mg_kartalab_khan",
+      "refs": [
+        "C-1661-UMBERKHIND"
+      ],
+      "invented": "The Bhet here is Rai Bagan's offer of terms (accept: win with plunder; refuse: fight on). Card effects invented."
+    },
+    {
+      "id": "ch09_lalmahal",
+      "act": "act2",
+      "order": 9,
+      "phase": 2,
+      "status": "planned",
+      "title": "The Lal Mahal",
+      "titleMr": "लाल महाल",
+      "date": "night of 5–6 April 1663",
+      "place": "Pune",
+      "kind": "night raid",
+      "objective": {
+        "type": "deadline",
+        "turns": 7
+      },
+      "conditions": {
+        "ratra": true,
+        "_engine": "ratra NEW"
+      },
+      "enemy": "mughal",
+      "heroCard": "sw_shivaji",
+      "enemyHero": "mg_shaista_khan",
+      "refs": [
+        "C-1663-LALMAHAL",
+        "C-1640-PUNE"
+      ],
+      "invented": "The raid as a card battle against a clock. The wedding-procession disguise is TRADITION."
+    },
+    {
+      "id": "ch10_surat",
+      "act": "act2",
+      "order": 10,
+      "phase": 2,
+      "status": "planned",
+      "title": "Surat",
+      "titleMr": "सुरत",
+      "date": "January 1664",
+      "place": "Surat",
+      "kind": "raid",
+      "objective": {
+        "type": "raid",
+        "plunder": 12,
+        "turns": 10,
+        "_engine": "NEW"
+      },
+      "conditions": {
+        "neutralStructures": [
+          "ei_factory_guard"
+        ]
+      },
+      "enemy": "mughal",
+      "heroCard": "sw_shivaji",
+      "enemyHero": "mg_inayat_khan",
+      "refs": [
+        "C-1664-SURAT",
+        "C-1664-SINDHUDURG"
+      ],
+      "invented": "Plunder as a counter; the factories as neutral strongpoints. No value of plunder is stated (sources differ)."
+    },
+    {
+      "id": "ch11_purandar",
+      "act": "act2",
+      "order": 11,
+      "phase": 2,
+      "status": "planned",
+      "title": "Purandar",
+      "titleMr": "पुरंदर",
+      "date": "31 March – 11 June 1665",
+      "place": "Purandar and Vajragad",
+      "kind": "survive+terms",
+      "objective": {
+        "type": "survive",
+        "turns": 10
+      },
+      "conditions": {
+        "bhet": "jai_singh_terms",
+        "afterword": "treaty_scene"
+      },
+      "enemy": "mughal",
+      "heroCard": "sw_murarbaji",
+      "enemyHero": "mg_jai_singh",
+      "refs": [
+        "C-1665-PURANDAR",
+        "C-1665-TREATY"
+      ],
+      "invented": "Whatever the result, the treaty scene follows and the map loses 23 forts: the game says plainly that this is what happened."
+    },
+    {
+      "id": "ch12_agra",
+      "act": "act3",
+      "order": 12,
+      "phase": 3,
+      "status": "planned",
+      "title": "Agra",
+      "titleMr": "आग्रा",
+      "date": "12 May – 17 August 1666",
+      "place": "Agra",
+      "kind": "escape puzzle",
+      "objective": {
+        "type": "escape",
+        "turns": 8,
+        "_engine": "NEW"
+      },
+      "conditions": {
+        "puzzle": true,
+        "fixedHand": true
+      },
+      "enemy": "mughal (guards)",
+      "heroCard": "sw_shivaji",
+      "refs": [
+        "C-1666-AGRA",
+        "C-1666-ESCAPE"
+      ],
+      "invented": "The puzzle. Hiroji Farzand and Madari Mehtar appear as TRADITION cards."
+    },
+    {
+      "id": "ch13_kondhana",
+      "act": "act4",
+      "order": 13,
+      "phase": 3,
+      "status": "planned",
+      "title": "Kondhana",
+      "titleMr": "कोंढाणा",
+      "date": "night of 4 February 1670",
+      "place": "Kondhana (Sinhagad)",
+      "kind": "night capture",
+      "objective": {
+        "type": "capture",
+        "gads": [
+          "mg_gad_kondhana"
+        ],
+        "turns": 10,
+        "_engine": "NEW"
+      },
+      "conditions": {
+        "ratra": true
+      },
+      "enemy": "mughal",
+      "heroCard": "sw_tanaji",
+      "enemyHero": "mg_udaybhan",
+      "refs": [
+        "C-1670-SINHAGAD",
+        "C-1670-RECAPTURE"
+      ],
+      "invented": "Card effects. The lizard and the famous line are TRADITION (CONTESTED #11)."
+    },
+    {
+      "id": "ch14_vani",
+      "act": "act4",
+      "order": 14,
+      "phase": 3,
+      "status": "planned",
+      "title": "Surat and Vani",
+      "titleMr": "सुरत आणि वणी-दिंडोरी",
+      "date": "October 1670",
+      "place": "Surat; Vani–Dindori (Nashik)",
+      "kind": "raid then pursuit",
+      "objective": {
+        "type": "raid",
+        "plunder": 10,
+        "turns": 9,
+        "_engine": "NEW"
+      },
+      "conditions": {
+        "enemyReinforce": {
+          "turn": 4,
+          "cards": [
+            "mg_daud_khan"
+          ]
+        }
+      },
+      "enemy": "mughal",
+      "heroCard": "sw_prataprao",
+      "enemyHero": "mg_daud_khan",
+      "refs": [
+        "C-1670-SURAT2",
+        "C-1670-VANI"
+      ],
+      "invented": "Turn of Daud Khan's arrival; card effects."
+    },
+    {
+      "id": "ch15_salher",
+      "act": "act4",
+      "order": 15,
+      "phase": 3,
+      "status": "planned",
+      "title": "Salher",
+      "titleMr": "साल्हेर",
+      "date": "February 1672",
+      "place": "Salher, Baglan (Nashik district)",
+      "kind": "pitched battle",
+      "objective": {
+        "type": "destroy"
+      },
+      "conditions": {
+        "playerReinforce": {
+          "turn": 5,
+          "cards": [
+            "sw_moropant"
+          ]
+        }
+      },
+      "enemy": "mughal",
+      "heroCard": "sw_prataprao",
+      "enemyHero": "mg_ikhlas_khan",
+      "refs": [
+        "C-1672-SALHER"
+      ],
+      "invented": "The two armies' arrival as a scripted turn-5 event. No army sizes."
+    },
+    {
+      "id": "ch16_panhala",
+      "act": "act4",
+      "order": 16,
+      "phase": 3,
+      "status": "planned",
+      "title": "Panhala by Night",
+      "titleMr": "पन्हाळा रात्री",
+      "date": "night of 6 March 1673",
+      "place": "Panhala",
+      "kind": "bonus night capture",
+      "objective": {
+        "type": "capture",
+        "gads": [
+          "as_gad_panhala"
+        ],
+        "turns": 6,
+        "_engine": "NEW"
+      },
+      "conditions": {
+        "ratra": true,
+        "bonus": true
+      },
+      "enemy": "adilshahi",
+      "heroCard": "sw_kondaji",
+      "refs": [
+        "C-1673-PANHALA"
+      ],
+      "invented": "A short challenge; party size not stated."
+    },
+    {
+      "id": "ch17_umrani_nesari",
+      "act": "act4",
+      "order": 17,
+      "phase": 3,
+      "status": "planned",
+      "title": "Umrani and Nesari",
+      "titleMr": "उमराणी आणि नेसरी",
+      "date": "April 1673 – 24 February 1674",
+      "place": "Umrani (near Bijapur); Nesari",
+      "kind": "battle + memorial",
+      "objective": {
+        "type": "destroy"
+      },
+      "conditions": {
+        "partTwo": "nesari_last_charge"
+      },
+      "enemy": "adilshahi",
+      "heroCard": "sw_prataprao",
+      "enemyHero": "as_bahlol_khan",
+      "refs": [
+        "C-1673-UMRANI",
+        "C-1674-NESARI"
+      ],
+      "invented": "Part two (Nesari) is a short scene, not a winnable battle: seven horsemen against an army, as the letter of April 1674 records. The six companions' names are TRADITION."
+    },
+    {
+      "id": "ch18_rajyabhishek",
+      "act": "act4",
+      "order": 18,
+      "phase": 3,
+      "status": "planned",
+      "title": "Rajyabhishek",
+      "titleMr": "राज्याभिषेक",
+      "date": "6 June 1674",
+      "place": "Raigad",
+      "kind": "interlude",
+      "objective": null,
+      "conditions": {
+        "unlocks": [
+          "sw_chhatrapati",
+          "ashta_pradhan_set"
+        ]
+      },
+      "enemy": null,
+      "heroCard": "sw_chhatrapati",
+      "refs": [
+        "C-1674-CORONATION",
+        "C-1674-JIJABAI",
+        "C-1674-SECOND-CORONATION",
+        "C-X-ASHTAPRADHAN"
+      ],
+      "invented": "Nothing: a scene built only from documented elements (titles, council, coins, era)."
+    },
+    {
+      "id": "ch19_dakshin",
+      "act": "act5",
+      "order": 19,
+      "phase": 4,
+      "status": "planned",
+      "title": "Dakshin Digvijaya: Tiruvadi",
+      "titleMr": "दक्षिण दिग्विजय: तिरुवडी",
+      "date": "26 June 1677",
+      "place": "Tiruvadi (Tamil Nadu)",
+      "kind": "battle with allies",
+      "objective": {
+        "type": "destroy"
+      },
+      "conditions": {
+        "allyCards": [
+          "gk_topkhana",
+          "gk_madanna"
+        ]
+      },
+      "enemy": "adilshahi (Karnatak)",
+      "heroCard": "sw_chhatrapati",
+      "enemyHero": "as_sher_khan_lodi",
+      "refs": [
+        "C-1677-GOLCONDA",
+        "C-1677-GINGEE",
+        "C-1677-TIRUVADI",
+        "C-1677-VELLORE"
+      ],
+      "invented": "Card effects; Golconda support as ally cards."
+    },
+    {
+      "id": "ch20_khanderi",
+      "act": "act5",
+      "order": 20,
+      "phase": 4,
+      "status": "planned",
+      "title": "Khanderi",
+      "titleMr": "खांदेरी",
+      "date": "September – October 1679",
+      "place": "Khanderi island, off Bombay",
+      "kind": "naval survive",
+      "objective": {
+        "type": "survive",
+        "turns": 9
+      },
+      "conditions": {
+        "naval": true,
+        "playerGad": "sw_gad_khanderi"
+      },
+      "enemy": "english + siddi",
+      "heroCard": "sw_mainayak",
+      "enemyHero": "ei_revenge",
+      "refs": [
+        "C-1679-KHANDERI",
+        "C-1654-NAVY",
+        "C-1664-SINDHUDURG"
+      ],
+      "invented": "Card effects; the English and Siddi as one enemy deck."
+    },
+    {
+      "id": "ch20b_sangamner",
+      "act": "act5",
+      "order": 20.5,
+      "phase": 4,
+      "status": "proposed",
+      "title": "Sangamner",
+      "titleMr": "संगमनेर",
+      "date": "November 1679",
+      "place": "Jalna to Sangamner",
+      "kind": "rearguard survive",
+      "objective": {
+        "type": "survive",
+        "turns": 8
+      },
+      "conditions": {
+        "frontSize": 3
+      },
+      "enemy": "mughal",
+      "heroCard": "sw_chhatrapati",
+      "enemyHero": null,
+      "refs": [
+        "C-1679-JALNA"
+      ],
+      "invented": "Proposed by Claude after reviewing the ChatGPT report (Pon to decide). The escape is the win; the rearguard under Sidhoji Nimbalkar is lost, as history records. No numbers."
+    },
+    {
+      "id": "ch21_raigad",
+      "act": "act5",
+      "order": 21,
+      "phase": 4,
+      "status": "planned",
+      "title": "Raigad",
+      "titleMr": "रायगड",
+      "date": "April 1680",
+      "place": "Raigad",
+      "kind": "epilogue",
+      "objective": null,
+      "conditions": {},
+      "enemy": null,
+      "heroCard": "sw_chhatrapati",
+      "refs": [
+        "C-1680-DEATH",
+        "C-1678-SAMBHAJI"
+      ],
+      "invented": "The shahir's closing song (the game's words)."
+    }
+  ]
+}
