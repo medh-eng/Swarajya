@@ -89,3 +89,29 @@ further work.
 - Not used: troop and plunder numbers (D-04); "Gingee July 1677" (Sabhasad: May); "Sangamner while defending
   the northern frontier" (it was on the way back from Jalna).
 - D-13: the planning package now lives in `medh-eng/Swarajya` (first commit). The zip is retired.
+
+## 24 Nov 2026 · Session 5 · Claude (with Pon)
+
+**Asked:** name is "YUDDH: Swarajya"; show Dadoji Kondadeo as teacher; Pon has the English edition (latest);
+keep Sangamner; set up the engine (Phase 0); finish everything in this chat (next session runs on Sonnet).
+
+**Done**
+- Decisions D-14 (title), D-15 (Dadoji as teacher, dispute noted), D-16 (Sangamner; English edition),
+  D-17 (YUDDH content kept as scaffolding). CONTESTED #6, C-1640-PUNE, PEOPLE, SOURCES, CLAUDE.md, DESIGN
+  updated; draft card `sw_dadoji` (basis CONTESTED; check-refs now accepts CONTESTED cards with refs).
+- Phase 0: copied YUDDH @ 6f1c852 (`src/`, `tests/`, `legacy/`, `scripts/convert-assets.mjs`, configs,
+  `deploy.yml`); no art, no `android/`, no `public/assets`. `card-art.json` emptied.
+- Ruleset `'swarajya'`: new `src/engine/ruleset.ts` (`isYuddhRules`, `isSwarajyaRules`); every
+  `rules === 'yuddh'` check in engine, AI, search, glossary and battle now uses `isYuddhRules`.
+- Tests: removed the 19 YUDDH chapter/duel-roster tests (they assert YUDDH art is present). Added
+  `tests/swarajya.test.ts` (ruleset flags; 'swarajya' games replay identically to 'yuddh'; check-refs).
+  `npm test` = check-refs + Vitest: 11 files, 84 tests, golden 154 games pass. tsc and build pass.
+- Placeholder title `src/game/scenes/swarajyaTitle.ts` (dawn over the Sahyadri, a fort, title, "Coming
+  soon"), drawn in code; new `src/main.ts`; favicon and app icons drawn in SVG and rendered with sharp;
+  `index.html`, manifest, `capacitor.config.ts` (`com.medheng.swarajya`), `package.json` renamed.
+- Playtest: built page opened in headless Chrome at 1600×900 and 844×390 (phone): renders, no console errors.
+
+**Notes for next time**
+- Pon must switch on Pages (gh-pages branch) once; the workflow publishes on every push.
+- A battle cannot open yet: battlefields have no art and no fallback (TASKS Phase 1 step 4).
+- The android build (YUDDH's `android/` folder and `android.yml`) was not copied; add with `npx cap add android` at Phase 5.

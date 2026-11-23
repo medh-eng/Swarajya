@@ -1,4 +1,4 @@
-# SWARAJYA (working title)
+# YUDDH: Swarajya
 
 A tactical card game of the life and wars of **Chhatrapati Shivaji Maharaj** (1630–1680), from the
 first fort at Torna to the coronation at Raigad and the sea fort of Khanderi. Built on the engine of
@@ -16,11 +16,12 @@ Web first, then Google Play.
   sources say, what is tradition, what is disputed, and what the other side wrote.
 
 ## Where the project stands
-Planning complete (23 Nov 2026). No code yet. See `STATE.md`.
+Phase 0 done (24 Nov 2026): the YUDDH engine runs under the new ruleset `'swarajya'`, the history
+checker runs in `npm test`, and a placeholder title is published. See `STATE.md`.
 
 | Phase | What | Status |
 |---|---|---|
-| 0 | Foundation: repo, YUDDH engine ported, ref checker in tests, page live | Planning done; repo next |
+| 0 | Foundation: repo, YUDDH engine ported, ref checker in tests, page live | **Done** (page live once Pages is switched on) |
 | 1 | Vertical slice: tutorial, Torna, Pratapgad; Gad and Bhet mechanics | |
 | 2 | Acts I–II: Jaoli → Purandar; Khind, Ganim, Ratra, raid | |
 | 3 | Acts III–IV: Agra → coronation | |

@@ -3,28 +3,21 @@
 *What is next, in order. Updated at the end of every session. Done items move to PROGRESS.md.*
 
 ## For Pon (now)
-- [ ] **Decide the name** (STATE Q-01). Recommendation: "YUDDH: Swarajya".
-- [x] **Create the empty GitHub repo**: `medh-eng/Swarajya` (23 Nov 2026).
-      Claude will then attach it, commit this package and start Phase 0.
+- [ ] **Switch on GitHub Pages** for `medh-eng/Swarajya`: Settings → Pages → Source "Deploy from a branch" →
+      branch `gh-pages`, folder `/ (root)` → Save. (The branch appears after the first "Test and publish" run
+      in the Actions tab finishes.) Then open https://medh-eng.github.io/Swarajya/ on your phone, sideways.
+- [ ] Send photos of the pages of *Raja Shivachhatrapati* (English, latest) for the vertical slice:
+      Dadoji and the Pune years, Torna, the Afzal Khan episode and Pratapgad. Note volume and chapter.
 - [ ] Read `history/CONTESTED.md` and `docs/DESIGN.md` §5 (chapter list) and §3 (new mechanics).
-      Change anything that does not feel right; especially D-07 (what is not playable).
 - [ ] Find a Marathi reader to review strings before Gate 1 (Q-05).
-- [x] Re-send the Gemini report (received as .md, reviewed).
-- [ ] Approve or drop the proposed chapter `ch20b_sangamner` (Shivaji's last battle, 1679).
-- [ ] Decide Q-07 (Dadoji Kondadeo) and tell Claude which edition of *Raja Shivachhatrapati* you have (Q-08).
-- [ ] For each chapter we build, send photos of the matching pages of *Raja Shivachhatrapati*
-      (first batch, for the vertical slice: Torna, the Afzal Khan episode and Pratapgad).
+- [ ] Paint from the Phase 1 art prompt sheet once Claude writes it (`art/PROMPTS-BATCH1.md`).
+- [x] Name: YUDDH: Swarajya (D-14). Dadoji as teacher (D-15). English edition; Sangamner kept (D-16).
+- [x] Repo `medh-eng/Swarajya` created; Gemini report re-sent and reviewed.
 
-## For Claude: Phase 0 (next; the repo exists)
-1. Commit this planning package as the first commit.
-2. Copy from YUDDH @ 6f1c852: `src/engine`, `src/game`, `src/meta`, `src/data/index.ts`, `scripts/convert-assets.mjs`,
-   `tests/` (rules, golden, e2e harness), `package.json`, `vite.config.ts`, `tsconfig.json`, `index.html`,
-   `capacitor.config.ts` (new app id, e.g. `com.medheng.swarajya`, permanent once on Play), `.github/workflows/*`.
-   Keep only the classic 50 cards (golden test) in `cards.json`; no YUDDH campaigns or art.
-3. Add `'swarajya'` to `Ruleset`; it behaves as `'yuddh'` until mechanics land. Add empire `swarajya`.
-4. `npm test` runs `node scripts/check-refs.mjs` as well as Vitest.
-5. Placeholder title screen ("SWARAJYA — coming soon") with one painted background when Pon has one; deploy to Pages.
-6. Write `CLAUDE.md`'s "Map" section for the real file layout once code exists.
+## For Claude: Phase 0 — done (24 Nov 2026, session 5)
+Engine copied at YUDDH 6f1c852; ruleset `'swarajya'`; check-refs in `npm test`; placeholder title; deploy
+workflow; new app id `com.medheng.swarajya`. Deviation from PLAN: YUDDH content kept as scaffolding (D-17).
+Still open from Phase 0: research item 6 (Act I VERIFY gaps) — moved to the research list below.
 
 ## For Claude: research (before the chapters that need it)
 - [ ] Run `history/PURANDARE-CHECK.md` chapter by chapter as Pon's page photos arrive; add S-PURANDARE
@@ -40,13 +33,30 @@
 - [ ] The Venkoji battle (Nov 1677?).
 - [ ] Agra baskets: check Mehendale / the Rajasthani letters against the ChatGPT report's doubt (CONTESTED #20).
 
-## Phase 1 (after Phase 0)
-- [ ] Gad card type + capture (engine, AI value, glossary, tests).
-- [ ] `capture` objective.
-- [ ] Bhet scene + AI stance table (`rules.json` "bhet").
-- [ ] Chapter 0, 1, 4 scenarios; decks; History notes (from CHRONOLOGY only).
-- [ ] Art batch 1 prompt sheet `art/PROMPTS-BATCH1.md` (about 20 paintings: see PLAN Phase 1 item 5).
-- [ ] Campaign map v1 (forts lit after a win).
-- [ ] Marathi strings for the slice.
-- [ ] Balance: Torna and Pratapgad in band (45–70%); playtests desktop and phone.
-- [ ] Gate 1 with Pon.
+## Phase 1 — vertical slice "The Rebel" (next; do in this order) → Gate 1
+Read `docs/DESIGN.md` §3.1 (Gad), §3 (Bhet), §5 (chapters 0, 1, 4) and `data/cards.draft.json` first.
+Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a glossary entry; then
+`npm test`, `npx tsc --noEmit`, `npm run build`, commit.
+1. [ ] **Data.** Add empires `swarajya` and `adilshahi` to `src/data/cards.json` (`empires`, `empireOrder`,
+       `EMPIRE_STYLE` in `src/game/theme.ts`) and a new card list `swarajya` (loaded by `src/data/index.ts`
+       and `src/engine/cards.ts` like `yuddh`). Port the `phase: 1` cards from `data/cards.draft.json`
+       (drop the `_engine`/`_history` notes; keep `refs`). Cards whose effect needs a new mechanic wait for it.
+2. [ ] **Gad card type + capture** (DESIGN §3.1): `type: 'gad'` in `types.ts`; played to the Rajya line;
+       destroyed by an enemy unit on the Yudhbhumi → flips to that side; immune to "destroy" orders.
+       AI value in `ai.ts`/`search.ts`. Tests in `tests/gad.test.ts`. Glossary entry.
+3. [ ] **`capture` objective** (`Objective` in `types.ts`, checked where `survive`/`deadline` are).
+4. [ ] **Battle without art:** a fallback for `loadBattlefield` (plain painted gradient like the title)
+       so a battle opens before Pon's paintings arrive.
+5. [ ] **Scenarios** in `src/campaign/` for chapters `ch00_maval` (coached tutorial), `ch01_torna`
+       (`capture`), `ch04_pratapgad` (Bhet + battle), each with `rules: 'swarajya'`, decks in
+       `src/data/decks.json`, History notes in `src/data/history.json` written **only** from
+       CHRONOLOGY entries (and S-PURANDARE pages when Pon sends them). Wire the title → campaign → battle
+       flow in `src/main.ts` (copy the pattern of YUDDH's main.ts).
+6. [ ] **Bhet scene** (Trust / Guard / Strike) + AI stance table in `rules.json` ("bhet").
+7. [ ] **Art batch 1 prompt sheet** `art/PROMPTS-BATCH1.md` (about 20 paintings; PLAN Phase 1 item 5;
+       likeness rule D-10).
+8. [ ] Campaign map v1 (forts light after a win). Marathi strings for the slice.
+9. [ ] Remove the YUDDH scaffolding that Swarajya no longer needs (D-17): YUDDH chapters in
+       `src/campaign/`, YUDDH cards and duel factions. **Keep** `missions.ts` and the classic 50 cards
+       (golden test). Update `tests/swarajya.test.ts` (it uses YUDDH's duel factions today).
+10. [ ] Balance: Torna and Pratapgad in band (45–70%); playtests desktop and phone; Gate 1 with Pon.

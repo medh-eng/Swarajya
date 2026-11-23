@@ -1,4 +1,8 @@
 node_modules/
 dist/
-.DS_Store
 *.log
+.DS_Store
+
+# never commit a signing key (the upload keystore lives in GitHub Actions secrets)
+*.keystore
+*.jks

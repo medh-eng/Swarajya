@@ -49,8 +49,8 @@ for (const f of cardFiles) {
     if (cards.has(c.id)) errors.push(`Cards: duplicate id ${c.id} (${f})`);
     cards.set(c.id, c);
     if (!c.basis) continue; // YUDDH classic cards have no basis field
-    if (!['HISTORY', 'TRADITION', 'GENERIC', 'VERIFY'].includes(c.basis)) errors.push(`Card ${c.id}: unknown basis ${c.basis}`);
-    if ((c.basis === 'HISTORY' || c.basis === 'TRADITION') && !(c.refs || []).length) errors.push(`Card ${c.id}: ${c.basis} card with no refs`);
+    if (!['HISTORY', 'CONTESTED', 'TRADITION', 'GENERIC', 'VERIFY'].includes(c.basis)) errors.push(`Card ${c.id}: unknown basis ${c.basis}`);
+    if ((c.basis === 'HISTORY' || c.basis === 'CONTESTED' || c.basis === 'TRADITION') && !(c.refs || []).length) errors.push(`Card ${c.id}: ${c.basis} card with no refs`);
     if (c.basis === 'VERIFY') warnings.push(`Card ${c.id}: basis VERIFY (cannot ship until upgraded)`);
     for (const r of c.refs || []) if (!entries.has(r)) errors.push(`Card ${c.id}: chronology ref ${r} does not exist`);
   }

@@ -8,11 +8,11 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 - [x] Research Shivaji's life; sourced chronology of 53 entries (23 Nov 2026)
 - [x] Planning package: DESIGN, PLAN, STATE, PROGRESS, LOG, TASKS, README, CLAUDE, history/*, data/* (23 Nov 2026)
 - [x] `scripts/check-refs.mjs` written and passing (23 Nov 2026)
-- [ ] Repo created (Pon) and planning package committed
-- [ ] Engine, renderer, tests copied from YUDDH @ 6f1c852
-- [ ] Ruleset `'swarajya'`; empire `swarajya` in cards.json
-- [ ] check-refs in `npm test`
-- [ ] Placeholder title screen live on GitHub Pages
+- [x] Repo created (Pon) and planning package committed (23 Nov 2026)
+- [x] Engine, renderer, tests copied from YUDDH @ 6f1c852 (24 Nov 2026; YUDDH content kept as scaffolding, D-17)
+- [x] Ruleset `'swarajya'` (24 Nov 2026) · [ ] empire `swarajya` in cards.json → moved to Phase 1 step 1
+- [x] check-refs in `npm test` (24 Nov 2026)
+- [x] Placeholder title screen built and deploy workflow in place (24 Nov 2026) · [ ] live (Pon switches on Pages)
 - [ ] Primary sources obtained (Sabhasad trans., Mehendale); Act I VERIFY items cleared
 
 ## Mechanics

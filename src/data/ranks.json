@@ -1,0 +1,113 @@
+{
+ "_about": "Rank and renown (Yash). Each empire's campaign earns Yash separately. Edit numbers here. Ranks are titles and bragging rights only: they never change a battle's rules or balance.",
+ "yash": {
+  "win": 80,
+  "firstClear": 120,
+  "loss": 20,
+  "veteranMultiplier": 1.5,
+  "kirtiPerRankUp": 25
+ },
+ "ranks": [
+  {
+   "name": "Padati",
+   "hindi": "पदाति",
+   "gloss": "Foot soldier",
+   "from": 0
+  },
+  {
+   "name": "Gulmapati",
+   "hindi": "गुल्मपति",
+   "gloss": "Captain",
+   "from": 150
+  },
+  {
+   "name": "Nayaka",
+   "hindi": "नायक",
+   "gloss": "Major",
+   "from": 400
+  },
+  {
+   "name": "Dandanayaka",
+   "hindi": "दण्डनायक",
+   "gloss": "Colonel",
+   "from": 800
+  },
+  {
+   "name": "Senapati",
+   "hindi": "सेनापति",
+   "gloss": "General",
+   "from": 1400
+  },
+  {
+   "name": "Mahasenapati",
+   "hindi": "महासेनापति",
+   "gloss": "Commander-in-Chief",
+   "from": 2200
+  },
+  {
+   "name": "Chakravartin",
+   "hindi": "चक्रवर्ती",
+   "gloss": "Emperor",
+   "from": 3200
+  }
+ ],
+ "empires": {
+  "maurya": {
+   "name": "Maurya",
+   "hindi": "मौर्य",
+   "hero": "m_chandragupta"
+  },
+  "gupta": {
+   "name": "Gupta",
+   "hindi": "गुप्त",
+   "hero": "g_samudragupta"
+  },
+  "chalukya": {
+   "name": "Chalukya",
+   "hindi": "चालुक्य",
+   "hero": "c_pulakeshin"
+  },
+  "chola": {
+   "name": "Chola",
+   "hindi": "चोल",
+   "hero": "ch_rajendra"
+  },
+  "rajput": {
+   "name": "Rajput",
+   "hindi": "राजपूत",
+   "hero": "r_prithviraj"
+  }
+ },
+ "rewards": {
+  "chronicleLevel": 2,
+  "gildedLevel": 4,
+  "_about": "Rank levels (0 = Padati) at which cosmetic rewards open: the war-council chronicle, and the gilded card frame for that empire."
+ },
+ "chronicles": {
+  "maurya": {
+   "title": "The War Office of Pataliputra",
+   "text": "The Greek envoy Megasthenes, who lived at Chandragupta's court, is reported to have described the army as run by six boards of five officers: one each for the fleet, transport and supply, foot, horse, chariots and elephants. The Arthashastra, a manual of statecraft traditionally tied to Kautilya, discusses spies, forts and the order of battle in the same spirit. Your rank here is a seat on that council.",
+   "source": "Megasthenes (as preserved by Strabo and Arrian); the Arthashastra. The council scenes are the game's own."
+  },
+  "gupta": {
+   "title": "The Pillar of Prayagraj",
+   "text": "The Allahabad pillar carries a long praise-poem by the court poet Harishena, listing the kings Samudragupta defeated, restored or made tributary. It is our best account of a conquest tour that gave the dynasty its reach across the north. A Nayaka of the Gupta host stands among the officers that poem takes for granted.",
+   "source": "The Allahabad (Prayagraj) pillar inscription of Harishena, 4th century CE."
+  },
+  "chalukya": {
+   "title": "The Verses of Aihole",
+   "text": "At Aihole, the court poet Ravikirti set up a Sanskrit inscription in 634 CE praising Pulakeshin II and his campaigns, including the check he gave to Harsha of Kanauj on the Narmada. It is among the earliest dated records of a south Indian king's victories, and the chronicle every Chalukya officer is measured against.",
+   "source": "The Aihole inscription of Ravikirti, 634 CE."
+  },
+  "chola": {
+   "title": "The Household Regiments",
+   "text": "Chola inscriptions name royal bodyguard regiments such as the Velaikkarar, whose soldiers are recorded as pledging to guard the king, even in death. Alongside a standing land army, the Cholas kept a fleet that carried Rajendra's power to the Malay seas. A Nayaka of the Tiger Banner commands men of that kind.",
+   "source": "Chola temple inscriptions (the Velaikkarar); Rajendra I's Tamil records. Details of rank are the game's own."
+  },
+  "rajput": {
+   "title": "The Court of Ajmer",
+   "text": "The Sanskrit poem Prithvirajavijaya, written at the Chahamana court and surviving incomplete in a single manuscript, praises Prithviraj III and his reign, while Persian chroniclers such as Minhaj-i Siraj tell the same years from the other side. Between them they show an army that was not one body but a gathering: feudatories, ranas and horse lords who came with their own banners. A Nayaka of the Saffron Banner leads men of that kind.",
+   "source": "The Prithvirajavijaya (Sanskrit court poem); Minhaj-i Siraj, Tabaqat-i Nasiri; Cynthia Talbot, The Last Hindu Emperor. Details of rank are the game's own."
+  }
+ }
+}

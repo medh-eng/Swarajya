@@ -1,4 +1,4 @@
-# SWARAJYA — plan
+# YUDDH: Swarajya — plan
 
 *The road from an empty repo to Google Play. Phases end at a **Gate**: Pon plays it and says go or
 fix. Progress against this plan is ticked in `PROGRESS.md`; the next concrete steps are in `TASKS.md`.*
@@ -12,7 +12,7 @@ fix. Progress against this plan is ticked in `PROGRESS.md`; the next concrete st
 
 ## Where the code lives (recommendation)
 
-A **new public GitHub repository**, `medh-eng/Swarajya` (name per open decision Q-01), separate
+A **new public GitHub repository**, `medh-eng/Swarajya` (created 23 Nov 2026), separate
 from YUDDH:
 - Same free hosting as YUDDH (GitHub Pages via `deploy.yml`), same Android workflow.
 - Not a git fork: YUDDH's repo carries about 2 GB of paintings this game does not need. We copy

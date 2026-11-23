@@ -1,0 +1,385 @@
+{
+  "notice": {
+    "title": "History and imagination",
+    "text": "YUDDH is inspired by real history. Its battles, names and numbers are adapted to make a game, and some stories come from tradition rather than proof. Dates, battle sites, alliances and sequences of events are sometimes uncertain, debated, combined or invented for play, and where the game invents something it says so. Inscriptions and court chronicles show the view of the people who ordered them. Every battle has a History note with its sources, and each victory ends with a short epilogue.",
+    "source": "Tags: HISTORY (recorded in surviving sources), TRADITION (later stories, or readings historians debate), INVENTED (added by the game)."
+  },
+  "battles": {
+    "first_throne": {
+      "kicker": "THE FIRST THRONE · c. 321 BCE",
+      "happened": "Chandragupta Maurya founded the Maurya dynasty by displacing the Nandas of Magadha, conventionally dated around 322–321 BCE. How he did it is not securely known: the Greek and Roman writers say almost nothing about it, and the dramatic stories come from Indian texts written much later. The Nandas were remembered as rich and powerful; Plutarch repeats reports of a vast army with thousands of elephants, figures no historian trusts.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "The Nanda dynasty ended and Chandragupta's dynasty ruled Magadha. That change of power is the firm part of the story."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "Chanakya (Kautilya) as Chandragupta's adviser comes from later Indian stories. Amatya Rakshasa and Parvataka are characters from the later play Mudrarakshasa, not proven participants."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "One battle at the gates of Pataliputra. Its date, site and fighting are not recorded, and the seasons and every card's power are game rules."
+        }
+      ],
+      "source": "Sources: Plutarch, Life of Alexander 62; Justin 15.4; the Puranas and Buddhist and Jain traditions; Vishakhadatta's Mudrarakshasa (a later drama); Jansari, Chandragupta Maurya (UCL Press).",
+      "epilogue": "Chandragupta held Pataliputra and went on to bring most of the north under one rule. A few years later he would meet the Greek-ruled lands at the Indus."
+    },
+    "indus_line": {
+      "kicker": "THE INDUS LINE · c. 305 BCE",
+      "happened": "Around 305–303 BCE Seleucus I, one of Alexander's successors, crossed toward the Indus and dealt with Chandragupta until they made an agreement. Ancient writers record its terms: Seleucus gave up some eastern lands, the two courts were joined by a marriage arrangement, and Chandragupta sent 500 war elephants. Which lands, and who had the better of the fighting, nobody knows; no ancient writer shows either king as the clear winner.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "A treaty with territory, elephants and a marriage tie is recorded by Strabo, Justin and Appian, writing long after the event."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "A battle on the Indus with a winner. The sources do not say where the armies met or how the fighting went."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "The figure of 500 elephants is the ancient one, and round numbers may be exaggerated. The story of Seleucus's daughter Helena is a later popular addition."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Macedonian pikes (the phalanx), Companion cavalry and Cretan archers are how Hellenistic armies fought. Megasthenes was a Greek envoy at Pataliputra; his Indica survives only in fragments."
+        }
+      ],
+      "source": "Sources: Strabo 15.2.9; Justin 15.4; Appian, Syrian Wars 55; Plutarch; fragments of Megasthenes; Jansari, Chandragupta Maurya (UCL Press).",
+      "epilogue": "The treaty settled the frontier for a generation. Seleucus turned west, where tradition says his elephants served him at the battle of Ipsus in 301 BCE, and Chandragupta's empire held the north-west."
+    },
+    "digvijaya": {
+      "kicker": "THE DIGVIJAYA · c. 340 CE",
+      "happened": "The Allahabad (Prayaga) Pillar carries a praise-poem for Samudragupta by his court poet Harishena. It names northern kings it says he \"uprooted\", among them Ganapatinaga, Nagasena and Achyutanandin, and twelve southern kings who were captured and then released and restored. Forest rulers, frontier kingdoms and distant powers are said to have paid tribute or sent envoys. His gold coins show him playing the veena.",
+      "changed": [
+        {
+          "basis": "INVENTED",
+          "text": "One battle at Padmavati against three Naga kings together. The pillar names the kings but gives no site, date or account of the fighting. Whether the Nagas fell once or twice is debated."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "Poisoned arrows (Sarpa Vish). The cobra is the Naga symbol; the venom is the game's own idea."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "The veena coin is real. The pillar is the winner's own account, so the defeated kings' side is missing."
+        }
+      ],
+      "source": "Sources: Allahabad (Prayaga) Pillar inscription by Harishena, as edited in Corpus Inscriptionum Indicarum vol. III; Gupta lyrist gold coins (Indian Museum, Kolkata).",
+      "epilogue": "After the north and the south, his gold coins proclaim an Ashvamedha, the horse sacrifice of a sovereign. He did not rule everywhere directly: some kings were removed, some restored, and others only sent tribute and envoys. His son Chandragupta II would carry Gupta power west."
+    },
+    "mahakantara": {
+      "kicker": "THE GREAT FOREST · mid-4th century CE",
+      "happened": "The Allahabad (Prayaga) Pillar names twelve southern kings that Samudragupta took captive and then released, restoring their kingdoms. Vyaghraraja of Mahakantara, \"the Great Forest\", is one of them. The Pillar also says the forest rulers (the Atavikas) were made servants of his service. Where Mahakantara lay is argued; the forest country of central India and Odisha is the usual guess.",
+      "changed": [
+        {
+          "basis": "INVENTED",
+          "text": "The battle. The Pillar names Vyaghraraja but gives no site, date or fight. Hidden archers, forest elephants and snares are the game's picture of a forest war."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "The forest people are shown as an organised kingdom with its own stockades, not as primitives. The Pillar says only that they were subdued."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Capture, then release, is how the Pillar describes the southern kings. The card Grahana-Moksha is built on it."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "Harishena, who composed the Pillar, serves in the game as a minister with the army; that he marched with it is the game's picture."
+        }
+      ],
+      "source": "Sources: Allahabad (Prayaga) Pillar inscription by Harishena, as edited in Corpus Inscriptionum Indicarum vol. III.",
+      "epilogue": "Vyaghraraja was set free and his forest country given back to him, as the Pillar says of all twelve. The Gupta column turned toward the eastern coast and the south."
+    },
+    "kanchi": {
+      "kicker": "THE WALLS OF KANCHI · mid-4th century CE",
+      "happened": "Vishnugopa of Kanchi is the seventh of the twelve southern kings named on the Prayaga Pillar, which says he was captured and released like the rest. Kanchi (Kanchipuram) was a Pallava city on the south-east coast, the far end of the Pillar's list. How far south Samudragupta's march really went is debated.",
+      "changed": [
+        {
+          "basis": "INVENTED",
+          "text": "The siege, the walls and the fight. The Pillar gives no account of any battle at Kanchi, and says nothing of Gupta rule being set up there."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "Which Pallava ruler Vishnugopa was is debated. Kanchi's Ghatika college is known from later inscriptions; the game lets the city be a place of scholars already, its own licence."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Capture and release is the Pillar's claim. It is the victor's own record, so Kanchi's side of the story is missing."
+        }
+      ],
+      "source": "Sources: Allahabad (Prayaga) Pillar inscription by Harishena, as edited in Corpus Inscriptionum Indicarum vol. III.",
+      "epilogue": "Vishnugopa was released and restored. Kanchi stayed Pallava for centuries; its kings would one day capture Badami, the Chalukya capital."
+    },
+    "tarain1": {
+      "kicker": "THE FIRST BATTLE OF TARAIN · 1191 CE",
+      "happened": "In the winter of 1190-91 Mu'izz al-Din Muhammad of Ghor, ruler of Ghur and Ghazni, took the fortress of Tabarhinda (Bathinda) and left a garrison in it. Prithviraj III of the Chahamana (Chauhan) dynasty, lord of Ajmer and Delhi, marched against him with his feudatories and met the Ghurid army at Tarain (Taraori, Haryana). The Persian chronicler Minhaj-i Siraj, writing in 1260, says the Ghurid army was beaten. He tells how the sultan charged Govind Rai of Delhi, broke his teeth with a lance and was wounded in the arm by his javelin, and was led from the field by a young soldier. The sultan withdrew to Ghazni. In 1192 he came back and won the second battle of Tarain.",
+      "changed": [
+        {
+          "basis": "INVENTED",
+          "text": "The battle itself: the formations, the elephants and the drums. The sources give the outcome and a few moments, not the fight. There are no troop numbers because the large figures in later retellings are not trustworthy. The game plays it in its firm-ground season; the real battle was fought in the winter of early 1191."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Govindaraja is Minhaj's Govind Rai of Delhi, and the lance-and-javelin duel is his story. The Ghurid side is shown as the disciplined professional army it was, with drilled horse guards, mounted archers and kettle-drums."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "Later Persian writers call Govind Rai Prithviraj's brother; Minhaj calls him the ruler of Delhi. Later accounts also differ on what happened at Tabarhinda: whether Prithviraj took the fort back or the garrison held out until the sultan returned. The game does not decide it."
+        }
+      ],
+      "source": "Sources: Minhaj-i Siraj, Tabaqat-i Nasiri (1260); Cynthia Talbot, The Last Hindu Emperor (2015), on the sources and the later legend; the Sanskrit Prithvirajavijaya for the Chahamana court's own voice. The late Prithviraj Raso is not used as evidence.",
+      "epilogue": "It was a clear victory and it settled nothing. The sultan went home, rebuilt his army and came back the next year."
+    },
+    "tarain2": {
+      "kicker": "THE SECOND BATTLE OF TARAIN · 1192 CE",
+      "happened": "In 1192 Mu'izz al-Din Muhammad of Ghor returned to Tarain with a rebuilt army. The Persian chroniclers Minhaj-i Siraj and Hasan Nizami say the Ghurid army harassed the Rajput line with mounted archers, drew it out, and sent its heavy cavalry against it only when it was worn. The Rajput host broke. Prithviraj III was captured; the sources differ on how and when he died. Within a year or two Delhi and Ajmer came under Ghurid control, and the sultan's general Qutb al-Din Aibak stayed in India as his governor. The Delhi Sultanate grew from that base.",
+      "changed": [
+        {
+          "basis": "INVENTED",
+          "text": "The player commands the Rajputs and can win. In 1192 they lost. The battle itself, the card effects and the reserve's timing are the game's; there are no troop numbers because the large figures in later retellings are not trustworthy."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "The Ghurid plan is the one the Persian chroniclers describe: harass with mounted archers, avoid a head-on clash, keep the heavy horse back, then strike. That is why Feigned Flight hurts a whole front line and the Mailed Reserve is expensive."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "Later accounts name captains and tell of poets and legends around Prithviraj's fall (the blinding, the arrow, the poet Chand Bardai). They come from late sources and are not used as evidence. The name Skandaraja and the Charan bard are the game's figures for the Chahamana court and army, not claims about individuals."
+        }
+      ],
+      "source": "Sources: Minhaj-i Siraj, Tabaqat-i Nasiri (1260); Hasan Nizami, Taj al-Ma'athir (early 13th c.); Cynthia Talbot, The Last Hindu Emperor (2015), on the sources and the later legend. The late Prithviraj Raso is not used as evidence.",
+      "epilogue": "The sources say the host broke in 1192 and the plain changed hands. Whatever you did here, the next chapter belongs to the governors who stayed behind."
+    },
+    "lanka": {
+      "kicker": "THE CROSSING TO LANKA · c. 993 CE",
+      "happened": "In about 993 CE a Chola army sent by Rajaraja I crossed the Palk Strait and took Anuradhapura, the ancient capital of northern Sri Lanka. The island's chronicle, the Culavamsa, says King Mahinda V had already lost his hold: his unpaid army would not obey him, and he withdrew south to Ruhuna. Chola inscriptions call the conquered north Ila-mandalam, and the port of Mahatittha was renamed Rajarajapura. Rajendra I completed the conquest of the island around 1017 and Mahinda V was taken to India. Chola rule there ended in 1070 under Vijayabahu I.",
+      "changed": [
+        {
+          "basis": "INVENTED",
+          "text": "The battle itself: the beach, the elephants and the fight at the reservoir. The sources say the north was taken, not how."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Both voices are kept: the Chola record says it was conquered, the chronicle says the king's own army had stopped obeying him. Neither is a neutral witness. The game cannot start the Sinhalese side with an empty treasury, so it gives them fewer ways to pay for war instead."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "Scholars differ on how much of the island fell in 993 and how much in the later campaigns. Vandiyadevan is a name from Chola tradition for a commander of Rajaraja's time; his part in the crossing is the game's licence."
+        }
+      ],
+      "source": "Sources: the Culavamsa (the Sinhalese chronicle); Chola inscriptions of Rajaraja I and Rajendra I (South Indian Inscriptions); K. A. Nilakanta Sastri, The Colas; Sri Lankan histories of the Anuradhapura–Polonnaruva transition.",
+      "epilogue": "The Cholas held the north for about eighty years. Rajaraja's son would finish the island, and Anuradhapura, the capital for over a thousand years, never again became the seat of a Sinhalese king."
+    },
+    "ganga": {
+      "kicker": "THE GANGA ROAD · c. 1019–1022 CE",
+      "happened": "Rajendra I's inscriptions say a Chola army marched north from the Godavari through Kalinga and Odisha into Bengal, beat several kings on the way and then Mahipala I of the Pala empire, and carried Ganga water back south. Rajendra did not lead it: the general Araiyan Rajarajan did, and the emperor waited on the Godavari and met the army on its return. He then founded a new capital, Gangaikonda Cholapuram (\"the city of the Chola who took the Ganga\"), with a great tank his record calls a \"liquid pillar of victory\".",
+      "changed": [
+        {
+          "basis": "INVENTED",
+          "text": "The battle itself: the river line, the elephants and the boats. The inscription names the kings beaten, not how they were beaten."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "Mahipala's Buddhist monasteries are real, and the Palas were patrons of Bihar and Bengal's great vihara schools; the game gives him a teacher card as a nod to that. The size of the armies is not known."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Many popular accounts say Rajendra marched to the Ganga himself. His own inscriptions give the march to his general. The game follows the inscriptions."
+        }
+      ],
+      "source": "Sources: Rajendra I's Tamil prasasti and the Tiruvalangadu plates; K. A. Nilakanta Sastri, The Colas; summaries of the Chola expedition to the Ganges in standard histories.",
+      "epilogue": "The Cholas did not keep Bengal. The army went home with the water, the tribute and the prestige, and the Palas ruled on. What stayed behind was a new capital in the south named for the river."
+    },
+    "kadaram": {
+      "kicker": "RAJENDRA'S SEA ROAD · c. 1025 CE",
+      "happened": "Rajendra I (ruled about 1014–1044), son of Rajaraja, sent a fleet across the Bay of Bengal in about 1025. His own Tamil inscriptions, from about his fourteenth regnal year (c. 1026), list the cities taken: Kadaram (usually identified with Kedah on the Malay coast), Srivijaya itself and other ports, and say its king, Sangrama Vijayottungavarman, was captured. Why is argued: Chola merchant guilds traded across the Bay, and a quarrel over trade, a show of prestige and a wish to open the sea routes have all been suggested.",
+      "changed": [
+        {
+          "basis": "INVENTED",
+          "text": "The battle itself: the boat wall, the fire boats and the fight in the harbour. The inscriptions list what was taken, not how."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "The identification of Kadaram with Kedah, and the size of the Chola fleet, are scholars' readings of sparse evidence. The game gives the Ainnurruvar guild an armed guard; the guild's part in the venture is its own licence."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Our old prototype set this under Rajaraja in 1014. The Kadaram expedition belongs to his son Rajendra, c. 1025. Srivijaya's own side is hardly recorded, so the game paints it as a rich, dignified trading realm, not a nest of pirates."
+        }
+      ],
+      "source": "Sources: Rajendra I's Tamil prasasti of his 14th regnal year (South Indian Inscriptions); Kenneth Hall, Maritime Trade and State Development in Early Southeast Asia; Nilakanta Sastri, The Colas.",
+      "epilogue": "The inscriptions record no lasting Chola rule overseas. Within a few years Srivijaya's ports traded again, and the Cholas went back to the Ganga and the Deccan: a raid of prestige and trade, not a conquest."
+    },
+    "golden_age": {
+      "kicker": "THE GOLDEN AGE · c. 400 CE",
+      "happened": "Chandragupta II (ruled about 375–415 CE) ended the rule of the Western Kshatrapas, Saka kings who had ruled Malwa, Gujarat and Saurashtra for centuries. A cave inscription at Udayagiri, dated about 401 CE, records his minister travelling with the king as he sought to conquer the whole earth. The Kshatrapa silver coins stop, and Gupta silver coins in the same style appear, around 409 CE. When and where the last fighting happened is not recorded.",
+      "changed": [
+        {
+          "basis": "INVENTED",
+          "text": "One battle at Ujjain against Rudrasimha III, and his fall in it. The coins show a change of rule, not a battle. The game labels the war \"c. 400 CE\" to fit the Udayagiri date; the silver coins are about 409."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "Vikramaditya and the nine gems (Navaratna), with the poet Kalidasa among them, are a later legend. Historians debate who Vikramaditya was."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "The Iron Pillar of Delhi is often linked to Chandragupta II, but its king is only named \"Chandra\", and nothing says it defended Ujjain."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The desert storm (Marubhumi Toofan) is the game's own."
+        }
+      ],
+      "source": "Sources: Udayagiri cave inscriptions (Gupta year 82, about 401 CE); Western Kshatrapa and Gupta silver coins; later Sanskrit tradition of Vikramaditya; Delhi Iron Pillar inscription.",
+      "epilogue": "With the west won, Gupta rule reached the Arabian Sea and its trading ports, and its coins carried a new image in a familiar silver style. The Chinese monk Faxian travelled through the empire around these years."
+    },
+    "narmada_line": {
+      "kicker": "THE NARMADA LINE · before 634 CE",
+      "happened": "Harsha of Kanauj (reigned 606–647 CE) was the strongest ruler of the north. At some point before 634 CE he marched south against Pulakeshin II of Badami and was stopped at the Narmada. The Chalukya poet Ravikirti recorded it in the Aihole inscription of 634–635 CE, and the Chinese pilgrim Xuanzang, who knew Harsha's court, also describes Harsha's failure in the south. The river stayed the border between the two empires.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "The clash, and the Chalukya claim of success, are recorded. The Aihole inscription is a praise-poem written by the winner's poet."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The ford, the armies, the turns of the fight and the date. Nobody knows where or when it happened, and dates from c. 612 to c. 630 CE are argued."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Harsha is shown as an emperor of wide reach, a poet and a giver: Bana's biography and Xuanzang describe his five-yearly giving at Prayaga."
+        }
+      ],
+      "source": "Sources: Aihole inscription of Ravikirti (634–635 CE); Bana, Harshacharita; Xuanzang, Records of the Western World.",
+      "epilogue": "Pulakeshin II took the title Parameshvara and ruled a Deccan empire from the Narmada to the Kaveri. Harsha never marched south again; he died in 647 CE and his empire broke apart within a generation. In 642 CE the Pallava king Narasimhavarman captured Badami."
+    },
+    "chandawar": {
+      "kicker": "THE BATTLE OF CHANDAWAR · 1194 CE",
+      "happened": "After Tarain, Mu'izz al-Din Muhammad of Ghor turned on the Gahadavala kingdom of Jayachandra, lord of Kannauj and Varanasi. In 1194 CE the armies met at Chandawar on the Yamuna, near modern Firozabad. The Persian chroniclers Hasan Nizami and Ibn al-Athir agree on the outline: the Gahadavala host was strong in war elephants, Jayachandra rode one himself, and the Ghurid army won. Jayachandra was killed, and the accounts differ on the detail. Kannauj and Varanasi passed under Ghurid control.",
+      "changed": [
+        {
+          "basis": "INVENTED",
+          "text": "The player commands the Gahadavala host and can win. The sources give the outcome and Jayachandra's death on his elephant, not the fight. The ford, the turns, the cards and the numbers are the game's; the huge figures in the chronicles are not trusted, so none are used."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "Elephant-Shooters, the foot archers who deal extra damage to a War Elephant, are the game's way of making the tall beasts a risk. The chronicles do not describe such a unit."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "A later story says Jayachandra invited the Ghurids against Prithviraj and so betrayed the Rajputs. It comes from late tradition, is not supported by the contemporary chroniclers, and is not used here."
+        }
+      ],
+      "source": "Sources: Hasan Nizami, Taj al-Ma'athir (early 13th c.); Ibn al-Athir, al-Kamil (c. 1231); Peter Jackson, The Delhi Sultanate (1999); Cynthia Talbot, The Last Hindu Emperor (2015).",
+      "epilogue": "Whatever happened on the Yamuna in this game, the chroniclers say the heartland of the Gahadavalas passed to the sultan's governors within a few years, and the Ganga plain became the core of the Delhi Sultanate."
+    },
+    "kalinga": {
+      "kicker": "THE KALINGA WAR · c. 261 BCE",
+      "happened": "In the eighth year after his coronation (c. 261 BCE) Ashoka conquered Kalinga, the coastal country on the Bay of Bengal. The only account is Ashoka's own Major Rock Edict XIII: he says that 150,000 people were carried away, 100,000 were killed and many times that number died, that he felt remorse (anusocana) at it, and that he turned to dhamma, the practice of moral duty, care and restraint. The edict says nothing about generals, sites or the fighting itself, and it does not name the king of Kalinga.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "The conquest, its cost and Ashoka's remorse are in his own Rock Edict XIII, carved at several places across the empire. The Kalinga edicts at Dhauli and Jaugada speak to the conquered country in a gentler voice."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The battle, the armies and the cards. The game uses none of the troop numbers sometimes repeated from later retellings, and gives the Kalinga side no named hero because Ashoka names none: its leader is simply the Kalinga commander."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "The river Daya running red below the Dhauli hills is a later tradition, not evidence, and the war is only presumed to have been fought there. The later Buddhist story of a cruel Chandashoka before his conversion is not used."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Kalinga was a wealthy country of ports and war elephants, mentioned as a strong power in earlier sources. In the game it is painted with dignity, as a kingdom defending its own land. Ashoka is not shown as a saint either: he won."
+        }
+      ],
+      "source": "Sources: Ashoka's Major Rock Edict XIII and the Separate Kalinga Edicts (Dhauli, Jaugada); Romila Thapar, Asoka and the Decline of the Mauryas; Patrick Olivelle, Ashoka: Portrait of a Philosopher King (2023).",
+      "epilogue": "Ashoka did not fight another war of conquest. His edicts, cut in rock and pillar from Kandahar to Karnataka, speak instead of dhamma, hospitals, roads and wells. Centuries later, the Gupta kings of the Ganges plain would march again."
+    },
+    "pullalur": {
+      "kicker": "PULLALUR · c. 618–630 CE",
+      "happened": "The Aihole inscription (Ravikirti, 634–635 CE) says that Pulakeshin II of Badami defeated the Pallava king Mahendravarman I at Pullalur, near Kanchipuram, and that the Pallava then hid behind the walls of Kanchi while Pulakeshin reached the Kaveri. The place and the date are argued over. The Pallava side survives in Mahendravarman's own inscriptions: he was a king, a playwright and a builder of rock-cut temples. His son Narasimhavarman I took the Pallava war to Badami in 642 CE.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "The clash, the Pallava withdrawal behind Kanchi and the Chalukya claim of victory come from the Aihole inscription, a praise-poem written by the winner's poet."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The plain, the armies, the turns of the fight and the cards. Nobody knows exactly where Pullalur was or how the fight went, so the game invents it from the outcome. There are no troop numbers."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Mahendravarman is shown as a cultured king, builder and engineer, not a fool; his guard are builders because the Pallava were great temple-builders, and Retreat to Kanchi is how the poem says he survived."
+        }
+      ],
+      "source": "Sources: Aihole inscription of Ravikirti (634–635 CE); inscriptions and the play Mattavilasa Prahasana of Mahendravarman I; Pallava records of Narasimhavarman I.",
+      "epilogue": "Pulakeshin II held the Deccan from the Narmada to the Kaveri. Mahendravarman's son Narasimhavarman I answered in 642 CE by taking Badami."
+    },
+    "badami": {
+      "kicker": "THE FALL OF BADAMI · 642 CE",
+      "happened": "Mahendravarman I's son Narasimhavarman I (Mamalla, 'the great wrestler') became Pallava king around 630 CE and marched on Vatapi (Badami), the Chalukya capital, in 642 CE. The Kuram plates and the Velurpalaiyam plates record the Pallava claim: the king took 'the pillar of victory standing in the centre of Vatapi' and earned the title Vatapikonda, conqueror of Vatapi. They also credit him with earlier wins over Pulakeshin II at Pariyala, Manimangala and Suramara. The Chalukya record of the fall is silent. Pulakeshin II is presumed, from the outcome, to have died in the fighting; the Pallava held Vatapi for about twelve years, until Pulakeshin's son Vikramaditya I restored the kingdom by about 655–670 CE.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "The date (642 CE), the Pallava capture of Vatapi and the title Vatapikonda come from the Pallava Kuram and Velurpalaiyam plates. Pulakeshin's death in the battle is presumed from his disappearance from the record, not stated outright in any source."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "The general Paranjothi, who the game lets you draw and play, is not named in the Pallava plates. He comes from the Periya Puranam, a twelfth-century Tamil book of saints' tales, written five centuries after the battle."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The ground outside the city, the course of the fight and the cards. There are no troop numbers and no Chalukya account of the defeat to invent from, so the game builds the battle from the Pallava claim and the silence that follows it."
+        }
+      ],
+      "source": "Sources: Kuram plates and Velurpalaiyam plates of the Pallava dynasty; the Periya Puranam (12th c.) for the Paranjothi tradition; Aihole-line Chalukya records for Vikramaditya I's recovery of the kingdom.",
+      "epilogue": "The Pallava held Vatapi for about twelve years. Pulakeshin II's son Vikramaditya I took it back by about 655–670 CE, and the Chalukya–Pallava war went on for generations after both kings were gone."
+    },
+    "koppam": {
+      "kicker": "KOPPAM · c. 1052–54 CE",
+      "happened": "Rajadhiraja I, Rajendra I's son, led the Chola army against Someshvara I (Ahavamalla) of the Western Chalukyas at Koppam, usually identified with Koppal on the Tungabhadra. Chola sources — above all the Manimangalam copper-plate record of Rajendra II (1055 CE) and later Thanjavur temple inscriptions — say Rajadhiraja rode his war elephant into the fighting and was killed on it by a downpour of arrows; his brother Rajendra II, wounded and held back early in the day, returned, rallied the broken army, turned the battle and was crowned on the field. Tamil tradition remembers Rajadhiraja as Yanai-mel-thunjina Devar, 'the king who died on the elephant.'",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "Rajadhiraja's death on his elephant, the arrows, and Rajendra II's rally and coronation on the field come from the Manimangalam plates (1055 CE) and the Thanjavur inscriptions."
+        },
+        {
+          "basis": "DISPUTED",
+          "text": "The date is given as 1052 or 1054 CE depending on the source, and the site is argued over (Koppal is the usual reading). Both sides claim the outcome: the Chola inscriptions claim victory and heavy plunder (elephants, horses, even Someshvara's queens); Chalukya records are largely silent or claim the war for themselves, and the claim that Someshvara's brother Jayasimha died in the battle is doubted, since other records show him alive afterward. The game gives the Chola reading as 'the Chola record says,' not as settled fact."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The course of the fight, the troop numbers (none survive, and the large figures in some retellings are not used) and the cards. Both armies are painted with dignity; Someshvara I is a serious king and general, not a villain."
+        }
+      ],
+      "source": "Sources: Manimangalam copper-plate inscription of Rajendra II (1055 CE); Thanjavur (Brihadeeswarar) temple inscriptions; Western Chalukya records, which are largely silent on the battle's outcome.",
+      "epilogue": "Rajendra II held the Chola throne after Koppam. The Chola–Western Chalukya rivalry over the Deccan border continued for decades after both kings who met at Koppam were gone."
+    },
+    "vikram_return": {
+      "kicker": "VIKRAMADITYA'S RETURN · c. 654–655 CE",
+      "happened": "Pulakeshin II's son Vikramaditya I became Chalukya king around 655 CE and, in his own copper-plate grants issued across his reign (the Gadval, Nerur and Kendur plates among them), claimed to have 'restored the fortunes of his family.' Historians read this, together with later Chalukya inscriptions that already treat Vatapi as back in Chalukya hands, as placing the recapture of the capital at around 654–655 CE, roughly twelve years after it fell. Vikramaditya I went on to reign into the 680s, rebuilding Chalukya power across the Deccan.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "Vikramaditya I's own claim to have restored his family's fortunes comes from his copper-plate grants. The approximate date of the recapture (c. 654–655 CE) is a historians' estimate from the gap between his accession and later inscriptions, not a date given by any single source."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "No source describes the recapture of Vatapi as a battle, and none names the Pallava commander holding the city. Narasimhavarman I, the Pallava king from the Fall of Badami, did not die until around 668 CE, well after this date, so the man Vikramaditya actually fought was a garrison or governor left behind — the game invents no name for him and calls him simply 'the Governor of Vatapi.' The ground, the course of the fight and the cards are built entirely from the gap between before and after."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "The Pillar of Victory that the Pallava cut with the title Vatapikonda is real and survives; no source says what, if anything, the Chalukyas did to it after retaking the city, and the game does not invent an answer to that."
+        }
+      ],
+      "source": "Sources: Gadval, Nerur and Kendur copper-plate grants of Vikramaditya I; later Chalukya inscriptions of his reign and his successors.",
+      "epilogue": "Vikramaditya I reigned into the 680s and rebuilt Chalukya power across the Deccan. The Chalukya–Pallava rivalry he inherited from his father continued under his own son, Vinayaditya, and beyond."
+    }
+  }
+}

@@ -1,0 +1,466 @@
+{
+ "_about": "Factions a player can pick in the pass-and-play Duel. deck = [decks.json key, 'player'|'enemy']. empire is the rules empire (its passive applies). ground is the battlefield painting. Add a faction here to add it to the picker. hq (Durg hit points) is the balance lever, tuned by simulation (see DESIGN.md, Duel balance). Decks are padded to 52 cards in code (DUEL_DECK_SIZE). kosha (starting Kosha ceiling, default 1) is a second lever, used for Gupta. add/trim are duel-only deck edits (extra copies in / one copy out, applied before padding): the strongest lever, tuned by simulation; they never touch decks.json.",
+ "factions": [
+  {
+   "id": "maurya",
+   "name": "Maurya",
+   "hindi": "मौर्य",
+   "empire": "maurya",
+   "capital": "Pataliputra",
+   "faction": "Maurya",
+   "deck": [
+    "indus_line",
+    "player"
+   ],
+   "durg": "durg_maurya_camp",
+   "hero": "m_chandragupta",
+   "ground": "pataliputra",
+   "blurb": "Chakravartin's army: cheap Kosha, pikes, elephants and spies.",
+   "hq": 14,
+   "add": [
+    "n_yudh_niti"
+   ]
+  },
+  {
+   "id": "gupta",
+   "name": "Gupta",
+   "hindi": "गुप्त",
+   "empire": "gupta",
+   "capital": "Ujjain",
+   "faction": "Gupta",
+   "deck": [
+    "golden_age",
+    "player"
+   ],
+   "durg": "durg_ujjain",
+   "hero": "g_vikramaditya",
+   "ground": "ujjain",
+   "blurb": "The Golden Age: Mantras that draw cards, cavalry and learning.",
+   "hq": 36,
+   "kosha": 3,
+   "add": [
+    "n_gaja"
+   ]
+  },
+  {
+   "id": "chalukya",
+   "name": "Chalukya",
+   "hindi": "चालुक्य",
+   "empire": "chalukya",
+   "capital": "Badami",
+   "faction": "Chalukya",
+   "deck": [
+    "narmada_line",
+    "player"
+   ],
+   "durg": "durg_badami",
+   "hero": "c_pulakeshin",
+   "ground": "narmada",
+   "blurb": "Stone forts: hardy Raksha guards, elephants and the Boar Banner.",
+   "hq": 14,
+   "trim": [
+    "c_gaja",
+    "c_gaja",
+    "c_varaha_dhwaja",
+    "c_rakshak"
+   ]
+  },
+  {
+   "id": "chola",
+   "name": "Chola",
+   "hindi": "चोल",
+   "empire": "chola",
+   "capital": "Gangaikonda Cholapuram",
+   "faction": "Chola",
+   "deck": [
+    "kadaram",
+    "player"
+   ],
+   "durg": "durg_gangaikonda",
+   "hero": "ch_rajendra",
+   "ground": "kadaram",
+   "blurb": "The Tiger Banner: ranged units hit harder, fleets and elephants.",
+   "hq": 14,
+   "trim": [
+    "ch_kalam",
+    "n_rakshak",
+    "ch_vanigar"
+   ]
+  },
+  {
+   "id": "rajput",
+   "name": "Rajput",
+   "hindi": "राजपूत",
+   "empire": "rajput",
+   "capital": "Ajmer",
+   "faction": "Rajput",
+   "deck": [
+    "tarain2",
+    "player"
+   ],
+   "durg": "durg_ajmer",
+   "hero": "r_prithviraj",
+   "ground": "tarain",
+   "blurb": "Vega riders that arrive stronger, fort guards and clan foot.",
+   "hq": 14,
+   "trim": [
+    "r_sawar"
+   ]
+  },
+  {
+   "id": "ghurid",
+   "name": "Ghurid",
+   "hindi": "गोरी",
+   "empire": "neutral",
+   "capital": "Ghurid camp",
+   "faction": "Ghurid army",
+   "deck": [
+    "tarain2",
+    "enemy"
+   ],
+   "durg": "durg_ghurid_camp",
+   "hero": "gh_muizz",
+   "ground": "tarain",
+   "blurb": "Horse archers, heavy reserve and the war-drums.",
+   "hq": 14,
+   "trim": [
+    "gh_ghulam",
+    "gh_reserve",
+    "gh_ghulam"
+   ]
+  },
+  {
+   "id": "nanda",
+   "name": "Nanda",
+   "hindi": "नन्द",
+   "empire": "neutral",
+   "capital": "Pataliputra",
+   "faction": "Nanda",
+   "deck": [
+    "first_throne",
+    "enemy"
+   ],
+   "durg": "durg_pataliputra",
+   "hero": "nd_dhana_nanda",
+   "ground": "pataliputra",
+   "blurb": "The rich old throne of Magadha: gold, elephants, chariots.",
+   "hq": 44,
+   "add": [
+    "nd_gaja_sena",
+    "nd_gaja_sena",
+    "n_padati"
+   ]
+  },
+  {
+   "id": "seleucid",
+   "name": "Seleucid",
+   "hindi": "सेल्यूकस",
+   "empire": "neutral",
+   "capital": "the Seleucid camp",
+   "faction": "Seleucid",
+   "deck": [
+    "indus_line",
+    "enemy"
+   ],
+   "durg": "durg_seleucid_camp",
+   "hero": "se_seleucus",
+   "ground": "indus",
+   "blurb": "Pike phalanx, Greek cavalry and siege engines.",
+   "hq": 20,
+   "add": [
+    "n_maharathi"
+   ]
+  },
+  {
+   "id": "naga",
+   "name": "Naga kings",
+   "hindi": "नाग",
+   "empire": "neutral",
+   "capital": "Padmavati",
+   "faction": "Naga kings",
+   "deck": [
+    "digvijaya",
+    "enemy"
+   ],
+   "durg": "durg_padmavati",
+   "hero": "na_ganapati_naga",
+   "ground": "padmavati",
+   "blurb": "The Naga kings of the north: poison, serpents and cunning.",
+   "hq": 44,
+   "add": [
+    "nd_gaja_sena",
+    "nd_gaja_sena"
+   ],
+   "trim": [
+    "na_nagasena"
+   ]
+  },
+  {
+   "id": "forest",
+   "name": "Forest kingdoms",
+   "hindi": "आटविक",
+   "empire": "neutral",
+   "capital": "Mahakantara",
+   "faction": "Forest kingdoms",
+   "deck": [
+    "mahakantara",
+    "enemy"
+   ],
+   "durg": "durg_mahakantara",
+   "hero": "mk_vyaghraraja",
+   "ground": "mahakantara",
+   "blurb": "Mahakantara: ambush, archers and the green jungle.",
+   "hq": 44,
+   "add": [
+    "mk_vana_gaja",
+    "mk_vana_dhanurdhar",
+    "mk_vana_gaja",
+    "mk_vana_gaja",
+    "mk_vana_gaja"
+   ]
+  },
+  {
+   "id": "kanchi",
+   "name": "Pallava of Kanchi",
+   "hindi": "पल्लव",
+   "empire": "neutral",
+   "capital": "Kanchi",
+   "faction": "Kanchi",
+   "deck": [
+    "kanchi",
+    "enemy"
+   ],
+   "durg": "durg_kanchi",
+   "hero": "pk_vishnugopa",
+   "ground": "kanchi",
+   "blurb": "Walled Kanchi: a gate line and the Pallava king.",
+   "hq": 26,
+   "add": [
+    "pk_gaja_sena",
+    "pk_gaja_sena"
+   ],
+   "trim": [
+    "pk_kota_rakshak",
+    "pk_ratha"
+   ]
+  },
+  {
+   "id": "satrap",
+   "name": "Western Kshatrapas",
+   "hindi": "शक",
+   "empire": "neutral",
+   "capital": "the Satrap stronghold",
+   "faction": "Western Kshatrapas",
+   "deck": [
+    "golden_age",
+    "enemy"
+   ],
+   "durg": "durg_satrap_camp",
+   "hero": "sa_rudrasimha",
+   "ground": "ujjain",
+   "blurb": "The Satraps of the west: horse archers and silver coin.",
+   "hq": 44,
+   "kosha": 3,
+   "add": [
+    "n_maharathi",
+    "n_maharathi",
+    "n_gaja",
+    "n_gaja",
+    "sa_bhalladhari",
+    "sa_bhalladhari"
+   ]
+  },
+  {
+   "id": "vardhana",
+   "name": "Vardhana",
+   "hindi": "वर्धन",
+   "empire": "neutral",
+   "capital": "Kanyakubja",
+   "faction": "Vardhana empire",
+   "deck": [
+    "narmada_line",
+    "enemy"
+   ],
+   "durg": "durg_kanauj",
+   "hero": "vd_harsha",
+   "ground": "narmada",
+   "blurb": "Harsha's great host of elephants and foot.",
+   "hq": 14,
+   "trim": [
+    "vd_gaja_vahini"
+   ]
+  },
+  {
+   "id": "pala",
+   "name": "Pala",
+   "hindi": "पाल",
+   "empire": "neutral",
+   "capital": "Gauda",
+   "faction": "Pala",
+   "deck": [
+    "ganga",
+    "enemy"
+   ],
+   "durg": "durg_pala",
+   "hero": "pl_mahipala",
+   "ground": "ganga",
+   "blurb": "The Pala empire of Bengal: war elephants on the Ganga.",
+   "hq": 29,
+   "add": [
+    "pl_gaja"
+   ],
+   "trim": [
+    "pl_nauka"
+   ]
+  },
+  {
+   "id": "srivijaya",
+   "name": "Srivijaya",
+   "hindi": "श्रीविजय",
+   "empire": "neutral",
+   "capital": "Kadaram",
+   "faction": "Kadaram",
+   "deck": [
+    "kadaram",
+    "enemy"
+   ],
+   "durg": "durg_kadaram",
+   "hero": "sv_sangrama",
+   "ground": "kadaram",
+   "blurb": "The sea kings: a boat wall and fire boats.",
+   "hq": 27,
+   "add": [
+    "sv_perahu",
+    "sv_api"
+   ]
+  },
+  {
+   "id": "sinhala",
+   "name": "Anuradhapura",
+   "hindi": "अनुराधपुर",
+   "empire": "neutral",
+   "capital": "Anuradhapura",
+   "faction": "Anuradhapura",
+   "deck": [
+    "lanka",
+    "enemy"
+   ],
+   "durg": "durg_anuradhapura",
+   "hero": "si_mahinda",
+   "ground": "anuradhapura",
+   "blurb": "The island kingdom: elephants, archers and monks.",
+   "hq": 44,
+   "kosha": 1,
+   "add": [
+    "si_gaja",
+    "si_gaja",
+    "si_gaja"
+   ]
+  },
+  {
+   "id": "pallava",
+   "name": "Pallava",
+   "hindi": "पल्लव",
+   "empire": "neutral",
+   "capital": "Kanchipuram",
+   "faction": "Pallava army",
+   "deck": [
+    "pullalur",
+    "enemy"
+   ],
+   "durg": "durg_kanchi_pallava",
+   "hero": "pv_mahendravarman",
+   "ground": "pullalur",
+   "blurb": "Builders' guard, elephants and the retreat to Kanchi.",
+   "hq": 30,
+   "trim": [
+    "pv_gaja_vahini",
+    "n_maharathi",
+    "n_padati"
+   ]
+  },
+  {
+   "id": "pallava_garrison",
+   "name": "The Garrison of Vatapi",
+   "hindi": "पल्लव रक्षक दल",
+   "empire": "neutral",
+   "capital": "Vatapi (held)",
+   "faction": "Pallava garrison",
+   "deck": [
+    "vikram_return",
+    "enemy"
+   ],
+   "durg": "durg_vatapi_garrison",
+   "hero": "pv_vatapi_adhikari",
+   "ground": "vatapi",
+   "blurb": "Twelve years dug in behind another king's cliffs: patched shields and a pillar they still guard.",
+   "hq": 22,
+   "trim": [
+    "pv_vatapi_adhikari",
+    "pv_vatapi_rakshak"
+   ]
+  },
+  {
+   "id": "western_chalukya",
+   "name": "Someshvara's Chalukya",
+   "hindi": "पश्चिमी चालुक्य",
+   "empire": "neutral",
+   "capital": "Kalyani",
+   "faction": "Western Chalukya",
+   "deck": [
+    "koppam",
+    "enemy"
+   ],
+   "durg": "durg_kalyani",
+   "hero": "wc_someshvara",
+   "ground": "koppam",
+   "blurb": "The rival power of the Deccan: archers trained against elephants, and a downpour of arrows.",
+   "hq": 26,
+   "trim": [
+    "n_gaja",
+    "wc_gaja"
+   ]
+  },
+  {
+   "id": "pallava_badami",
+   "name": "Mamalla's Pallava",
+   "hindi": "पल्लव",
+   "empire": "neutral",
+   "capital": "Kanchipuram",
+   "faction": "Pallava army",
+   "deck": [
+    "badami",
+    "enemy"
+   ],
+   "durg": "durg_pallava_camp",
+   "hero": "pv_narasimhavarman",
+   "ground": "vatapi",
+   "blurb": "The wrestler-king's host: heavy foot, elephants and a pillar of victory.",
+   "hq": 28,
+   "trim": [
+    "n_gaja",
+    "pv_gaja_vahini",
+    "s_agni",
+    "pv_gaja_vahini",
+    "pv_paranjothi"
+   ]
+  },
+  {
+   "id": "kalinga",
+   "name": "Kalinga",
+   "hindi": "कलिंग",
+   "empire": "neutral",
+   "capital": "Tosali",
+   "faction": "Kalinga",
+   "deck": [
+    "kalinga",
+    "enemy"
+   ],
+   "durg": "durg_tosali",
+   "hero": "kl_gaja",
+   "ground": "dhauli",
+   "blurb": "The coastal kingdom: great elephants, bowmen and the river.",
+   "hq": 30
+  }
+ ]
+}

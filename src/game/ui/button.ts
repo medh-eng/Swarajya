@@ -1,0 +1,63 @@
+import { Container, Graphics, Text } from 'pixi.js';
+import gsap from 'gsap';
+import { INK, FONT_TITLE } from '../theme';
+import { view } from '../view';
+
+/** every live button, so the automated playtest can find and press them by label */
+const live = new Set<Container & { label: string }>();
+const shownOnScreen = (c: Container): boolean => {
+  for (let o: Container | null = c; o; o = o.parent) if (!o.visible || o.alpha === 0) return false;
+  return true;
+};
+(window as unknown as { __yuddhButtons: () => { label: string; x: number; y: number }[] }).__yuddhButtons = () =>
+  [...live].filter(b => !b.destroyed && b.parent && shownOnScreen(b)).map(b => { const p = b.getGlobalPosition(); return { label: b.label, x: p.x, y: p.y }; });
+
+/** Gold-edged lacquer button. `primary` is filled gold. Sized up on phones (view.ui) unless `ui` is given. */
+export function makeButton(label: string, onTap: () => void, opts: { w?: number; primary?: boolean; ui?: number } = {}): Container {
+  const k = opts.ui ?? view.ui;
+  const w = (opts.w ?? 340) * k, h = 64 * k;
+  const c = new Container() as Container & { label: string };
+  c.label = label;
+  const bg = new Graphics();
+  const draw = (hover: boolean) => {
+    bg.clear();
+    bg.roundRect(-w / 2, -h / 2, w, h, 6)
+      .fill({ color: opts.primary ? (hover ? 0xe6bd62 : INK.gold) : (hover ? 0x3a2618 : 0x24170e), alpha: opts.primary ? 1 : 0.85 })
+      .stroke({ width: 2, color: hover ? INK.goldPale : INK.gold, alpha: 0.9 });
+    bg.roundRect(-w / 2 + 6, -h / 2 + 6, w - 12, h - 12, 3).stroke({ width: 1, color: INK.goldPale, alpha: 0.25 });
+  };
+  draw(false);
+  const t = new Text({
+    text: label.toUpperCase(),
+    style: { fontFamily: FONT_TITLE, fontSize: Math.round(24 * k), fontWeight: '700', letterSpacing: 5, fill: opts.primary ? 0x22150d : INK.goldPale }
+  });
+  t.anchor.set(0.5);
+  // long labels on narrow buttons shrink to fit
+  if (t.width > w - 20 * k) t.scale.set((w - 20 * k) / t.width);
+  c.addChild(bg, t);
+  c.eventMode = 'static';
+  c.cursor = 'pointer';
+  c.on('pointerover', () => { draw(true); gsap.to(c.scale, { x: 1.04, y: 1.04, duration: 0.15 }); });
+  c.on('pointerout', () => { draw(false); gsap.to(c.scale, { x: 1, y: 1, duration: 0.15 }); });
+  c.on('pointertap', onTap);
+  live.add(c);
+  c.on('destroyed', () => live.delete(c));
+  return c;
+}
+
+/** The phone's own Back (button or swipe), called by the Android shell: press the on-screen way back.
+    Returns 'exit' when there is nothing to go back to (the title screen), so the shell can close the app. */
+const BACK_LABELS = ['Close', 'Understood', 'Resume', 'Back', 'Change player 1', 'Title screen'];
+export function pressBack(): 'ok' | 'exit' {
+  // the two-phone pairing panel is plain HTML laid over the game
+  const dom = document.querySelector<HTMLButtonElement>('#yp #b');
+  if (dom) { dom.click(); return 'ok'; }
+  const visible = [...live].filter(b => !b.destroyed && b.parent && shownOnScreen(b));
+  for (const label of BACK_LABELS) {
+    const b = visible.filter(x => x.label === label).pop(); // the newest one is the one on top
+    if (b) { b.emit('pointertap', {} as never); return 'ok'; }
+  }
+  const pause = (window as unknown as { __yuddhPause?: () => boolean }).__yuddhPause;
+  return pause && pause() ? 'ok' : 'exit';
+}
+(window as unknown as { __yuddhBack: () => string }).__yuddhBack = pressBack;

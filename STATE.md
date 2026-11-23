@@ -3,36 +3,60 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 23 Nov 2026 (session 2) · **Phase:** 0 (planning done, no code yet) · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 24 Nov 2026 (session 5) · **Phase:** 0 done → **Phase 1 next** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
-SWARAJYA (working title) is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars,
-built on the YUDDH engine. The planning package exists: design, plan, a sourced chronology of
-53 entries (1630–1680), sources list, contested points, people sheet, 22 chapters in data, and
-77 draft cards. A checker (`scripts/check-refs.mjs`) passes. No repository yet; no engine code copied yet.
+YUDDH: Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on
+the YUDDH engine. The repo `medh-eng/Swarajya` holds the planning package (sourced chronology of 63
+entries, 23 chapters, 78 draft cards) and, since session 5, the YUDDH engine copied at its baseline
+with a new ruleset `'swarajya'`. `npm test` (check-refs + 84 Vitest tests incl. the 154-game golden
+replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn placeholder title
+("Coming soon"). No Swarajya mechanic, card, chapter or art is in the game yet.
+
+## Start here (next session)
+1. Read this file, `TASKS.md` (section "Phase 1"), the last three `LOG.md` entries, then `CLAUDE.md`.
+2. `npm ci`, then `npm test`, `npx tsc --noEmit`, `npm run build`: all must pass before you change anything.
+3. Begin Phase 1 with **TASKS.md → Phase 1, step 1** (data: the Swarajya and Adilshahi empires and the
+   first cards in `src/data/cards.json`). Do not start art or the Bhet before the Gad mechanic works.
+4. The YUDDH repo is the reference for how a finished feature looks: clone it read-only
+   (`GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/medh-eng/yuddh`; skip `art/`, it is ~1 GB).
+   Its `src/main.ts` shows the full scene wiring that this repo's placeholder `src/main.ts` replaced.
 
 ## What exists
 | Thing | Where | State |
 |---|---|---|
-| Design | `docs/DESIGN.md` | v1 |
-| Roadmap | `docs/PLAN.md` | v1 |
-| Chronology (single source of truth) | `history/CHRONOLOGY.md` | 53 entries; VERIFY items listed below |
+| Design | `docs/DESIGN.md` | v1 + decisions log to D-17 |
+| Roadmap | `docs/PLAN.md` | v1 (Phase 0 done) |
+| Chronology (single source of truth) | `history/CHRONOLOGY.md` | 63 entries; VERIFY items below |
 | Sources | `history/SOURCES.md` | P/S/W lists; primary texts still to obtain |
-| Contested points | `history/CONTESTED.md` | 19 items with the game's handling |
+| Contested points | `history/CONTESTED.md` | 24 items with the game's handling |
 | People and spellings | `history/PEOPLE.md` | v1 |
-| Chapters | `data/chapters.json` | 22 (1 blocked) |
-| Cards | `data/cards.draft.json` | 77 draft, unbalanced |
 | AI reports review | `history/AI-REPORTS-REVIEW.md` | ChatGPT and Gemini reports checked claim by claim |
-| Purandare check list | `history/PURANDARE-CHECK.md` | 0 of 63 entries checked (book not yet available to Claude) |
-| Ref checker | `scripts/check-refs.mjs` | passes (1 warning: `jm_hanmantrao` VERIFY) |
-| Code, art, sound | — | none yet |
+| Purandare check list | `history/PURANDARE-CHECK.md` | 0 of 63 checked (waiting for Pon's page photos) |
+| Chapters (design data) | `data/chapters.json` | 23 (1 blocked: `ch02_purandar1648`) |
+| Cards (design data) | `data/cards.draft.json` | 78 draft, unbalanced, not loaded by the game |
+| Ref checker | `scripts/check-refs.mjs` | in `npm test`; passes (1 warning: `jm_hanmantrao` VERIFY) |
+| Engine (rules, AI, search) | `src/engine/` | YUDDH baseline + `ruleset.ts` (`isYuddhRules`, `isSwarajyaRules`) |
+| Renderer, scenes, UI | `src/game/` | YUDDH baseline + `scenes/swarajyaTitle.ts` (placeholder) |
+| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17); no Swarajya cards yet |
+| Campaign code | `src/campaign/` | YUDDH's (scaffolding, D-17); `missions.ts` must stay (golden test) |
+| Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts` |
+| Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main |
+| Art, sound | — | none yet (icons and favicon drawn in code) |
 
-## Engine baseline
-YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (16 Nov 2026).
-Useful facts found while reading it: objectives `survive` and `deadline` already exist
-(`src/engine/types.ts` `Objective`, checked in `rules.ts` at turn start); the Yudhbhumi size is a
-hard-coded 4 in `rules.ts` (two `>= 4` checks) — the Khind mechanic replaces it with `frontSize`;
-Dhuan (hidden until it strikes) exists and is the basis for Ratra.
+## Engine baseline and how the ruleset works
+YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `ENGINE_BASELINE`).
+- `Ruleset = 'classic' | 'yuddh' | 'swarajya'`. Every YUDDH rule is gated with `isYuddhRules(st.rules)`
+  (true for 'yuddh' and 'swarajya'); a Swarajya-only rule must use `isSwarajyaRules(st.rules)`.
+  Never write `st.rules === 'yuddh'` again (it would switch the rule off for Swarajya).
+- `tests/swarajya.test.ts` proves a 'swarajya' game plays exactly like the same 'yuddh' game. When a
+  Swarajya mechanic lands, keep that test for games that do not use the mechanic.
+- Useful facts: objectives `survive` and `deadline` exist (`Objective` in `types.ts`, checked in
+  `rules.ts` at turn start); the Yudhbhumi size is a hard-coded 4 in `rules.ts` (two `>= 4` checks),
+  which the Khind mechanic will replace with `frontSize`; Dhuan (hidden until it strikes) is the basis for Ratra.
+- Without art, `hasArt()` is false for every card, so cards draw their placeholder frame. Battle
+  backgrounds (`loadBattlefield`) still expect files in `public/assets/battlefields/`; Phase 1 needs a
+  fallback or Pon's first painting before a battle scene can open.
 
 ## Decisions locked
 | ID | Decision | Date |
@@ -50,31 +74,35 @@ Dhuan (hidden until it strikes) exists and is the basis for Ratra.
 | D-11 | Every chapter replayable; nothing locked. | 23 Nov 2026 |
 | D-13 | **Repo: `medh-eng/Swarajya`** (created by Pon). All planning files live there from now on; the zip is retired. | 23 Nov 2026 |
 | D-12 | **Standard reference: Babasaheb Purandare, *Raja Shivachhatrapati*.** Every chronology entry is checked against it (`history/PURANDARE-CHECK.md`); where it differs from the period sources, both go into CONTESTED.md and Pon decides. | 23 Nov 2026 |
+| D-14 | **Title: YUDDH: Swarajya.** | 24 Nov 2026 |
+| D-15 | **Dadoji Kondadeo is shown as Shivaji's teacher**, following Purandare; the History panel notes that historians dispute it (CONTESTED #6). Samarth Ramdas does not appear. | 24 Nov 2026 |
+| D-16 | Chapter `ch20b_sangamner` (Shivaji's last battle, 1679) is in the campaign. Pon's copy of the standard reference: *Raja Shivachhatrapati*, English edition, latest printing. | 24 Nov 2026 |
+| D-17 | Phase 0 keeps YUDDH's content code (`src/campaign/*`, YUDDH cards and duel factions in `src/data/*.json`) as **scaffolding** so the battle screen, duel and tests keep compiling. It is not reachable from the game (the title is a placeholder). Phase 1 replaces it piece by piece with Swarajya content and deletes what is left. YUDDH's art is not copied (`src/assets/card-art.json` is empty, so cards draw their placeholder frame). | 24 Nov 2026 |
+
 
 ## Open decisions (Pon)
 | ID | Question | Options | Recommendation |
 |---|---|---|---|
-| Q-01 | Game name | SWARAJYA · GADKOT · YUDDH: Swarajya (sequel brand) · Shivayan | **YUDDH: Swarajya** keeps the brand players already know; repo `medh-eng/Swarajya` either way |
-| Q-02 | ~~Where the code lives~~ | **Resolved (D-13): `medh-eng/Swarajya`** | — |
 | Q-03 | Narrator voice | Text only · Pon records the shahir · generated voice | Text first; voice at Phase 5 |
 | Q-04 | Vertical slice chapters | Tutorial + Torna + Pratapgad (plan) · or Pavan Khind instead of Torna | Plan as written |
 | Q-05 | Who reviews the Marathi | — | Someone Pon trusts, before Gate 1 |
-| Q-07 | Dadoji Kondadeo: *Raja Shivachhatrapati* shows him as mentor; historians and the 2015 controversy dispute this (CONTESTED #6) | Follow the book · keep him as administrator only · leave him out | Administrator only (the book's view in the History note, labelled) |
-| Q-08 | Which edition of *Raja Shivachhatrapati* Pon has | English 2-vol. · Marathi 2-vol. | Either; page photos per chapter are enough |
 | Q-06 | Swarajya passive | Sahyadri (first Mavla has Vega) · Gadkot (forts heal the Durg) | Sahyadri, test in Phase 1 |
+(Q-01, Q-02, Q-07, Q-08 resolved: D-14, D-13, D-15, D-16.)
 
 ## Known gaps (VERIFY before use)
 - C-1648-SHAHAJI: the Fateh Khan battle at Purandar (blocks `ch02_purandar1648`).
 - C-1647-EXPANSION: order and dates of individual forts.
 - C-1670-RECAPTURE: which forts, when.
-- C-1677-VENKOJI (battle). (Vellore's fall cleared: August 1678.)
+- C-1677-VENKOJI (battle).
 - C-1672-JAWHAR: months.
-- `ch20b_sangamner`: proposed chapter, Pon to approve or drop.
 - C-1674-CORONATION: Henry Oxenden's attendance (check Factory Records).
+- CONTESTED #24: Javli, January or April–May 1656.
 - Card `jm_hanmantrao` (only one secondary source).
 - "Bahlol Khan" at Salher (Mughal) vs the Bijapuri Bahlol Khan: assumed two people.
 
 ## Next three things
-1. Pon: decide Q-01 (game name) and Q-07; say which edition of *Raja Shivachhatrapati* you have (Q-08); approve or drop `ch20b_sangamner`.
-2. Claude: Phase 0 (copy the engine, add the ruleset, wire check-refs into tests, deploy a placeholder).
-3. Claude: obtain Sabhasad in translation (Sen 1920, public domain) and Mehendale; clear the VERIFY items that touch Act I.
+1. Pon: switch on GitHub Pages (Settings → Pages → Deploy from a branch → `gh-pages`, `/ (root)`), then open
+   https://medh-eng.github.io/Swarajya/ on the phone. Send page photos of *Raja Shivachhatrapati* (English)
+   for Torna, the Afzal Khan episode and Pratapgad.
+2. Claude: Phase 1 step 1–2: Swarajya and Adilshahi data, then the Gad card type and `capture` objective.
+3. Claude: Phase 1 art prompt sheet so Pon can start painting while the mechanics are built.

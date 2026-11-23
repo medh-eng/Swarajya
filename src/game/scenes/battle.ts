@@ -1,0 +1,2023 @@
+/* ============================================================
+   The battle. Drag a card from your hand onto the field to play it;
+   drag a ready unit up to the Yudhbhumi to advance, or onto an enemy
+   to attack. Tapping works too: tap to select, tap the target.
+   Long-press or right-click any card to read it at full size.
+
+   The engine owns the rules; this file only shows them. The enemy's
+   turn is recorded action by action and replayed with animation.
+
+   Every position comes from a layout table (battleLayout): one for
+   desktop (the original 1920×1080 board) and one for phones held
+   sideways, where the board is drawn larger and text bigger. When the
+   window switches between them the board is rebuilt from the state.
+   ============================================================ */
+import { Container, FederatedPointerEvent, Graphics, Point, Sprite, Text, Texture, Ticker } from 'pixi.js';
+import gsap from 'gsap';
+import {
+  CARDS, EMPIRES, RANK_NAMES, SEASONS, dharmaOf, strikeDamage, actionObservers, findUnit, aiTurn, allUnits, applyAction, canAttack, canCharge, canMove, canPlay, koshaCost,
+  drainEvents, swapSides, fixTurnAfterEnd, type Action, type AiLevel, type GameEvent, type Season, type GameState, type PlayerIndex, type Target, type Unit
+} from '../../engine';
+import { mirrorAction, syncHash, isYuddhRules } from '../../engine';
+import type { NetMsg } from '../net/link';
+import { FIRST_THRONE_SCENARIO } from '../../campaign/firstThrone';
+import type { Scenario } from '../../campaign/scenario';
+import { markTutorialDone } from '../../campaign/tutorial';
+import { battlesWon, empireOfBattle, markBattleWon } from '../../campaign/campaign';
+import { EMPIRES as RENOWN_EMPIRES, standing, type Gain } from '../../meta/standing';
+import { foeLevel, setVeteranFoe, veteranFoe } from '../../campaign/difficulty';
+import { FONT_SERIF, FONT_STORY, INK, FONT_TITLE, FONT_BODY } from '../theme';
+import { makePan, panBar } from '../ui/pan';
+import { view, type View } from '../view';
+import { audio, type Sfx, type Track } from '../audio';
+import { cardFace } from '../cards/paint';
+import { canFullscreen, toggleFullscreen } from '../fullscreen';
+import { DurgView, HandCard, TOKEN_DH, TOKEN_DW, TokenView, drawDiyas, stopTweens } from '../cards/views';
+import { makeButton } from '../ui/button';
+import { glossPanel, inspectOverlay, type InspectExtra } from '../ui/inspect';
+import { glossFor } from '../ui/glossary';
+import { epiloguePanel, historyPanel } from '../ui/historyPanel';
+import { historyOf } from '../../data';
+import { battlefieldUrl, loadArt, loadBattlefield, orTimeout } from '../../assets/manifest';
+import { destroyTree, type Scene, type Stage } from '../stage';
+
+/* ---------------- layout ---------------- */
+interface Layout {
+  W: number; H: number; phone: boolean; ui: number;
+  laneX: number; laneW: number; laneH: number;
+  line: { enemy: number; front: number; mine: number };
+  slotGap: number; tok: number;
+  durgX: number; durgS: number; durgText: number;
+  handY: number; handCX: number; handScale: number; handSpan: number; handMaxGap: number; handTop: number;
+  liftY: number; liftScale: number; dragScale: number;
+  enemyHand: { x: number; y: number; s: number };
+  rightX: number; enemyInfoY: number; enemyDiyas: { x: number; y: number; s: number };
+  endY: number; endS: number;
+  koshaLabelY: number; koshaY: number; myDiyas: { x: number; y: number; s: number };
+  deck: { x: number; y: number; s: number };
+  yantraX: number; yantraS: number; yantraGap: number;
+  roundY: number; roundX: [number, number, number, number]; roundR: number;
+  hintY: number;
+  /** where a card the enemy plays is shown, and how big (HandCard scale) */
+  reveal: { x: number; y: number; s: number };
+  /** phones: a large copy of the card you have selected, so its text can be read */
+  preview: { x: number; y: number; s: number } | null;
+}
+
+const L_HANDTOP = (H: number) => H - 200;
+function battleLayout(v: View): Layout {
+  if (!v.phone) {
+    return {
+      W: 1920, H: 1080, phone: false, ui: 1,
+      laneX: 300, laneW: 1120, laneH: 236, line: { enemy: 186, front: 448, mine: 710 },
+      slotGap: 196, tok: 1, durgX: 158, durgS: 1, durgText: 1,
+      handY: 964, handCX: 860, handScale: 0.31, handSpan: 900, handMaxGap: 150, handTop: 814,
+      liftY: 814, liftScale: 1, dragScale: 0.72,
+      enemyHand: { x: 1690, y: 70, s: 0.24 },
+      rightX: 1690, enemyInfoY: 180, enemyDiyas: { x: 1605, y: 222, s: 0.8 },
+      endY: 448, endS: 1, koshaLabelY: 766, koshaY: 800, myDiyas: { x: 1584, y: 846, s: 1 },
+      deck: { x: 1852, y: 905, s: 0.2 },
+      yantraX: 1486, yantraS: 0.22, yantraGap: 80,
+      roundY: 1032, roundX: [1552, 1648, 1744, 1840], roundR: 42, hintY: 22,
+      reveal: { x: 860, y: 448, s: 1.15 }, preview: null
+    };
+  }
+  // phones (720 high, 1280–1800 wide): narrow side columns so the lanes, units and cards get the room
+  const W = v.w, H = v.h, ui = v.ui;
+  const laneX = 176, laneH = 168, rightX = W - 125;
+  const laneW = W - laneX - 80 - 250;
+  const line = { enemy: 118, front: 292, mine: 466 };
+  const tok = 0.8, handScale = 0.46;
+  return {
+    W, H, phone: true, ui,
+    laneX, laneW, laneH, line, slotGap: Math.min(170, (laneW - 140) / 3), tok,
+    durgX: 92, durgS: 0.62, durgText: 1.6,
+    handY: 552 + 336 * handScale, handCX: laneX + laneW / 2, handScale, handSpan: laneW * 0.95, handMaxGap: 175, handTop: H - 200,
+    liftY: H - 172, liftScale: 1, dragScale: 0.6,
+    enemyHand: { x: rightX, y: 30, s: 0.15 },
+    rightX, enemyInfoY: 100, enemyDiyas: { x: rightX - 76, y: 150, s: 0.75 },
+    endY: line.front, endS: 0.8, koshaLabelY: 400, koshaY: 438, myDiyas: { x: rightX - 100, y: 482, s: 1 },
+    deck: { x: W - 48, y: 600, s: 0.18 },
+    yantraX: laneX + laneW + 40, yantraS: 0.15, yantraGap: 58,
+    roundY: H - 42, roundX: [W - 300, W - 216, W - 132, W - 48], roundR: 38, hintY: 6,
+    reveal: { x: laneX + laneW / 2, y: line.front, s: 1.45 },
+    preview: { x: W - 8 - 240 * ((H * 0.7) / 672), y: (L_HANDTOP(H)) / 2 + 4, s: (H * 0.7) / 672 }
+  };
+}
+
+type Snap = GameState;
+/** each season's colour, for its label and its weather */
+const SEASON_TINT: Record<Season, number> = { sharad: 0xf0d79a, varsha: 0x9cc8ff, grishma: 0xffb070, hemanta: 0xc8e08a };
+/** hold this long to read a card; the headless playtest (a few frames a second) raises it via window.__yuddhLongPressMs */
+const LONG_PRESS_MS = (): number => (window as unknown as { __yuddhLongPressMs?: number }).__yuddhLongPressMs ?? 480;
+type Spawn = Map<number, { x: number; y: number; scale?: number }>;
+type Drag =
+  | { kind: 'card'; index: number; view: HandCard; moved: boolean; sx: number; sy: number; downAt: number }
+  | { kind: 'unit'; uid: number; view: TokenView; moved: boolean; sx: number; sy: number; downAt: number };
+type Pick = { kind: 'card'; index: number } | { kind: 'unit'; uid: number } | null;
+type Overlay = { kind: 'briefing' | 'end' | 'confirm' | 'inspect' | 'curtain'; view: Container; won?: boolean; /** duel: the real player index (curtain: who is up next; end: who won) */ who?: number } | null;
+
+function snapshot(st: GameState): Snap {
+  const { rng, ...rest } = st;
+  const copy = JSON.parse(JSON.stringify({ ...rest, log: [], events: [] })) as Snap;
+  copy.rng = rng;
+  return copy;
+}
+
+/** where the pause menu and the end screen can lead: the campaign map (if the battle came from there) and the title */
+export interface BattleNav { map?: () => void; title: () => void; /** duel: back to choosing factions */ setup?: () => void }
+
+export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST_THRONE_SCENARIO, next?: () => void, nav?: BattleNav): Scene {
+  const s: Scene = new Container();
+  let L = battleLayout(view);
+  let st: GameState;
+  let shown: Snap;                       // what the screen currently shows
+  let busy = false, alive = true;
+  let animating = false, layoutPending = false;
+  let handHeld = true;                   // the opening hand waits until the briefing closes
+  let intense = false;
+  let dealUntil = 0;                     // cards drawn from the deck are still flying in until then
+  const dealing = () => performance.now() < dealUntil;
+  let drag: Drag | null = null;
+  let pick: Pick = null;
+  let longPress: ReturnType<typeof setTimeout> | null = null;
+  /** pass-and-play: two humans; `flipped` = player 0 on screen is the original second player */
+  const duel = sc.duel;
+  let flipped = false;
+  /** two phones: the other player is on the far end of this link; the guest's state is kept swapped so the local player is always player 0 */
+  const online = sc.online;
+  const guest = online?.role === 'guest';
+  const inbox: Extract<NetMsg, { t: 'act' }>[] = [];
+  let pumping = false, netDown = false;
+  let curtainDone: (() => void) | null = null;
+  /** the faction on screen at frame position f (0 = bottom, the player to move) */
+  const sideAt = (f: number) => duel!.sides[(f ^ (flipped ? 1 : 0)) as 0 | 1];
+  let overlay: Overlay = null;
+  let hoverIdx = -1;
+  let pressAt: { x: number; y: number } | null = null;
+  let targetTapAt = 0, longPressFired = 0;
+
+  const tokens = new Map<number, TokenView>();
+  let hand: HandCard[] = [];
+  let enemyHand: HandCard[] = [];
+  /** at least 24 px between neighbouring units; a line too crowded for that shrinks its units */
+  const SLOT_MARGIN = 24;
+  const lineFit = (n: number) => Math.min(1, (L.laneW - 40) / (n * (TOKEN_DW * L.tok + SLOT_MARGIN)));
+  const slotX = (i: number, n: number) => {
+    const gap = Math.max(L.slotGap, TOKEN_DW * L.tok * lineFit(n) + SLOT_MARGIN);
+    return L.laneX + L.laneW / 2 + (i - (n - 1) / 2) * Math.min(gap, (L.laneW - TOKEN_DW * L.tok) / Math.max(1, n - 1));
+  };
+  const fsz = (n: number) => Math.round(n * L.ui);
+
+  /* ---------------- scenery ---------------- */
+  stage.setBackdrop(Texture.from(battlefieldUrl(sc.battlefield)), 0.62);
+
+  const lanes = new Graphics();
+  const zoneGlow = new Graphics();
+  const frontGlow = new Graphics();
+  s.addChild(lanes, frontGlow, zoneGlow);
+  const laneLabels = ['ENEMY RAJYA', 'YUDHBHUMI', 'YOUR RAJYA'].map(t => {
+    const x = new Text({ text: t, style: { fontFamily: FONT_TITLE, fontSize: 18, fontWeight: '700', letterSpacing: 7, fill: INK.goldPale } });
+    x.alpha = 0.55; x.anchor.set(0, 0.5); s.addChild(x); return x;
+  });
+
+  const durg: [DurgView, DurgView] = [new DurgView(0, sc.durgArt[0]), new DurgView(1, sc.durgArt[1])];
+  s.addChild(durg[0], durg[1]);
+  /** duel: name the lanes and paint the Durgs for whoever is at the bottom now */
+  function duelFrame(): void {
+    if (!duel) return;
+    durg[0].setArt(sideAt(0).durg); durg[1].setArt(sideAt(1).durg);
+    laneLabels[0].text = `${sideAt(1).name.toUpperCase()} RAJYA`;
+    laneLabels[2].text = `${sideAt(0).name.toUpperCase()} RAJYA`;
+  }
+
+  // right column: enemy info, end turn, your treasury, deck
+  const enemyInfo = new Text({ text: '', style: { fontFamily: FONT_TITLE, fontSize: 22, fill: INK.goldPale, align: 'center', stroke: { color: 0x000000, width: 3 } } });
+  enemyInfo.anchor.set(0.5);
+  const enemyDiyas = new Graphics();
+  const myDiyas = new Graphics();
+  const myKosha = new Text({ text: '', style: { fontFamily: FONT_TITLE, fontSize: 40, fontWeight: '700', fill: INK.goldPale, stroke: { color: 0x000000, width: 5 } } });
+  myKosha.anchor.set(0.5);
+  const koshaLabel = new Text({ text: 'KOSHA', style: { fontFamily: FONT_TITLE, fontSize: 16, fontWeight: '700', letterSpacing: 6, fill: INK.gold, stroke: { color: 0x000000, width: 3 } } });
+  koshaLabel.anchor.set(0.5);
+  s.addChild(enemyInfo, enemyDiyas, myDiyas, myKosha, koshaLabel);
+
+  // your deck: a short stack of card backs with the count on top
+  const deckPile = new Container();
+  const deckCount = new Text({ text: '', style: { fontFamily: FONT_TITLE, fontSize: 30, fontWeight: '700', fill: INK.goldPale, stroke: { color: 0x000000, width: 5 } } });
+  deckCount.anchor.set(0.5);
+  s.addChild(deckPile);
+
+  const yantraRow: [Container, Container] = [new Container(), new Container()];
+  s.addChild(yantraRow[0], yantraRow[1]);
+
+  const endBtn = new Container();
+  const endG = new Graphics();
+  const endT = new Text({ text: 'END TURN', style: { fontFamily: FONT_TITLE, fontSize: 26, fontWeight: '700', letterSpacing: 4, fill: 0x24170e, align: 'center' } });
+  endT.anchor.set(0.5);
+  endBtn.addChild(endG, endT);
+  endBtn.eventMode = 'static'; endBtn.cursor = 'pointer';
+  endBtn.on('pointertap', () => { if (!busy && shown.active === 0 && !shown.over) void endTurn(); });
+  s.addChild(endBtn);
+  let endPulse: gsap.core.Tween | null = null;
+  function drawEnd(state: 'mine' | 'ready' | 'enemy'): void {
+    endG.clear();
+    const fill = state === 'enemy' ? 0x3a2a1c : INK.gold;
+    endG.circle(0, 0, 92).fill({ color: 0x000000, alpha: 0.5 });
+    endG.circle(0, 0, 84).fill(fill).stroke({ width: 5, color: state === 'ready' ? 0x7dff8a : 0x24170e });
+    endG.circle(0, 0, 72).stroke({ width: 2, color: 0x24170e, alpha: 0.5 });
+    endT.text = state === 'enemy' ? 'ENEMY\nTURN' : 'END\nTURN';
+    endT.style.fill = state === 'enemy' ? INK.smoke : 0x24170e;
+    endPulse?.kill(); endBtn.scale.set(L.endS);
+    if (state === 'ready') endPulse = gsap.to(endBtn.scale, { x: L.endS * 1.06, y: L.endS * 1.06, duration: 0.7, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  }
+
+  // top hint bar
+  const hint = new Text({ text: '', style: { fontFamily: FONT_BODY, fontSize: 24, fontStyle: 'italic', fill: INK.cream, stroke: { color: 0x000000, width: 4 } } });
+  hint.anchor.set(0.5, 0);
+  s.addChild(hint);
+  /** the hint line never runs off the screen: long hints shrink to fit above the lanes */
+  function fitHint(): void {
+    hint.scale.set(1);
+    const room = Math.min(L.W - 2 * (L.laneX - 40), L.laneW + 120);
+    if (hint.width > room) hint.scale.set(room / hint.width);
+  }
+
+  const unitLayer = new Container();
+  const handLayer = new Container();
+  const fx = new Container();
+  const combatFx = new Container();   // while aiming: damage shields on attacker and target
+  const arrow = new Graphics();
+  const previewLayer = new Container();
+  s.addChild(unitLayer, handLayer, arrow, combatFx, previewLayer, fx);
+  // The scene itself listens for taps, which makes everything inside it hit-testable; pure decoration
+  // must opt out, or a passing spark or the turn banner swallows a press on the unit beneath it.
+  for (const deco of [lanes, frontGlow, zoneGlow, arrow, previewLayer, fx, combatFx]) deco.eventMode = 'none';
+
+  // round buttons, bottom right: pause menu, full screen, music, sound effects
+  const rounds = [
+    { fn: () => pauseMenu() },
+    { fn: () => { void toggleFullscreen(); } },
+    { fn: () => { setDim(2, audio.toggleMusic()); } },
+    { fn: () => { setDim(3, audio.toggleSfx()); } }
+  ].map((r, i) => {
+    const c = new Container();
+    const g = new Graphics();      // the button's disc
+    const ic = new Graphics();     // its drawn icon (phone fonts lack many symbols)
+    const t = new Text({ text: i === 2 ? '♪' : '', style: { fontFamily: FONT_TITLE, fontSize: 20, fontWeight: '700', fill: INK.goldPale } }); t.anchor.set(0.5);
+    c.addChild(g, ic, t); c.eventMode = 'static'; c.cursor = 'pointer'; c.on('pointertap', r.fn);
+    s.addChild(c); return { c, g, ic, t };
+  });
+  /** music (2) and sound (3) show dimmed while off */
+  function setDim(i: number, on: boolean): void { rounds[i].t.alpha = rounds[i].ic.alpha = on ? 1 : 0.35; }
+  setDim(2, audio.music); setDim(3, audio.sfx);
+  rounds[1].c.visible = canFullscreen();
+
+  /** put every fixed part of the board where the current layout says */
+  function applyLayout(): void {
+    const ly = [L.line.enemy, L.line.front, L.line.mine];
+    laneLabels.forEach((t, i) => { t.style.fontSize = fsz(18); t.style.letterSpacing = L.phone ? 5 : 7; t.position.set(L.laneX + 18, ly[i] - L.laneH / 2 + fsz(18)); });
+    durg[0].position.set(L.durgX, L.line.mine); durg[1].position.set(L.durgX, L.line.enemy);
+    durg.forEach(d => { d.scale.set(L.durgS); d.setTextScale(L.durgText); });
+    enemyInfo.style.fontSize = fsz(22); enemyInfo.position.set(L.rightX, L.enemyInfoY);
+    enemyDiyas.position.set(L.enemyDiyas.x, L.enemyDiyas.y); enemyDiyas.scale.set(L.enemyDiyas.s);
+    myDiyas.position.set(L.myDiyas.x, L.myDiyas.y); myDiyas.scale.set(L.myDiyas.s);
+    myKosha.style.fontSize = fsz(40); myKosha.position.set(L.rightX, L.koshaY);
+    koshaLabel.style.fontSize = fsz(16); koshaLabel.position.set(L.rightX, L.koshaLabelY);
+    deckPile.position.set(L.deck.x, L.deck.y);
+    deckCount.style.fontSize = fsz(30);
+    yantraRow[0].position.set(L.yantraX, L.line.mine); yantraRow[1].position.set(L.yantraX, L.line.enemy);
+    endBtn.position.set(L.rightX, L.endY); endBtn.scale.set(L.endS);
+    endT.style.fontSize = L.phone ? 28 : 26;
+    hint.style.fontSize = fsz(24); hint.position.set(L.laneX + L.laneW / 2, L.hintY); fitHint();
+    rounds.forEach((r, i) => {
+      const R = L.roundR;
+      r.g.clear().circle(0, 0, R).fill({ color: 0x140c07, alpha: 0.88 }).stroke({ width: 3, color: INK.gold });
+      r.ic.clear();
+      r.t.style.fontSize = Math.round(R * 0.95);
+      const a = R * 0.46;
+      if (i === 0) {
+        // pause: two bars
+        r.ic.roundRect(-a * 0.7, -a, a * 0.55, a * 2, 2).roundRect(a * 0.15, -a, a * 0.55, a * 2, 2).fill(INK.goldPale);
+      } else if (i === 1) {
+        // full screen: four corner brackets
+        const b = R * 0.24;
+        for (const [sx, sy] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) r.ic.moveTo(sx * a, sy * (a - b)).lineTo(sx * a, sy * a).lineTo(sx * (a - b), sy * a);
+        r.ic.stroke({ width: 3.5, color: INK.goldPale, cap: 'round', join: 'round' });
+      } else if (i === 3) {
+        // sound effects: a loudspeaker with two sound waves
+        r.ic.poly([-a * 1.0, -a * 0.38, -a * 0.4, -a * 0.38, a * 0.2, -a * 0.9, a * 0.2, a * 0.9, -a * 0.4, a * 0.38, -a * 1.0, a * 0.38]).fill(INK.goldPale);
+        r.ic.arc(a * 0.2, 0, a * 0.55, -0.9, 0.9).stroke({ width: 3, color: INK.goldPale, cap: 'round' });
+        r.ic.arc(a * 0.2, 0, a * 1.0, -0.9, 0.9).stroke({ width: 3, color: INK.goldPale, cap: 'round' });
+        r.ic.position.x = -a * 0.1;
+      }
+      r.c.position.set(L.roundX[i], L.roundY);
+    });
+  }
+
+  /* ---------------- the season: a label you can tap, and its weather ---------------- */
+  const seasonChip = new Container();
+  const weather = new Container(); weather.eventMode = 'none';
+  s.addChildAt(weather, s.getChildIndex(unitLayer));
+  s.addChild(seasonChip);
+  let seasonTip: Container | null = null;
+  const drops: { g: Graphics; vx: number; vy: number; spin: number }[] = [];
+  const weatherTick = (t: Ticker) => {
+    for (const d of drops) {
+      d.g.x += d.vx * t.deltaTime; d.g.y += d.vy * t.deltaTime; d.g.rotation += d.spin * t.deltaTime;
+      if (d.g.y > L.H + 20) { d.g.y = -20; d.g.x = Math.random() * L.W; }
+      if (d.g.x > L.W + 20) d.g.x = -20;
+      if (d.g.x < -20) d.g.x = L.W + 20;
+    }
+  };
+  Ticker.shared.add(weatherTick);
+  function buildSeason(): void {
+    const season = st?.season ?? 'sharad';
+    const ss = SEASONS[season], tint = SEASON_TINT[season];
+    seasonChip.removeChildren().forEach(c => destroyTree(c as Container));
+    const t = new Text({ text: `${ss.name.toUpperCase()} · ${ss.english}`, style: { fontFamily: FONT_TITLE, fontSize: fsz(19), fontWeight: '700', letterSpacing: 2, fill: tint } });
+    t.anchor.set(0.5);
+    const w = t.width + 34, h = t.height + 14;
+    seasonChip.addChild(new Graphics().roundRect(-w / 2, -h / 2, w, h, h / 2).fill({ color: 0x140c07, alpha: 0.85 }).stroke({ width: 2, color: tint, alpha: 0.9 }), t);
+    seasonChip.position.set(Math.min(L.rightX, L.W - w / 2 - 10), L.phone ? 196 : 300);
+    seasonChip.eventMode = 'static'; seasonChip.cursor = 'pointer';
+    seasonChip.removeAllListeners();
+    seasonChip.on('pointertap', () => toggleSeasonTip());
+    // weather: monsoon rain, summer dust, harvest leaves; autumn is clear
+    drops.forEach(d => d.g.destroy()); drops.length = 0;
+    weather.removeChildren();
+    const n = season === 'varsha' ? 110 : season === 'sharad' ? 0 : 34;
+    for (let i = 0; i < n; i++) {
+      const g = new Graphics();
+      if (season === 'varsha') g.moveTo(0, 0).lineTo(-6, 26).stroke({ width: 2, color: 0xbcd8ff, alpha: 0.35 });
+      else if (season === 'grishma') { g.circle(0, 0, 1.5 + Math.random() * 2.5).fill({ color: 0xffd9a0, alpha: 0.35 }); g.blendMode = 'add'; }
+      else g.ellipse(0, 0, 7, 3.5).fill({ color: Math.random() < 0.5 ? 0xd9a441 : 0xb8642a, alpha: 0.75 });
+      g.position.set(Math.random() * L.W, Math.random() * L.H);
+      weather.addChild(g);
+      drops.push(season === 'varsha' ? { g, vx: -1.6, vy: 14 + Math.random() * 6, spin: 0 }
+        : season === 'grishma' ? { g, vx: 0.6 + Math.random() * 0.8, vy: -0.25 - Math.random() * 0.4, spin: 0 }
+          : { g, vx: 0.5 + Math.random() * 0.9, vy: 0.8 + Math.random() * 0.8, spin: (Math.random() - 0.5) * 0.06 });
+    }
+    // grishma's dust rises: wrap it from the bottom instead
+    if (season === 'grishma') drops.forEach(d => { d.vy = -Math.abs(d.vy); });
+  }
+  /* ---------------- the Dharma–Kuta meter under each Durg ---------------- */
+  const meters: [Container, Container] = [new Container(), new Container()];
+  meters.forEach((m, i) => {
+    s.addChild(m);
+    m.eventMode = 'static'; m.cursor = 'pointer';
+    m.on('pointertap', () => toggleDharmaTip(i as PlayerIndex));
+  });
+  const KUTA_COL = 0xb07ce8, DHARMA_COL = 0xffd76a;
+  function drawMeter(i: PlayerIndex, v: number): void {
+    const m = meters[i];
+    if (!isYuddhRules(st?.rules)) { m.visible = false; return; }
+    m.visible = true;
+    m.removeChildren().forEach(c => destroyTree(c as Container));
+    // a tug-of-war: the bead leans toward the dagger (Kuta) or the lotus (Dharma).
+    // Phones: narrow enough to sit in the Durg column (176 wide) without touching the lanes.
+    const w = L.phone ? 112 : 190, h = L.phone ? 16 : 18, ic = L.phone ? 15 : 17, step = w / 6;
+    const g = new Graphics();
+    g.roundRect(-w / 2 - ic * 2 - 8, -h / 2 - 9, w + ic * 4 + 16, h + 18, 12).fill({ color: 0x140c07, alpha: 0.9 }).stroke({ width: 1.5, color: INK.gold, alpha: 0.6 });
+    // the track: dim purple left, dim gold right, the lit stretch from the centre to the bead
+    g.roundRect(-w / 2, -h / 2, w / 2, h, h / 2).fill({ color: KUTA_COL, alpha: 0.18 });
+    g.roundRect(0, -h / 2, w / 2, h, h / 2).fill({ color: DHARMA_COL, alpha: 0.18 });
+    if (v < 0) g.roundRect(v * step, -h / 2, -v * step, h, h / 2).fill({ color: KUTA_COL, alpha: 0.95 });
+    if (v > 0) g.roundRect(0, -h / 2, v * step, h, h / 2).fill({ color: DHARMA_COL, alpha: 0.95 });
+    g.roundRect(-w / 2, -h / 2, w, h, h / 2).stroke({ width: 1.5, color: 0xe8dcc0, alpha: 0.5 });
+    for (let n = -2; n <= 2; n++) if (n) g.rect(n * step - 0.75, -h / 2 + 3, 1.5, h - 6).fill({ color: 0x000000, alpha: 0.45 });
+    g.rect(-1.5, -h / 2 - 3, 3, h + 6).fill({ color: 0xe8dcc0 });
+    // the bead
+    const bx = v * step;
+    g.circle(bx, 0, h * 0.62).fill({ color: v > 0 ? DHARMA_COL : v < 0 ? KUTA_COL : 0xe8dcc0 }).stroke({ width: 2.5, color: 0x140c07 });
+    // a dagger at the Kuta end, a lotus at the Dharma end
+    const kx = -w / 2 - ic - 2, lx = w / 2 + ic + 2, ka = v <= -3 ? 1 : 0.75, la = v >= 3 ? 1 : 0.75;
+    g.poly([kx - ic, 0, kx + ic * 0.15, -ic * 0.22, kx + ic * 0.15, ic * 0.22]).fill({ color: KUTA_COL, alpha: ka });
+    g.rect(kx + ic * 0.15, -ic * 0.5, ic * 0.16, ic).fill({ color: KUTA_COL, alpha: ka });
+    g.rect(kx + ic * 0.31, -ic * 0.12, ic * 0.5, ic * 0.24).fill({ color: KUTA_COL, alpha: ka });
+    g.circle(kx + ic * 0.9, 0, ic * 0.16).fill({ color: KUTA_COL, alpha: ka });
+    const petal = (a: number, len: number, wd: number) => {
+      const bx0 = lx, by0 = ic * 0.45, tx = bx0 + Math.sin(a) * len, ty = by0 - Math.cos(a) * len;
+      const px = Math.cos(a) * wd, py = Math.sin(a) * wd, mx = (bx0 + tx) / 2, my = (by0 + ty) / 2;
+      g.moveTo(bx0, by0).quadraticCurveTo(mx - px, my - py, tx, ty).quadraticCurveTo(mx + px, my + py, bx0, by0).fill({ color: DHARMA_COL, alpha: la });
+    };
+    petal(-1.25, ic * 0.85, ic * 0.28); petal(1.25, ic * 0.85, ic * 0.28);
+    petal(-0.6, ic * 1.05, ic * 0.34); petal(0.6, ic * 1.05, ic * 0.34); petal(0, ic * 1.2, ic * 0.38);
+    const label = (t: string, col: number, x: number, ax: number) => {
+      const tx = new Text({ text: t, style: { fontFamily: FONT_TITLE, fontSize: L.phone ? 17 : 15, fontWeight: '700', letterSpacing: L.phone ? 1 : 3, fill: col, stroke: { color: 0x000000, width: 3 } } });
+      tx.anchor.set(ax, 1); tx.position.set(x, -h / 2 - 11); return tx;
+    };
+    const ex = w / 2 + ic * 2 + 6;
+    m.addChild(g, label('KUTA', KUTA_COL, -ex, 0), label('DHARMA', DHARMA_COL, ex, 1));
+    if (Math.abs(v) >= 3) {
+      const glow = new Graphics().roundRect(-ex - 4, -h / 2 - 11, ex * 2 + 8, h + 22, 13).stroke({ width: 3, color: v > 0 ? DHARMA_COL : KUTA_COL });
+      m.addChild(glow);
+      gsap.fromTo(glow, { alpha: 1 }, { alpha: 0.3, duration: 0.9, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    }
+    const dy = 136 * L.durgS + (L.phone ? 32 : 28);
+    m.position.set(Math.max(L.durgX, ex + 10), (i === 0 ? L.line.mine : L.line.enemy) + dy);
+  }
+  // the hand, the aiming arrow and the reading panels go above the meters and the season label
+  s.addChild(handLayer, arrow, combatFx, previewLayer, fx);
+  let dharmaTip: Container | null = null;
+  function toggleDharmaTip(i: PlayerIndex): void {
+    if (dharmaTip) { destroyTree(dharmaTip); dharmaTip = null; return; }
+    audio.play('click');
+    const v = dharmaOf(st.players[i]);
+    const now = v >= 3 ? 'Dharma Yuddha now: their blows on the enemy Durg strike +1.' : v <= -3 ? 'Kuta Yuddha now: their orders and Yantras cost 1 less.' : `Now at ${v > 0 ? '+' : ''}${v}.`;
+    const p = glossPanel([
+      { icon: 'rank', title: `${i === 0 ? 'YOUR' : 'ENEMY'} DHARMA–KUTA`, body: now },
+      { icon: 'melee', title: 'DHARMA (HONOUR)', body: 'A melee unit that destroys an enemy in its own attack: +1. At +3, blows on the enemy Durg strike +1.' },
+      { icon: 'yantra', title: 'KUTA (CUNNING)', body: 'Setting a Yantra, poisoned arrows or a spy: −1. At −3, orders and Yantras cost 1 less.' }
+    ], L.phone ? 640 : 520, L.H - 20, L.phone ? 1.2 : 1);
+    const m = meters[i];
+    p.position.set(Math.max(8, m.x - 60), Math.min(L.H - p.height - 8, Math.max(8, m.y + 30)));
+    p.eventMode = 'static'; p.on('pointertap', () => toggleDharmaTip(i));
+    s.addChild(p); dharmaTip = p;
+    setTimeout(() => { if (dharmaTip === p) toggleDharmaTip(i); }, 7000);
+  }
+
+  function toggleSeasonTip(): void {
+    if (seasonTip) { destroyTree(seasonTip); seasonTip = null; return; }
+    const season = st.season ?? 'sharad', ss = SEASONS[season];
+    audio.play('click');
+    const p = glossPanel([{ icon: 'empire', title: `${ss.name.toUpperCase()} · ${ss.english.toUpperCase()}`, body: ss.rule }], L.phone ? 520 : 440, L.H, L.phone ? 1.2 : 1);
+    p.position.set(L.W - p.width - 10, seasonChip.y + 30);
+    p.eventMode = 'static'; p.on('pointertap', () => toggleSeasonTip());
+    s.addChild(p); seasonTip = p;
+    setTimeout(() => { if (seasonTip === p) toggleSeasonTip(); }, 5000);
+  }
+
+  /* ---------------- start ---------------- */
+  let baseLevel: AiLevel = 'normal';
+  /** Yash earned by the battle just finished (recorded once per game) */
+  let yashNote: { empire: string; gain: Gain } | null = null, yashDone = false;
+  function start(): void {
+    yashNote = null; yashDone = false;
+    flipped = false; curtainDone = null;
+    st = sc.game(sc.fixedSeed ?? Math.floor(Math.random() * 1e9));
+    if (guest) { swapSides(st); flipped = true; }
+    baseLevel = st.aiLevel;
+    if (!sc.coached) st.aiLevel = foeLevel(baseLevel);
+    drainEvents(st);
+    shown = snapshot(st);
+    intense = false;
+    clearBoard();
+    handHeld = true;
+    applyLayout();
+    duelFrame();
+    buildSeason();
+    reconcile(shown, true);
+    coachStep = 0; Object.assign(coachFlags, { ended: 0, attacks: 0, acted: 0, selected: false });
+    briefing(true);
+  }
+
+  /** remove every unit, card and yantra view, so reconcile can rebuild them */
+  function clearBoard(): void {
+    tokens.forEach(t => t.destroy()); tokens.clear();
+    hand.forEach(h => h.destroy()); hand = [];
+    enemyHand.forEach(h => h.destroy()); enemyHand = [];
+    yantraRow.forEach(r => r.removeChildren().forEach(c => destroyTree(c as Container)));
+    deckPile.removeChildren().forEach(c => { if (c !== deckCount) c.destroy(); });
+  }
+
+  /** this scenario's own piece if it has been delivered, else the standard one */
+  function tune(kind: 'briefing' | 'calm' | 'intense', fallback: Track): Track {
+    const t = sc.music?.[kind] as Track | undefined;
+    return t && audio.has(t) ? t : fallback;
+  }
+
+  function briefing(animate: boolean): void {
+    busy = true;
+    audio.playMusic(tune('briefing', 'music_briefing'));
+    const W = L.W, H = L.H, k = L.ui;
+    const panel = new Container();
+    const dim = new Graphics().rect(0, 0, W, H).fill({ color: 0x000000, alpha: 0.72 });
+    dim.eventMode = 'static';
+    const art = new Sprite(cardFace(sc.heroCard)); art.anchor.set(0.5); art.rotation = -0.05;
+    const as = L.phone ? (H * 0.82) / 672 : 0.8;
+    art.scale.set(as); art.position.set(L.phone ? 40 + 240 * as : 560, L.phone ? H / 2 : 520);
+    const tx = L.phone ? 40 + 480 * as + 60 : 860, wrap = L.phone ? W - tx - 50 : 820;
+    const t1 = new Text({ text: `${sc.place.toUpperCase()} · ${sc.year.toUpperCase()}`, style: { fontFamily: FONT_TITLE, fontSize: Math.round(22 * k), fontWeight: '700', letterSpacing: 8, fill: INK.gold } });
+    const t2 = new Text({ text: sc.title, style: { fontFamily: FONT_TITLE, fontSize: 86, fontWeight: '700', fill: INK.goldPale } });
+    const t3 = new Text({ text: sc.briefing, style: { fontFamily: FONT_STORY, fontWeight: '500', fontSize: Math.round(30 * k), fill: INK.creamBright, wordWrap: true, wordWrapWidth: wrap, lineHeight: Math.round(42 * k) } });
+    const t4 = new Text({ text: sc.objective, style: { fontFamily: FONT_STORY, fontWeight: '500', fontSize: Math.round(27 * k), fontStyle: 'italic', fill: INK.gold, wordWrap: true, wordWrapWidth: wrap } });
+    const ss = SEASONS[st.season ?? 'sharad'];
+    const t5 = new Text({ text: `${ss.name.toUpperCase()} · ${ss.english.toUpperCase()}\n${ss.rule}`, style: { fontFamily: FONT_BODY, fontSize: Math.round(24 * k), fontWeight: '700', fill: SEASON_TINT[st.season ?? 'sharad'], wordWrap: true, wordWrapWidth: wrap, lineHeight: Math.round(32 * k) } });
+    t2.style.fontSize = L.phone ? 76 : 86;
+    while (t2.width > (L.phone ? W - tx - 24 : W - tx - 40) && +t2.style.fontSize > 48) t2.style.fontSize = +t2.style.fontSize - 2; // long titles step down to fit
+    t1.position.set(tx, L.phone ? 34 : 260); t2.position.set(tx - 4, L.phone ? 64 : 296);
+    // the story text keeps a readable size; if it still does not fit above the button it scrolls
+    const goY = H - (L.phone ? 56 : 90);
+    const textTop = L.phone ? 166 : 420, textAvail = goY - (L.phone ? 52 : 60) * (L.phone ? 1 : k) - textTop;
+    const blk = new Container();
+    blk.addChild(t3, t4, t5);
+    let blkH = 0;
+    for (let f = 30; f >= 24; f -= 2) {
+      t3.style.fontSize = Math.round(f * k); t3.style.lineHeight = Math.round(f * k * 1.4);
+      t4.style.fontSize = Math.round((f - 3) * k);
+      t3.position.set(0, 0); t4.position.set(0, t3.height + (L.phone ? 14 : 24)); t5.position.set(0, t4.y + t4.height + (L.phone ? 14 : 22));
+      blkH = t5.y + t5.height;
+      if (blkH <= textAvail) break;
+    }
+    const bpan = makePan({ x: tx, y: textTop, w: wrap + 12, h: textAvail }, { axis: 'y', keys: true });
+    bpan.content.addChild(blk); bpan.setWidth(blkH);
+    const shownH = Math.min(blkH, textAvail);
+    const go = makeButton(sc.goLabel, () => {
+      audio.unlock(); audio.play('conch');
+      audio.playMusic(tune('calm', 'music_battle_calm'));
+      overlay = null;
+      gsap.to(panel, {
+        alpha: 0, duration: 0.4, onComplete: () => {
+          destroyTree(panel); busy = false;
+          handHeld = false; syncHand(shown, false);
+          if (guest) { void turnBanner(1); refreshInteractivity(); void pump(); }
+          else { void turnBanner(0); refreshInteractivity(); }
+        }
+      });
+    }, { primary: true, w: 340 });
+    go.position.set(L.phone ? tx + 215 : 1030, Math.min(goY, textTop + shownH + (L.phone ? 70 : 80)));
+    panel.addChild(dim, art, t1, t2, bpan.view, panBar(bpan, tx + wrap + 16), go);
+    if (!online) {
+      // a way back: to the campaign map (or the faction picker in a duel, or the title)
+      const leave = nav?.map ?? nav?.setup ?? nav?.title ?? exit;
+      const bkb = makeButton('Back', () => { audio.play('click'); leave(); }, { w: 170, ui: L.phone ? 0.85 : 1 });
+      bkb.position.set(L.phone ? W - 118 : W - 190, goY);
+      panel.addChild(bkb);
+    }
+    if (historyOf(sc.id)) {
+      const hb = makeButton('History', () => showHistory(), { w: 190, ui: L.phone ? 0.85 : 1 });
+      hb.position.set(L.phone ? W - 118 : W - 190, L.phone ? 40 : 70);
+      panel.addChild(hb);
+    }
+    if (!sc.coached && !duel) {
+      // the foe: Standard (the heuristic opponent the battle was balanced against) or Veteran (the search AI)
+      const foeButton = (): Container => {
+        const b = makeButton(veteranFoe() ? 'Foe: Veteran' : 'Foe: Standard', () => {
+          setVeteranFoe(!veteranFoe());
+          st.aiLevel = foeLevel(baseLevel);
+          audio.play('click');
+          const nb = foeButton(); panel.addChild(nb); destroyTree(b);
+        }, { w: 270, ui: L.phone ? 0.85 : 1 });
+        b.position.set(L.phone ? W - 138 : W - 215, L.phone ? 104 : 144);
+        return b;
+      };
+      panel.addChild(foeButton());
+    }
+    s.addChild(panel);
+    overlay = { kind: 'briefing', view: panel };
+    if (animate) {
+      gsap.from([t1, t2, blk, go], { alpha: 0, y: '+=24', duration: 0.8, stagger: 0.1, ease: 'power2.out' });
+      gsap.from(art, { alpha: 0, x: '-=60', duration: 0.9, ease: 'power2.out' });
+    }
+  }
+
+  /* ============================================================
+     reconcile: make the screen match a game state.
+     Damage shows as floating numbers; the fallen burn away.
+     ============================================================ */
+  function reconcile(state: Snap, instant = false, spawn: Spawn = new Map()): void {
+    shown = state;
+    const d = instant ? 0 : 0.42;
+    const place = (list: Unit[], y: number, defaultFrom: { x: number; y: number; scale?: number }) => {
+      list.forEach((u, i) => {
+        let v = tokens.get(u.uid);
+        if (!v) {
+          v = new TokenView(u, L.phone);
+          const sp = spawn.get(u.uid) ?? defaultFrom;
+          v.position.set(sp.x, sp.y); v.scale.set(sp.scale ?? 0.4 * L.tok); v.alpha = instant ? 1 : 0;
+          unitLayer.addChild(v); tokens.set(u.uid, v);
+          bindToken(v);
+          gsap.to(v.scale, { x: L.tok, y: L.tok, duration: instant ? 0 : 0.42, ease: 'back.out(1.6)' });
+          gsap.to(v, { alpha: 1, duration: instant ? 0 : 0.2 });
+        } else {
+          const dh = v.hp - u.hp;
+          if (dh > 0 && !instant) damageShield(v.x, v.y - 10 * L.tok, dh, 1);
+          if (dh < 0 && !instant) floatNumber(v.x, v.y - 40 * L.tok, `+${-dh}`, 0x9cff8a);
+          if (u.atk > v.atk && !instant) floatNumber(v.x - 60 * L.tok, v.y + 70 * L.tok, `+${u.atk - v.atk}`, 0xffc04a);
+        }
+        v.update(u);
+        v.setSpent(u.owner === state.active && (u.attacked || !u.canAct) && !state.over);
+        v.setFit(lineFit(list.length), instant);
+        gsap.to(v, { x: slotX(i, list.length), y, rotation: 0, duration: d, ease: 'power2.out' });
+      });
+    };
+    place(state.players[1].support, L.line.enemy, { x: L.enemyHand.x, y: L.enemyHand.y });
+    place(state.players[0].support, L.line.mine, { x: L.handCX, y: L.handY });
+    place(state.front.units, L.line.front, { x: L.laneX + L.laneW / 2, y: L.line.front });
+
+    // the fallen
+    const living = new Set([...state.players[0].support, ...state.players[1].support, ...state.front.units].map(u => u.uid));
+    for (const [uid, v] of tokens) {
+      if (living.has(uid)) continue;
+      tokens.delete(uid);
+      if (!instant) { if (v.hp > 0) damageShield(v.x, v.y - 10 * L.tok, v.hp, 1); burnAway(v); } else v.destroy();
+    }
+
+    // Durgs
+    for (const i of [0, 1] as PlayerIndex[]) {
+      const p = state.players[i];
+      const dh = durg[i].hp - p.hq.hp;
+      if (!instant && durg[i].hp && dh > 0) damageShield(durg[i].x, durg[i].y - 10, dh, 1.35);
+      if (!instant && durg[i].hp && dh < 0) floatNumber(durg[i].x, durg[i].y - 10, `+${-dh}`, 0x9cff8a, 64);
+      durg[i].set(p.hq.name, i === 0 && !duel ? EMPIRES[p.empire].name : p.faction, p.hq.hp, p.hq.maxHp);
+      drawMeter(i, dharmaOf(p));
+    }
+    // the music turns urgent once either Durg is half down
+    if (!instant && !intense && !state.over && state.players.some(p => p.hq.hp <= p.hq.maxHp / 2)) {
+      intense = true; audio.playMusic(tune('intense', 'music_battle_intense'));
+    }
+
+    // yantras face-down
+    for (const i of [0, 1] as PlayerIndex[]) {
+      const row = yantraRow[i];
+      const want = state.players[i].yantras.length;
+      while (row.children.length > want) { const ch = row.children[row.children.length - 1] as Container; stopTweens(ch); ch.destroy(); }
+      while (row.children.length < want) {
+        const b = new HandCard('y_kavach', 0, true);
+        b.scale.set(L.yantraS); b.eventMode = 'none';
+        row.addChild(b);
+      }
+      row.children.forEach((c, k) => { c.visible = true; c.y = yantraSlotY(k, want); });
+    }
+
+    // lanes and the front line's colour
+    frontGlow.clear(); lanes.clear();
+    for (const y of [L.line.enemy, L.line.mine]) {
+      lanes.roundRect(L.laneX, y - L.laneH / 2, L.laneW, L.laneH, 16).fill({ color: 0x0c0704, alpha: 0.42 }).stroke({ width: 1.5, color: INK.gold, alpha: 0.35 });
+    }
+    const fo = state.front.owner;
+    const fcol = fo === null ? INK.gold : fo === 0 ? 0xe7c46e : 0xe0674a;
+    frontGlow.roundRect(L.laneX, L.line.front - L.laneH / 2, L.laneW, L.laneH, 16)
+      .fill({ color: fo === null ? 0x0c0704 : fcol, alpha: fo === null ? 0.42 : 0.16 })
+      .stroke({ width: fo === null ? 1.5 : 3, color: fcol, alpha: fo === null ? 0.35 : 0.9 });
+
+    // treasury and decks
+    const me = state.players[0], foe = state.players[1];
+    myKosha.text = `${me.kosha} / ${me.maxKosha}`;
+    drawDiyas(myDiyas, me.kosha, me.maxKosha);
+    drawDiyas(enemyDiyas, foe.kosha, foe.maxKosha);
+    enemyInfo.text = `${foe.faction} · Kosha ${foe.kosha}/${foe.maxKosha}\nDeck ${foe.deck.length}${foe.deck.length === 0 ? ' · ATTRITION' : ''}`;
+    enemyInfo.scale.set(1); if (enemyInfo.width > 236) enemyInfo.scale.set(236 / enemyInfo.width);
+    drawDeck(me.deck.length);
+
+    syncHand(state, instant);
+    syncEnemyHand(state, instant);
+    refreshInteractivity();
+  }
+
+  const yantraSlotY = (k: number, n: number) => (n === 1 ? 0 : (k - 0.5) * L.yantraGap);
+
+  let deckWarned = false;
+  function drawDeck(n: number): void {
+    if (n <= 3 && n > 0 && !deckWarned && !st.over) {
+      deckWarned = true;
+      flashHint('YOUR DECK IS NEARLY EMPTY. Once it runs out, every draw costs your Durg 1, then 2, then 3 … Win before it does.');
+    }
+    const want = Math.min(3, Math.ceil(n / 6));
+    const backs = deckPile.children.filter(c => c !== deckCount);
+    if (backs.length !== want) {
+      backs.forEach(c => c.destroy());
+      for (let i = 0; i < want; i++) {
+        const b = new HandCard('y_kavach', 0, true); b.eventMode = 'none';
+        b.scale.set(L.deck.s); b.position.set(-i * 3, -i * 4); deckPile.addChildAt(b, 0);
+      }
+    }
+    deckPile.addChild(deckCount);
+    deckCount.text = String(n);
+    // the last three cards: warn in red (an empty deck hurts the Durg more each turn)
+    deckCount.style.fill = n <= 3 ? 0xff7a5a : INK.goldPale;
+    deckCount.position.set(-(want - 1) * 3, -(want - 1) * 4);
+  }
+
+  function syncHand(state: Snap, instant: boolean): void {
+    if (handHeld) return;
+    const ids = state.players[0].hand;
+    const next: HandCard[] = [];
+    const pool = [...hand];
+    let fresh = 0;
+    ids.forEach(id => {
+      const k = pool.findIndex(h => h.cardId === id);
+      if (k >= 0) { next.push(pool[k]); pool.splice(k, 1); return; }
+      const h = new HandCard(id, state.players[0].upgrades[id] || 0, !instant);
+      h.setCost(koshaCost(st, 0, CARDS[id]));
+      h.position.set(L.deck.x, L.deck.y); h.scale.set(L.deck.s);
+      if (!instant) h.drawDelay = fresh++ * 0.16;
+      handLayer.addChild(h);
+      bindCard(h);
+      next.push(h);
+    });
+    pool.forEach(h => h.destroy());
+    hand = next;
+    layoutHand(instant);
+  }
+
+  function layoutHand(instant = false): void {
+    const n = hand.length;
+    const spread = Math.min(L.handMaxGap, L.handSpan / Math.max(1, n));
+    const rest = L.handScale / 0.5;
+    hand.forEach((h, i) => {
+      const off = i - (n - 1) / 2;
+      const lifted = i === hoverIdx && !drag;
+      h.home = { x: L.handCX + off * spread, y: L.handY + Math.abs(off) * 6, rot: off * 0.035 };
+      handLayer.setChildIndex(h, Math.min(handLayer.children.length - 1, i));
+      if (drag?.kind === 'card' && drag.view === h) return;
+      if (h.drawDelay !== null) {
+        // fresh from the deck: fly in face-down and turn over on the way
+        const delay = h.drawDelay;
+        h.drawDelay = null;
+        dealUntil = Math.max(dealUntil, performance.now() + (delay + 0.62) * 1000);
+        gsap.to(h, { x: h.home.x, y: h.home.y, rotation: h.home.rot, duration: 0.55, delay, ease: 'power2.out', overwrite: 'auto' });
+        gsap.to(h.scale, { x: rest, y: rest, duration: 0.55, delay, ease: 'power2.out', overwrite: 'auto' });
+        gsap.delayedCall(delay, () => { if (alive) audio.play('cardDraw'); });
+        void h.turnUp({ delay: delay + 0.1, duration: 0.42 });
+        return;
+      }
+      gsap.to(h, { x: h.home.x, y: lifted ? L.liftY : h.home.y, rotation: lifted ? 0 : h.home.rot, duration: instant ? 0 : 0.25, ease: 'power2.out', overwrite: 'auto' });
+      gsap.to(h.scale, { x: lifted ? L.liftScale : rest, y: lifted ? L.liftScale : rest, duration: instant ? 0 : 0.2, overwrite: 'auto' });
+    });
+    if (hoverIdx >= 0 && hand[hoverIdx]) handLayer.addChild(hand[hoverIdx]);
+    syncPreview();
+  }
+
+  function syncEnemyHand(state: Snap, instant: boolean): void {
+    const n = state.players[1].hand.length;
+    while (enemyHand.length > n) enemyHand.pop()!.destroy();
+    while (enemyHand.length < n) {
+      const b = new HandCard('n_padati', 0, true);
+      b.eventMode = 'none'; b.scale.set(L.enemyHand.s);
+      b.position.set(L.enemyHand.x + 200, L.enemyHand.y - 60);
+      handLayer.addChild(b); enemyHand.push(b);
+    }
+    const gap = 26 * (L.enemyHand.s / 0.24);
+    enemyHand.forEach((b, i) => {
+      const off = i - (n - 1) / 2;
+      gsap.to(b, { x: L.enemyHand.x + off * gap, y: L.enemyHand.y + Math.abs(off) * 2, rotation: Math.PI + off * 0.06, duration: instant ? 0 : 0.3 });
+    });
+  }
+
+  /* ---------------- what can the player do right now ---------------- */
+  function cardTargets(index: number): { zone: 'mine' | 'board' | null; units: number[] } {
+    const id = st.players[0].hand[index];
+    const c = CARDS[id];
+    if (c.type === 'unit') return { zone: canPlay(st, 0, index).ok ? 'mine' : null, units: [] };
+    if (c.target === 'enemyUnit') {
+      return { zone: null, units: allUnits(st, 1).map(x => x.unit.uid).filter(uid => canPlay(st, 0, index, { kind: 'unit', owner: 1, uid }).ok) };
+    }
+    return { zone: canPlay(st, 0, index).ok ? 'board' : null, units: [] };
+  }
+  function unitTargets(uid: number): { front: boolean; units: number[]; hq: boolean } {
+    return {
+      front: canMove(st, 0, uid).ok,
+      units: allUnits(st, 1).map(x => x.unit.uid).filter(t => canAttack(st, 0, uid, { kind: 'unit', owner: 1, uid: t }).ok),
+      hq: canAttack(st, 0, uid, { kind: 'hq', owner: 1 }).ok
+    };
+  }
+  const unitCanDoAnything = (uid: number) => { const t = unitTargets(uid); return t.front || t.hq || t.units.length > 0; };
+
+  function refreshInteractivity(): void {
+    if (!st) return;
+    const myTurn = !busy && st.active === 0 && !st.over;
+    hand.forEach((h, i) => {
+      h.setCost(koshaCost(st, 0, CARDS[h.cardId]));
+      h.setPlayable(myTurn && (cardTargets(i).zone !== null || cardTargets(i).units.length > 0));
+    });
+    tokens.forEach(v => v.setRing(myTurn && v.owner === 0 && unitCanDoAnything(v.uid) ? 'ready' : 'none'));
+    durg[1].setRing(false);
+    const anything = myTurn && (hand.some((_, i) => cardTargets(i).zone !== null || cardTargets(i).units.length > 0) || [...tokens.values()].some(v => v.owner === 0 && unitCanDoAnything(v.uid)));
+    drawEnd(overlay?.kind === 'briefing' ? 'mine' : !myTurn ? 'enemy' : anything ? 'mine' : 'ready');
+    hint.text = myTurn ? hintText() : st.over || overlay || st.active === 0 ? '' : `The ${sc.enemyName} is moving…`;
+    fitHint();
+    updateCoach();
+    if (pick) showTargets(pick);
+  }
+
+  function hintText(): string {
+    const me = st.players[0];
+    const mine = allUnits(st, 0);
+    const tap = L.phone ? 'Tap' : 'Drag';
+    if (!mine.length && hand.some(h => CARDS[h.cardId].type === 'unit')) return L.phone ? 'Drag a unit card onto your Rajya line, or tap it and tap the line.' : 'Drag a unit card onto your Rajya line to deploy it.';
+    const ready = mine.filter(x => unitCanDoAnything(x.unit.uid));
+    if (ready.some(x => unitTargets(x.unit.uid).hq)) return 'Your units hold the Yudhbhumi. Drag one onto the enemy Durg to strike it.';
+    const guarded = st.front.owner === 0 && st.players[1].support.some(u => u.kw.includes('raksha'));
+    if (guarded && ready.length) return 'A Raksha guards the enemy Durg. Cut it down before you strike the walls.';
+    if (ready.some(x => unitTargets(x.unit.uid).front)) return L.phone ? 'Move a glowing unit up to the Yudhbhumi, or onto an enemy.' : 'Drag a glowing unit up to the Yudhbhumi to advance, or onto an enemy to attack.';
+    if (ready.length) return `${tap} a glowing unit onto a red-ringed enemy to attack it.`;
+    if (st.season === 'varsha' && mine.some(x => x.unit.moved && !x.unit.attacked)) return 'Monsoon mud: units that advanced this turn strike next turn.';
+    if (mine.some(x => x.unit.moved && !x.unit.attacked && !canCharge(x.unit))) return L.phone ? 'Units that advanced strike next turn. Cavalry and chariots can charge at once.' : 'Foot soldiers and elephants that advanced this turn strike next turn. Cavalry and chariots can charge at once.';
+    if (mine.some(x => !x.unit.canAct)) return L.phone ? 'New units wait a turn, unless they have Vega (the double arrow).' : 'Units that just arrived must wait a turn, unless they have Vega (the double arrow).';
+    if (me.kosha === 0) return 'Your treasury is spent. Press End Turn.';
+    return L.phone ? 'Tap any enemy, or hold a card, to read it. Press End Turn when done.' : 'Click an enemy, or right-click any card, to read it. Press End Turn when you are done.';
+  }
+
+  function clearTargets(): void {
+    tokens.forEach(v => { if (v.owner === 1) v.setRing('none'); });
+    durg[1].setRing(false);
+    lanes.alpha = 1; frontGlow.alpha = 1;
+    zoneGlow.clear();
+    syncPreview();
+  }
+
+  function showTargets(p: Exclude<Pick, null>): void {
+    clearTargets();
+    if (p.kind === 'card') {
+      const t = cardTargets(p.index);
+      if (t.zone === 'mine') glowZone(L.line.mine);
+      if (t.zone === 'board') { glowZone(L.line.front); }
+      t.units.forEach(uid => tokens.get(uid)?.setRing('target'));
+    } else {
+      const t = unitTargets(p.uid);
+      if (t.front) glowZone(L.line.front);
+      t.units.forEach(uid => tokens.get(uid)?.setRing('target'));
+      durg[1].setRing(t.hq);
+      tokens.get(p.uid)?.setRing('selected');
+    }
+    syncPreview();
+    coachFade();
+  }
+  function glowZone(y: number): void {
+    zoneGlow.roundRect(L.laneX - 4, y - L.laneH / 2 - 4, L.laneW + 8, L.laneH + 8, 18).stroke({ width: 5, color: 0x7dff8a, alpha: 0.9 });
+    zoneGlow.roundRect(L.laneX, y - L.laneH / 2, L.laneW, L.laneH, 16).fill({ color: 0x7dff8a, alpha: 0.08 });
+  }
+
+  /** While one of your cards or units is selected (or, with a mouse, a hand card is hovered),
+      its rules panel stands at the left; on phones a large copy of the card stands at the right. */
+  let previewId: string | null = null;
+  let previewTimer: ReturnType<typeof setTimeout> | null = null;
+  /** mouse hovering only: wait until the pointer rests on a card, so sweeping across the hand
+      (or dragging over it) does not build a panel for every card it passes */
+  function syncPreview(): void {
+    if (previewTimer) { clearTimeout(previewTimer); previewTimer = null; }
+    if (!pick && hoverIdx >= 0 && !drag) { previewTimer = setTimeout(() => { previewTimer = null; if (alive && !drag && !pointerIsDown) buildPreview(); }, 400); return; }
+    buildPreview();
+  }
+  function buildPreview(): void {
+    let id: string | null = null, unit: Unit | undefined, cost: number | undefined, key: string | null = null;
+    if (!drag && !overlay) {
+      const hc = pick?.kind === 'card' ? hand[pick.index] : !pick && hoverIdx >= 0 && !L.phone ? hand[hoverIdx] : undefined;
+      if (hc && !hc.faceDown) { id = hc.cardId; cost = hc.cost; key = `c:${id}:${cost}`; coachFlags.selected = true; }
+      else if (pick?.kind === 'unit') {
+        unit = findUnit(st, 0, pick.uid)?.unit;
+        if (unit) { id = unit.cardId; key = `u:${unit.uid}:${unit.hp}:${unit.atk}:${unit.rank ?? 0}:${unit.moved}:${unit.attacked}:${unit.routed ?? 0}`; }
+      }
+    }
+    if (key === previewId) return;
+    previewId = key;
+    previewLayer.children.forEach(c => stopTweens(c as Container));
+    previewLayer.removeChildren().forEach(c => destroyTree(c as Container));
+    if (!id) return;
+    const glosses = glossFor(id, unit, cost, st.season, st.turn, st);
+    const pw = L.phone ? 470 : 440;
+    const maxH = L.phone ? L.handTop - 14 : L.handTop - 60;
+    const panel = glossPanel(glosses, pw, maxH, L.phone ? 1.2 : 1);
+    panel.position.set(8, L.phone ? 8 : Math.max(40, (L.handTop - panel.height) / 2));
+    previewLayer.addChild(panel);
+    gsap.from(panel, { alpha: 0, x: panel.x - 24, duration: 0.18 });
+    if (L.preview) {
+      const sp = new Sprite(cardFace(id, unit ? 0 : st.players[0].upgrades[id] || 0, cost));
+      sp.anchor.set(0.5); sp.position.set(L.preview.x, L.preview.y);
+      const k = L.preview.s;
+      sp.scale.set(k);
+      const shade = new Graphics().roundRect(L.preview.x - 240 * k - 8, L.preview.y - 336 * k - 8, 480 * k + 16, 672 * k + 16, 20).fill({ color: 0x000000, alpha: 0.55 });
+      previewLayer.addChild(shade, sp);
+      gsap.from(sp, { alpha: 0, x: sp.x + 40, duration: 0.2 });
+    }
+  }
+
+  /* ---------------- input ---------------- */
+  const toDesign = (e: FederatedPointerEvent) => s.toLocal(e.global);
+
+  function bindCard(h: HandCard): void {
+    h.on('pointerdown', (e: FederatedPointerEvent) => {
+      if (e.button === 2) { inspect(h.cardId, { cost: h.cost }); return; }
+      audio.unlock();
+      if (busy || st.active !== 0 || st.over || h.flipping) { (lastPointer = toDesign(e), armLongPress(h.cardId, { cost: h.cost })); return; }
+      const index = hand.indexOf(h);
+      const p = toDesign(e);
+      drag = { kind: 'card', index, view: h, moved: false, sx: p.x, sy: p.y, downAt: performance.now() };
+      (lastPointer = toDesign(e), armLongPress(h.cardId, { cost: h.cost }));
+    });
+    h.on('pointerover', (e: FederatedPointerEvent) => { if (e.pointerType === 'mouse' && !drag) { hoverIdx = hand.indexOf(h); layoutHand(); } });
+    h.on('pointerout', (e: FederatedPointerEvent) => { if (e.pointerType === 'mouse' && !drag && hoverIdx === hand.indexOf(h)) { hoverIdx = -1; layoutHand(); } });
+  }
+
+  function bindToken(v: TokenView): void {
+    // tapping an enemy reads its card (unless the tap was choosing a target for a selected card or unit)
+    if (v.owner === 1) v.on('pointertap', () => {
+      if (performance.now() - targetTapAt < 700 || overlay || drag) return;
+      if (longPressFired && performance.now() - longPressFired < 700) return;
+      inspect(v.cardId, unitExtra(v));
+    });
+    v.on('pointerdown', (e: FederatedPointerEvent) => {
+      if (e.button === 2) { inspect(v.cardId, unitExtra(v)); return; }
+      audio.unlock();
+      lastPointer = toDesign(e); armLongPress(v.cardId, unitExtra(v));
+      if (busy || st.active !== 0 || st.over) return;
+      if (v.owner !== 0) return;
+      const p = toDesign(e);
+      drag = { kind: 'unit', uid: v.uid, view: v, moved: false, sx: p.x, sy: p.y, downAt: performance.now() };
+    });
+  }
+
+  const unitExtra = (v: TokenView): InspectExtra => ({ unit: findUnit(st, v.owner, v.uid)?.unit });
+  function armLongPress(cardId: string, extra: InspectExtra = {}): void {
+    if (longPress) clearTimeout(longPress);
+    pressAt = lastPointer ? { x: lastPointer.x, y: lastPointer.y } : null;
+    longPress = setTimeout(() => { longPress = null; if (drag && drag.moved) return; cancelDrag(); longPressFired = performance.now(); inspect(cardId, extra); }, LONG_PRESS_MS());
+  }
+
+  s.eventMode = 'static';
+  s.hitArea = { contains: () => true };
+  let lastPointer: Point | null = null;
+  // a pressed button cancels a hover panel that is about to be built (it would only get in the way of a drag)
+  let pointerIsDown = false;
+  window.addEventListener('pointerdown', onWinDown, true); window.addEventListener('pointerup', onWinUp, true);
+  function onWinDown(): void { pointerIsDown = true; if (previewTimer) { clearTimeout(previewTimer); previewTimer = null; } }
+  function onWinUp(): void { pointerIsDown = false; }
+  s.on('pointerdown', (e: FederatedPointerEvent) => { lastPointer = toDesign(e); }, undefined);
+  s.on('globalpointermove', (e: FederatedPointerEvent) => {
+    const p = toDesign(e);
+    if (longPress && pressAt && Math.hypot(p.x - pressAt.x, p.y - pressAt.y) > 14) { clearTimeout(longPress); longPress = null; }
+    if (!drag) return;
+    const dist = Math.hypot(p.x - drag.sx, p.y - drag.sy);
+    if (!drag.moved && dist > 14) {
+      drag.moved = true;
+      if (longPress) { clearTimeout(longPress); longPress = null; }
+      pick = null;
+      showTargets(drag.kind === 'card' ? { kind: 'card', index: drag.index } : { kind: 'unit', uid: drag.uid });
+      if (drag.kind === 'card') { hoverIdx = -1; handLayer.addChild(drag.view); audio.play('cardDraw'); }
+      coachFade();
+    }
+    if (!drag.moved) return;
+    if (drag.kind === 'card') {
+      const v = drag.view;
+      const vx = p.x - v.x;
+      gsap.to(v, { x: p.x, y: p.y, rotation: Math.max(-0.35, Math.min(0.35, vx * 0.01)), duration: 0.08, overwrite: 'auto' });
+      gsap.to(v.scale, { x: L.dragScale, y: L.dragScale, duration: 0.15, overwrite: 'auto' });
+      const t = cardTargets(drag.index);
+      if (t.units.length) drawArrow(v.x, v.y - 60, p.x, p.y, hitUnit(p, 1) !== null);
+      else arrow.clear();
+    } else {
+      const v = drag.view;
+      const tgt = targetAt(p, { kind: 'unit', uid: drag.uid });
+      const over = tgt !== null;
+      drawArrow(v.x, v.y - (TOKEN_DH / 2 - 30) * L.tok, p.x, p.y, over);
+      showCombatPreview(drag.uid, tgt && tgt.kind !== 'zone' ? tgt : null);
+    }
+  });
+  s.on('pointerup', (e: FederatedPointerEvent) => void release(e));
+  s.on('pointerupoutside', (e: FederatedPointerEvent) => void release(e));
+  s.on('pointerdown', (e: FederatedPointerEvent) => {
+    if (overlay?.kind === 'inspect') { closeInspect(); return; }
+    // tap-to-target: a tap on the field after selecting
+    if (!pick || drag || busy) return;
+    const p = toDesign(e);
+    const tgt = targetAt(p, pick);
+    if (tgt) { targetTapAt = performance.now(); resolvePickOn(tgt); }
+    else if (pick.kind === 'unit' && hitDurg(p)) { targetTapAt = performance.now(); explainDurg(pick.uid); } else if (p.y < L.handTop + 10) { pick = null; clearTargets(); refreshInteractivity(); hoverIdx = -1; layoutHand(); }
+  });
+
+  type DropTarget = Target | { kind: 'zone'; zone: 'mine' | 'front' | 'board' };
+
+  function inLane(p: Point, y: number): boolean { return p.x > L.laneX - 20 && p.x < L.laneX + L.laneW + 20 && Math.abs(p.y - y) < L.laneH / 2 + 20; }
+  function hitUnit(p: Point, owner: PlayerIndex): number | null {
+    for (const v of tokens.values()) if (v.owner === owner && Math.abs(p.x - v.x) < 95 * L.tok && Math.abs(p.y - v.y) < 115 * L.tok) return v.uid;
+    return null;
+  }
+  const hitDurg = (p: Point) => Math.abs(p.x - durg[1].x) < 130 * L.durgS && Math.abs(p.y - durg[1].y) < 130 * L.durgS;
+
+  function targetAt(p: Point, from: Exclude<Pick, null>): DropTarget | null {
+    if (from.kind === 'card') {
+      const t = cardTargets(from.index);
+      const u = hitUnit(p, 1);
+      if (u !== null && t.units.includes(u)) return { kind: 'unit', owner: 1, uid: u };
+      if (t.zone === 'mine' && (inLane(p, L.line.mine) || inLane(p, L.line.front))) return { kind: 'zone', zone: 'mine' };
+      if (t.zone === 'board' && p.y < L.handTop) return { kind: 'zone', zone: 'board' };
+      return null;
+    }
+    const t = unitTargets(from.uid);
+    const u = hitUnit(p, 1);
+    if (u !== null && t.units.includes(u)) return { kind: 'unit', owner: 1, uid: u };
+    if (t.hq && hitDurg(p)) return { kind: 'hq', owner: 1 };
+    if (t.front && inLane(p, L.line.front)) return { kind: 'zone', zone: 'front' };
+    return null;
+  }
+
+  async function release(e: FederatedPointerEvent): Promise<void> {
+    if (longPress) { clearTimeout(longPress); longPress = null; }
+    if (!drag) return;
+    const d = drag;
+    drag = null;
+    arrow.clear(); clearCombatPreview();
+    const p = toDesign(e);
+    if (!d.moved) {
+      // a tap: select, so the next tap picks the target
+      const p2: Pick = d.kind === 'card' ? { kind: 'card', index: d.index } : { kind: 'unit', uid: d.uid };
+      const same = pick && pick.kind === p2.kind && (p2.kind === 'card' ? (pick as { index: number }).index === p2.index : (pick as { uid: number }).uid === p2.uid);
+      clearTargets();
+      if (same) { pick = null; hoverIdx = -1; layoutHand(); refreshInteractivity(); return; }
+      // a card with nowhere to choose (an order or yantra) is played on a second tap of the board
+      pick = p2; audio.play('click');
+      if (d.kind === 'card') { hoverIdx = d.index; layoutHand(); }
+      showTargets(p2);
+      return;
+    }
+    const from: Exclude<Pick, null> = d.kind === 'card' ? { kind: 'card', index: d.index } : { kind: 'unit', uid: d.uid };
+    const tgt = targetAt(p, from);
+    clearTargets();
+    if (!tgt && from.kind === 'unit' && hitDurg(p)) { cancelDrag(d); explainDurg(from.uid); return; }
+    if (!tgt) { cancelDrag(d); refreshInteractivity(); return; }
+    await commit(from, tgt, d.kind === 'card' ? d.view : null);
+  }
+
+  function resolvePickOn(tgt: DropTarget): void {
+    const p = pick; if (!p) return;
+    pick = null; clearTargets();
+    hoverIdx = -1;
+    if (p.kind === 'card') {
+      const t = cardTargets(p.index);
+      if (tgt.kind === 'zone' && t.zone === 'board') tgt = { kind: 'zone', zone: 'board' };
+      void commit(p, tgt, hand[p.index]);
+    } else void commit(p, tgt, null);
+  }
+
+  /** a unit dropped on the enemy Durg when it may not strike it: say why */
+  function explainDurg(uid: number): void {
+    const why = canAttack(st, 0, uid, { kind: 'hq', owner: 1 });
+    if (!why.ok) { flashHint(why.reason); if (/Raksha/.test(why.reason)) tokens.forEach(v => { if (v.owner === 1 && st.players[1].support.some(u => u.uid === v.uid && u.kw.includes('raksha'))) v.setRing('target'); }); }
+  }
+
+  function cancelDrag(d?: Drag): void {
+    const dd = d ?? drag;
+    drag = null; arrow.clear(); clearCombatPreview();
+    if (dd?.kind === 'card') layoutHand();
+    clearTargets();
+  }
+
+  /* ---------------- performing an action ---------------- */
+  async function commit(from: Exclude<Pick, null>, tgt: DropTarget, cardView: HandCard | null): Promise<void> {
+    let action: Action;
+    if (from.kind === 'card') {
+      action = { type: 'play', handIndex: from.index, target: tgt.kind === 'unit' ? tgt : null };
+    } else {
+      action = tgt.kind === 'zone' ? { type: 'move', uid: from.uid } : { type: 'attack', uid: from.uid, target: tgt as Target };
+    }
+    const check = applyAction(st, action);
+    if (!check.ok) { flashHint(check.reason); layoutHand(); return; }
+    netSend(action);
+    if (action.type === 'attack') coachFlags.attacks++;
+    if (action.type === 'attack' || action.type === 'move') coachFlags.acted++;
+    busy = true; animating = true;
+    refreshInteractivity();
+    const events = drainEvents(st);
+    const spawn: Spawn = new Map();
+    const handoff: Container[] = [];
+    if (cardView) {
+      hand = hand.filter(h => h !== cardView);
+      const dep = events.find(ev => ev.t === 'deploy');
+      if (dep && dep.t === 'deploy') {
+        spawn.set(dep.uid, { x: cardView.x, y: cardView.y, scale: 0.9 * L.tok });
+        cardView.destroy();
+      } else {
+        const left = await castCard(cardView, events);
+        if (left) handoff.push(left);
+      }
+    }
+    await animate(events, snapshot(st), spawn, handoff);
+    busy = false; animating = false;
+    refreshInteractivity();
+    if (!checkOver()) settle();
+  }
+
+  /** an order card rises to the centre, glows and dissolves; a yantra turns face-down on its way to its slot */
+  async function castCard(v: HandCard, events: GameEvent[]): Promise<Container | null> {
+    fx.addChild(v);
+    const isYantra = events.some(e => e.t === 'yantraSet');
+    audio.play('cardPlay');
+    if (isYantra) {
+      const n = st.players[0].yantras.length;
+      await Promise.all([
+        gsap.to(v, { x: L.yantraX, y: L.line.mine + yantraSlotY(n - 1, n), rotation: 0, duration: 0.6, ease: 'power2.inOut', overwrite: 'auto' }),
+        gsap.to(v.scale, { x: L.yantraS, y: L.yantraS, duration: 0.6, ease: 'power2.inOut', overwrite: 'auto' }),
+        v.turnDown({ delay: 0.08, duration: 0.45 })
+      ]);
+      audio.play('yantra');
+      return v;
+    }
+    await Promise.all([
+      gsap.to(v, { x: L.reveal.x, y: L.reveal.y, rotation: 0, duration: 0.35, ease: 'power2.out', overwrite: 'auto' }),
+      gsap.to(v.scale, { x: L.reveal.s, y: L.reveal.s, duration: 0.35, overwrite: 'auto' })
+    ]);
+    const shakti = CARDS[v.cardId].kind === 'shakti';
+    if (shakti) { audio.play('conch'); flash(0xffd27a, 0.35); }
+    await gsap.to(v, { alpha: 0, duration: 0.4, delay: 0.35 });
+    v.destroy();
+    return null;
+  }
+
+  /* ---------------- event animation ---------------- */
+  async function animate(events: GameEvent[], after: Snap, spawn: Spawn = new Map(), handoff: Container[] = []): Promise<void> {
+    for (const e of events) {
+      if (!alive) return;
+      switch (e.t) {
+        case 'deploy': {
+          if (e.owner === 1) {
+            const target = slotOf(after, e.uid);
+            const card = await enemyReveal(e.cardId, target);
+            if (card) handoff.push(card);
+            spawn.set(e.uid, { x: target.x, y: target.y, scale: 0.94 * L.tok });
+          } else if (!spawn.has(e.uid)) spawn.set(e.uid, { x: L.handCX, y: L.handY, scale: 0.6 * L.tok });
+          sfxFor(e.cardId);
+          break;
+        }
+        case 'move': {
+          audio.play(/ashva|bhalla|hetairoi/.test(tokens.get(e.uid)?.cardId ?? '') ? 'gallop' : 'march');
+          const v = tokens.get(e.uid);
+          if (v) await gsap.to(v, { y: L.line.front, duration: 0.35, ease: 'power2.inOut' });
+          break;
+        }
+        case 'attack': {
+          const a = tokens.get(e.uid), d = tokens.get(e.target.uid);
+          if (a && d) await strike(a, d.x, d.y, CARDS[a.cardId].range === 'ranged');
+          break;
+        }
+        case 'hq': {
+          const a = tokens.get(e.uid);
+          const t = durg[e.owner];
+          if (a) await strike(a, t.x, t.y, CARDS[a.cardId].range === 'ranged');
+          if (e.dmg > 0) { audio.play('fortHit'); shake(14); } else { audio.play('yantra'); }
+          break;
+        }
+        case 'order': {
+          if (e.owner === 1) await enemyReveal(e.cardId, null);
+          if (e.cardId === 's_agni' || e.cardId === 'n_aakraman') {
+            audio.play(e.cardId === 's_agni' ? 'fire' : 'clash');
+          } else if (e.cardId === 's_chakravyuha' || e.cardId === 'n_visha_baan') { audio.play(e.cardId === 'n_visha_baan' ? 'bow' : 'drum'); shake(10); }
+          else if (e.cardId === 'sa_marubhumi') { audio.play('sandGust'); shake(10); }
+          else audio.play('coin');
+          break;
+        }
+        case 'yantraSet':
+          if (e.owner === 1) { const b = await enemySetYantra(after); if (b) handoff.push(b); }
+          break;
+        case 'yantra':
+          await reveal(e.cardId, e.owner);
+          break;
+        case 'trample': {
+          const v = tokens.get(e.uid), d = durg[e.owner];
+          if (v) {
+            audio.play('elephant');
+            const k = new Text({ text: 'TRAMPLE!', style: { fontFamily: FONT_TITLE, fontSize: L.phone ? 50 : 44, fontWeight: '700', letterSpacing: 4, fill: 0xffc07a, stroke: { color: 0x2a0a04, width: 7 } } });
+            k.anchor.set(0.5); k.position.set(v.x, v.y - 110 * L.tok); fx.addChild(k);
+            gsap.fromTo(k.scale, { x: 0.3, y: 0.3 }, { x: 1, y: 1, duration: 0.25, ease: 'back.out(2)' });
+            gsap.to(k, { alpha: 0, duration: 0.4, delay: 0.8, onComplete: () => k.destroy() });
+            dust(d.x, d.y); shake(12);
+            audio.play('fortHit');
+            await wait(450);
+          }
+          break;
+        }
+        case 'heal': {
+          const v = tokens.get(e.uid), by = tokens.get(e.by);
+          if (v) {
+            audio.play('coin');
+            if (by) {
+              const b = new Graphics().circle(0, 0, 10).fill({ color: 0x9cff8a, alpha: 0.9 }); b.blendMode = 'add';
+              b.position.set(by.x, by.y); fx.addChild(b);
+              await gsap.to(b, { x: v.x, y: v.y, duration: 0.4, ease: 'power1.inOut' });
+              b.destroy();
+            }
+            const c = new Graphics().circle(0, 0, 60).stroke({ width: 6, color: 0x9cff8a }); c.blendMode = 'add'; c.position.set(v.x, v.y); fx.addChild(c);
+            gsap.fromTo(c.scale, { x: 0.4, y: 0.4 }, { x: 1.6, y: 1.6, duration: 0.6 });
+            gsap.to(c, { alpha: 0, duration: 0.6, onComplete: () => c.destroy() });
+            await wait(250);
+          }
+          break;
+        }
+        case 'dharma': {
+          const m = meters[e.owner];
+          const col = e.delta > 0 ? DHARMA_COL : KUTA_COL;
+          drawMeter(e.owner, e.value);
+          floatNumber(m.x, m.y - 30, e.delta > 0 ? '+ DHARMA' : '− KUTA', col, 34);
+          gsap.fromTo(m.scale, { x: 1.25, y: 1.25 }, { x: 1, y: 1, duration: 0.4, ease: 'back.out(2)' });
+          if (Math.abs(e.value) === 3) { audio.play(e.delta > 0 ? 'conch' : 'yantra'); flash(col, 0.18); }
+          break;
+        }
+        case 'promote': {
+          const v = tokens.get(e.uid);
+          if (v) await promoteFx(v, e.rank);
+          break;
+        }
+        case 'rout': {
+          const v = tokens.get(e.uid);
+          if (v) await routFx(v, e.fled);
+          break;
+        }
+        case 'attrition': {
+          // an empty deck costs the Durg 1, 2, 3 … every draw: say so, loudly
+          const d = durg[e.owner];
+          audio.play('fortHit'); shake(8); flash(0xc0392b, 0.14);
+          floatNumber(d.x, d.y - 70, `DECK EMPTY  −${e.dmg}`, 0xff8a6a, 40);
+          await wait(450);
+          break;
+        }
+        case 'rally': {
+          const v = tokens.get(e.uid);
+          if (v) {
+            audio.play('conch');
+            floatNumber(v.x, v.y - 60 * L.tok, 'RALLIED', 0xffe39a, 34);
+          }
+          break;
+        }
+        case 'death':
+          break;
+      }
+    }
+    reconcile(after, false, spawn);
+    // cards that flew to where a token or yantra now stands melt into it
+    handoff.forEach(h => gsap.to(h, { alpha: 0, duration: 0.18, onComplete: () => destroyTree(h) }));
+    await wait(events.some(ev => ev.t === 'death' || ev.t === 'attack' || ev.t === 'hq') ? 520 : 380);
+  }
+
+  /** where a unit will stand in a state (for cards flying to their slot) */
+  function slotOf(state: Snap, uid: number): { x: number; y: number } {
+    const lines: [Unit[], number][] = [[state.players[1].support, L.line.enemy], [state.players[0].support, L.line.mine], [state.front.units, L.line.front]];
+    for (const [list, y] of lines) {
+      const i = list.findIndex(u => u.uid === uid);
+      if (i >= 0) return { x: slotX(i, list.length), y };
+    }
+    return { x: L.laneX + L.laneW / 2, y: L.line.enemy };
+  }
+
+  function sfxFor(cardId: string): void {
+    const c = CARDS[cardId];
+    audio.play('deploy');
+    if (/gaja|hasti/.test(cardId)) setTimeout(() => audio.play('elephant'), 150);
+    else if (c.sub === 'Cavalry' || /ashva|bhalla|hetairoi/.test(cardId)) setTimeout(() => audio.play('gallop'), 100);
+    else if (c.kw?.includes('veg')) setTimeout(() => audio.play('march'), 100);
+  }
+
+  async function strike(a: TokenView, tx: number, ty: number, ranged: boolean): Promise<void> {
+    unitLayer.addChild(a);
+    // the attacker lights up for a moment as it commits
+    a.tint = 0xffffff;
+    gsap.fromTo(a, { tint: 0xfff2c0 }, { tint: 0xffffff, duration: 0.5 });
+    gsap.fromTo(a.scale, { x: L.tok * 1.08, y: L.tok * 1.08 }, { x: L.tok, y: L.tok, duration: 0.35, ease: 'power2.out' });
+    if (ranged) {
+      audio.play('bow');
+      const ar = new Graphics().moveTo(-22, 0).lineTo(22, 0).stroke({ width: 3, color: 0xf0d79a }).poly([22, -6, 34, 0, 22, 6]).fill(0xf0d79a);
+      ar.position.set(a.x, a.y - 40 * L.tok); ar.rotation = Math.atan2(ty - a.y, tx - a.x);
+      fx.addChild(ar);
+      await gsap.to(a, { y: a.y + (ty > a.y ? -10 : 10), duration: 0.08, yoyo: true, repeat: 1 });
+      await gsap.to(ar, { x: tx, y: ty, duration: 0.32, ease: 'power1.in' });
+      ar.destroy();
+      audio.play('arrowHit');
+      sparks(tx, ty, 0xffd27a);
+      hitFlash(tx, ty);
+      return;
+    }
+    const ox = a.x, oy = a.y;
+    await gsap.to(a, { x: ox + (tx - ox) * 0.72, y: oy + (ty - oy) * 0.72, rotation: (tx - ox) * 0.0004, duration: 0.2, ease: 'power3.in' });
+    audio.play('clash');
+    sparks(tx, ty, 0xffa040);
+    dust(tx, ty);
+    hitFlash(tx, ty);
+    await gsap.to(a, { x: ox, y: oy, rotation: 0, duration: 0.3, ease: 'power2.out' });
+  }
+
+  /** take one card back out of the enemy's hand, returning where it was */
+  function takeEnemyCard(): { x: number; y: number; r: number } {
+    const b = enemyHand.pop();
+    const from = b ? { x: b.x, y: b.y, r: b.rotation } : { x: L.enemyHand.x, y: L.enemyHand.y, r: Math.PI };
+    b?.destroy();
+    return from;
+  }
+
+  /** The enemy plays a card: it leaves their hand face-down, turns over in mid-air so you can read it,
+      then either flies to its place on the board (a unit; returned for the hand-off) or fades (an order). */
+  async function enemyReveal(cardId: string, target: { x: number; y: number } | null): Promise<HandCard | null> {
+    const from = takeEnemyCard();
+    const v = new HandCard(cardId, 0, true);
+    v.eventMode = 'none'; v.position.set(from.x, from.y); v.rotation = from.r - Math.PI * 2; v.scale.set(L.enemyHand.s);
+    fx.addChild(v);
+    audio.play('cardPlay');
+    const ry = target ? (L.line.enemy + L.line.front) / 2 : L.reveal.y;
+    await Promise.all([
+      gsap.to(v, { x: L.reveal.x, y: ry, rotation: 0, duration: 0.55, ease: 'power2.out' }),
+      gsap.to(v.scale, { x: L.reveal.s, y: L.reveal.s, duration: 0.55, ease: 'power2.out' }),
+      v.turnUp({ delay: 0.12, duration: 0.45 })
+    ]);
+    if (!alive) return null;
+    if (!target) {
+      if (CARDS[cardId].kind === 'shakti') { audio.play('conch'); flash(0xff8a5a, 0.3); }
+      await gsap.to(v, { alpha: 0, duration: 0.4, delay: 0.75 });
+      v.destroy();
+      return null;
+    }
+    // to its slot, shrinking to the size of a token
+    const k = (TOKEN_DH * L.tok) / 336;
+    await Promise.all([
+      gsap.to(v, { x: target.x, y: target.y, duration: 0.32, delay: 0.5, ease: 'power2.in' }),
+      gsap.to(v.scale, { x: k, y: k, duration: 0.32, delay: 0.5, ease: 'power2.in' })
+    ]);
+    return v;
+  }
+
+  /** the enemy sets a yantra: a card back slides from their hand to their yantra row */
+  async function enemySetYantra(after: Snap): Promise<HandCard | null> {
+    const from = takeEnemyCard();
+    const v = new HandCard('y_kavach', 0, true);
+    v.eventMode = 'none'; v.position.set(from.x, from.y); v.rotation = from.r - Math.PI * 2; v.scale.set(L.enemyHand.s);
+    fx.addChild(v);
+    audio.play('cardPlay');
+    const n = after.players[1].yantras.length;
+    await Promise.all([
+      gsap.to(v, { x: L.yantraX, y: L.line.enemy + yantraSlotY(n - 1, n), rotation: 0, duration: 0.55, ease: 'power2.inOut' }),
+      gsap.to(v.scale, { x: L.yantraS, y: L.yantraS, duration: 0.55 })
+    ]);
+    return alive ? v : null;
+  }
+
+  /** a hidden yantra springs: its card lifts out of the row and turns over in the middle of the field */
+  async function reveal(cardId: string, owner: PlayerIndex): Promise<void> {
+    audio.play('yantra');
+    const row = yantraRow[owner];
+    const slot = row.children[row.children.length - 1] as Container | undefined;
+    const from = slot ? { x: row.x + slot.x, y: row.y + slot.y } : { x: L.yantraX, y: owner === 0 ? L.line.mine : L.line.enemy };
+    if (slot) slot.visible = false;
+    const v = new HandCard(cardId, 0, true);
+    v.eventMode = 'none'; v.position.set(from.x, from.y); v.scale.set(L.yantraS);
+    fx.addChild(v);
+    const label = new Text({ text: `${CARDS[cardId].name} springs!`, style: { fontFamily: FONT_TITLE, fontSize: Math.round(52 * Math.min(L.ui, 1.15)), fontWeight: '700', fill: INK.goldPale, stroke: { color: 0x000000, width: 7 } } });
+    label.anchor.set(0.5); label.position.set(L.reveal.x, L.line.front + 336 * L.reveal.s * 0.5 + 34); label.alpha = 0;
+    fx.addChild(label);
+    await Promise.all([
+      gsap.to(v, { x: L.reveal.x, y: L.reveal.y - 10, duration: 0.5, ease: 'back.out(1.2)' }),
+      gsap.to(v.scale, { x: L.reveal.s, y: L.reveal.s, duration: 0.5, ease: 'back.out(1.3)' }),
+      v.turnUp({ delay: 0.15, duration: 0.45, onHalf: () => flash(0xa0c8ff, 0.25) }),
+      gsap.to(label, { alpha: 1, duration: 0.3, delay: 0.35 })
+    ]);
+    if (!alive) return;
+    await gsap.to([v, label], { alpha: 0, duration: 0.4, delay: 0.9 });
+    v.destroy(); label.destroy();
+  }
+
+  /* ---------------- effects ---------------- */
+  /** KARDS-style damage: a red shield with the number, popped onto whoever was hurt */
+  function shieldGraphic(n: number, k: number, color = 0xb3261e): Container {
+    const c = new Container();
+    const w = 54, h = 62;
+    const g = new Graphics().poly([-w / 2, -h / 2, w / 2, -h / 2, w / 2, h * 0.1, 0, h / 2, -w / 2, h * 0.1])
+      .fill(color).stroke({ width: 4, color: 0x1a0503 });
+    g.poly([-w / 2 + 6, -h / 2 + 6, w / 2 - 6, -h / 2 + 6, w / 2 - 6, h * 0.07, 0, h / 2 - 8, -w / 2 + 6, h * 0.07]).stroke({ width: 2, color: 0xffb0a0, alpha: 0.6 });
+    const t = new Text({ text: String(n), style: { fontFamily: FONT_TITLE, fontSize: 44, fontWeight: '700', fill: 0xffffff, stroke: { color: 0x3a0a04, width: 4 } } });
+    t.anchor.set(0.5, 0.55);
+    c.addChild(g, t);
+    c.scale.set(k * (L.phone ? 1.2 : 1));
+    return c;
+  }
+  function damageShield(x: number, y: number, n: number, k: number): void {
+    const c = shieldGraphic(n, k);
+    c.position.set(x, y); fx.addChild(c);
+    const s0 = c.scale.x;
+    gsap.fromTo(c.scale, { x: s0 * 0.3, y: s0 * 0.3 }, { x: s0, y: s0, duration: 0.25, ease: 'back.out(2.4)' });
+    gsap.to(c, { y: y - 26, alpha: 0, duration: 0.45, delay: 0.85, ease: 'power1.in', onComplete: () => destroyTree(c) });
+  }
+  /** while aiming: the damage each side would take, as shields on both */
+  function clearCombatPreview(): void { combatFx.removeChildren().forEach(c => destroyTree(c as Container)); }
+  let previewKey = '';
+  function showCombatPreview(uid: number, tgt: Target | null): void {
+    const key = tgt ? `${uid}>${tgt.kind}:${tgt.kind === 'unit' ? tgt.uid : 'hq'}` : '';
+    if (key === previewKey && combatFx.children.length) return;
+    previewKey = key; clearCombatPreview();
+    if (!tgt) return;
+    const a = findUnit(st, 0, uid)?.unit; if (!a) return;
+    const put = (x: number, y: number, n: number) => { const c = shieldGraphic(n, 0.9); c.position.set(x, y); combatFx.addChild(c); gsap.from(c.scale, { x: 0.2, y: 0.2, duration: 0.18, ease: 'back.out(2)' }); };
+    const d = tgt.kind === 'unit' ? findUnit(st, 1, tgt.uid)?.unit : undefined;
+    const hitDmg = strikeDamage(st, a, d);
+    if (tgt.kind === 'hq') { put(durg[1].x + 80 * L.durgS, durg[1].y - 60 * L.durgS, hitDmg); return; }
+    const dv = tokens.get(tgt.uid), av = tokens.get(uid);
+    if (!d || !dv || !av) return;
+    put(dv.x + 52 * L.tok, dv.y - 70 * L.tok, hitDmg);
+    if (a.range === 'melee' && d.range === 'melee' && d.atk > 0) put(av.x + 52 * L.tok, av.y - 70 * L.tok, d.atk);
+  }
+  /** a soft cloud of dust where two lines meet */
+  function dust(x: number, y: number): void {
+    for (let i = 0; i < 9; i++) {
+      const p = new Graphics().circle(0, 0, 18 + Math.random() * 16).fill({ color: 0xe8dcc0, alpha: 0.5 });
+      p.position.set(x + (Math.random() - 0.5) * 50, y + (Math.random() - 0.5) * 40); fx.addChild(p);
+      const a = Math.random() * Math.PI * 2;
+      gsap.fromTo(p.scale, { x: 0.4, y: 0.4 }, { x: 1.8, y: 1.8, duration: 0.9, ease: 'power2.out' });
+      gsap.to(p, { x: p.x + Math.cos(a) * 50, y: p.y + Math.sin(a) * 30 - 20, alpha: 0, duration: 0.9, ease: 'power2.out', onComplete: () => p.destroy() });
+    }
+  }
+  /** the struck unit flinches and flashes red */
+  function hitFlash(x: number, y: number): void {
+    let hit: TokenView | null = null;
+    for (const v of tokens.values()) if (Math.abs(v.x - x) < 5 && Math.abs(v.y - y) < 5) hit = v;
+    if (hit) {
+      const v = hit;
+      gsap.fromTo(v, { tint: 0xff7060 }, { tint: 0xffffff, duration: 0.45 });
+      gsap.fromTo(v, { x: x + 8 }, { x, duration: 0.35, ease: 'elastic.out(1, 0.3)' });
+    } else if (Math.abs(durg[1].x - x) < 5 || Math.abs(durg[0].x - x) < 5) {
+      const d = Math.abs(durg[1].y - y) < 5 ? durg[1] : durg[0];
+      gsap.fromTo(d, { tint: 0xff7060 }, { tint: 0xffffff, duration: 0.5 });
+    }
+  }
+  /** a unit that breaks: a red flash, a banner, and (if it can) it slips back to the Rajya line */
+  async function routFx(v: TokenView, fled: boolean): Promise<void> {
+    audio.play('death');
+    const ring = new Graphics().circle(0, 0, 70).stroke({ width: 8, color: 0xd9463a }); ring.blendMode = 'add';
+    ring.position.set(v.x, v.y); fx.addChild(ring);
+    gsap.fromTo(ring.scale, { x: 0.4, y: 0.4 }, { x: 1.8, y: 1.8, duration: 0.6, ease: 'power2.out' });
+    gsap.to(ring, { alpha: 0, duration: 0.6, onComplete: () => ring.destroy() });
+    const t = new Text({ text: fled ? 'ROUT!' : 'BROKEN!', style: { fontFamily: FONT_TITLE, fontSize: L.phone ? 50 : 44, fontWeight: '700', letterSpacing: 4, fill: 0xff8a74, stroke: { color: 0x2a0804, width: 7 } } });
+    t.anchor.set(0.5); t.position.set(v.x, v.y - 110 * L.tok); fx.addChild(t);
+    gsap.fromTo(t.scale, { x: 0.3, y: 0.3 }, { x: 1, y: 1, duration: 0.3, ease: 'back.out(2)' });
+    gsap.fromTo(v, { rotation: -0.12 }, { rotation: 0, duration: 0.4, ease: 'elastic.out(1, 0.4)' });
+    await gsap.to(t, { y: t.y - 30, alpha: 0, duration: 0.5, delay: 0.6 });
+    t.destroy();
+  }
+  /** a unit honoured for valour: a burst of gold and its new rank */
+  async function promoteFx(v: TokenView, rank: number): Promise<void> {
+    audio.play('conch');
+    const ring = new Graphics().circle(0, 0, 70).stroke({ width: 8, color: 0xffd76a }); ring.blendMode = 'add';
+    ring.position.set(v.x, v.y); fx.addChild(ring);
+    gsap.fromTo(ring.scale, { x: 0.4, y: 0.4 }, { x: 2, y: 2, duration: 0.7, ease: 'power2.out' });
+    gsap.to(ring, { alpha: 0, duration: 0.7, onComplete: () => ring.destroy() });
+    sparks(v.x, v.y - 30 * L.tok, 0xffd76a);
+    const t = new Text({ text: `${RANK_NAMES[rank].toUpperCase()}!`, style: { fontFamily: FONT_TITLE, fontSize: L.phone ? 50 : 44, fontWeight: '700', letterSpacing: 4, fill: 0xffe39a, stroke: { color: 0x2a1404, width: 7 } } });
+    t.anchor.set(0.5); t.position.set(v.x, v.y - 110 * L.tok); fx.addChild(t);
+    gsap.fromTo(t.scale, { x: 0.3, y: 0.3 }, { x: 1, y: 1, duration: 0.3, ease: 'back.out(2)' });
+    await gsap.to(t, { y: t.y - 30, alpha: 0, duration: 0.5, delay: 0.7 });
+    t.destroy();
+  }
+  function floatNumber(x: number, y: number, text: string, color: number, size = 54): void {
+    const t = new Text({ text, style: { fontFamily: FONT_TITLE, fontSize: Math.round(size * (L.phone ? 1.15 : 1)), fontWeight: '700', fill: color, stroke: { color: 0x3a0a04, width: 7 } } });
+    t.anchor.set(0.5); t.position.set(x, y); fx.addChild(t);
+    gsap.fromTo(t.scale, { x: 0.4, y: 0.4 }, { x: 1, y: 1, duration: 0.25, ease: 'back.out(2)' });
+    gsap.to(t, { y: y - 80, alpha: 0, duration: 1.1, delay: 0.3, ease: 'power1.out', onComplete: () => t.destroy() });
+  }
+  function sparks(x: number, y: number, color: number): void {
+    for (let i = 0; i < 16; i++) {
+      const p = new Graphics().circle(0, 0, 2 + Math.random() * 3).fill(color);
+      p.blendMode = 'add'; p.position.set(x, y); fx.addChild(p);
+      const a = Math.random() * Math.PI * 2, r = 40 + Math.random() * 90;
+      gsap.to(p, { x: x + Math.cos(a) * r, y: y + Math.sin(a) * r, alpha: 0, duration: 0.5 + Math.random() * 0.3, ease: 'power2.out', onComplete: () => p.destroy() });
+    }
+    const ring = new Graphics().circle(0, 0, 40).stroke({ width: 6, color }); ring.position.set(x, y); ring.blendMode = 'add'; fx.addChild(ring);
+    gsap.fromTo(ring.scale, { x: 0.3, y: 0.3 }, { x: 1.8, y: 1.8, duration: 0.4 });
+    gsap.to(ring, { alpha: 0, duration: 0.4, onComplete: () => ring.destroy() });
+  }
+  function burnAway(v: TokenView): void {
+    audio.play('death');
+    v.eventMode = 'none';
+    for (let i = 0; i < 20; i++) {
+      const p = new Graphics().circle(0, 0, 2 + Math.random() * 3).fill(Math.random() < 0.5 ? 0xff8a2a : 0xffd27a);
+      p.blendMode = 'add'; p.position.set(v.x + (-80 + Math.random() * 160) * L.tok, v.y + (100 - Math.random() * 200) * L.tok); fx.addChild(p);
+      gsap.to(p, { y: p.y - 60 - Math.random() * 80, alpha: 0, duration: 0.8 + Math.random() * 0.6, delay: Math.random() * 0.3, onComplete: () => p.destroy() });
+    }
+    gsap.to(v, { alpha: 0, duration: 0.7, ease: 'power1.in', onComplete: () => v.destroy() });
+    gsap.to(v.scale, { x: 0.85 * L.tok, y: 0.85 * L.tok, duration: 0.7 });
+  }
+  function shake(px: number): void { gsap.fromTo(s, { x: -px }, { x: 0, duration: 0.5, ease: 'elastic.out(1, 0.25)' }); }
+  function flash(color: number, alpha: number): void {
+    const f = new Graphics().rect(0, 0, L.W, L.H).fill(color); f.alpha = alpha; f.blendMode = 'add'; fx.addChild(f);
+    gsap.to(f, { alpha: 0, duration: 0.6, onComplete: () => f.destroy() });
+  }
+  function drawArrow(x0: number, y0: number, x1: number, y1: number, hot: boolean): void {
+    arrow.clear();
+    const col = hot ? 0xff5a3c : 0xf0d79a;
+    const mx = (x0 + x1) / 2, my = Math.min(y0, y1) - 80;
+    const pts: [number, number][] = [];
+    for (let i = 0; i <= 24; i++) {
+      const t = i / 24;
+      pts.push([(1 - t) ** 2 * x0 + 2 * (1 - t) * t * mx + t * t * x1, (1 - t) ** 2 * y0 + 2 * (1 - t) * t * my + t * t * y1]);
+    }
+    for (let i = 0; i < pts.length - 2; i += 2) arrow.moveTo(pts[i][0], pts[i][1]).lineTo(pts[i + 1][0], pts[i + 1][1]);
+    arrow.stroke({ width: 10, color: col, alpha: 0.9, cap: 'round' });
+    const [ax, ay] = pts[pts.length - 2];
+    const ang = Math.atan2(y1 - ay, x1 - ax);
+    arrow.poly([x1 + Math.cos(ang) * 14, y1 + Math.sin(ang) * 14, x1 + Math.cos(ang + 2.5) * 30, y1 + Math.sin(ang + 2.5) * 30, x1 + Math.cos(ang - 2.5) * 30, y1 + Math.sin(ang - 2.5) * 30]).fill(col);
+  }
+  function flashHint(text: string): void {
+    const hx = L.laneX + L.laneW / 2;
+    hint.text = text; hint.style.fill = 0xffb09a; fitHint();
+    gsap.fromTo(hint, { x: hx - 10 }, { x: hx, duration: 0.4, ease: 'elastic.out(1, 0.3)' });
+    setTimeout(() => { if (!alive) return; hint.style.fill = INK.cream; refreshInteractivity(); }, 1600);
+  }
+  const wait = (ms: number) => new Promise(r => setTimeout(r, ms));
+
+  /* ---------------- inspect ---------------- */
+  function inspect(cardId: string, extra: InspectExtra = {}): void {
+    if (overlay?.kind === 'inspect') closeInspect();
+    if (overlay) return;
+    hoverIdx = -1; layoutHand(); clearCombatPreview();
+    const c = inspectOverlay(cardId, extra.unit ? 0 : st.players[0].upgrades[cardId] || 0, closeInspect, { ...extra, season: st.season, turn: st.turn });
+    s.addChild(c);
+    overlay = { kind: 'inspect', view: c };
+    syncPreview();
+  }
+  function closeInspect(): void {
+    if (overlay?.kind !== 'inspect') return;
+    destroyTree(overlay.view); overlay = null;
+    syncPreview();
+  }
+
+  /* ============================================================
+     The coach (tutorial scenarios only): Chanakya explains one thing
+     at a time. "Tap" steps wait for a tap anywhere; the others wait
+     until the player has done what they ask. A pulsing gold frame
+     shows where to look.
+     ============================================================ */
+  const coachFlags = { ended: 0, attacks: 0, acted: 0, selected: false };
+  let coachStep = 0;
+  let coachShown = -1;
+  const coachLayer = new Container();
+  s.addChild(coachLayer);
+  type Box = { x: number; y: number; w: number; h: number };
+  const laneBox = (y: number): Box => ({ x: L.laneX, y: y - L.laneH / 2, w: L.laneW, h: L.laneH });
+  const durgBox = (i: 0 | 1): Box => ({ x: durg[i].x - 130 * L.durgS, y: durg[i].y - 130 * L.durgS, w: 260 * L.durgS, h: 260 * L.durgS });
+  const handBox = (): Box => ({ x: L.laneX, y: L.handTop, w: L.laneW, h: L.H - L.handTop });
+  const endBox = (): Box => ({ x: L.rightX - 95 * L.endS, y: L.endY - 95 * L.endS, w: 190 * L.endS, h: 190 * L.endS });
+  const meterBox = (i: 0 | 1): Box => ({ x: meters[i].x - 150, y: meters[i].y - 40, w: 300, h: 70 });
+  const koshaBox = (): Box => ({ x: L.rightX - 130, y: L.koshaLabelY - 24, w: 260, h: L.myDiyas.y - L.koshaLabelY + 50 });
+  interface CoachStep { text: () => string; tap?: boolean; done?: () => boolean; focus: () => Box[] }
+  const mineOnField = () => allUnits(st, 0).length;
+  const STEPS: CoachStep[] = [
+    { tap: true, focus: () => [durgBox(0), durgBox(1)],
+      text: () => 'Welcome, commander. Your camp is the Durg at the lower left; the enemy border post is at the upper left. Bring its walls down to win.' },
+    { tap: true, focus: () => [koshaBox()],
+      text: () => 'Every card costs Kosha: the gold coin in its corner. Your treasury is on the right. It refills each turn and grows by one.' },
+    { focus: () => [handBox(), laneBox(L.line.mine)], done: () => mineOnField() > 0,
+      text: () => 'Drag a Padati (foot soldier) from your hand onto YOUR RAJYA, the bottom line.' },
+    { focus: () => [handBox()], done: () => coachFlags.selected,
+      text: () => L.phone ? 'Tap a card in your hand: its rules appear on the left, the card on the right. Tap it again to put it back.' : 'Point at (or tap) a card in your hand: its rules appear on the left.' },
+    { focus: () => [endBox()], done: () => coachFlags.ended >= 1,
+      text: () => 'New soldiers must rest one turn. Press END TURN.' },
+    { focus: () => [laneBox(L.line.front)], done: () => coachFlags.acted > 0 || coachFlags.ended >= 3,
+      text: () => st.front.owner === 1
+        ? 'The enemy holds the Yudhbhumi, the middle line. Drag your Padati onto one of them to attack.'
+        : 'Drag your Padati up to the YUDHBHUMI, the middle line. Whoever holds it can strike the enemy Durg.' },
+    { focus: () => [endBox()], done: () => coachFlags.ended >= 2,
+      text: () => 'Foot soldiers either advance or attack in a turn, never both. Press END TURN.' },
+    { focus: () => [handBox(), laneBox(L.line.front)], done: () => coachFlags.attacks > 0 || coachFlags.ended >= 5,
+      text: () => hand.some(h => h.cardId === 'n_ashvarohi')
+        ? 'Horsemen can CHARGE: deploy the Ashvarohi, then drag it straight onto an enemy, or onto the enemy Durg if you hold the Yudhbhumi.'
+        : 'Attack! Drag a ready unit onto an enemy, or onto the enemy Durg if you hold the Yudhbhumi.' },
+    { tap: true, focus: () => [laneBox(L.line.enemy)],
+      text: () => 'A unit that destroys an enemy and survives is promoted: Veer, then Mahaveer. A badly wounded unit may break and flee, losing its next turn. A Raksha (shield) on the enemy line guards their Durg: break it first.' },
+    { tap: true, focus: () => [meterBox(0)],
+      text: () => 'Under your Durg is the Dharma–Kuta meter. Win fair fights to climb toward Dharma; traps, poison and spies pull you toward Kuta. Both ends bring a reward.' },
+    { tap: true, focus: () => [],
+      text: () => 'Hold any card, or tap an enemy, to read it in full. The rest is yours, commander. Take the border post!' }
+  ];
+
+  function updateCoach(): void {
+    if (!sc.coached || !st) return;
+    if (coachStep >= STEPS.length || st.over) { if (coachShown !== -2) { clearCoach(); coachShown = -2; hint.visible = true; } return; }
+    const step = STEPS[coachStep];
+    if (!step.tap && step.done?.()) { coachStep++; updateCoach(); return; }
+    const myTurn = !busy && st.active === 0 && !overlay && !handHeld;
+    hint.visible = false;
+    if (!myTurn) { if (coachShown !== -1) { clearCoach(); coachShown = -1; } return; }
+    const sig = coachStep * 1000 + (st.front.owner ?? 9) + (L.phone ? 100 : 0);
+    if (coachShown === sig) { coachFade(); return; }
+    coachShown = sig;
+    drawCoach(step);
+    coachFade();
+  }
+  /** the coach steps back (nearly invisible) while you aim, so it never hides a target */
+  function coachFade(): void {
+    const away = !!(drag?.moved || pick);
+    gsap.to(coachLayer, { alpha: away ? 0.1 : 1, duration: 0.15, overwrite: 'auto' });
+  }
+  function clearCoach(): void {
+    coachLayer.children.forEach(c => stopTweens(c as Container));
+    coachLayer.removeChildren().forEach(c => destroyTree(c as Container));
+  }
+  function drawCoach(step: CoachStep): void {
+    clearCoach();
+    const ph = L.phone;
+    // a tap step catches the tap anywhere; an action step lets every tap through
+    if (step.tap) {
+      const catcher = new Graphics().rect(0, 0, L.W, L.H).fill({ color: 0x000000, alpha: 0.35 });
+      catcher.eventMode = 'static'; catcher.cursor = 'pointer';
+      catcher.on('pointertap', () => { audio.play('click'); coachStep++; coachShown = -1; clearCoach(); updateCoach(); });
+      coachLayer.addChild(catcher);
+    }
+    for (const b of step.focus()) {
+      const f = new Graphics().roundRect(b.x - 6, b.y - 6, b.w + 12, b.h + 12, 18).stroke({ width: 6, color: 0xffd76a });
+      f.eventMode = 'none'; coachLayer.addChild(f);
+      gsap.fromTo(f, { alpha: 1 }, { alpha: 0.25, duration: 0.7, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    }
+    const bw = ph ? Math.min(980, L.W - 420) : 1000;
+    const box = new Container(); box.eventMode = 'none';
+    const name = new Text({ text: 'CHANAKYA', style: { fontFamily: FONT_TITLE, fontSize: ph ? 26 : 22, fontWeight: '700', letterSpacing: 6, fill: INK.gold } });
+    const t = new Text({ text: step.text(), style: { fontFamily: FONT_BODY, fontSize: ph ? 34 : 30, fontWeight: '700', fill: 0xf8eedc, wordWrap: true, wordWrapWidth: bw - 150, lineHeight: ph ? 40 : 36 } });
+    const more = new Text({ text: step.tap ? 'Tap anywhere to continue ›' : '', style: { fontFamily: FONT_BODY, fontSize: ph ? 24 : 20, fontStyle: 'italic', fill: INK.gold } });
+    const portrait = new Sprite(cardFace('m_chanakya')); portrait.scale.set(ph ? 0.2 : 0.18);
+    name.position.set(130, 14); t.position.set(130, name.y + name.height + 4); more.position.set(130, t.y + t.height + 6);
+    const bh = Math.max(portrait.height + 24, more.y + (step.tap ? more.height : 0) + 16);
+    portrait.position.set(16, (bh - portrait.height) / 2);
+    const bg = new Graphics().roundRect(0, 0, bw, bh, 14).fill({ color: 0x140d08, alpha: 0.94 }).stroke({ width: 3, color: INK.gold });
+    box.addChild(bg, portrait, name, t, more);
+    // stay clear of what the step points at: the top of the screen, unless that is where to look
+    const focusTop = step.focus().some(b => b.y < L.line.enemy + L.laneH / 2 && b.y + b.h > 0 && b.x < L.laneX + L.laneW);
+    const bx = L.laneX + (L.laneW - bw) / 2;
+    box.position.set(Math.max(8, Math.min(L.W - bw - 8, bx)), focusTop && !step.tap ? L.line.front - bh / 2 : ph ? 6 : 40);
+    if (focusTop && step.tap) box.y = L.line.front - bh / 2;
+    coachLayer.addChild(box);
+    gsap.from(box, { alpha: 0, y: box.y - 16, duration: 0.3, ease: 'power2.out' });
+  }
+
+  /* ---------------- turns ---------------- */
+  async function turnBanner(who: PlayerIndex): Promise<void> {
+    const bh = L.phone ? 120 : 140;
+    const band = new Graphics().rect(0, -bh / 2, L.W, bh).fill({ color: 0x000000, alpha: 0.75 });
+    band.moveTo(0, -bh / 2).lineTo(L.W, -bh / 2).moveTo(0, bh / 2).lineTo(L.W, bh / 2).stroke({ width: 2, color: who === 0 ? INK.gold : 0xe0674a });
+    const t = new Text({ text: online ? (who === 0 ? 'YOUR TURN' : `${sideAt(1).name.toUpperCase()} MOVES`) : duel ? `${sideAt(who).name.toUpperCase()}: YOUR TURN` : who === 0 ? 'YOUR TURN' : `THE ${sc.enemyName.toUpperCase()} MOVES`, style: { fontFamily: FONT_TITLE, fontSize: 72, fontWeight: '700', letterSpacing: 14, fill: who === 0 ? INK.goldPale : 0xffb09a } });
+    t.anchor.set(0.5); t.x = L.W / 2;
+    if (t.width > L.W - 100) t.scale.set((L.W - 100) / t.width);
+    const c = new Container(); c.addChild(band, t); c.y = L.line.front; fx.addChild(c);
+    audio.play(who === 0 ? 'conch' : 'drum');
+    await gsap.fromTo(c, { alpha: 0 }, { alpha: 1, duration: 0.25 });
+    await gsap.fromTo(t, { x: L.W / 2 - 40 }, { x: L.W / 2 + 10, duration: 0.8, ease: 'none' });
+    await gsap.to(c, { alpha: 0, duration: 0.3 });
+    destroyTree(c);
+  }
+
+  async function endTurn(): Promise<void> {
+    pick = null; clearTargets(); hoverIdx = -1;
+    coachFlags.ended++; coachFlags.acted = 0;
+    busy = true; animating = true;
+    applyAction(st, { type: 'end' });
+    if (online) { netSend({ type: 'end' }); if (guest) st.turn += 1; }
+    drainEvents(st);
+    reconcile(snapshot(st));
+    if (st.over) { busy = false; animating = false; checkOver(); return; }
+    if (online) { await turnBanner(1); busy = false; animating = false; refreshInteractivity(); void pump(); return; }
+    if (duel) { await duelHandOver(); return; }
+    await turnBanner(1);
+    // record the computer's turn one action at a time
+    const steps: { events: GameEvent[]; snap: Snap }[] = [];
+    const obs = (state: GameState) => { steps.push({ events: drainEvents(state), snap: snapshot(state) }); };
+    actionObservers.add(obs);
+    try { aiTurn(st, 1, st.aiLevel); } finally { actionObservers.delete(obs); }
+    for (const step of steps) {
+      if (!alive) return;
+      const endStep = step.snap.active === 0 && step === steps[steps.length - 1];
+      if (endStep) { reconcile(step.snap); break; }
+      await animate(step.events, step.snap);
+    }
+    if (!alive) return;
+    busy = false;
+    reconcile(snapshot(st));
+    if (!checkOver()) await turnBanner(0);
+    animating = false;
+    refreshInteractivity();
+    settle();
+  }
+
+  /* ---------------- two phones ---------------- */
+  function netSend(action: Action): void {
+    if (!online) return;
+    online.link.send({ t: 'act', a: guest ? mirrorAction(action) : action, h: syncHash(st, guest) });
+  }
+  if (online) {
+    online.link.setHandler(m => {
+      if (m.t === 'act') { inbox.push(m); void pump(); }
+      else if (m.t === 'bye') netLost('The other player has left the battle.');
+    });
+    online.link.onClose(() => netLost('The connection to the other phone was lost.'));
+  }
+  /** play the other player's queued actions, one at a time, once the screen is ready for them */
+  async function pump(): Promise<void> {
+    if (pumping || !online) return;
+    pumping = true;
+    try {
+      while (inbox.length && alive && !netDown) {
+        if (handHeld || overlay || animating || st.over) break;
+        await applyRemote(inbox.shift()!);
+      }
+    } finally { pumping = false; }
+  }
+  async function applyRemote(m: Extract<NetMsg, { t: 'act' }>): Promise<void> {
+    const local = guest ? mirrorAction(m.a) : m.a;
+    busy = true; animating = true; refreshInteractivity();
+    const steps: { events: GameEvent[]; snap: Snap }[] = [];
+    const obs = (state: GameState) => { steps.push({ events: drainEvents(state), snap: snapshot(state) }); };
+    actionObservers.add(obs);
+    let res: { ok: boolean };
+    try { res = applyAction(st, local); } finally { actionObservers.delete(obs); }
+    if (!res.ok || syncHash(st, guest) !== m.h) { netLost('The two phones no longer agree about the battle, so it cannot go on.'); return; }
+    if (local.type === 'end') {
+      if (guest) st.turn -= 1;
+      drainEvents(st);
+      reconcile(snapshot(st));
+      if (!checkOver()) await turnBanner(0);
+    } else {
+      for (const step of steps) { if (!alive) return; await animate(step.events, step.snap); }
+      if (!alive) return;
+      reconcile(snapshot(st));
+      if (checkOver()) { animating = false; return; }
+    }
+    if (!alive) return;
+    busy = false; animating = false;
+    refreshInteractivity(); settle();
+  }
+  /** the link broke or the phones disagree: say so, and offer the title screen */
+  function netLost(why: string): void {
+    if (!alive || netDown || st.over) return;
+    netDown = true; busy = true; inbox.length = 0;
+    const W = L.W, H = L.H, ph = L.phone;
+    const c = new Container();
+    const dim = new Graphics().rect(0, 0, W, H).fill({ color: 0x000000, alpha: 0.85 }); dim.eventMode = 'static';
+    const t1 = new Text({ text: 'THE BATTLE HAS ENDED', style: { fontFamily: FONT_TITLE, fontSize: ph ? 54 : 72, fontWeight: '700', letterSpacing: 6, fill: INK.goldPale } });
+    t1.anchor.set(0.5); t1.position.set(W / 2, H * 0.36); if (t1.width > W - 100) t1.scale.set((W - 100) / t1.width);
+    const t2 = new Text({ text: why, style: { fontFamily: FONT_SERIF, fontSize: ph ? 30 : 34, fontStyle: 'italic', fill: INK.cream, align: 'center', wordWrap: true, wordWrapWidth: W - 200 } });
+    t2.anchor.set(0.5); t2.position.set(W / 2, H * 0.5);
+    const b = makeButton('Title screen', nav ? nav.title : exit, { primary: true, w: 340, ui: ph ? 1.1 : 1 });
+    b.position.set(W / 2, H * 0.68);
+    c.addChild(dim, t1, t2, b); s.addChild(c);
+    gsap.from(c, { alpha: 0, duration: 0.4 });
+  }
+
+  /** pass-and-play: hide the board, wait for the other player, turn the table round and begin their turn */
+  async function duelHandOver(): Promise<void> {
+    const nextReal = (flipped ? 0 : 1);               // the player about to move, as an index into duel.sides
+    fixTurnAfterEnd(st, flipped);
+    animating = false;                                // a rotated phone may redraw the curtain meanwhile
+    await new Promise<void>(res => { curtainDone = res; drawCurtain(nextReal, true); });
+    if (!alive) return;
+    animating = true;
+    swapSides(st); flipped = !flipped;
+    drainEvents(st);
+    clearBoard();
+    duelFrame();
+    reconcile(snapshot(st), true);
+    busy = false; animating = false;
+    await turnBanner(0);
+    refreshInteractivity();
+    settle();
+  }
+
+  /** the screen between two players' turns; it hides both hands and the face-down Yantras */
+  function drawCurtain(nextReal: number, animate: boolean): void {
+    const W = L.W, H = L.H, ph = L.phone;
+    const side = duel!.sides[nextReal as 0 | 1];
+    const c = new Container();
+    const bg = new Graphics().rect(0, 0, W, H).fill({ color: 0x070402, alpha: 1 });
+    bg.eventMode = 'static';
+    const k = ph ? 0.8 : 1;
+    const face = new Sprite(cardFace(side.hero)); face.anchor.set(0.5); face.scale.set((ph ? 0.52 : 0.62)); face.position.set(ph ? W * 0.27 : W * 0.3, H / 2);
+    const tx = ph ? W * 0.5 : W * 0.5;
+    const t1 = new Text({ text: 'PASS THE DEVICE TO', style: { fontFamily: FONT_TITLE, fontSize: Math.round(26 * k), fontWeight: '700', letterSpacing: 10, fill: INK.gold } });
+    const t2 = new Text({ text: side.name.toUpperCase(), style: { fontFamily: FONT_TITLE, fontSize: Math.round(80 * k), fontWeight: '700', fill: INK.goldPale, wordWrap: true, wordWrapWidth: W - tx - 60 } });
+    const t3 = new Text({ text: 'The other commander should look away. Tap when you hold the device and are ready to see your hand.', style: { fontFamily: FONT_STORY, fontWeight: '500', fontSize: Math.round(30 * (ph ? 0.9 : 1)), fontStyle: 'italic', fill: INK.creamBright, wordWrap: true, wordWrapWidth: W - tx - 80, lineHeight: Math.round(40 * (ph ? 0.9 : 1)) } });
+    t1.position.set(tx, H / 2 - t2.height / 2 - 70 * k); t2.position.set(tx, t1.y + t1.height + 12); t3.position.set(tx, t2.y + t2.height + 18);
+    const go = makeButton('I am ready', () => {
+      audio.play('conch');
+      overlay = null; destroyTree(c);
+      const r = curtainDone; curtainDone = null; if (r) r();
+    }, { primary: true, w: 340, ui: ph ? 1.1 : 1 });
+    go.position.set(tx + 170 * (ph ? 1.1 : 1), Math.min(H - 50, t3.y + t3.height + 70));
+    c.addChild(bg, face, t1, t2, t3, go);
+    s.addChild(c);
+    overlay = { kind: 'curtain', view: c, who: nextReal };
+    if (animate) gsap.from(c, { alpha: 0, duration: 0.35 });
+  }
+
+  /** pass-and-play: the winner's screen (nothing is recorded, no Yash) */
+  function duelEndScreen(winnerReal: number, animate: boolean): void {
+    const W = L.W, H = L.H, ph = L.phone;
+    const win = duel!.sides[winnerReal as 0 | 1];
+    if (animate) { audio.play('victory'); audio.playMusic('music_victory'); }
+    const c = new Container();
+    const dim = new Graphics().rect(0, 0, W, H).fill({ color: 0x000000, alpha: 0.82 }); dim.eventMode = 'static';
+    const face = new Sprite(cardFace(win.hero)); face.anchor.set(0.5); face.scale.set(ph ? 0.4 : 0.75); face.position.set(W / 2, ph ? 160 : 365);
+    const title = new Text({ text: `${win.name.toUpperCase()} WINS`, style: { fontFamily: FONT_TITLE, fontSize: ph ? 72 : 100, fontWeight: '700', letterSpacing: 10, fill: INK.goldPale, stroke: { color: 0x000000, width: 8 } } });
+    title.anchor.set(0.5); title.position.set(W / 2, ph ? 345 : 675);
+    if (title.width > W - 120) title.scale.set((W - 120) / title.width);
+    const sub = new Text({ text: `The Durg of ${duel!.sides[(1 - winnerReal) as 0 | 1].name} falls in turn ${st.turn}.`, style: { fontFamily: FONT_STORY, fontWeight: '500', fontSize: Math.round(30 * (ph ? 1.1 : 1)), fontStyle: 'italic', fill: INK.creamBright, align: 'center', wordWrap: true, wordWrapWidth: W - 200 } });
+    sub.anchor.set(0.5); sub.position.set(W / 2, ph ? 442 : 775);
+    const kk = ph ? 1.1 : 1, w = ph ? 230 : 300;
+    const btns: Container[] = online ? [makeButton('Title screen', nav ? nav.title : exit, { primary: true, w: 340, ui: kk })] : [makeButton('Rematch', () => { overlay = null; destroyTree(c); busy = false; start(); }, { primary: true, w: 340, ui: kk })];
+    if (!online && nav?.setup) btns.push(makeButton('Choose factions', nav.setup, { w, ui: kk }));
+    if (!online) btns.push(makeButton('Title screen', nav ? nav.title : exit, { w, ui: kk }));
+    const widths = btns.map((_, i) => (i === 0 || online ? 340 : w) * kk), gap = 24 * kk;
+    let bx = W / 2 - (widths.reduce((a, v) => a + v, 0) + gap * (btns.length - 1)) / 2;
+    btns.forEach((b, i) => { b.position.set(bx + widths[i] / 2, ph ? 580 : 885); bx += widths[i] + gap; });
+    c.addChild(dim, face, title, sub, ...btns);
+    s.addChild(c);
+    overlay = { kind: 'end', view: c, who: winnerReal };
+    if (animate) gsap.from([face, title, sub, ...btns], { alpha: 0, duration: 0.6, stagger: 0.1 });
+  }
+
+  /** after an animation: apply a layout change that arrived while it ran */
+  function settle(): void {
+    if (layoutPending && !animating) { layoutPending = false; relayout(); }
+  }
+
+  function checkOver(): boolean {
+    if (!st.over) return false;
+    busy = true;
+    if (duel) {
+      const winnerReal = (st.winner === null ? 0 : (st.winner ^ (flipped ? 1 : 0)));
+      setTimeout(() => { if (alive) duelEndScreen(winnerReal, true); }, 900);
+      return true;
+    }
+    const won = st.winner === 0;
+    setTimeout(() => { if (alive) endScreen(won, true); }, 900);
+    return true;
+  }
+
+  function endScreen(won: boolean, animate: boolean): void {
+    if (animate) {
+      if (audio.has(won ? 'music_victory' : 'music_defeat')) audio.play(won ? 'conch' : 'drum');
+      else audio.play(won ? 'victory' : 'defeat');
+      audio.playMusic(won ? 'music_victory' : 'music_defeat');
+    }
+    const W = L.W, H = L.H, ph = L.phone;
+    const c = new Container();
+    const dim = new Graphics().rect(0, 0, W, H).fill({ color: 0x000000, alpha: 0.78 });
+    dim.eventMode = 'static';
+    const face = new Sprite(cardFace(won ? sc.heroCard : sc.defeatCard)); face.anchor.set(0.5); face.scale.set(ph ? 0.4 : 0.75); face.position.set(W / 2, ph ? 160 : 365);
+    const title = new Text({ text: won ? 'VICTORY' : 'DEFEAT', style: { fontFamily: FONT_TITLE, fontSize: ph ? 104 : 120, fontWeight: '700', letterSpacing: 24, fill: won ? INK.goldPale : 0xffb09a, stroke: { color: 0x000000, width: 8 } } });
+    title.anchor.set(0.5); title.position.set(W / 2, ph ? 345 : 675);
+    if (ph) title.style.fontSize = 80;
+    const sub = new Text({
+      text: won ? sc.winText(st.turn) : sc.loseText,
+      style: { fontFamily: FONT_STORY, fontWeight: '500', fontSize: Math.round(30 * (ph ? 1.1 : L.ui)), fontStyle: 'italic', fill: INK.creamBright, align: 'center', wordWrap: true, wordWrapWidth: W - (ph ? 260 : 200) }
+    });
+    sub.anchor.set(0.5); sub.position.set(W / 2, ph ? 442 : 775);
+    if (won && sc.coached) markTutorialDone();
+    if (!yashDone) {
+      yashDone = true;
+      const emp = empireOfBattle(sc.id);
+      if (emp) yashNote = { empire: emp, gain: standing().record(emp, won, won && !battlesWon().includes(sc.id), veteranFoe()) };
+    }
+    if (won) markBattleWon(sc.id);
+    // the victory button carries a battle's name, so it is the widest; the rest share what is left
+    const kk = ph ? 1.1 : 1, wMain = 340, wSide = ph ? 230 : 300;
+    const again = won && next
+      ? makeButton(sc.nextLabel ?? 'Next battle', () => showEpilogue(next), { primary: true, w: wMain, ui: kk })
+      : makeButton('Fight again', () => { overlay = null; destroyTree(c); busy = false; start(); }, { primary: true, w: wMain, ui: kk });
+    const btns: Container[] = [again];
+    if (nav?.map) btns.push(makeButton('Campaign map', nav.map, { w: wSide, ui: kk }));
+    btns.push(makeButton('Title screen', nav ? nav.title : exit, { w: wSide, ui: kk }));
+    const widths = btns.map((_, i) => (i === 0 ? wMain : wSide) * kk), gap = 24 * kk;
+    let bx = W / 2 - (widths.reduce((a, v) => a + v, 0) + gap * (btns.length - 1)) / 2;
+    btns.forEach((b, i) => { b.position.set(bx + widths[i] / 2, ph ? 580 : 885); bx += widths[i] + gap; });
+    c.addChild(dim, face, title, sub, ...btns);
+    if (yashNote) {
+      const { empire, gain } = yashNote, v = standing().view(empire), e = RENOWN_EMPIRES[empire];
+      const k = ph ? 1.1 : 1;
+      const l1 = new Text({ text: `+${gain.yash} Yash · ${e.name}`, style: { fontFamily: FONT_TITLE, fontSize: Math.round(24 * k), fontWeight: '700', letterSpacing: 2, fill: INK.goldPale, stroke: { color: 0x000000, width: 4 } } });
+      const l2 = new Text({ text: gain.rankedUp ? `RANK UP: ${v.rank.name} · ${v.rank.gloss}${gain.kirti ? `  (+${gain.kirti} Kirti)` : ''}` : `${v.rank.name}${v.next ? ` · ${v.next.from - gain.after} to ${v.next.name}` : ' · highest rank'}`, style: { fontFamily: FONT_BODY, fontSize: Math.round(22 * k), fontWeight: gain.rankedUp ? '800' : '700', fill: gain.rankedUp ? INK.gold : INK.cream, stroke: { color: 0x000000, width: 3 } } });
+      l1.position.set(26, ph ? 18 : 26); l2.position.set(26, l1.y + l1.height + 2);
+      l1.eventMode = 'none'; l2.eventMode = 'none';
+      c.addChild(l1, l2);
+    }
+    if (won && historyOf(sc.id)) {
+      const hb = makeButton('History', () => showHistory(), { w: 190, ui: ph ? 0.85 : 1 });
+      hb.position.set(ph ? W - 118 : W - 190, ph ? 40 : 70);
+      c.addChild(hb);
+    }
+    s.addChild(c);
+    overlay = { kind: 'end', view: c, won };
+    if (animate) {
+      gsap.from(face.scale, { x: 0.3, y: 0.3, duration: 0.6, ease: 'back.out(1.4)' });
+      gsap.from([title, sub, ...btns], { alpha: 0, y: '+=30', duration: 0.6, stagger: 0.12, delay: 0.3 });
+    }
+  }
+
+  /** the battle's History note, drawn over whatever screen is open */
+  function showHistory(): void {
+    let p: Container | null = null;
+    p = historyPanel(sc.id, sc.title, sc.heroCard, () => { if (p) destroyTree(p); });
+    if (p) s.addChild(p);
+  }
+
+  /** after a victory: the epilogue, then on to `then` */
+  function showEpilogue(then: () => void): void {
+    let p: Container | null = null;
+    p = epiloguePanel(sc.id, sc.title, sc.heroCard, () => { if (p) destroyTree(p); then(); }, sc.nextLabel ?? 'Next battle');
+    if (p) s.addChild(p); else then();
+  }
+
+  function pauseMenu(): void {
+    if (overlay) return;
+    const W = L.W, H = L.H, ph = L.phone;
+    const c = new Container();
+    const close = () => { overlay = null; destroyTree(c); };
+    const dim = new Graphics().rect(0, 0, W, H).fill({ color: 0x000000, alpha: 0.72 }); dim.eventMode = 'static';
+    const t = new Text({ text: 'PAUSED', style: { fontFamily: FONT_TITLE, fontSize: ph ? 72 : 88, fontWeight: '700', letterSpacing: 16, fill: INK.goldPale, stroke: { color: 0x000000, width: 6 } } });
+    t.anchor.set(0.5); t.position.set(W / 2, ph ? H * 0.2 : H * 0.22);
+    const sub = new Text({ text: sc.title, style: { fontFamily: FONT_STORY, fontWeight: '500', fontSize: Math.round(30 * L.ui), fontStyle: 'italic', fill: INK.cream } });
+    sub.anchor.set(0.5); sub.position.set(W / 2, t.y + (ph ? 62 : 74));
+    c.addChild(dim, t, sub);
+    const items: [string, () => void, boolean][] = [['Resume', close, true]];
+    if (nav?.map) items.push(['Campaign map', nav.map, false]);
+    items.push(['Title screen', nav ? nav.title : exit, false]);
+    const step = (ph ? 84 : 92) * (ph ? 1 : 1);
+    const y0 = H * (ph ? 0.4 : 0.42);
+    items.forEach(([label, fn, primary], i) => {
+      const b = makeButton(label, fn, { primary, w: 360, ui: ph ? 1.2 : 1.15 });
+      b.position.set(W / 2, y0 + i * step); c.addChild(b);
+    });
+    s.addChild(c);
+    overlay = { kind: 'confirm', view: c };
+  }
+
+  /* ---------------- switching between desktop and phone layouts ---------------- */
+  function relayout(): void {
+    if (animating || drag) { layoutPending = true; return; }
+    L = battleLayout(view);
+    pick = null; hoverIdx = -1; previewId = null;
+    previewLayer.removeChildren().forEach(c => c.destroy());
+    const open = overlay;
+    if (open) { destroyTree(open.view); overlay = null; }
+    clearBoard();
+    applyLayout();
+    if (seasonTip) { destroyTree(seasonTip); seasonTip = null; }
+    if (dharmaTip) { destroyTree(dharmaTip); dharmaTip = null; }
+    buildSeason();
+    reconcile(shown, true);
+    if (open?.kind === 'briefing') briefing(false);
+    else if (open?.kind === 'end') { if (duel) duelEndScreen(open.who ?? 0, false); else endScreen(open.won ?? false, false); }
+    else if (open?.kind === 'curtain') drawCurtain(open.who ?? 0, false);
+    else if (!st.over) busy = false;
+  }
+  s.relayout = relayout;
+
+  window.addEventListener('contextmenu', blockMenu);
+  function blockMenu(e: Event): void { e.preventDefault(); }
+
+  // read-only hook for automated playtests (tests/e2e); positions are in screen (CSS) pixels
+  const scr = (x: number, y: number) => { const g = s.toGlobal(new Point(x, y)); return { x: g.x, y: g.y }; };
+  (window as unknown as { __yuddh: unknown }).__yuddh = {
+    state: () => st, flipped: () => flipped, busy: () => busy || dealing(), phone: () => L.phone,
+    /** shows the end screen without playing to it (layout checks) */
+    showEnd: (won: boolean) => { if (!overlay) endScreen(won, false); },
+    hand: () => hand.map(h => ({ id: h.cardId, ...scr(h.x, h.y) })),
+    tokens: () => [...tokens.values()].map(v => ({ uid: v.uid, owner: v.owner, ...scr(v.x, v.y) })),
+    durg: () => scr(durg[1].x, durg[1].y),
+    endTurn: () => scr(endBtn.x, endBtn.y),
+    /** every legal drag right now: from → to */
+    moves: () => {
+      if (busy || dealing() || st.active !== 0 || st.over) return [];
+      const out: { what: string; from: { x: number; y: number }; to: { x: number; y: number } }[] = [];
+      const mid = L.laneX + L.laneW / 2;
+      const gap = Math.min(L.handMaxGap, L.handSpan / Math.max(1, hand.length)), cw = 480 * L.handScale;
+      hand.forEach((h, i) => {
+        const t = cardTargets(i);
+        // press the part of the card that is not covered by its right-hand neighbour
+        const dx = i < hand.length - 1 && gap < cw ? -cw / 2 + gap / 2 : 0;
+        const from = scr(h.home.x + dx, h.home.y - 30 * L.handScale / 0.31);  // where the card is going, not where its tween has got to
+        if (t.zone === 'mine') out.push({ what: `deploy ${h.cardId}`, from, to: scr(mid, L.line.mine) });
+        else if (t.zone === 'board') out.push({ what: `cast ${h.cardId}`, from, to: scr(mid, L.line.front) });
+        t.units.forEach(uid => { const v = tokens.get(uid); if (v) out.push({ what: `cast ${h.cardId} on ${v.cardId}`, from, to: scr(v.x, v.y) }); });
+      });
+      tokens.forEach(v => {
+        if (v.owner !== 0) return;
+        const t = unitTargets(v.uid);
+        const from = scr(v.x, v.y);
+        if (t.hq) out.push({ what: `${v.cardId} strikes the Durg`, from, to: scr(durg[1].x, durg[1].y) });
+        t.units.forEach(uid => { const e = tokens.get(uid); if (e) out.push({ what: `${v.cardId} attacks ${e.cardId}`, from, to: scr(e.x, e.y) }); });
+        if (t.front) out.push({ what: `${v.cardId} advances`, from, to: scr(mid + L.laneW * 0.27, L.line.front) });
+      });
+      return out;
+    }
+  };
+
+  // the phone's Back button opens the pause menu during play (see pressBack in ui/button.ts)
+  (window as unknown as { __yuddhPause?: () => boolean }).__yuddhPause = () => { if (overlay || st.over || !alive) return false; pauseMenu(); return true; };
+  s.enter = () => start();
+  s.leave = () => {
+    window.removeEventListener('pointerdown', onWinDown, true); window.removeEventListener('pointerup', onWinUp, true);
+    Ticker.shared.remove(weatherTick);
+    coachLayer.children.forEach(c => stopTweens(c as Container));
+    alive = false;
+    delete (window as unknown as { __yuddhPause?: unknown }).__yuddhPause;
+    online?.link.close();
+    fx.children.forEach(c => stopTweens(c as Container));
+    window.removeEventListener('contextmenu', blockMenu);
+    tokens.forEach(t => t.destroy());
+    durg.forEach(d => d.destroy());
+    endPulse?.kill();
+  };
+  return s;
+}
+
+/** the art a battle needs: both decks, the two Durgs, the battlefield */
+export function battleArt(sc: Scenario = FIRST_THRONE_SCENARIO): string[] {
+  return [...sc.playerDeck, ...sc.enemyDeck, ...sc.durgArt, sc.heroCard, sc.defeatCard, ...(sc.duel ? sc.duel.sides.map(x => x.hero) : [])];
+}
+
+/** preload the battlefield and paintings so the board never appears without them */
+export async function preloadBattle(sc: Scenario = FIRST_THRONE_SCENARIO): Promise<void> {
+  await orTimeout(Promise.all([loadBattlefield(sc.battlefield), loadArt(battleArt(sc))]), 20000);
+}
+
+export type { Sfx };
