@@ -1,6 +1,6 @@
-# SWARAJYA — design
+# YUDDH: Swarajya — design
 
-*Working title (see STATE.md, open decision Q-01). What the game is, how it plays, and why.
+*Title decided 24 Nov 2026 (D-14). What the game is, how it plays, and why.
 Updated at the end of every session. History lives in `history/`; tasks in `TASKS.md`.*
 
 ## 1. Vision
@@ -222,3 +222,7 @@ Same method as YUDDH: AI "normal" vs "normal", 200 seeded games per chapter.
 
 - 23 Nov 2026: project started; built on the YUDDH engine (commit 6f1c852); new ruleset
   `'swarajya'`; chronology-first workflow; English + Marathi from the start; working title SWARAJYA.
+- 23 Nov 2026: Purandare's *Raja Shivachhatrapati* is the standard reference (D-12); repo `medh-eng/Swarajya` (D-13).
+- 24 Nov 2026: title **YUDDH: Swarajya** (D-14); Dadoji Kondadeo shown as Shivaji's teacher, following Purandare,
+  with the dispute noted (D-15); Pon's copy of the book is the English edition, latest printing; chapter
+  `ch20b_sangamner` approved (D-16). Phase 0 engine copy done (ruleset `'swarajya'`, see STATE.md).

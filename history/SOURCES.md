@@ -28,6 +28,7 @@ chapter's History note must also name the primary source the encyclopedia cites.
 **S-PURANDARE** — Babasaheb (B. M.) Purandare, *Raja Shivachhatrapati* (राजा शिवछत्रपती), Purandare
 Prakashan, Pune. Marathi, two volumes (first published 1950s–60s; 19th ed. 2014, about 934 pp.);
 English translation, two volumes (2014; current ed. 2021, about 895 pp.).
+**Pon's copy: the English edition, latest printing** (24 Nov 2026). Cite it as `S-PURANDARE` with volume and chapter.
 The most widely read life of Shivaji Maharaj, written from a lifetime's study of the documents,
 in a narrative style. It is the project's **standard reference**: chapters, people and the order of
 events are checked against it first.
@@ -39,7 +40,8 @@ How it is used (also in CLAUDE.md):
    marked TRADITION if he presents it as tradition.
 4. Where it differs from a period source, or the point is publicly disputed: both versions go into
    `CONTESTED.md` and **Pon decides** what the game shows. Known case: the role of Dadoji Kondadeo
-   (CONTESTED #6), which was at the centre of the 2015 public controversy about the book.
+   (CONTESTED #6), which was at the centre of the 2015 public controversy about the book. Pon decided
+   (D-15) to follow the book and show Dadoji as teacher, with the dispute noted.
 5. We do not copy its text into the game. Facts and order of events only, in our own words.
 
 ## S · Modern scholarship (for the History notes)

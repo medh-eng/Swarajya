@@ -40,7 +40,7 @@ Basis column: what we may show about them. `TRADITION` people (or deeds) are lab
 | Rajaram | Younger son; installed April 1680 | C-1680-DEATH | none | HISTORY |
 | Sidhoji Nimbalkar | Led the rearguard at Sangamner, 1679; killed | C-1679-JALNA | none yet | HISTORY |
 | Kanhoji Jedhe | Deshmukh of Kari; early ally | C-X-SOURCES (Jedhe family) | none yet | HISTORY (role: VERIFY details) |
-| Dadoji Kondadeo | Shahaji's administrator of the Pune jagir; died 1647 | C-1640-PUNE | none (see CONTESTED #6) | HISTORY (as administrator only) |
+| Dadoji Kondadeo | Shahaji's administrator of the Pune jagir, and (as Purandare tells it) Shivaji's teacher; died 1647 | C-1640-PUNE | `sw_dadoji` (to design, Phase 1) | HISTORY (administrator) · CONTESTED (teacher; shown per D-15) |
 
 ## Adilshahi (Bijapur Sultanate)
 

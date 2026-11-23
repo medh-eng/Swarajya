@@ -55,7 +55,8 @@ and record the check in `history/AI-REPORTS-REVIEW.md`.
   Jai Singh, Udaybhan Rathod...).
 - Not playable (D-07): a battle against Sambhaji; executions, massacres, reprisals. Tell them plainly
   in History notes.
-- No guru claims (Dadoji Kondadeo, Samarth Ramdas): CONTESTED #6.
+- Dadoji Kondadeo is shown as Shivaji's teacher, as Purandare tells it (D-15); the History panel notes that
+  historians dispute it. Samarth Ramdas does not appear (CONTESTED #6).
 - Art prompts: Shivaji's likeness from period portraits only; no film or TV likenesses (D-10).
 
 ## Engine rules (inherited from YUDDH)
@@ -69,18 +70,24 @@ and record the check in `history/AI-REPORTS-REVIEW.md`.
 - YUDDH's hard-won lessons apply (kill GSAP tweens before destroying Pixi objects; decoration has
   `eventMode = 'none'`; load art before building a scene; etc.): read YUDDH's CLAUDE.md "Hard-won lessons".
 
-## Map (planning stage; update when code arrives)
+## Map
 ```
 STATE.md  PROGRESS.md  LOG.md  TASKS.md      session files (read STATE first)
-docs/DESIGN.md                               what the game is
-docs/PLAN.md                                 phases, gates, roles, risks
+ENGINE_BASELINE                              the YUDDH commit the engine was copied from
+docs/DESIGN.md  docs/PLAN.md                 what the game is; phases, gates, roles, risks
 history/CHRONOLOGY.md                        THE source of historical fact (IDs C-YYYY-NAME)
-history/SOURCES.md                           P (primary), S (scholarship), W (web) source IDs
-history/CONTESTED.md                         disputed points and our handling
-history/PEOPLE.md                            names, sides, spellings, card ids
+history/SOURCES.md  CONTESTED.md  PEOPLE.md  sources; disputed points; names and card ids
 history/PURANDARE-CHECK.md                   each chronology entry checked against the standard reference
 history/AI-REPORTS-REVIEW.md                 what was checked in AI research reports (leads only, never sources)
-data/chapters.json                           the campaign: 23 chapters with refs (one proposed)
-data/cards.draft.json                        draft cards (not loaded by the game)
-scripts/check-refs.mjs                       the ref checker (part of npm test)
+data/chapters.json  data/cards.draft.json    design data: 23 chapters, draft cards (not loaded by the game)
+scripts/check-refs.mjs                       the ref checker (first step of npm test)
+src/engine/                                  rules, AI, search (no DOM); ruleset.ts gates YUDDH/Swarajya rules
+src/data/                                    cards, decks, rules, history notes (JSON; balance = JSON edits)
+src/campaign/                                scenarios; missions.ts = the classic campaign (golden test, keep)
+src/game/                                    Pixi renderer: stage, scenes (swarajyaTitle.ts = Phase 0 title), ui, cards
+src/meta/  src/assets/                       progress and standing; art manifest (card-art.json lists painted cards)
+tests/                                       Vitest (golden, rules, swarajya…); tests/e2e = Playwright playtests
+legacy/                                      the prototype engine that produced the golden traces
+public/                                      favicon, icons, manifest (art goes in public/assets/ via npm run assets)
 ```
+YUDDH content in `src/campaign/` and `src/data/` is scaffolding (D-17); Phase 1 replaces it.

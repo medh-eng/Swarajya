@@ -634,7 +634,7 @@
       "act": "act5",
       "order": 20.5,
       "phase": 4,
-      "status": "proposed",
+      "status": "planned",
       "title": "Sangamner",
       "titleMr": "संगमनेर",
       "date": "November 1679",
@@ -653,7 +653,7 @@
       "refs": [
         "C-1679-JALNA"
       ],
-      "invented": "Proposed by Claude after reviewing the ChatGPT report (Pon to decide). The escape is the win; the rearguard under Sidhoji Nimbalkar is lost, as history records. No numbers."
+      "invented": "Proposed by Claude after reviewing the ChatGPT report; approved by Pon on 24 Nov 2026. The escape is the win; the rearguard under Sidhoji Nimbalkar is lost, as history records. No numbers."
     },
     {
       "id": "ch21_raigad",

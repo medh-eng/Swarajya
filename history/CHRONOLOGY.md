@@ -45,8 +45,8 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 ### C-1640-PUNE · Boyhood in the Pune jagir
 - **Date:** c. 1636–1647
 - **Event:** Shivaji and Jijabai lived in Pune, where Shahaji's administrator Dadoji Kondadeo ran the jagir in Shivaji's name. Shivaji married Saibai at the Lal Mahal, Pune, on 16 May 1640. After Dadoji's death (7 March 1647) Shivaji took full control of the jagir.
-- **Basis:** HISTORY. (Whether Dadoji was Shivaji's *teacher* is disputed: CONTESTED.md #6. The game shows him only as the jagir's administrator.)
-- **Refs:** W-EARLY, W-LALMAHAL, W-DADOJI
+- **Basis:** HISTORY (administrator). CONTESTED: that Dadoji was also Shivaji's teacher, as *Raja Shivachhatrapati* tells it (CONTESTED.md #6). By Pon's decision D-15 the game shows him as teacher, as Purandare's account, with the dispute noted.
+- **Refs:** W-EARLY, W-LALMAHAL, W-DADOJI, S-PURANDARE (teacher: chapter to be cited from Pon's pages)
 - **Game:** tutorial `ch00_maval` setting; Jijabai card text
 
 ---
@@ -433,7 +433,7 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Event:** In late 1679 Shivaji came to Bijapur's help against Diler Khan, then split his army and raided Mughal territory, sacking Jalna. On the way back he was attacked at Sangamner by a Mughal force under Ranmast Khan. A Maratha rearguard under Sidhoji Nimbalkar fought for about three days; Sidhoji was killed with many of his men, and Shivaji narrowly escaped capture. It was the last battle in which he took part. The result is described as a Mughal victory or as indecisive (Sarkar heads the section "Shiva defeated by Ranmast").
 - **Basis:** HISTORY (raid, battle, rearguard) · CONTESTED (result; numbers not used: CONTESTED.md #23)
 - **Refs:** W-SANGAMNER, W-SARKAR-JALNA, W-TAKAKHAV-1679, W-AURANGZIB-IV
-- **Game:** proposed chapter `ch20b_sangamner` (a rearguard escape, like Pavan Khind at the end of his life). Status: proposed, for Pon to decide.
+- **Game:** chapter `ch20b_sangamner` (a rearguard escape, like Pavan Khind at the end of his life). Approved by Pon, 24 Nov 2026.
 
 ### C-1680-DEATH · Raigad, April 1680
 - **Date:** 3 April 1680 (some sources: 5 April)
