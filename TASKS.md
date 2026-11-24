@@ -3,18 +3,14 @@
 *What is next, in order. Updated at the end of every session. Done items move to PROGRESS.md.*
 
 ## For Pon (now)
-- [ ] **Switch on GitHub Pages** for `medh-eng/Swarajya`: Settings → Pages → Source "Deploy from a branch" →
-      branch `gh-pages`, folder `/ (root)` → Save. (The branch appears after the first "Test and publish" run
-      in the Actions tab finishes.) Then open https://medh-eng.github.io/Swarajya/ on your phone, sideways.
-- [ ] Send photos of the pages of *Raja Shivachhatrapati* (English, latest) for the vertical slice:
-      Dadoji and the Pune years, Torna, the Afzal Khan episode and Pratapgad. Note volume and chapter.
+- [x] GitHub Pages switched on (Pon, 24 Nov 2026): open https://medh-eng.github.io/Swarajya/ on your phone, sideways, to look.
+- [x] Purandare pages for the vertical slice (Torna to the Pratapgad meeting) sent and recorded. **No more pages needed** (D-22).
 - [ ] Read `history/CONTESTED.md` and `docs/DESIGN.md` §5 (chapter list) and §3 (new mechanics).
 - [ ] Find a Marathi reader to review strings before Gate 1 (Q-05).
-- [ ] Paint from `art/PROMPTS-BATCH1.md` (written 24 Nov 2026): 20 cards + 2 battlefields; Shivaji Raje first, then save PNGs in `art/source/cards/` and `art/source/battlefields/`, then `npm run assets`.
+- [ ] Paint the rest of `art/PROMPTS-BATCH1.md` (10 of 20 cards done). PNGs go in `art/source/cards/` (5:7), `art/source/forts/` (square) and `art/source/battlefields/` (16:9); then `npm run assets`. Redo sw_dadoji, sw_gopinath, sw_jijau_counsel at 1080 px wide or more if possible.
 - [x] Torna and Rajgad as per the book (D-19, D-20), 24 Nov 2026.
-- [ ] Send Vol. I p. 213, then the Afzal Khan / Pratapgad pages (pp. 235-287); decides Q-07 (CONTESTED #27, #28).
+- [ ] Claude: online research pass on the VERIFY items and unchecked chronology rows (D-22); ask Pon for specific book pages only for CONTESTED #27-#29 if online sources cannot settle them.
 - [ ] Rewrite `ch01_torna` objective as a take-hold-fortify race when the Gad mechanic lands (Phase 1 step 2).
-- [ ] Send the next Purandare pages (list in `history/PURANDARE-CHECK.md`): Pratapgad pp. 235-287 first, then pp. 171-200.
 - [x] Name: YUDDH: Swarajya (D-14). Dadoji as teacher (D-15). English edition; Sangamner kept (D-16).
 - [x] Repo `medh-eng/Swarajya` created; Gemini report re-sent and reviewed.
 

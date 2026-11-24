@@ -23,6 +23,7 @@ const root = new URL('..', import.meta.url).pathname;
 /* ---------------- pictures ---------------- */
 const jobs = [
   { from: 'art/source/cards', to: 'public/assets/cards', w: 720, q: 84 },
+  { from: 'art/source/forts', to: 'public/assets/cards', w: 720, q: 84 },
   { from: 'art/source/battlefields', to: 'public/assets/battlefields', w: 2560, q: 82 }
 ];
 const cards = [];
@@ -33,7 +34,7 @@ for (const j of jobs) {
   for (const f of readdirSync(src).filter(f => /\.(png|jpe?g|webp)$/i.test(f))) {
     const id = parse(f).name;
     await sharp(join(src, f)).resize({ width: j.w, withoutEnlargement: true }).webp({ quality: j.q }).toFile(join(dst, `${id}.webp`));
-    if (j.from.endsWith('cards')) cards.push(id);
+    if (j.from.endsWith('cards') || j.from.endsWith('forts')) cards.push(id);
     console.log(`  ${j.to}/${id}.webp`);
   }
 }

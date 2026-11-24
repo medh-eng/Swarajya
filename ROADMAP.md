@@ -11,11 +11,15 @@ Progress checklist for the Repo Command Center app (`- [x]` done, `- [ ]` remain
 - [x] Purandare pages up to pp. 207-227 recorded
 - [x] Seven Phase 1 cards that need no new mechanic
 - [x] Pratapgad art prompts refreshed
+- [x] Purandare pages through the Pratapgad meeting (pp. 154-169, 207-284) recorded; no further pages needed (D-22)
+- [x] GitHub Pages switched on (Pon)
+- [x] Art prompt sheet has exact formats and safe areas; folders for cards, forts and battlefields ready
+- [x] Ten of twenty art-batch-1 cards painted (Shivaji, Mavla, Havaldar, Hetkari, Bargir, Shiledar, Herkari, Gopinath, Jijau's counsel, Dadoji)
+- [x] D-21 (Shivaji never in teal or green) and D-22 (online research workflow) decided
 
 ## Remaining
-- [ ] Switch on GitHub Pages for the repo (Pon)
-- [ ] Paint art batch 1 from art/PROMPTS-BATCH1.md: 20 cards and 2 battlefields (Pon)
-- [ ] Send the next Purandare pages: Pratapgad pp. 235-287 first (Pon)
+- [ ] Paint the other 10 cards, the 4 fort cards and 2 battlefields of art batch 1 (Pon)
+- [ ] Online research pass on the VERIFY items and unchecked chronology rows (Claude)
 - [ ] Find a Marathi reader to review strings before Gate 1 (Pon)
 - [ ] Phase 1 vertical slice: Gad card type and capture, Bhet mechanic, tutorial, Torna, Pratapgad, then Gate 1
 - [ ] Phase 2: Acts I–II, Jaoli to Purandar

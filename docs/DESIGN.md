@@ -225,4 +225,4 @@ Same method as YUDDH: AI "normal" vs "normal", 200 seeded games per chapter.
 - 23 Nov 2026: Purandare's *Raja Shivachhatrapati* is the standard reference (D-12); repo `medh-eng/Swarajya` (D-13).
 - 24 Nov 2026: title **YUDDH: Swarajya** (D-14); Dadoji Kondadeo shown as Shivaji's teacher, following Purandare,
   with the dispute noted (D-15); Pon's copy of the book is the English edition, latest printing; chapter
-  `ch20b_sangamner` approved (D-16). Phase 0 engine copy done (ruleset `'swarajya'`, see STATE.md).
+  `ch20b_sangamner` approved (D-16). D-19/D-20 (Torna, Rajgad per Purandare), D-21 (Shivaji never in teal or green), D-22 (online research, no whole-book check). Phase 0 engine copy done (ruleset `'swarajya'`, see STATE.md).

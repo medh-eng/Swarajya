@@ -83,6 +83,7 @@ For **Adilshahi** pictures add: *"Bijapur school colours: deep green lacquer, la
   actor, modern statue or the sketches in Purandare's book.
 - Enemies and allies alike are drawn with the **same dignity** as the heroes: serious, capable people.
 - Show the real mixture of an army: faces, dress and caps differ. Do not turn any army into one community.
+- **Shivaji's clothes are never teal or green** (D-21): saffron, yellow, cream, orange, red or maroon only. Green belongs to Bijapur.
 - Nothing may show a killing; the Pratapgad pieces show the **weapons and the tension**, never the blow.
 
 ---
@@ -93,7 +94,7 @@ For **Adilshahi** pictures add: *"Bijapur school colours: deep green lacquer, la
 *Basis: HISTORY [C-1630-BIRTH, C-1646-TORNA, C-1659-PRATAPGAD]. This is the character-defining picture: do it first and keep it as the reference for every other card.*
 **Prompt:** A young man in his twenties, Shivaji Raje, in profile and three-quarter view like a 17th-century court portrait: dark
 moustache and short trimmed beard, calm, watchful eyes, a plain turban with one jewel and a short plume, a simple long jama coat in
-deep teal with a saffron sash, a straight sword at his side. He stands on a stone rampart of a hill fort at dawn, one hand resting on
+saffron-yellow with an orange sash (**never teal or green: D-21**), a straight sword at his side. He stands on a stone rampart of a hill fort at dawn, one hand resting on
 the parapet, the Sahyadri ridges and morning mist behind him, a small saffron pennant lifting in the wind. Quiet authority, not a pose
 of triumph. Rich but not royal dress (he is a jagirdar's son, not yet a king).
 
@@ -262,16 +263,16 @@ and the paintings must be original (no tracing, no pasting a photograph). What t
 
 | # | File | Painted |
 |---|---|---|
-| 1 | `cards/sw_shivaji` | [ ] |
-| 2 | `cards/sw_mavla` | [ ] |
-| 3 | `cards/sw_havaldar` | [ ] |
-| 4 | `cards/sw_hetkari` | [ ] |
-| 5 | `cards/sw_bargir` | [ ] |
-| 6 | `cards/sw_shiledar` | [ ] |
-| 7 | `cards/sw_herkari` | [ ] |
-| 8 | `cards/sw_gopinath` | [ ] |
-| 9 | `cards/sw_jijau_counsel` | [ ] |
-| 10 | `cards/sw_dadoji` | [ ] |
+| 1 | `cards/sw_shivaji` | [x] |
+| 2 | `cards/sw_mavla` | [x] |
+| 3 | `cards/sw_havaldar` | [x] |
+| 4 | `cards/sw_hetkari` | [x] |
+| 5 | `cards/sw_bargir` | [x] |
+| 6 | `cards/sw_shiledar` | [x] |
+| 7 | `cards/sw_herkari` | [x] |
+| 8 | `cards/sw_gopinath` | [x] |
+| 9 | `cards/sw_jijau_counsel` | [x] |
+| 10 | `cards/sw_dadoji` | [x] |
 | 11 | `cards/sw_torna_hoard` | [ ] |
 | 12 | `cards/sw_wagh_nakh` | [ ] |
 | 13 | `cards/sw_gad_torna` | [ ] |

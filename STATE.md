@@ -7,11 +7,11 @@ session. History of changes lives in `LOG.md`.*
 
 ## In one paragraph
 YUDDH: Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on
-the YUDDH engine. The repo `medh-eng/Swarajya` holds the planning package (sourced chronology of 63
-entries, 23 chapters, 78 draft cards) and, since session 5, the YUDDH engine copied at its baseline
+the YUDDH engine. The repo `medh-eng/Swarajya` holds the planning package (sourced chronology of 73
+entries, 23 chapters, 71 draft cards) and, since session 5, the YUDDH engine copied at its baseline
 with a new ruleset `'swarajya'`. `npm test` (check-refs + 84 Vitest tests incl. the 154-game golden
 replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn placeholder title
-("Coming soon"). Session 6 added empires `swarajya` and `adilshahi` and 7 playable cards (86 tests). No Swarajya mechanic, chapter or art is in the game yet.
+("Coming soon"). Session 6 added empires `swarajya` and `adilshahi` and 7 playable cards (86 tests). No Swarajya mechanic or chapter is in the game yet. **Ten card paintings are done** (Pon, art batch 1) and registered in `src/assets/card-art.json`; GitHub Pages is switched on (Pon, 24 Nov 2026).
 
 ## Start here (next session)
 1. Read this file, `TASKS.md` (section "Phase 1"), the last three `LOG.md` entries, then `CLAUDE.md`.
@@ -28,12 +28,12 @@ replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn pla
 |---|---|---|
 | Design | `docs/DESIGN.md` | v1 + decisions log to D-17 |
 | Roadmap | `docs/PLAN.md` | v1 (Phase 0 done) |
-| Chronology (single source of truth) | `history/CHRONOLOGY.md` | 66 entries (3 new from Purandare: C-1646-TORNA-FORT, C-1647-KONDHANA-BAPUJI, C-1647-JAVLI); VERIFY items below |
+| Chronology (single source of truth) | `history/CHRONOLOGY.md` | 73 entries; Purandare pp. 154-169, 207-284 recorded (Torna to the Pratapgad meeting); VERIFY items below |
 | Sources | `history/SOURCES.md` | P/S/W lists; primary texts still to obtain |
-| Contested points | `history/CONTESTED.md` | 26 items; #25 (Torna garrison) and #26 (Javli 1647) need Pon |
+| Contested points | `history/CONTESTED.md` | 29 items; #27-#29 open (Baji More's fate; elder Sambhaji and Afzal; Siddi Hilal's side in 1659) |
 | People and spellings | `history/PEOPLE.md` | v1 |
 | AI reports review | `history/AI-REPORTS-REVIEW.md` | ChatGPT and Gemini reports checked claim by claim |
-| Purandare check list | `history/PURANDARE-CHECK.md` | 5 entries partly checked from Vol. I pp. 154-169 (Torna, Dadoji, Kondhana, Rajgad, Shahaji run-up); page request list at the bottom |
+| Purandare check list | `history/PURANDARE-CHECK.md` | Rows checked from the pages Pon sent (not a gate, D-22); no more pages needed unless a point is disputed |
 | Chapters (design data) | `data/chapters.json` | 23 (1 blocked: `ch02_purandar1648`) |
 | Cards (design data) | `data/cards.draft.json` | 71 draft (7 ported to the game), unbalanced, not loaded |
 | Ref checker | `scripts/check-refs.mjs` | in `npm test`; passes (1 warning: `jm_hanmantrao` VERIFY) |
@@ -43,8 +43,9 @@ replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn pla
 | Campaign code | `src/campaign/` | YUDDH's (scaffolding, D-17); `missions.ts` must stay (golden test) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts` |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main |
-| Art prompts | `art/PROMPTS-BATCH1.md` | 20 card + 2 battlefield prompts, ready for Pon |
-| Art, sound | — | none painted yet (icons and favicon drawn in code) |
+| Art prompts | `art/PROMPTS-BATCH1.md` | 20 card + 2 battlefield prompts, with exact formats (5:7 cards, square forts, 16:9 battlefields) and safe areas |
+| Art (painted) | `art/source/cards/` | 10 of 20 cards done: sw_shivaji, mavla, havaldar, hetkari, bargir, shiledar, herkari, gopinath, jijau_counsel, dadoji. Folders `forts/` and `battlefields/` are ready and empty |
+| Sound | — | none yet (icons and favicon drawn in code) |
 
 ## Engine baseline and how the ruleset works
 YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `ENGINE_BASELINE`).
@@ -82,6 +83,8 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 | D-18 | **S-PURANDARE edition recorded:** Vol. I, English, Edition 2 (April 2022), trans. Dr. Hema Hirlekar. The book's sketches are never used as art references; its wording is never quoted. | 24 Nov 2026 |
 | D-19 | **Torna as in Purandare:** an unguarded fort taken without a fight. Chapter 1 becomes a race to take, hold and fortify it; no enemy hero (CONTESTED #25). | 24 Nov 2026 |
 | D-20 | **Rajgad named at once** (Purandare), no year printed for the renaming (CONTESTED #21). | 24 Nov 2026 |
+| D-21 | **Shivaji's clothes are never teal or green** (green is Bijapur's colour): saffron, yellow, cream, orange, red or maroon. Pon chose the yellow jama. | 24 Nov 2026 |
+| D-22 | **Research workflow:** Claude researches online (period sources, scholarship, reputable references; two independent sources per fact) and does not wait for the whole book. Pon is not asked to photograph Purandare; specific pages only for a specific disputed or single-source point. Purandare stays the standard where Pon supplied pages. `PURANDARE-CHECK.md` is no longer a gate. | 24 Nov 2026 |
 | D-17 | Phase 0 keeps YUDDH's content code (`src/campaign/*`, YUDDH cards and duel factions in `src/data/*.json`) as **scaffolding** so the battle screen, duel and tests keep compiling. It is not reachable from the game (the title is a placeholder). Phase 1 replaces it piece by piece with Swarajya content and deletes what is left. YUDDH's art is not copied (`src/assets/card-art.json` is empty, so cards draw their placeholder frame). | 24 Nov 2026 |
 
 
@@ -107,8 +110,6 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 - "Bahlol Khan" at Salher (Mughal) vs the Bijapuri Bahlol Khan: assumed two people.
 
 ## Next three things
-1. Pon: switch on GitHub Pages (Settings → Pages → Deploy from a branch → `gh-pages`, `/ (root)`), then open
-   https://medh-eng.github.io/Swarajya/ on the phone. Send page photos of *Raja Shivachhatrapati* (English)
-   for Torna, the Afzal Khan episode and Pratapgad.
-2. Claude: Phase 1 step 2–3: the Gad card type and `capture` objective (then port the 4 Gad cards).
-3. Pon: paint from `art/PROMPTS-BATCH1.md` (Shivaji Raje first); send the pages listed at the bottom of `history/PURANDARE-CHECK.md` (Pratapgad pp. 235-287 first); optional: pp. 285-287, 262-266, 246-256, 229-234 and p. 213 (the Pratapgad meeting and battle, pp. 270-284, are now recorded). Note: the Pratapgad card (15) and battlefield (B2) prompts were updated with the book's setting; if you already painted them, see "Changed from the first version" in the sheet.
+1. Claude: online research pass (no book needed) on the VERIFY items: the Fateh Khan episode at Purandar 1648 (unblocks `ch02_purandar1648`), Javli 1647, the dates for Baji More's fate and Siddi Hilal's side (CONTESTED #27-#29), then the remaining "not yet checked" chronology rows (D-22).
+2. Claude: Phase 1 step 2: the Gad card type with a **square art window** and the `capture` objective (then port the 4 Gad cards).
+3. Pon: keep painting from `art/PROMPTS-BATCH1.md` (remaining: Torna hoard, Wagh Nakh, the four fort cards in `art/source/forts/`, Afzal Khan, Hasham, Gaja, Topkhana, and the two battlefields in `art/source/battlefields/`); three finished cards (sw_dadoji, sw_gopinath, sw_jijau_counsel) are only 345 px wide and tight at the top: redo them at 1080 px or wider if the tool allows.

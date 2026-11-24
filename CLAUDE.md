@@ -17,16 +17,16 @@ Target: web (GitHub Pages) then Google Play, landscape only.
    rules or decisions changed. Append one entry to `LOG.md`.
 3. Commit (author "Claude", attribution lines per session instructions).
 
-## Reference order (Pon's decision, 23 Nov 2026)
-1. **Standard reference: Babasaheb Purandare, *Raja Shivachhatrapati*** (S-PURANDARE). Check every
-   chapter, person and sequence of events against it first, and cite it by chapter.
-2. Period sources (Sabhasad, Jedhe, Shivabharata, English factory letters, Persian accounts) and
-   source-critical scholarship (Mehendale, Sarkar) to confirm dates and details.
-3. Encyclopedias and web pages only to find things, never as the last word.
-When 1 and 2 disagree, or the point is publicly disputed: write both into `history/CONTESTED.md`,
-show it to Pon, and follow his decision. Never quote the book's text in the game; paraphrase facts.
-We cannot read the book online: work from the pages Pon provides, and mark an entry "checked"
-in `history/PURANDARE-CHECK.md` only after seeing the relevant pages.
+## Reference order (Pon's decisions, 23 and 24 Nov 2026; D-22)
+1. **Purandare, *Raja Shivachhatrapati*** (S-PURANDARE) is the standard reference **where Pon has supplied the pages** (listed in
+   `history/PURANDARE-CHECK.md`): cite those by page. Pon is **not** asked to photograph the book (about 1,000 pages).
+2. **Everywhere else Claude researches online itself** and does not wait for the book: period sources and translations (Sabhasad, Jedhe,
+   Shivabharata, English factory letters, Persian accounts), scholarship (Mehendale, Sarkar, Gordon and others), and reputable references.
+   Dates, names and sequences need **two independent sources**; record each in `history/SOURCES.md` and in the chronology entry (Basis, Refs).
+3. One weak source, or sources that conflict: the entry stays **VERIFY** (never ships) or goes to `history/CONTESTED.md`.
+   Claude asks Pon for specific book pages **only** for a specific disputed or single-source point, and lists the question in `TASKS.md`.
+When sources disagree (Purandare included) write both into `history/CONTESTED.md`, show it to Pon and follow his decision.
+Never quote the book's text in the game; paraphrase facts.
 Research from other AIs (ChatGPT, Gemini) is a lead only: confirm each claim in a SOURCES.md source
 and record the check in `history/AI-REPORTS-REVIEW.md`.
 
@@ -57,7 +57,7 @@ and record the check in `history/AI-REPORTS-REVIEW.md`.
   in History notes.
 - Dadoji Kondadeo is shown as Shivaji's teacher, as Purandare tells it (D-15); the History panel notes that
   historians dispute it. Samarth Ramdas does not appear (CONTESTED #6).
-- Art prompts: Shivaji's likeness from period portraits only; no film or TV likenesses (D-10).
+- Art prompts: Shivaji's likeness from period portraits only; no film or TV likenesses (D-10). **Shivaji's clothes are never teal or green** (D-21; green is Bijapur's colour): saffron, yellow, cream, orange, red, maroon.
 
 ## Engine rules (inherited from YUDDH)
 - Engine baseline: YUDDH commit `6f1c852`. The engine (`src/engine/`) has no DOM code; screens go in `src/game/`.

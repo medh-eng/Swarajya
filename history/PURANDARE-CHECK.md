@@ -1,7 +1,8 @@
 # Purandare check list
 
-Every chronology entry checked against the standard reference, Babasaheb Purandare,
-*Raja Shivachhatrapati* (S-PURANDARE). Mark an entry only after reading the relevant pages.
+Chronology entries checked against Babasaheb Purandare, *Raja Shivachhatrapati* (S-PURANDARE) **where Pon has supplied the pages**.
+Mark an entry only after reading the relevant pages. **This list is not a gate** (D-22, 24 Nov 2026): Claude researches the other entries online
+and asks Pon for specific book pages only for a specific disputed or single-source point.
 
 Status: `not yet checked` · `agrees` · `adds detail` (note it) · `differs` (both versions go to CONTESTED.md; Pon decides).
 
@@ -76,12 +77,8 @@ Credits page; index (pp. of all Vol. I sections: see `SOURCES.md`); pp. 154-158 
 165-167 and 168-169 (Fort Kondana). Also pp. 207-212 (In Javli Jungles), 214-222 (Supa, Karhe plateau), 223-227 (Darya Sarang). Also pp. 228 (Badi Saheba), 235-245 (Afzalkhan, Tuljabhavani), 257-261 (Khan's envoy; sideways photos), 267-284 (Fort Pratapgad, through the battle and its aftermath). Not photographed: 160, 162-164, 213, 229-234, 246-256, 262-266, 285 onwards.
 Note: page 156 is a full-page sketch with a short text below; the sketches are Deenanath Dalal's and are never used as art references.
 
-## Pages to ask Pon for (in this order; photos of each page are enough)
-1. **Vol. I pp. 171-175** ("Betrayal": Shahaji's arrest) and **176-184** (Subhan Mangal) and **185-200** (Purandar, "Soubhagyachi Vatpournima"):
-   checks C-1648-SHAHAJI, C-1647-EXPANSION, and decides whether chapter 2 (Purandar 1648) can be built.
-2. **pp. 160, 162-164**: the rest of Dadoji's section (his teaching, his death, any date).
-3. **Pratapgad:** the meeting and battle (pp. 270-284) are now seen. Still useful: pp. 285-287 (the end of the section), 262-266, 246-256, 229-234 and p. 213.
-4. **Early chapters** (pp. 1-98 and 102-145): birth, Shivneri, Jijabai, Pune (C-1630-BIRTH, C-1640-PUNE, tutorial `ch00_maval`).
+## Specific book questions (only if online research cannot settle them)
+None at present. Candidates, to be confirmed after online research: Baji More's fate (CONTESTED #27), the elder Sambhaji and Afzal (#28), Siddi Hilal's side in 1659 (#29), and p. 213 (end of the Javli section).
 
 
 New entries from pp. 207-227 (all single-source, dates VERIFY): C-1656-SUPA, C-1656-BHAVANI-SWORD, C-1657-KONDHANA-RETAKEN, C-1657-NORTH-KONKAN.

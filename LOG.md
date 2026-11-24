@@ -209,3 +209,12 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 
 **Asked:** put exact picture specifications in the prompt sheet (cards 5:7 with clear space above the head, forts square, battlefields 16:9) and check four finished paintings (sw_shivaji, sw_mavla, sw_havaldar, sw_hetkari).
 **Done:** new "Format and safe-area specification" in `art/PROMPTS-BATCH1.md`, derived from the code: card face 480 x 672 (5:7), art window 424 x 404, cover-fit with focus 0.3, so a 5:7 picture shows about 10-77 % of its height (token: 7-83 %). Simulated the four paintings in the card and token windows: all read well. Gad cards will need a square window (Phase 1 step 2, noted in TASKS).
+
+## 24 Nov 2026 · Session 6 (eighth part) · Claude (with Pon)
+
+**Asked:** create folders for card, fort and battlefield art; mark work done on the roadmap and status files; Pon switched on GitHub Pages and sent six more paintings; Pon's decisions: Shivaji never in teal or green; no need to photograph the whole book.
+**Done**
+- `art/source/cards|forts|battlefields` with a README; `scripts/convert-assets.mjs` gets a `forts` job (output to `public/assets/cards`). The ten finished paintings are in `art/source/cards/`, converted, and listed in `src/assets/card-art.json`.
+- D-21 and D-22 recorded (CLAUDE.md reference order rewritten; PURANDARE-CHECK no longer a gate). Prompt sheet: Shivaji's teal removed, checklist ticked for ten cards.
+- STATE, TASKS, ROADMAP, PROGRESS updated.
+**Notes for next time:** GitHub's Pages API and the live site cannot be reached from this workspace; Pon confirms Pages is on. Three paintings are 345 px wide (dadoji, gopinath, jijau_counsel).
