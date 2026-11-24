@@ -156,8 +156,8 @@ no flag on the gate, empty ramparts, a few crumbling battlements, weeds on the w
 people. It looks grand and abandoned. Cooler, greyer light than the captured version.
 
 ### 17. `as_afzal_khan` — Afzal Khan · legendary · *General of Bijapur*
-*Basis: HISTORY [C-1659-AFZAL-MARCH, C-1659-PRATAPGAD]. Dignity rule D-05: a formidable veteran general. No physical description is in the chronology, so keep him average-to-large in presence and avoid inventing a scar or a size.*
-**Prompt:** A veteran Bijapur general, mature and weathered, with a full dark beard, in rich court-soldier dress: a quilted coat over mail, a
+*Basis: HISTORY [C-1659-AFZAL-MARCH, C-1659-PRATAPGAD]. Dignity rule D-05: a formidable veteran general. The chronology has no description, but Purandare (p. 235) describes him as very tall and broad, an imposing presence: use that, with dignity (no demonic look, no inventing a scar). Updated 24 Nov 2026.*
+**Prompt:** A veteran Bijapur general, very tall and broad-shouldered, an imposing presence, mature and weathered, with a full dark beard, in rich court-soldier dress: a quilted coat over mail, a
 jewelled turban, a curved sword at his belt, standing at the entrance of a large green-and-gold pavilion with attendants and a small
 escort behind him, looking out over a forest clearing with calm, intelligent confidence. Authority, experience, an unreadable face. Not a
 villain: a serious commander with a serious mission.

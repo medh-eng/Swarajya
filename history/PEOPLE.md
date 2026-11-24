@@ -32,7 +32,7 @@ Basis column: what we may show about them. `TRADITION` people (or deeds) are lab
 | Kondaji Farzand | Took Panhala by night, 1673 | C-1673-PANHALA | `sw_kondaji` | HISTORY |
 | Annaji Datto | Officer who planned the Panhala attack | C-1673-PANHALA | none yet | HISTORY |
 | Bahirji Naik | Head of intelligence | C-X-BAHIRJI | `sw_bahirji` | HISTORY (role) |
-| Gopinath Pant | Shivaji's envoy to Afzal Khan | C-1659-AFZAL-MARCH | `sw_gopinath` | HISTORY |
+| Gopinath Pant (Pantaji Gopinath Bokil, "Kaka") | Shivaji's envoy to Afzal Khan; a family friend of Jijabai's | C-1659-AFZAL-MARCH | `sw_gopinath` | HISTORY (surname and "Kaka": S-PURANDARE) |
 | Daulat Khan | Admiral | C-X-OFFICERS | `sw_daulat_khan` | HISTORY |
 | Darya Sarang | Naval commander | C-X-OFFICERS | none yet | HISTORY |
 | Mai Nayak Bhandari | Captain at Khanderi, 1679 | C-1679-KHANDERI | `sw_mainayak` | HISTORY |
@@ -50,7 +50,7 @@ Basis column: what we may show about them. `TRADITION` people (or deeds) are lab
 | Ali Adil Shah II | Sultan of Bijapur (r. 1656–1672) | C-1660-PANHALA-SIEGE | none | HISTORY |
 | Badi Sahiba | Queen mother; advised Afzal Khan (per English letter) | C-1659-AFZAL-MARCH | none | HISTORY |
 | Afzal Khan | Veteran general; killed at Pratapgad 1659 | C-1659-AFZAL-MARCH, C-1659-PRATAPGAD | `as_afzal_khan` | HISTORY |
-| Krishnaji Bhaskar | Afzal Khan's envoy | C-1659-AFZAL-MARCH | none | HISTORY |
+| Krishnaji Bhaskar (Kulkarni) | Afzal Khan's envoy | C-1659-AFZAL-MARCH | none | HISTORY |
 | Fazl Khan | Afzal Khan's son | C-1659-KOLHAPUR, C-1660-PANHALA-SIEGE | `as_fazl_khan` | HISTORY |
 | Rustam Zaman | General at Kolhapur, 1659 | C-1659-KOLHAPUR | `as_rustam_zaman` | HISTORY |
 | Siddi Jauhar | Abyssinian general; besieged Panhala 1660 | C-1660-PANHALA-SIEGE | `as_siddi_jauhar` | HISTORY |
@@ -118,3 +118,12 @@ as **two different people** until a source joins them (TASKS: verify).
 | Dadaji Bapuji Ranzekar, Sakho Krishna Lohokare | Commanders at Kalyan and Bhivandi 1657 | C-1657-NORTH-KONKAN | none | HISTORY (S-PURANDARE) |
 | Daryasarang, Maynak Bhandari | First naval commanders | C-1654-NAVY | none | HISTORY (S-PURANDARE) |
 | Govlekar Sawant | Sawant chief; gave the Bhavani sword | C-1656-BHAVANI-SWORD | none | HISTORY (S-PURANDARE) |
+| Saibai | Shivaji's wife; mother of Sambhaji; d. 5 Sept 1659 | C-1659-SAIBAI-DIED | none | HISTORY (S-PURANDARE) |
+| Bajaji Naik Nimbalkar | Saibai's brother; held by Afzal Khan 1659 | C-1659-NIMBALKAR | none | HISTORY (S-PURANDARE) |
+| Naikji Pandhare | Officer in Afzal's army; helped free Nimbalkar | C-1659-NIMBALKAR | none | HISTORY (S-PURANDARE) |
+| Khan Muhammad (Khan Mahammad) | Bijapur commander-in-chief; d. 10 Nov 1657 | C-1659-AFZAL-MARCH | none | HISTORY (S-PURANDARE; context only) |
+| Babaji Bhosale | Kinsman ordered to join Afzal; went to Pratapgad | C-1659-AFZAL-MARCH | none | HISTORY (S-PURANDARE; VERIFY) |
+| Prataprao More, Khawaskhan, Ankushkhan | Officers/advisers in Afzal's army | C-1659-AFZAL-MARCH | none | HISTORY (S-PURANDARE) |
+| Kalyanji Yadav (Jadhav), Naikji Kharate, Pilaji and Shankaraji Mohite, Zunzarrao Ghatge | Marathas in Afzal's army (D-05: show them) | C-1659-AFZAL-MARCH | none | HISTORY (S-PURANDARE) |
+| Siddi Saifkhan | Commander sent to Talkonkan by Afzal | C-1659-AFZAL-MARCH | none | HISTORY (S-PURANDARE) |
+| Gangaji, Mangaji, Netoji Palkar, Raghunathpant Atre, Prabhakarbhat Rajopadhye | Shivaji's counsellors at the Pratapgad council | C-1659-AFZAL-MARCH | none | HISTORY (S-PURANDARE; check spelling "Netoji" vs "Netaji") |

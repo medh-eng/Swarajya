@@ -170,3 +170,18 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 **Notes for next time**
 - Book says Baji More was killed in 1656; earlier entry had him fighting at Pavan Khind (CONTESTED #27): do not name his fate in cards.
 - Missing: p. 213; Afzal pages pp. 235+.
+
+## 24 Nov 2026 · Session 6 (fourth part) · Claude (with Pon)
+
+**Asked:** read the next 20 pages (Vol. I pp. 228, 235-245, 257-261, 267-269: Badi Saheba, Afzalkhan, Tuljabhavani, Khan's envoy, Fort Pratapgad).
+
+**Done**
+- CHRONOLOGY (72 entries): large "Purandare adds" block on C-1659-AFZAL-MARCH (court's alarm, Afzal's background, council, Mavle deshmukhs, the two envoys, the plan to meet at Javli, the march over the ridge); new C-1659-SAIBAI-DIED, C-1659-NIMBALKAR.
+- CONTESTED: #5 and #18 extended, #28 updated (Purandare: 1656, Afzal sent no help), new #29 (Siddi Hilal appears on Afzal's side on p. 257: possible misreading, sideways photo).
+- PEOPLE: ~25 names added; Gopinath Pant = Pantaji Gopinath Bokil ("Kaka"). PURANDARE-CHECK updated (key pages next: 270-287).
+- `as_afzal_khan` prompt: tall and broad per the book.
+
+**Notes for next time**
+- The book's tone about Afzal is religious and hostile (D-05): facts only into game text.
+- Design idea for ch04: forest terrain slows elephants and cannon (the book's account of the march).
+- Pon has one more batch ready. Tests, tsc, build run at commit.

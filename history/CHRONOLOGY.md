@@ -192,8 +192,21 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Date:** from about May 1659
 - **Event:** The Bijapur court sent the veteran general Afzal Khan to arrest or destroy Shivaji. The Sabhasad chronicle and the Shivakavya record that he desecrated temples on the way (the later Chitnis bakhar says the images at Tuljapur and Pandharpur were removed before he arrived). An English factor's letter of 10 December 1659 (Henry Revington) says the queen advised Afzal Khan to pretend friendship. His envoy Krishnaji Bhaskar opened talks; Shivaji's envoy was Gopinath Pant.
 - **Basis:** HISTORY (march, envoys, Revington letter) · CONTESTED (temple accounts differ between bakhars)
-- **Refs:** W-AFZAL, W-PRATAPGAD
-- **Game:** `ch04_pratapgad` briefing
+- **Refs:** W-AFZAL, W-PRATAPGAD, S-PURANDARE (Vol. I, "Tajul Mukkhaddirat – Badi Saheba" p. 228; "Afzalkhan" pp. 235-240; "Tuljabhavani" pp. 241-245; "Khan's envoy" pp. 257-261; "Fort Pratapgad" pp. 267-269)
+- **Purandare adds (single source; dates VERIFY):**
+  - *Why Bijapur acted:* the court was alarmed at Shivaji's gains; Badi Sahiba (the sultan's mother) sent Shahaji a threatening letter, and Shahaji answered that his son did not obey him (p. 228).
+  - *Afzal Khan:* served under Randullakhan in Karnatak (1638-43, alongside Shahaji); took part with Mustafakhan and Baji Ghorpade in the arrest of Shahaji (1648). In the book's telling he left Bijapur about 1 year 7 months after 10 Nov 1657, i.e. about June 1659 (the figure is derived; p. 238). He was an able administrator: his letters of 15 July 1654 (to Lingsheti Mokadam) and 18 Oct 1656 (to the Nigde Deshmukh of Shirwal) survive in reproduction (pp. 239-240). A veteran of Karnatak campaigns (Shirpattan, Madura, Bednur and others, p. 236). The book also says he won Shirpattan's king Kasturirang's trust at a parley and killed him (pp. 239, 268): a Maratha-side account, VERIFY.
+  - *Sambhaji (elder brother):* died at the siege of Kanakgiri in 1656 when Afzal, in command, sent no help, in the book's account (p. 236). See CONTESTED #28.
+  - *Context:* Khan Muhammad's death (10 Nov 1657) after Aurangzeb escaped the Bijapur army (pp. 237-238).
+  - *Tuljapur and Pandharpur:* told as fact: the Bhavani idol was broken, a cow killed in the temple, Pandharpur disturbed (pp. 241-242). Other accounts differ (CONTESTED #18).
+  - *Afzal's army (the book names):* Marathas among his officers: Pilaji and Shankaraji Mohite, Kalyanrao Yadav, Naikji Kharate, Naikji Pandhare, Prataprao More, Zunzarrao Ghatge, a Ghorpade (p. 241); Khawaskhan and Ankushkhan as advisers (p. 269). Babaji Bhosale, ordered by the sultan to join Afzal, instead came to Pratapgad (p. 259).
+  - *Shivaji's council (pp. 242-243):* Jijabai, Gangaji, Mangaji, Netoji Palkar, Raghunathpant Atre, Prabhakarbhat Rajopadhye and others were anxious; most urged a treaty; Shivaji argued that Afzal would not make one and proposed drawing him into the Javli forest.
+  - *Bajaji Naik Nimbalkar* (brother of Shivaji's wife Saibai) was seized by Afzal and held in chains, then released on payment: see C-1659-NIMBALKAR.
+  - *The Mavle deshmukhs:* the Deshmukhs of the twelve Mavals (Kanhoji Jedhe, Zunzarrao Maral, Haibatrao Shilamkar, Bandal, Dhamal, Pasalkar and others) stood with Swarajya; Bijapur's decrees tried to turn them (p. 245; again pp. 258-259, where they gather at Pratapgad after Dasara).
+  - *Afzal at Wai:* he camped there through the monsoon, sent raiding columns (Supa, Shirwal, Saswad, Karyat Mawal, Talkonkan; p. 257), and sent his envoy Krishnaji Bhaskar Kulkarni to Pratapgad (pp. 257-261). Shivaji received the envoy with full courtesy, then sent his own trusted man Pantaji Gopinath Bokil ("Kaka", a family friend of Jijabai's) to Wai (pp. 261, 267-269). Afzal's letter to Shivaji, as the book gives it, asked him to surrender forts and live under the sultan.
+  - *The plan:* the book says Pantaji reported that Afzal meant to seize Shivaji at a meeting, and himself advised bringing Afzal to Javli alone; Shivaji sent him back to Wai to say he was too afraid to come to Wai but would meet Afzal at Javli; Afzal swore an oath on Shahaji and agreed (pp. 268-269). Pratapgad to Wai: sixteen kos by foot-path (p. 268).
+  - *The march (p. 269):* Afzal's elephants, camels, horses and cannon crossed the Mahabaleshwar ridge by forest tracks; heavy animals and baggage suffered badly before the army reached Javli; the foot of Pratapgad was about a kos and a half beyond.
+- **Game:** `ch04_pratapgad` briefing. Design note: the terrain is the point: heavy units (elephant, cannon) are slow and costly in the forest; Shivaji's side wins by knowing the ground.
 
 ### C-1659-PRATAPGAD · The meeting below Pratapgad
 - **Date:** 10 November 1659 (some references print 20 November: calendar conversion)
@@ -201,6 +214,20 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Basis:** HISTORY (meeting, death, rout) · CONTESTED (who struck first; army sizes are exaggerated in later bakhars: CONTESTED.md #5)
 - **Refs:** W-SHIVAJI, W-PRATAPGAD, W-AFZAL, W-SABHASAD
 - **Game:** `ch04_pratapgad` (Bhet parley + battle); cards `as_afzal_khan`, `sw_wagh_nakh`
+
+### C-1659-SAIBAI-DIED · Saibai dies at Rajgad
+- **Date:** 5 September 1659 (the book's date)
+- **Event:** Saibai, Shivaji's wife and the mother of the two-year-old Sambhaji, died at Rajgad during the Afzal Khan crisis. Her son was cared for by a wet-nurse.
+- **Basis:** HISTORY per S-PURANDARE (single source: VERIFY the date)
+- **Refs:** S-PURANDARE (Vol. I, "Khan's envoy", p. 258)
+- **Game:** none (family event: History note only)
+
+### C-1659-NIMBALKAR · Bajaji Naik Nimbalkar held by Afzal Khan
+- **Date:** mid 1659, while Afzal was at Pandharpur and Malwadi (undated in the book)
+- **Event:** Afzal Khan took Bajaji Naik Nimbalkar, Saibai's brother and Shivaji's brother-in-law (though a servant of Bijapur and no friend to Shivaji), and held him in chains. The book says Afzal hoped to provoke Shivaji into rash action. Shivaji secretly wrote to Naikji Pandhare, an officer in Afzal's army, to plead for his release; after a large ransom (the book gives a sum: VERIFY) Nimbalkar was freed.
+- **Basis:** HISTORY per S-PURANDARE (single source)
+- **Refs:** S-PURANDARE (Vol. I, "Tuljabhavani", pp. 243-245)
+- **Game:** briefing or card flavour; no number printed
 
 ### C-1659-KOLHAPUR · Battle of Kolhapur
 - **Date:** 28 December 1659
