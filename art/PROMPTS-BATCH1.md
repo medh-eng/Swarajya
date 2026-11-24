@@ -122,7 +122,7 @@ several Mavle workers standing round it, astonished, none reaching for it. The s
 a lucky find and of discipline. Coins plain, no inscriptions legible.
 
 ### 12. `sw_wagh_nakh` — Wagh Nakh · epic · order (Shakti) · *The Tiger Claw*
-*Basis: HISTORY [C-1659-PRATAPGAD: a bagh nakh (tiger claw) concealed on his left arm and a dagger in his right hand]. What happened in the pavilion is not known: show the weapon, never the act.*
+*Basis: HISTORY [C-1659-PRATAPGAD: a bagh nakh (tiger claw) concealed on his left arm and a dagger in his right hand; S-PURANDARE pp. 276-277: claws worn on the fingers with the hooks facing the palm, and a curved dagger (bichwa) hidden in the sleeve]. What happened in the pavilion is not known: show the weapon, never the act. Updated 24 Nov 2026: the book's details fit the prompt below; add the curved dagger rather than a plain one if you like.*
 **Prompt:** A close still-life of a wagh nakh, a curved row of four steel claws on a small bar with two finger-rings, held in an open
 left palm half hidden by a loose sleeve; behind it, out of focus, the cream tent of a pavilion in a forest clearing and a plain dagger
 resting in the other hand. Cool steel, lamplight on the claws, tense stillness. No blood, no figure's face.
@@ -194,7 +194,7 @@ stone ground) for the cards. No people in the foreground.
 ### B2. `pratapgad` — The forest below Pratapgad (chapter 4)
 *Basis: HISTORY [C-1659-PRATAPGAD: the meeting in a pavilion below the fort; November 1659]. Season hemanta (early winter). The battle itself is INVENTED.*
 **File:** `art/source/battlefields/pratapgad.png`, 2560 × 1440.
-**Prompt:** A wide morning view of very dense Sahyadri forest (so thick that a hidden elephant would be hard to find) on a steep slope below a fort silhouetted on the ridge high above, with deep valleys falling away to one side and only narrow foot tracks visible; a cleared
+**Prompt (updated with Purandare pp. 271, 275: the pavilion stands in a cleared space on a spur about halfway up the hill, richly furnished, with deep pearl-trimmed velvet drapes and four tall standing lamps):** A wide morning view of very dense Sahyadri forest (so thick that a hidden elephant would be hard to find) on a steep slope below a fort silhouetted on the ridge high above, with deep valleys falling away to one side and only narrow foot tracks visible; a cleared
 level space in the middle with a large cream pavilion (a parley tent) standing alone, ground mist on the forest floor, tall trees, cold
 early-winter light slanting through the trees. Tense and still. **Leave the middle band calm.** No figures near the pavilion.
 

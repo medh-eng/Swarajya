@@ -185,3 +185,17 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 - The book's tone about Afzal is religious and hostile (D-05): facts only into game text.
 - Design idea for ch04: forest terrain slows elephants and cannon (the book's account of the march).
 - Pon has one more batch ready. Tests, tsc, build run at commit.
+
+## 24 Nov 2026 · Session 6 (fifth part) · Claude (with Pon)
+
+**Asked:** read the next 15 pages (Vol. I pp. 270-284: the plan, the night council, the meeting, the battle, the aftermath).
+
+**Done**
+- CHRONOLOGY (73 entries): C-1659-PRATAPGAD now carries the book's full account (terms, place, day and time, posts of the hidden forces, the ten attendants, dress, the approach, the meeting, the battle, prisoners spared, burial with honour); new C-1659-POSTS-RETAKEN.
+- CONTESTED: #5 extended with the book's account of the meeting; #29 sharpened (Siddi Hilal is on Afzal's side on pp. 257 and 284: not a misreading).
+- PEOPLE: ~40 names added (the ten attendants, Afzal's attendants and officers, the chiefs in the forest posts). PURANDARE-CHECK: Pratapgad row now agrees/adds; remaining pages listed.
+- Prompts: `sw_wagh_nakh` and battlefield B2 annotated with the book's details.
+
+**Notes for next time**
+- Chapter 4 design notes are in C-1659-PRATAPGAD: Bhet = negotiating the terms; hidden-force cannon signal; battle = forest ambush; surrender spares the unarmed.
+- The book's killing scenes and religious language: facts only; no depiction of the blow (art rule).

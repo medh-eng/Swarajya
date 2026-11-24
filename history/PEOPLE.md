@@ -51,7 +51,7 @@ Basis column: what we may show about them. `TRADITION` people (or deeds) are lab
 | Badi Sahiba | Queen mother; advised Afzal Khan (per English letter) | C-1659-AFZAL-MARCH | none | HISTORY |
 | Afzal Khan | Veteran general; killed at Pratapgad 1659 | C-1659-AFZAL-MARCH, C-1659-PRATAPGAD | `as_afzal_khan` | HISTORY |
 | Krishnaji Bhaskar (Kulkarni) | Afzal Khan's envoy | C-1659-AFZAL-MARCH | none | HISTORY |
-| Fazl Khan | Afzal Khan's son | C-1659-KOLHAPUR, C-1660-PANHALA-SIEGE | `as_fazl_khan` | HISTORY |
+| Fazl Khan | Afzal Khan's son (wounded and fled at Pratapgad, per S-PURANDARE) | C-1659-KOLHAPUR, C-1660-PANHALA-SIEGE | `as_fazl_khan` | HISTORY |
 | Rustam Zaman | General at Kolhapur, 1659 | C-1659-KOLHAPUR | `as_rustam_zaman` | HISTORY |
 | Siddi Jauhar | Abyssinian general; besieged Panhala 1660 | C-1660-PANHALA-SIEGE | `as_siddi_jauhar` | HISTORY |
 | Siddi Masud | Led the pursuit to Ghod Khind | C-1660-PAVANKHIND | `as_siddi_masud` | HISTORY |
@@ -127,3 +127,10 @@ as **two different people** until a source joins them (TASKS: verify).
 | Kalyanji Yadav (Jadhav), Naikji Kharate, Pilaji and Shankaraji Mohite, Zunzarrao Ghatge | Marathas in Afzal's army (D-05: show them) | C-1659-AFZAL-MARCH | none | HISTORY (S-PURANDARE) |
 | Siddi Saifkhan | Commander sent to Talkonkan by Afzal | C-1659-AFZAL-MARCH | none | HISTORY (S-PURANDARE) |
 | Gangaji, Mangaji, Netoji Palkar, Raghunathpant Atre, Prabhakarbhat Rajopadhye | Shivaji's counsellors at the Pratapgad council | C-1659-AFZAL-MARCH | none | HISTORY (S-PURANDARE; check spelling "Netoji" vs "Netaji") |
+| Shivaji's ten attendants at the meeting: Sambhaji Kavji Kondhalkar, Jiva Mahala, Siddi Ibrahim, Kataji Ingle, Kondaji Kank, Yesaji Kank, Krushnaji Gaikwad, Surji Katke, Visaji Murumbak, Sambhaji Karwar | The ten who went with him; Siddi Ibrahim is another Muslim in his service (D-05) | C-1659-PRATAPGAD | none | HISTORY (S-PURANDARE; spellings VERIFY) |
+| Sayyad Banda | Afzal's armed attendant; sent away, then killed in the pavilion | C-1659-PRATAPGAD | none | HISTORY (S-PURANDARE; History note only) |
+| Abdul Sayyad, Rahimkhan (Afzal's nephew), Pahilwankhan | Afzal's ten attendants | C-1659-PRATAPGAD | none | HISTORY (S-PURANDARE) |
+| Musekhan, Ambarkhan, Yakutkhan, Hasan, Yakub, Chota Randullakhan | Bijapur officers in Afzal's camp | C-1659-PRATAPGAD | none | HISTORY (S-PURANDARE) |
+| Mumbaji Bhosale | Kinsman of Shivaji in Afzal's army; died in the battle | C-1659-PRATAPGAD | none | HISTORY (S-PURANDARE: relation given as uncle and as a distant uncle: VERIFY) |
+| Krushnaji Bankar | Shivaji's adviser who urged armour | C-1659-PRATAPGAD | none | HISTORY (S-PURANDARE) |
+| Bandal, Baji Sarjerao, Haibatrao and Balaji Naik Shilamkar, Babaji Bhosale, Marne, Dohar, Pasalkar, Dhamale and other chiefs | Held the forest posts around Javli, Para and Bochegholi | C-1659-PRATAPGAD | none | HISTORY (S-PURANDARE) |

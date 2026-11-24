@@ -212,8 +212,19 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Date:** 10 November 1659 (some references print 20 November: calendar conversion)
 - **Event:** Shivaji and Afzal Khan met in a pavilion below Pratapgad; by agreement each came armed only with a sword and with a very small escort. Shivaji, expecting treachery, wore armour under his clothes, a bagh nakh (tiger claw) concealed on his left arm and a dagger in his right hand. What happened inside is not known with historical certainty: Maratha sources say Afzal Khan seized Shivaji and struck first; sources hostile to Shivaji call it murder at a parley. Afzal Khan was killed, and the waiting Maratha troops routed his army.
 - **Basis:** HISTORY (meeting, death, rout) · CONTESTED (who struck first; army sizes are exaggerated in later bakhars: CONTESTED.md #5)
-- **Refs:** W-SHIVAJI, W-PRATAPGAD, W-AFZAL, W-SABHASAD
-- **Game:** `ch04_pratapgad` (Bhet parley + battle); cards `as_afzal_khan`, `sw_wagh_nakh`
+- **Refs:** W-SHIVAJI, W-PRATAPGAD, W-AFZAL, W-SABHASAD, S-PURANDARE (Vol. I, "Fort Pratapgad", pp. 267-284)
+- **Purandare adds (pp. 270-284; Maratha-side account; single source for the detail):**
+  - *Afzal's camp:* in the Koyna valley (Para), in thick forest; his heavy army looked small against it (p. 270). His chief officers there included Ankushkhan, Musekhan, Ambarkhan, Yakutkhan and Mumbaji Bhosale, a kinsman of Shivaji (pp. 270, 282).
+  - *The terms (pp. 270-271):* sent by Pantaji, agreed by Afzal: Afzal to come in a palanquin with two or three servants and ten armed attendants kept an arrow's flight back; Shivaji likewise, with ten. Pantaji also had Afzal's diamond and pearl merchants sent up to the fort, where Shivaji kept them and their wares (to be paid after the visit), as an additional ruse (VERIFY: a vivid detail from one source).
+  - *The place:* a cleared space on a spur about halfway up the hill, with a richly furnished pavilion (shamiyana); the book says it was hidden from Afzal's camp (p. 271) and also visible from the fort (p. 275).
+  - *Day and time:* Thursday, 10 Nov 1659, the sixth-seventh day of the bright half of Margashirsha, Shaka 1581; Afzal was killed about two in the afternoon (p. 282). The night before (Wednesday 9 Nov) Shivaji gave his commanders their posts (pp. 272-274). Maharashtra was in the Champashashti festival of Khandoba (p. 272).
+  - *The plan (pp. 272-274):* the commanders hid in the forest around Javli, Para and Bochegholi, to block the paths and fall on Afzal's army at a signal of three cannon from the fort; Netoji Palkar waited on the ridge to charge down; Kanhoji Jedhe, Bandal, Baji Sarjerao, Haibatrao and Balaji Naik Shilamkar, Moropant Pingle, Tanhaji, Babaji Bhosale and other Mavle chiefs held named positions; they waited hours unseen. Order given: spare any enemy who lays down his weapon; strike one who raises it. His ten attendants: Sambhaji Kavji Kondhalkar, Jiva Mahala, Siddi Ibrahim, Kataji Ingle, Kondaji Kank, Yesaji Kank, Krushnaji Gaikwad, Surji Katke, Visaji Murumbak, Sambhaji Karwar.
+  - *Dress (pp. 276-277):* body armour and a steel head-shield (jiretop) under a turban, a white robe, a bichwa (curved dagger) hidden in the sleeve, and the waghnakh (tiger claws) on the fingers, hooks facing the palm. On the other side, Afzal came with a hidden dagger of his own (p. 276).
+  - *The approach (pp. 275-279):* Afzal first set out with a large armed escort; Pantaji talked him down to ten. At the pavilion a scout reported an armed attendant, Sayyad Banda, standing near Afzal; Shivaji halted, and Pantaji had Banda sent away. Afzal's envoy Krishnaji Bhaskar was present in the pavilion.
+  - *The meeting (pp. 279-281), as Purandare tells it:* Afzal embraced Shivaji, held his neck, and struck at his ribs with a dagger; the armour stopped it; Shivaji struck back with the bichwa and the tiger claws. Krishnaji Bhaskar then attacked Shivaji and was killed. Sayyad Banda came in and was killed by Jiva Mahala. Afzal's bearers carried him out; Sambhaji Kavji Kondhalkar cut them down and took Afzal's head to Shivaji. (A killing: History note only; D-07.)
+  - *The battle (pp. 281-282):* the cannon signal sounded; the hidden forces attacked from the forest; Afzal's army broke. Shivaji and Pantaji were wounded slightly. Prisoners who asked for quarter were spared; Fazl Khan, wounded, fled with other officers; several of Afzal's Maratha officers, Zunzarrao Ghatge among them, were taken. The book says all of Afzal's ten attendants died and none of Shivaji's ten. Mumbaji Bhosale died. The booty (elephants, horses, camels, guns, treasure) is described without figures.
+  - *After (pp. 283-284):* Afzal's body was buried at Pratapgad with the customary honours; his head was sent to Rajgad to Jijabai (the book says she saw the death as Sambhaji avenged). Shivaji's troops retook Saswad, Shirwal and Supa from Afzal's raiding columns on the same day; at midnight he set out on the next campaign (C-1659-KOLHAPUR).
+- **Game:** `ch04_pratapgad` (Bhet parley + battle); cards `as_afzal_khan`, `sw_wagh_nakh`. Design notes: the Bhet is the negotiation of the terms (ten attendants, an arrow's range, who is sent away) and the hidden-force signal; the battle is an ambush in the forest; surrender spares the unarmed.
 
 ### C-1659-SAIBAI-DIED · Saibai dies at Rajgad
 - **Date:** 5 September 1659 (the book's date)
@@ -228,6 +239,13 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Basis:** HISTORY per S-PURANDARE (single source)
 - **Refs:** S-PURANDARE (Vol. I, "Tuljabhavani", pp. 243-245)
 - **Game:** briefing or card flavour; no number printed
+
+### C-1659-POSTS-RETAKEN · Saswad, Shirwal and Supa recaptured
+- **Date:** 10 November 1659, the day of the meeting
+- **Event:** While Afzal Khan sat at Wai, his officers (Kalyanji Yadav, Naikji Kharate, Naikji Pandhare and Siddi Hilal, in the book's list) had taken posts in Saswad, Shirwal and Supa. Shivaji had sent Maratha bands with orders to retake them on the day of the meeting, and they did.
+- **Basis:** HISTORY per S-PURANDARE (single source) · CONTESTED (Siddi Hilal's side: CONTESTED.md #29)
+- **Refs:** S-PURANDARE (Vol. I, "Fort Pratapgad", p. 284; also p. 257)
+- **Game:** campaign map
 
 ### C-1659-KOLHAPUR · Battle of Kolhapur
 - **Date:** 28 December 1659

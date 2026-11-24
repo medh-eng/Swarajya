@@ -91,7 +91,7 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 | Q-03 | Narrator voice | Text only · Pon records the shahir · generated voice | Text first; voice at Phase 5 |
 | Q-04 | Vertical slice chapters | Tutorial + Torna + Pratapgad (plan) · or Pavan Khind instead of Torna | Plan as written |
 | Q-05 | Who reviews the Marathi | — | Someone Pon trusts, before Gate 1 |
-| Q-07 | **Baji More's fate** (#27); **elder Sambhaji and Afzal** (#28); **Siddi Hilal on which side in 1659** (#29) | Purandare vs earlier retellings | Follow Purandare; History notes say "Purandare tells it so" and print no year for #28 |
+| Q-07 | **Baji More's fate** (#27); **elder Sambhaji and Afzal** (#28); **Siddi Hilal on which side in 1659** (#29: now seen twice on Afzal's side, pp. 257 and 284) | Purandare vs earlier retellings | Follow Purandare; History notes say "Purandare tells it so" and print no year for #28 |
 | Q-06 | Swarajya passive | Sahyadri (first Mavla has Vega) · Gadkot (forts heal the Durg) | Sahyadri, test in Phase 1 |
 (Q-01 and Q-02 resolved: D-14, D-13; the old Q-07 and Q-08 became D-15 and D-16.)
 
@@ -111,4 +111,4 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
    https://medh-eng.github.io/Swarajya/ on the phone. Send page photos of *Raja Shivachhatrapati* (English)
    for Torna, the Afzal Khan episode and Pratapgad.
 2. Claude: Phase 1 step 2–3: the Gad card type and `capture` objective (then port the 4 Gad cards).
-3. Pon: paint from `art/PROMPTS-BATCH1.md` (Shivaji Raje first); send the pages listed at the bottom of `history/PURANDARE-CHECK.md` (Pratapgad pp. 235-287 first); send the next batch (pp. 270-287, the meeting itself, are the key pages) and p. 213. Note: the Pratapgad card (15) and battlefield (B2) prompts were updated with the book's setting; if you already painted them, see "Changed from the first version" in the sheet.
+3. Pon: paint from `art/PROMPTS-BATCH1.md` (Shivaji Raje first); send the pages listed at the bottom of `history/PURANDARE-CHECK.md` (Pratapgad pp. 235-287 first); optional: pp. 285-287, 262-266, 246-256, 229-234 and p. 213 (the Pratapgad meeting and battle, pp. 270-284, are now recorded). Note: the Pratapgad card (15) and battlefield (B2) prompts were updated with the book's setting; if you already painted them, see "Changed from the first version" in the sheet.

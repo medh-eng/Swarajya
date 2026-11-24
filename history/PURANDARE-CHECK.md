@@ -21,8 +21,8 @@ Status: `not yet checked` · `agrees` · `adds detail` (note it) · `differs` (b
 | C-1656-PRATAPGAD-BUILT | Pratapgad raised above Jaoli | Vol. I pp. 226-227 | adds detail | Designer Moropant; setting; Kedareshwar; first commanders. No completion year. Fort section pp. 257+ not yet seen. |
 | C-1657-MUGHALS | First clash with the Mughals | Vol. I pp. 218-221 | adds detail | Junnar 30 Apr 1657, Ahmednagar, Aurangzeb letters 23 Apr 1657 and 14 Feb 1658. |
 | C-1657-SAMBHAJI-BORN | Sambhaji born | Vol. I p. 222 | agrees + adds detail | 14 May 1657, probably Purandar. CONTESTED #28 (elder brother). |
-| C-1659-AFZAL-MARCH | Afzal Khan marches | Vol. I pp. 228, 235-245, 257-261, 267-269 | adds detail; differs (Sambhaji year, temples framing) | Departure about June 1659 (derived). Names Afzal Khan's Maratha officers and Shivaji's council. CONTESTED #5, #18, #28, #29. Pages 246-256, 262-266 not seen. |
-| C-1659-PRATAPGAD | The meeting below Pratapgad | Vol. I pp. 267-269 (approach only) | adds detail (run-up) | Meeting and killing pages (about pp. 270-287) not yet seen: the event itself is not checked. |
+| C-1659-AFZAL-MARCH | Afzal Khan marches | Vol. I pp. 228, 235-245, 257-261, 267-271 | adds detail; differs (Sambhaji year, temples framing) | Departure about June 1659 (derived). CONTESTED #5, #18, #28, #29. Pages 246-256, 262-266 not seen. |
+| C-1659-PRATAPGAD | The meeting below Pratapgad | Vol. I pp. 267-284 | agrees (meeting, Afzal killed, rout; date 10 Nov 1659) · adds much detail | Armour, hidden dagger and tiger claws agree. Adds: ten attendants each, the hidden forces and cannon signal, the sent-away attendant, prisoners spared, Afzal buried with honour. Left/right placement of weapons not given. Pages 285-287 not seen. |
 | C-1659-KOLHAPUR | Battle of Kolhapur |  | not yet checked |  |
 | C-1660-PANHALA-SIEGE | Siddi Jauhar besieges Panhala |  | not yet checked |  |
 | C-1660-PAVANKHIND | The pass of Ghod Khind (Pavan Khind) |  | not yet checked |  |
@@ -73,17 +73,19 @@ Status: `not yet checked` · `agrees` · `adds detail` (note it) · `differs` (b
 
 ## Pages photographed so far (24 Nov 2026, Vol. I, Edition 2, April 2022)
 Credits page; index (pp. of all Vol. I sections: see `SOURCES.md`); pp. 154-158 (Fort Torangad); 159 and 161 (Pant Dadaji Konddev);
-165-167 and 168-169 (Fort Kondana). Also pp. 207-212 (In Javli Jungles), 214-222 (Supa, Karhe plateau), 223-227 (Darya Sarang). Also pp. 228 (Badi Saheba), 235-245 (Afzalkhan, Tuljabhavani), 257-261 (Khan's envoy; sideways photos), 267-269 (Fort Pratapgad). Not photographed: 160, 162-164, 213, 229-234, 246-256, 262-266, 270 onwards.
+165-167 and 168-169 (Fort Kondana). Also pp. 207-212 (In Javli Jungles), 214-222 (Supa, Karhe plateau), 223-227 (Darya Sarang). Also pp. 228 (Badi Saheba), 235-245 (Afzalkhan, Tuljabhavani), 257-261 (Khan's envoy; sideways photos), 267-284 (Fort Pratapgad, through the battle and its aftermath). Not photographed: 160, 162-164, 213, 229-234, 246-256, 262-266, 285 onwards.
 Note: page 156 is a full-page sketch with a short text below; the sketches are Deenanath Dalal's and are never used as art references.
 
 ## Pages to ask Pon for (in this order; photos of each page are enough)
 1. **Vol. I pp. 171-175** ("Betrayal": Shahaji's arrest) and **176-184** (Subhan Mangal) and **185-200** (Purandar, "Soubhagyachi Vatpournima"):
    checks C-1648-SHAHAJI, C-1647-EXPANSION, and decides whether chapter 2 (Purandar 1648) can be built.
 2. **pp. 160, 162-164**: the rest of Dadoji's section (his teaching, his death, any date).
-3. **Pratapgad (needed for Gate 1):** **pp. 270-287** (the meeting and the killing: the key pages), then 262-266, 246-256, 229-234; also p. 213. (pp. 228, 235-245, 257-261, 267-269 now seen.)
+3. **Pratapgad:** the meeting and battle (pp. 270-284) are now seen. Still useful: pp. 285-287 (the end of the section), 262-266, 246-256, 229-234 and p. 213.
 4. **Early chapters** (pp. 1-98 and 102-145): birth, Shivneri, Jijabai, Pune (C-1630-BIRTH, C-1640-PUNE, tutorial `ch00_maval`).
 
 
 New entries from pp. 207-227 (all single-source, dates VERIFY): C-1656-SUPA, C-1656-BHAVANI-SWORD, C-1657-KONDHANA-RETAKEN, C-1657-NORTH-KONKAN.
 
 New entries from pp. 228-269: C-1659-SAIBAI-DIED, C-1659-NIMBALKAR (single-source, dates VERIFY).
+
+New entry from pp. 270-284: C-1659-POSTS-RETAKEN (single-source).
