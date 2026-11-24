@@ -46,7 +46,7 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Date:** c. 1636–1647
 - **Event:** Shivaji and Jijabai lived in Pune, where Shahaji's administrator Dadoji Kondadeo ran the jagir in Shivaji's name. Shivaji married Saibai at the Lal Mahal, Pune, on 16 May 1640. After Dadoji's death (7 March 1647) Shivaji took full control of the jagir.
 - **Basis:** HISTORY (administrator). CONTESTED: that Dadoji was also Shivaji's teacher, as *Raja Shivachhatrapati* tells it (CONTESTED.md #6). By Pon's decision D-15 the game shows him as teacher, as Purandare's account, with the dispute noted.
-- **Refs:** W-EARLY, W-LALMAHAL, W-DADOJI, S-PURANDARE (teacher: chapter to be cited from Pon's pages)
+- **Refs:** W-EARLY, W-LALMAHAL, W-DADOJI, S-PURANDARE (Vol. I, Campaign: Fort Shivneri, "Pant Dadaji Konddev" and "Fort Kondana", pp. 159-165: Dadoji worn out by his work and the teaching of Pant and Jijabai shaping the young Raje; his death at the start of "Fort Kondana", p. 165, no date given there)
 - **Game:** tutorial `ch00_maval` setting; Jijabai card text
 
 ---
@@ -81,12 +81,36 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Basis:** HISTORY (capture, renaming) · CONTESTED (dates, length as capital: CONTESTED.md #21)
 - **Refs:** W-RAJGAD, W-SHIVAJI, W-HISTFILES-TORNA
 - **Game:** card `sw_gad_rajgad`; campaign map capital marker until `ch18_rajyabhishek`
+- **Purandare adds (S-PURANDARE Vol. I, pp. 157-158, 169):** Bijapur had refitted the old fort of Murumbdev in February 1634 and left it empty; Shivaji took it, paid for the work with the treasure found at Torna, and named it Rajgad *at once* (the 1654 renaming above differs: CONTESTED.md #21). His plan was three terraces (machis: Padmavati, Suvela, Sanjeevani) and a citadel (the Bale Killa), with the offices, a palace and workshops; a lake on the Padmavati terrace in the north; the work was expected to take more than a year or two. The map on p. 168 names the Pali, Gunjan, Aalucha and Chor gates, the Darukhana (powder store), horse stable, flag place, watch tower and the Dumba.
+- **Refs (added):** S-PURANDARE
+
+### C-1646-TORNA-FORT · What Torna was like and how it was taken, as Purandare tells it
+- **Date:** 1646 (the pages give no year; Purandare calls Shivaji a boy of about fifteen, "running sixteen" in 1647)
+- **Event:** Torna stands in the Kanad valley, tall and broad, with two terraces (machis): Zunzar machi and Budhla machi. Budhla machi is named for a huge rock on its crest that looks like an upturned oil vessel. One hard path leads down from Zunzar machi. Two gates: Binny Darwaza (north, towards Pune) and Konkan Darwaza (west). The goddess Toranjai has a small temple on the north side. Purandare says Bijapur had neglected the fort: no garrison, no organised lookouts, guns or patrols. Shivaji, with his companions and other Mavle bands, came down the Kanad valley one day and took charge without a fight; a saffron flag went up over Binny Darwaza; Mavle guards were posted at the Shinagar post, the Konkan Darwaza, Zunzar machi and Budhla machi. He then began repairs and appointed a Maratha fort commander, a Brahmin chief accountant, Prabhu karkhanis (clerks) and, for the army, Mavle, Koli, Ramoshi, Mahar and other men. While the repairs went on, a pot of treasure was dug up; Shivaji held it to be Swarajya's, and no Mavle took a coin.
+- **Basis:** HISTORY per S-PURANDARE (single source) · CONTESTED (no garrison, no fighting: the entry above says he took it from its commandant; CONTESTED.md #25)
+- **Refs:** S-PURANDARE (Vol. I, Campaign: Fort Shivneri, "Fort Torangad", pp. 154-158)
+- **Game:** cards `sw_gad_torna`, `as_gad_torna_held`, `sw_torna_hoard`; `ch01_torna` battlefield and `art/PROMPTS-BATCH1.md`
+
+### C-1647-KONDHANA-BAPUJI · Kondhana won by negotiation; Subhanmangal taken
+- **Date:** 1647 (after Dadoji's death; the pages give no month)
+- **Event:** When Bijapur learned Dadoji had died, the court named Miya Rahim Mahammad, the officer at Shirwal (fort Subhanmangal), as subedar of Kondhana fort and its district. Shivaji wanted Kondhana first. Its commander was Siddi Ambar Wahab, described as old and loyal to Bijapur. Bapuji Mudgal Deshpande, the Deshpande of Khedebara just south of Kondhana, who knew the fort well, went alone, persuaded the commander to change sides and put Shivaji's men in the fort. There was no fight. Miya Rahim, on his way to take up the post, turned back. Shivaji next struck at Shirwal and took Fort Subhanmangal, ending Miya Rahim's local power. Earlier, per the same pages, Shivaji had taken the neglected fort of Kuwari in the Paud valley from the Dhamale Deshmukh, and annexed the surrounding country without fighting; Subhanmangal's commander reported it to Bijapur, which at first ignored it.
+- **Basis:** HISTORY per S-PURANDARE (single source; month and order of each fort: VERIFY in Mehendale or Sabhasad before any card states them)
+- **Refs:** S-PURANDARE (Vol. I, Campaign: Fort Shivneri, pp. 157-159, 165-167)
+- **Game:** campaign map (forts lit after `ch01_torna`); an optional later chapter; Bijapur's reaction is the briefing text of `ch04_pratapgad`
+
+### C-1647-JAVLI · Javli's succession (1647), as Purandare tells it
+- **Date:** 1647 (Chandrarao More's death); Shivaji in his seventeenth year
+- **Event:** Chandrarao More of Javli (Chandrarao was the family's title; the man who died was Daulatrao) had no son. The widow, fearing the estate would be taken by relatives or by Bijapur, and looking towards Shivaji's Rajgad, asked him to come. He came with cavalry and troops, took over Javli's posts without difficulty and, as she wished, set up the man she had chosen from the More family of Shivthar as the new Chandrarao: an adult with two sons, probably named Yashwantrao. Purandare presents this as Shivaji keeping faith with the widow, and expecting the new Chandrarao's loyalty.
+- **Basis:** HISTORY per S-PURANDARE (single source) · VERIFY (year and adoption: not yet matched with Sabhasad, Jedhe or Mehendale; differs from the 1656 retellings: CONTESTED.md #26). Not used in any card until checked.
+- **Refs:** S-PURANDARE (Vol. I, Campaign: Fort Shivneri, "Fort Kondana", pp. 165-166)
+- **Game:** none yet (D-07: the later killing of Chandrarao More is never playable)
 
 ### C-1648-SHAHAJI · Shahaji arrested; Bijapur strikes back
 - **Date:** 25 July 1648 (arrest); released 1649
 - **Event:** To contain Shivaji, the Bijapur government had Shahaji imprisoned by the Maratha sardar Baji Ghorpade. He was released in 1649 after the capture of Jinji secured Bijapur's position in the Karnatak. Popular accounts add that Bijapur sent Fateh Khan against Pune and was repulsed at Purandar.
 - **Basis:** HISTORY (arrest, release) · VERIFY (the Purandar fight against Fateh Khan: find it in Sabhasad, Shivabharat or Jedhe before building a chapter on it)
-- **Refs:** W-SHIVAJI (arrest, release), W-VKENDRA (Fateh Khan: popular, weak)
+- **Refs:** W-SHIVAJI (arrest, release), W-VKENDRA (Fateh Khan: popular, weak), S-PURANDARE (Vol. I, pp. 167-169, run-up only)
+- **Purandare adds (pp. 167-169):** The run-up: after Shivaji took Kondhana and Subhanmangal, the sultan, Mahammad Adilshah, was alarmed but feared that moving against Shivaji would provoke Shahaji, who had troops of his own in the Karnatak; letters from Afzal Khan and from a court retainer, Lehmaji Jyoti, accused Shahaji of double dealing. The wazir Mustafakhan, with the queen and Baji Ghorpade, advised arresting Shahaji first. Mustafakhan set out from Bijapur for Jinji with Baji Ghorpade on **17 January 1648**; Khankhanan, Rustumjaman and Bahlolkhan were among the sardars with him.
 - **Game:** candidate chapter `ch02_purandar1648` (status: blocked on VERIFY)
 
 ### C-1649-PAUSE · Five quiet years

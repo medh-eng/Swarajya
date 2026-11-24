@@ -21,6 +21,7 @@ Basis column: what we may show about them. `TRADITION` people (or deeds) are lab
 | Murarbaji Deshpande | Defender of Purandar, killed 1665 | C-1665-PURANDAR | `sw_murarbaji` | HISTORY |
 | Madari Mehtar | Attendant at Agra | C-1666-ESCAPE | `sw_madari_mehtar` | TRADITION (deed) |
 | Hiroji Farzand | Decoy in Shivaji's bed at Agra | C-1666-ESCAPE | `sw_hiroji` | TRADITION |
+| Bapuji Mudgal Deshpande | Deshpande of Khedebara; won Kondhana by negotiation, 1647 | C-1647-KONDHANA-BAPUJI | none | HISTORY (S-PURANDARE only) |
 | Tanaji Malusare | Subhedar; took Kondhana, killed 1670 | C-1670-SINHAGAD | `sw_tanaji` | HISTORY |
 | Suryaji Malusare | Tanaji's brother; led after his fall | C-1670-SINHAGAD | `sw_suryaji` | HISTORY |
 | Moropant Trimbak Pingle | Peshwa; Salher | C-1672-SALHER, C-X-ASHTAPRADHAN | `sw_moropant` | HISTORY |
@@ -59,6 +60,9 @@ Basis column: what we may show about them. `TRADITION` people (or deeds) are lab
 | Bahlol Khan (Abdul Karim) | General at Umrani and Nesari, 1673–74 | C-1673-UMRANI, C-1674-NESARI | `as_bahlol_khan` | HISTORY |
 | Sher Khan Lodi | Bijapur commander in the south; Tiruvadi 1677 | C-1677-TIRUVADI | `as_sher_khan_lodi` | HISTORY |
 | Nasir Khan | Gave up Gingee, 1677 | C-1677-GINGEE | none | HISTORY |
+| Miya Rahim Mahammad | Bijapur's officer at Shirwal (Subhanmangal); named subedar of Kondhana, 1647 | C-1647-KONDHANA-BAPUJI | none | HISTORY (S-PURANDARE only) |
+| Siddi Ambar Wahab | Commander of Kondhana fort who went over to Shivaji, 1647 | C-1647-KONDHANA-BAPUJI | none | HISTORY (S-PURANDARE only) |
+| Mustafakhan | Bijapur's wazir; led the march to arrest Shahaji, 17 Jan 1648 | C-1648-SHAHAJI | none | HISTORY (S-PURANDARE only) |
 
 Note: "Bahlol Khan" is also listed among the Mughal officers captured at Salher (1672). Treat them
 as **two different people** until a source joins them (TASKS: verify).

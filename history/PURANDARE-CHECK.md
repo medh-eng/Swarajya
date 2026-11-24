@@ -9,12 +9,12 @@ Status: `not yet checked` · `agrees` · `adds detail` (note it) · `differs` (b
 |---|---|---|---|---|
 | C-1630-CONTEXT | The three sultanates and Shahaji |  | not yet checked |  |
 | C-1630-BIRTH | Birth at Shivneri |  | not yet checked |  |
-| C-1640-PUNE | Boyhood in the Pune jagir |  | not yet checked |  |
+| C-1640-PUNE | Boyhood in the Pune jagir | Vol. I pp. 159-165 (Dadoji, Pune province map p. 161) | agrees (administrator); supports the teacher framing | Pages show Dadoji running the jagir and his and Jijabai's teaching shaping the young Raje; his death opens "Fort Kondana" (p. 165), no date. Marriage (16 May 1640) and the 7 Mar 1647 date are not on these pages: still unchecked. |
 | C-1645-RAIRESHWAR | The oath at Raireshwar (tradition) |  | not yet checked | added 23 Nov 2026 after the AI-report review |
-| C-1646-TORNA | Torna, the first fort |  | not yet checked |  |
-| C-1647-EXPANSION | Kondhana, Purandar, Chakan and the Konkan |  | not yet checked |  |
-| C-1647-RAJGAD | Murumbdev becomes Rajgad |  | not yet checked | added 23 Nov 2026 after the AI-report review |
-| C-1648-SHAHAJI | Shahaji arrested; Bijapur strikes back |  | not yet checked |  |
+| C-1646-TORNA | Torna, the first fort | Vol. I pp. 154-158 | differs (garrison) + adds detail | No year on the pages. Book: no garrison, walked in, no fight (CONTESTED #25). Adds: the fort's layout, treasure, staff appointed: new entry C-1646-TORNA-FORT. |
+| C-1647-EXPANSION | Kondhana, Purandar, Chakan and the Konkan | Vol. I pp. 157-158, 165-167 | adds detail | Gives an order: Torna, Murumbdev/Rajgad, Kuwari, (Dadoji dies), Javli, Kondhana, then Shirwal/Subhanmangal. No dates on the pages. New entries C-1647-KONDHANA-BAPUJI, C-1647-JAVLI. Purandar and Chakan not yet seen (pp. 185 ff.). |
+| C-1647-RAJGAD | Murumbdev becomes Rajgad | Vol. I pp. 157-158, 168-169 | agrees (Murumbdev, treasure) · differs (renamed at once, not 1654) | CONTESTED #21 updated. Adds the three machis and the gate names from the map on p. 168. |
+| C-1648-SHAHAJI | Shahaji arrested; Bijapur strikes back | Vol. I pp. 167-169 (run-up only) | adds detail (run-up) | Mustafakhan leaves for Jinji 17 Jan 1648 with Baji Ghorpade; the arrest itself (25 Jul 1648) is on later pages (p. 171 "Betrayal"). Fateh Khan at Purandar still VERIFY. |
 | C-1649-PAUSE | Five quiet years |  | not yet checked |  |
 | C-1654-NAVY | The first warships |  | not yet checked |  |
 | C-1656-JAOLI | Jaoli and the Mores |  | not yet checked |  |
@@ -70,3 +70,15 @@ Status: `not yet checked` · `agrees` · `adds detail` (note it) · `differs` (b
 | C-X-JANJIRA | Janjira was never taken |  | not yet checked | added 23 Nov 2026 after the AI-report review |
 | C-X-UNESCO | The forts as World Heritage (2025) |  | not yet checked | added 23 Nov 2026 after the AI-report review |
 | C-X-SOURCES | What the sources are |  | not yet checked |  |
+
+## Pages photographed so far (24 Nov 2026, Vol. I, Edition 2, April 2022)
+Credits page; index (pp. of all Vol. I sections: see `SOURCES.md`); pp. 154-158 (Fort Torangad); 159 and 161 (Pant Dadaji Konddev);
+165-167 and 168-169 (Fort Kondana). Not photographed: 160 (and the rest of the Dadoji section up to 164), 162-164.
+Note: page 156 is a full-page sketch with a short text below; the sketches are Deenanath Dalal's and are never used as art references.
+
+## Pages to ask Pon for (in this order; photos of each page are enough)
+1. **Vol. I pp. 171-175** ("Betrayal": Shahaji's arrest) and **176-184** (Subhan Mangal) and **185-200** (Purandar, "Soubhagyachi Vatpournima"):
+   checks C-1648-SHAHAJI, C-1647-EXPANSION, and decides whether chapter 2 (Purandar 1648) can be built.
+2. **pp. 160, 162-164**: the rest of Dadoji's section (his teaching, his death, any date).
+3. **Pratapgad (needed for Gate 1):** pp. 235-240 (Afzalkhan), 246-256 (Kanhoji Jedhe, Khan's envoy), **257-287 (Khan's envoy and Fort Pratapgad)**; also 207-213 (In Javli Jungles) for CONTESTED #4, #24, #26.
+4. **Early chapters** (pp. 1-98 and 102-145): birth, Shivneri, Jijabai, Pune (C-1630-BIRTH, C-1640-PUNE, tutorial `ch00_maval`).

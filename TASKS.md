@@ -10,7 +10,9 @@
       Dadoji and the Pune years, Torna, the Afzal Khan episode and Pratapgad. Note volume and chapter.
 - [ ] Read `history/CONTESTED.md` and `docs/DESIGN.md` §5 (chapter list) and §3 (new mechanics).
 - [ ] Find a Marathi reader to review strings before Gate 1 (Q-05).
-- [ ] Paint from the Phase 1 art prompt sheet once Claude writes it (`art/PROMPTS-BATCH1.md`).
+- [ ] Paint from `art/PROMPTS-BATCH1.md` (written 24 Nov 2026): 20 cards + 2 battlefields; Shivaji Raje first, then save PNGs in `art/source/cards/` and `art/source/battlefields/`, then `npm run assets`.
+- [ ] Decide Q-07 (Torna garrison, CONTESTED #25) and Q-08 (Rajgad naming, #21).
+- [ ] Send the next Purandare pages (list in `history/PURANDARE-CHECK.md`): Pratapgad pp. 235-287 first, then pp. 171-200.
 - [x] Name: YUDDH: Swarajya (D-14). Dadoji as teacher (D-15). English edition; Sangamner kept (D-16).
 - [x] Repo `medh-eng/Swarajya` created; Gemini report re-sent and reviewed.
 
@@ -20,7 +22,7 @@ workflow; new app id `com.medheng.swarajya`. Deviation from PLAN: YUDDH content 
 Still open from Phase 0: research item 6 (Act I VERIFY gaps) — moved to the research list below.
 
 ## For Claude: research (before the chapters that need it)
-- [ ] Run `history/PURANDARE-CHECK.md` chapter by chapter as Pon's page photos arrive; add S-PURANDARE
+- [ ] Run `history/PURANDARE-CHECK.md` chapter by chapter as Pon's page photos arrive (first batch done: Vol. I pp. 154-169); add S-PURANDARE
       (with chapter) to each entry's Refs; send every disagreement to CONTESTED.md for Pon.
 - [ ] Obtain S. N. Sen, *Siva Chhatrapati* (1920, translation of Sabhasad; public domain) and check:
       Torna, Pratapgad, Agra, the coronation.
@@ -53,8 +55,7 @@ Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a g
        CHRONOLOGY entries (and S-PURANDARE pages when Pon sends them). Wire the title → campaign → battle
        flow in `src/main.ts` (copy the pattern of YUDDH's main.ts).
 6. [ ] **Bhet scene** (Trust / Guard / Strike) + AI stance table in `rules.json` ("bhet").
-7. [ ] **Art batch 1 prompt sheet** `art/PROMPTS-BATCH1.md` (about 20 paintings; PLAN Phase 1 item 5;
-       likeness rule D-10).
+7. [x] **Art batch 1 prompt sheet** `art/PROMPTS-BATCH1.md` (24 Nov 2026; 20 cards + 2 battlefields).
 8. [ ] Campaign map v1 (forts light after a win). Marathi strings for the slice.
 9. [ ] Remove the YUDDH scaffolding that Swarajya no longer needs (D-17): YUDDH chapters in
        `src/campaign/`, YUDDH cards and duel factions. **Keep** `missions.ts` and the classic 50 cards

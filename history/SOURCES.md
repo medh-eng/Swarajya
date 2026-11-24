@@ -28,7 +28,24 @@ chapter's History note must also name the primary source the encyclopedia cites.
 **S-PURANDARE** — Babasaheb (B. M.) Purandare, *Raja Shivachhatrapati* (राजा शिवछत्रपती), Purandare
 Prakashan, Pune. Marathi, two volumes (first published 1950s–60s; 19th ed. 2014, about 934 pp.);
 English translation, two volumes (2014; current ed. 2021, about 895 pp.).
-**Pon's copy: the English edition, latest printing** (24 Nov 2026). Cite it as `S-PURANDARE` with volume and chapter.
+**Pon's copy: the English edition** (credits page photographed 24 Nov 2026): Purandare Prakashan, Pune; translated by
+Dr. Hema Hirlekar; sketches by the late Deenanath Dalal; **Edition 2, published April 2022**; Volume I seen so far.
+Cite it as `S-PURANDARE` with volume, section and page, e.g. "Vol. I, Campaign: Fort Shivneri, 'Fort Torangad', pp. 154-158".
+The book is arranged in *Chapters* (1 and 2 so far) and *Campaigns* named for a place or event; each has short titled sections.
+Page map from the index photographs (Vol. I): Chapter 1 pp. 2-98 (Appeal ... In Shivneri's courtyard) · Chapter 2 pp. 102-145
+(Shahajiraje's plan backfired 102, Lal Mahal 106, Golden Plough 116, City Bengaluru 122, Mawal vales 130, Unconquerable Sahyadri 140,
+Sahyadri's buddies 145) · **Campaign: Fort Shivneri** (Fort Torangad 154, Pant Dadaji Konddev 159, Fort Kondana 165, Betrayal 171,
+Fort Subhan Mangal 176, Fort Purandar 185, Soubhagyachi Vatpournima 192) · **Campaign: Pratapgad Wartime** (Maharaj 201, In Javli
+Jungles 207, Karhe plateau 214, Darya Sarang 223, Tajul Mukkhaddirat - Badi Saheba 228, Afzalkhan 235, Tuljabhavani 241, Kanhoji Jedhe
+246, Khan's envoy 257, Fort Pratapgad 267) · **Campaign: Siddi Jouhar** (In Javli Jungles 288, Fort Panhalgad won! 296, Topikar Angrez 306,
+Salabatkhan Siddi Jauhar 311, Panhalgad under siege 315, Dilli army in Deccan 321, Soubhagyasampann Jijabaisaheb 330, Chakan fort under
+siege! 336, Maharaj's emissary embarks 342, On way to Vishalgad 350, Fort Vishalgad 363) · **Campaign: Shaistekhan** (Forts Chakan and
+Panhalgad 370, Khandoji Khopde and Kanhoji Jedhe 377, Kanhoji Jedhe and Bandal Deshmukh 388, Kartalabkhan and Raibaghan 391, Dalbhyeshwar
+and Rajapur 401, Sangameshwar and Shringarpur 408, Namdarkhan and Shaistekhan 415, English prisoners and Maharaj 421, Rajgad and Lal
+Mahal 423, Lal Mahal and Fort Kondana 433, Bahirji Naik and Mughals' Surat 438, Maharaj's Hejib and Subedar Inayatkhan 445, Inside Surat
+town and outside 449).
+The translation is loose and sometimes uses the narrator's own colour; the game takes facts only and never the book's wording or its
+sketches (D-05, copyright).
 The most widely read life of Shivaji Maharaj, written from a lifetime's study of the documents,
 in a narrative style. It is the project's **standard reference**: chapters, people and the order of
 events are checked against it first.
@@ -48,7 +65,7 @@ How it is used (also in CLAUDE.md):
 
 | ID | Work | Note |
 |---|---|---|
-| S-PURANDARE | B. M. (Babasaheb) Purandare, *Raja Shivachhatrapati* (Marathi; English trans. 2014) | **Standard reference** (see above) |
+| S-PURANDARE | B. M. (Babasaheb) Purandare, *Raja Shivachhatrapati* (Marathi; English trans. by Dr. Hema Hirlekar, Purandare Prakashan, Edition 2, April 2022: Pon's copy) | **Standard reference** (see above) |
 | S-SARKAR | Jadunath Sarkar, *Shivaji and His Times* (1919, later eds.) | Long the standard English work; based heavily on Persian and English records; later Marathi scholarship corrected several points |
 | S-MEHENDALE | Gajanan Bhaskar Mehendale, *Shivaji: His Life and Times* (English ed. 2011) | Detailed, source-critical; the best single check for dates |
 | S-TAKAKHAV | N. S. Takakhav and K. A. Keluskar, *The Life of Shivaji Maharaj* (1921; online ed. 2017) | Older Maratha-side narrative; useful detail, check against Mehendale |
@@ -185,8 +202,7 @@ How it is used (also in CLAUDE.md):
 
 ## Still to obtain (Phase 0 research tasks)
 
-- **S-PURANDARE** (English 2-vol. ed. or Marathi): needed to run `PURANDARE-CHECK.md`. Pon to say
-  which edition he has; photos of the relevant chapters are enough for each chapter's check.
+- **S-PURANDARE**: Pon's copy identified (Edition 2, April 2022). Pages seen so far: Vol. I pp. 154-158 (Torna), 159-161 (Dadoji), 165-169 (Kondana, Shahaji's danger). Still needed: see `PURANDARE-CHECK.md` "Pages to ask Pon for".
 
 - S-MEHENDALE (English ed.) for every date in CHRONOLOGY marked CONTESTED or VERIFY.
 - P-SABHASAD in translation (Sen, *Siva Chhatrapati*, 1920, is public domain) for Pratapgad, Agra, the coronation.

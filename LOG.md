@@ -136,3 +136,23 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 - Step 2 (Gad + capture) is next; the Ganim keyword is Phase 2 in PLAN but Mavla and Shivaji need it, so decide
   whether a minimal Ganim lands in Phase 1 (the Torna deck has no Mavla until then).
 - No playtest this session: no scene uses the new cards yet.
+
+## 24 Nov 2026 · Session 6 (second half) · Claude (with Pon)
+
+**Asked:** read the book pages Pon photographed, update the project, do the next work, and write the prompts file so cards can be made.
+
+**Done**
+- Read 16 photos: credits page (Edition 2, April 2022, trans. Dr. Hema Hirlekar, Vol. I), the full Vol. I index (page map now in
+  SOURCES.md), and pp. 154-158 (Torna), 159 and 161 (Dadoji), 165-169 (Kondana, the run-up to Shahaji's arrest).
+- `PURANDARE-CHECK.md`: 5 entries updated (agrees / adds / differs) + a "pages to ask Pon for" list.
+- CHRONOLOGY: 3 new entries from the book (C-1646-TORNA-FORT, C-1647-KONDHANA-BAPUJI, C-1647-JAVLI, the last VERIFY);
+  additions to C-1647-RAJGAD, C-1648-SHAHAJI, C-1640-PUNE. PEOPLE: 4 new names. Now 66 entries.
+- CONTESTED: #25 (Torna: no garrison per Purandare), #26 (Javli 1647 vs 1656), #21 updated (Rajgad named at once). `ch01_torna` flagged.
+- **`art/PROMPTS-BATCH1.md`**: 20 card prompts (12 Swarajya, 8 Adilshahi incl. Gads) + 2 battlefield prompts (`torna`, `pratapgad`),
+  shared STYLE and AVOID blocks, size rules read from `paint.ts` (art window about 424 x 404, 1:1) and `convert-assets.mjs`, a checklist.
+- Checks: `npm test` 86 pass, tsc, build.
+
+**Notes for next time**
+- The book frames some events in language D-05 forbids; the game takes facts only. The book's sketches are not used as references.
+- Dates: none of the pages photographed gives a year for Torna; the book's age cues (15, 16) agree with 1645-47.
+- Next code step is unchanged: Phase 1 step 2 (Gad + capture), but Q-07 may change what `ch01_torna` needs: ask Pon first.

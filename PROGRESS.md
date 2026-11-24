@@ -11,6 +11,8 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 - [x] Repo created (Pon) and planning package committed (23 Nov 2026)
 - [x] Engine, renderer, tests copied from YUDDH @ 6f1c852 (24 Nov 2026; YUDDH content kept as scaffolding, D-17)
 - [x] Ruleset `'swarajya'` (24 Nov 2026) · [x] empires `swarajya` and `adilshahi` in cards.json (25 Nov 2026, Phase 1 step 1)
+- [x] Art batch 1 prompt sheet written (24 Nov 2026) · [ ] Art batch 1 painted
+- [x] First Purandare pages checked (Vol. I pp. 154-169)
 - [x] Phase 1 step 1 (data): 4 Swarajya + 3 Adilshahi cards playable; 71 draft cards wait on mechanics (Ganim, Gad, Bhet, reveal, static, vsLegendary)
 - [x] check-refs in `npm test` (24 Nov 2026)
 - [x] Placeholder title screen built and deploy workflow in place (24 Nov 2026) · [ ] live (Pon switches on Pages)
