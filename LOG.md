@@ -218,3 +218,7 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 - D-21 and D-22 recorded (CLAUDE.md reference order rewritten; PURANDARE-CHECK no longer a gate). Prompt sheet: Shivaji's teal removed, checklist ticked for ten cards.
 - STATE, TASKS, ROADMAP, PROGRESS updated.
 **Notes for next time:** GitHub's Pages API and the live site cannot be reached from this workspace; Pon confirms Pages is on. Three paintings are 345 px wide (dadoji, gopinath, jijau_counsel).
+
+## 25 Nov 2026 — part 9: corrected paintings
+- Pon re-sent sw_bargir, sw_dadoji, sw_jijau_counsel at 1080 x 1512. Checked with the arched-window crop preview: clear headroom, no arch clipping, readable. Assets rebuilt (10 webp), 86 tests pass, check-refs OK. Commit 3276e5d.
+- Still outstanding from Pon: sw_gopinath (345 px wide, redo at 1080+ with more headroom), Torna hoard, Wagh Nakh, four fort cards (square), Afzal Khan, Hasham, Gaja, Topkhana, two battlefields (16:9).
