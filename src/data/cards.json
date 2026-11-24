@@ -6,6 +6,8 @@
  "chalukya": {"id":"chalukya","name":"Chalukya","capital":"Badami","color":"#b4532a","glyph":"चा","passive":"Stone Forts — your Durg starts with 28 defence, and your Raksha units get +1 attack."},
  "chola": {"id":"chola","name":"Chola","capital":"Thanjavur","color":"#3f6fa8","glyph":"चो","passive":"Naval Supremacy — your ranged units get +1 attack."},
  "rajput": {"id":"rajput","name":"Rajput","capital":"Kannauj","color":"#a83f5b","glyph":"रा","passive":"Kshatra — your Vega units get +1 attack when deployed."},
+ "swarajya": {"id":"swarajya","name":"Swarajya","capital":"Rajgad","color":"#e0752b","glyph":"स्व","passive":"Sahyadri — the first Mavla you deploy each turn has Vega. (not yet active)"},
+ "adilshahi": {"id":"adilshahi","name":"Adilshahi","capital":"Bijapur","color":"#2e6b57","glyph":"आ","passive":"The Sultanate's household troops and guns. (no passive yet)"},
  "neutral": {"id":"neutral","name":"Mercenary","capital":"—","color":"#7c7466","glyph":"सा","passive":"Hired swords, available to every throne."}
 },
 "empireOrder": ["maurya","gupta","chalukya","chola","rajput"],
@@ -209,6 +211,15 @@
  {"id":"kl_sena","name":"Kalinga Foot","sub":"Coastal Infantry","empire":"neutral","type":"unit","cost":2,"op":1,"atk":2,"hp":3,"range":"melee","glyph":"सै","text":"Spearmen of the Bay of Bengal, steady behind round leather shields.","rarity":"common"},
  {"id":"kl_dhanu","name":"Kalinga Bowmen","sub":"Archers of the Ghats","empire":"neutral","type":"unit","cost":3,"op":1,"atk":3,"hp":2,"range":"ranged","glyph":"ध","text":"Ranged. Archers of the Eastern Ghats, patient among the boulders.","rarity":"common"},
  {"id":"kl_daya","name":"The Daya in Spate","sub":"River and Hills","empire":"neutral","type":"order","cost":4,"damageFront":2,"glyph":"द","text":"Deal 2 damage to every enemy unit on the Yudhbhumi. The river and the hills fight for the defenders.","rarity":"rare"}
+],
+"swarajya": [
+ {"id":"sw_hetkari","name":"Hetkari","sub":"Konkan Matchlock","empire":"swarajya","type":"unit","cost":2,"op":1,"atk":2,"hp":2,"range":"ranged","text":"Ranged. The marksmen of the Konkan.","rarity":"common","basis":"GENERIC","refs":["C-X-ARMY"]},
+ {"id":"sw_bargir","name":"Bargir","sub":"State Cavalry","empire":"swarajya","type":"unit","cost":2,"op":1,"atk":2,"hp":2,"range":"melee","kw":["veg"],"text":"Vega. Horse and sword from the state's stables.","rarity":"common","basis":"GENERIC","refs":["C-X-ARMY"]},
+ {"id":"sw_jijau_counsel","name":"Jijau's Counsel","sub":"Rajmata Jijabai","empire":"swarajya","type":"order","cost":2,"draw":2,"dharma":1,"text":"Draw 2 cards. Dharma +1.","rarity":"rare","basis":"HISTORY","refs":["C-1630-BIRTH","C-1640-PUNE"]},
+ {"id":"sw_torna_hoard","name":"Torna's Treasure","sub":"Found in the Ruins","empire":"swarajya","type":"order","cost":1,"kosha":3,"text":"Gain 3 Kosha.","rarity":"rare","basis":"HISTORY","refs":["C-1646-TORNA"]},
+ {"id":"as_afzal_khan","name":"Afzal Khan","sub":"General of Bijapur","empire":"adilshahi","type":"unit","cost":7,"op":2,"atk":5,"hp":8,"range":"melee","kw":["raksha"],"deploy":"buffAll","text":"Raksha. Deploy — all his units get +1 attack.","rarity":"legendary","basis":"HISTORY","refs":["C-1659-AFZAL-MARCH","C-1659-PRATAPGAD"]},
+ {"id":"as_hasham","name":"Adilshahi Hasham","sub":"Household Infantry","empire":"adilshahi","type":"unit","cost":2,"op":1,"atk":2,"hp":3,"range":"melee","text":"The sultan's household foot.","rarity":"common","basis":"GENERIC","refs":[]},
+ {"id":"as_gaja","name":"Adilshahi Gaja","sub":"War Elephant","empire":"adilshahi","type":"unit","cost":5,"op":2,"atk":4,"hp":6,"range":"melee","kw":["raksha"],"text":"Raksha. Tramples.","rarity":"rare","basis":"GENERIC","refs":[]}
 ],
 "pendingArt": [
 ]

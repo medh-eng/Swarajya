@@ -41,5 +41,7 @@ export const EMPIRE_STYLE: Record<EmpireId, EmpireStyle> = {
   chalukya: { frame: 0xa4532f, frameLight: 0xd08a5c, accent: 0xd9a441, material: 'Badami red sandstone' },
   chola:    { frame: 0x8c5a2b, frameLight: 0xc28a4e, accent: 0x2f7d6e, material: 'Chola bronze' },
   rajput:   { frame: 0xb8bcc4, frameLight: 0xe8eaee, accent: 0xe08a1e, material: 'Painted border, silver' },
+  swarajya: { frame: 0xc9772b, frameLight: 0xefb26a, accent: 0x2c4a3a, material: 'Sahyadri basalt, saffron-stained' },
+  adilshahi:{ frame: 0x5f8f7c, frameLight: 0xa9d0c0, accent: 0xd8c27a, material: 'Bijapur green stone, gilt' },
   neutral:  { frame: 0x6f6252, frameLight: 0xa49580, accent: 0xc9a45c, material: 'Weathered teak' }
 };

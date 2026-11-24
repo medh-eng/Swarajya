@@ -1,5 +1,5 @@
 {
-  "_about": "DRAFT card roster for SWARAJYA. Not balanced, not loaded by the game. Same schema as YUDDH's src/data/cards.json, plus: refs (chronology IDs, required when basis is HISTORY or TRADITION), basis (HISTORY | TRADITION | GENERIC = a type of soldier or a game term, no claim about a person), phase (when it is needed), and _engine (NEW = needs engine work). type 'gad' is new (fort card, see DESIGN 3.1). Keyword 'ganim' is new (DESIGN 3.3). Stats move to src/data/cards.json only after balancing.",
+  "_about": "(Playable cards live in src/data/cards.json: 7 ported 24 Nov 2026, removed here.) DRAFT card roster for SWARAJYA. Not balanced, not loaded by the game. Same schema as YUDDH's src/data/cards.json, plus: refs (chronology IDs, required when basis is HISTORY or TRADITION), basis (HISTORY | TRADITION | GENERIC = a type of soldier or a game term, no claim about a person), phase (when it is needed), and _engine (NEW = needs engine work). type 'gad' is new (fort card, see DESIGN 3.1). Keyword 'ganim' is new (DESIGN 3.3). Stats move to src/data/cards.json only after balancing.",
   "empires": {
     "swarajya": {
       "id": "swarajya",
@@ -109,47 +109,6 @@
       "phase": 1
     },
     {
-      "id": "sw_hetkari",
-      "name": "Hetkari",
-      "sub": "Konkan Matchlock",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 2,
-      "op": 1,
-      "atk": 2,
-      "hp": 2,
-      "range": "ranged",
-      "text": "Ranged. The marksmen of the Konkan.",
-      "rarity": "common",
-      "basis": "GENERIC",
-      "refs": [
-        "C-X-ARMY"
-      ],
-      "phase": 1
-    },
-    {
-      "id": "sw_bargir",
-      "name": "Bargir",
-      "sub": "State Cavalry",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 2,
-      "op": 1,
-      "atk": 2,
-      "hp": 2,
-      "range": "melee",
-      "kw": [
-        "veg"
-      ],
-      "text": "Vega. Horse and sword from the state's stables.",
-      "rarity": "common",
-      "basis": "GENERIC",
-      "refs": [
-        "C-X-ARMY"
-      ],
-      "phase": 1
-    },
-    {
       "id": "sw_shiledar",
       "name": "Shiledar",
       "sub": "Cavalry",
@@ -215,24 +174,6 @@
       "_engine": "NEW deploy"
     },
     {
-      "id": "sw_jijau_counsel",
-      "name": "Jijau's Counsel",
-      "sub": "Rajmata Jijabai",
-      "empire": "swarajya",
-      "type": "order",
-      "cost": 2,
-      "draw": 2,
-      "dharma": 1,
-      "text": "Draw 2 cards. Dharma +1.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1630-BIRTH",
-        "C-1640-PUNE"
-      ],
-      "phase": 1
-    },
-    {
       "id": "sw_dadoji",
       "name": "Dadoji's Lessons",
       "sub": "Dadoji Kondadeo",
@@ -249,22 +190,6 @@
       "phase": 1,
       "_history": "Shown as Shivaji's teacher, as Purandare tells it (D-15). History panel: historians dispute the teacher role; the administration of the jagir is documented.",
       "_engine": "cost reduction for the next unit of class mavla: small new effect (Phase 1)"
-    },
-    {
-      "id": "sw_torna_hoard",
-      "name": "Torna's Treasure",
-      "sub": "Found in the Ruins",
-      "empire": "swarajya",
-      "type": "order",
-      "cost": 1,
-      "kosha": 3,
-      "text": "Gain 3 Kosha.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1646-TORNA"
-      ],
-      "phase": 1
     },
     {
       "id": "sw_ganimi_kava",
@@ -934,30 +859,6 @@
       "_engine": "NEW type gad"
     },
     {
-      "id": "as_afzal_khan",
-      "name": "Afzal Khan",
-      "sub": "General of Bijapur",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 7,
-      "op": 2,
-      "atk": 5,
-      "hp": 8,
-      "range": "melee",
-      "kw": [
-        "raksha"
-      ],
-      "deploy": "buffAll",
-      "text": "Raksha. Deploy — all his units get +1 attack.",
-      "rarity": "legendary",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1659-AFZAL-MARCH",
-        "C-1659-PRATAPGAD"
-      ],
-      "phase": 1
-    },
-    {
       "id": "as_fazl_khan",
       "name": "Fazl Khan",
       "sub": "Afzal Khan's Son",
@@ -1063,43 +964,6 @@
       ],
       "phase": 2,
       "_engine": "NEW order effect"
-    },
-    {
-      "id": "as_hasham",
-      "name": "Adilshahi Hasham",
-      "sub": "Household Infantry",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 2,
-      "op": 1,
-      "atk": 2,
-      "hp": 3,
-      "range": "melee",
-      "text": "The sultan's household foot.",
-      "rarity": "common",
-      "basis": "GENERIC",
-      "refs": [],
-      "phase": 1
-    },
-    {
-      "id": "as_gaja",
-      "name": "Adilshahi Gaja",
-      "sub": "War Elephant",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 5,
-      "op": 2,
-      "atk": 4,
-      "hp": 6,
-      "range": "melee",
-      "kw": [
-        "raksha"
-      ],
-      "text": "Raksha. Tramples.",
-      "rarity": "rare",
-      "basis": "GENERIC",
-      "refs": [],
-      "phase": 1
     },
     {
       "id": "as_topkhana",

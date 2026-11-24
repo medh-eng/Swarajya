@@ -4,7 +4,7 @@
    worker for the AI, and in node for tests and balance runs.
    ============================================================ */
 
-export type EmpireId = 'maurya' | 'gupta' | 'chalukya' | 'chola' | 'rajput' | 'neutral';
+export type EmpireId = 'maurya' | 'gupta' | 'chalukya' | 'chola' | 'rajput' | 'swarajya' | 'adilshahi' | 'neutral';
 export type PlayerIndex = 0 | 1;
 export type Keyword = 'veg' | 'raksha' | 'dhuan';
 export type CardType = 'unit' | 'order' | 'yantra';

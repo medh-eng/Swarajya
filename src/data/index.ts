@@ -13,6 +13,8 @@ export const EMPIRE_DATA = cardsJson.empires as unknown as Record<EmpireId, Empi
 export const EMPIRE_ORDER_DATA = cardsJson.empireOrder as EmpireId[];
 export const CLASSIC_CARDS = cardsJson.classic as unknown as CardDef[];
 export const YUDDH_CARDS = cardsJson.yuddh as unknown as CardDef[];
+/** Swarajya cards (Phase 1: only cards the engine can already play; the rest wait in data/cards.draft.json) */
+export const SWARAJYA_CARDS = cardsJson.swarajya as unknown as CardDef[];
 /** designed but unpainted: not loaded by the engine until their art arrives */
 export const PENDING_CARDS = cardsJson.pendingArt as unknown as CardDef[];
 

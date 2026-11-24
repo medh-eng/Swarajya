@@ -3,7 +3,7 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 24 Nov 2026 (session 5) · **Phase:** 0 done → **Phase 1 next** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 24 Nov 2026 (session 6) · **Phase:** 0 done → **Phase 1 next** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
 YUDDH: Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on
@@ -11,13 +11,14 @@ the YUDDH engine. The repo `medh-eng/Swarajya` holds the planning package (sourc
 entries, 23 chapters, 78 draft cards) and, since session 5, the YUDDH engine copied at its baseline
 with a new ruleset `'swarajya'`. `npm test` (check-refs + 84 Vitest tests incl. the 154-game golden
 replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn placeholder title
-("Coming soon"). No Swarajya mechanic, card, chapter or art is in the game yet.
+("Coming soon"). Session 6 added empires `swarajya` and `adilshahi` and 7 playable cards (86 tests). No Swarajya mechanic, chapter or art is in the game yet.
 
 ## Start here (next session)
 1. Read this file, `TASKS.md` (section "Phase 1"), the last three `LOG.md` entries, then `CLAUDE.md`.
 2. `npm ci`, then `npm test`, `npx tsc --noEmit`, `npm run build`: all must pass before you change anything.
-3. Begin Phase 1 with **TASKS.md → Phase 1, step 1** (data: the Swarajya and Adilshahi empires and the
-   first cards in `src/data/cards.json`). Do not start art or the Bhet before the Gad mechanic works.
+3. Phase 1 step 1 (data) is done for the cards that need no new mechanic. Continue with **TASKS.md → Phase 1,
+   step 2 (Gad card type + capture)**; port the waiting draft cards as each mechanic lands. Do not start art or
+   the Bhet before the Gad mechanic works.
 4. The YUDDH repo is the reference for how a finished feature looks: clone it read-only
    (`GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/medh-eng/yuddh`; skip `art/`, it is ~1 GB).
    Its `src/main.ts` shows the full scene wiring that this repo's placeholder `src/main.ts` replaced.
@@ -34,11 +35,11 @@ replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn pla
 | AI reports review | `history/AI-REPORTS-REVIEW.md` | ChatGPT and Gemini reports checked claim by claim |
 | Purandare check list | `history/PURANDARE-CHECK.md` | 0 of 63 checked (waiting for Pon's page photos) |
 | Chapters (design data) | `data/chapters.json` | 23 (1 blocked: `ch02_purandar1648`) |
-| Cards (design data) | `data/cards.draft.json` | 78 draft, unbalanced, not loaded by the game |
+| Cards (design data) | `data/cards.draft.json` | 71 draft (7 ported to the game), unbalanced, not loaded |
 | Ref checker | `scripts/check-refs.mjs` | in `npm test`; passes (1 warning: `jm_hanmantrao` VERIFY) |
 | Engine (rules, AI, search) | `src/engine/` | YUDDH baseline + `ruleset.ts` (`isYuddhRules`, `isSwarajyaRules`) |
 | Renderer, scenes, UI | `src/game/` | YUDDH baseline + `scenes/swarajyaTitle.ts` (placeholder) |
-| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17); no Swarajya cards yet |
+| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17) + `swarajya` list: 7 cards (4 Swarajya, 3 Adilshahi) |
 | Campaign code | `src/campaign/` | YUDDH's (scaffolding, D-17); `missions.ts` must stay (golden test) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts` |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main |
@@ -104,5 +105,5 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 1. Pon: switch on GitHub Pages (Settings → Pages → Deploy from a branch → `gh-pages`, `/ (root)`), then open
    https://medh-eng.github.io/Swarajya/ on the phone. Send page photos of *Raja Shivachhatrapati* (English)
    for Torna, the Afzal Khan episode and Pratapgad.
-2. Claude: Phase 1 step 1–2: Swarajya and Adilshahi data, then the Gad card type and `capture` objective.
+2. Claude: Phase 1 step 2–3: the Gad card type and `capture` objective (then port the 4 Gad cards).
 3. Claude: Phase 1 art prompt sheet so Pon can start painting while the mechanics are built.

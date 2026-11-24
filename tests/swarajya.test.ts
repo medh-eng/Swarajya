@@ -54,3 +54,28 @@ describe('history guard', () => {
     expect(out).toContain('check-refs: OK');
   });
 });
+
+describe('Phase 1 card data', () => {
+  const SW = ['sw_hetkari', 'sw_bargir', 'sw_jijau_counsel', 'sw_torna_hoard'];
+  const AS = ['as_afzal_khan', 'as_hasham', 'as_gaja'];
+
+  it('Swarajya and Adilshahi cards are registered under their own empires', async () => {
+    const { CARDS, EMPIRES } = await import('../src/engine');
+    expect(EMPIRES.swarajya.name).toBe('Swarajya');
+    expect(EMPIRES.adilshahi.name).toBe('Adilshahi');
+    for (const id of SW) expect(CARDS[id]?.empire, id).toBe('swarajya');
+    for (const id of AS) expect(CARDS[id]?.empire, id).toBe('adilshahi');
+  });
+
+  it('a Swarajya deck plays a full game against an Adilshahi deck', () => {
+    const deck = (ids: string[]) => ids.flatMap(id => [id, id, id, id, id, id]);
+    const st = newGame({
+      seed: 11, rules: 'swarajya',
+      player: { empire: 'swarajya', deck: deck(SW) } as never,
+      enemy: { empire: 'adilshahi', deck: deck(AS) } as never
+    });
+    const r = play(st);
+    expect(st.over).toBe(true);
+    expect(r.turn).toBeGreaterThan(1);
+  });
+});

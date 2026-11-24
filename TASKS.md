@@ -37,7 +37,7 @@ Still open from Phase 0: research item 6 (Act I VERIFY gaps) — moved to the re
 Read `docs/DESIGN.md` §3.1 (Gad), §3 (Bhet), §5 (chapters 0, 1, 4) and `data/cards.draft.json` first.
 Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a glossary entry; then
 `npm test`, `npx tsc --noEmit`, `npm run build`, commit.
-1. [ ] **Data.** Add empires `swarajya` and `adilshahi` to `src/data/cards.json` (`empires`, `empireOrder`,
+1. [~] **Data (partly done, 24 Nov 2026 session 6).** Done: empires, `swarajya` card list, 7 cards that need no new mechanic (`sw_hetkari`, `sw_bargir`, `sw_jijau_counsel`, `sw_torna_hoard`, `as_afzal_khan`, `as_hasham`, `as_gaja`). Left in `data/cards.draft.json` until their mechanic exists: Ganim cards (`sw_shivaji`, `sw_mavla`, `sw_havaldar`, `sw_shiledar`), `sw_herkari` (revealHand), `sw_dadoji` (cost cut), `sw_wagh_nakh` (vsLegendary), the 4 Gads, `sw_gopinath` (Bhet), `as_topkhana` (static). Each moves to `src/data/cards.json` in the step that adds its mechanic. Original text: Add empires `swarajya` and `adilshahi` to `src/data/cards.json` (`empires`, `empireOrder`,
        `EMPIRE_STYLE` in `src/game/theme.ts`) and a new card list `swarajya` (loaded by `src/data/index.ts`
        and `src/engine/cards.ts` like `yuddh`). Port the `phase: 1` cards from `data/cards.draft.json`
        (drop the `_engine`/`_history` notes; keep `refs`). Cards whose effect needs a new mechanic wait for it.

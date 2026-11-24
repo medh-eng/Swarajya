@@ -115,3 +115,24 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 - Pon must switch on Pages (gh-pages branch) once; the workflow publishes on every push.
 - A battle cannot open yet: battlefields have no art and no fallback (TASKS Phase 1 step 4).
 - The android build (YUDDH's `android/` folder and `android.yml`) was not copied; add with `npx cap add android` at Phase 5.
+
+## 24 Nov 2026 · Session 6 · Claude (with Pon)
+
+**Asked:** read STATE.md and do the next work.
+
+**Done** (Phase 1 step 1, data)
+- `EmpireId` gains `swarajya` and `adilshahi` (`types.ts`, `EMPIRE_STYLE` in `theme.ts`); both empires in `cards.json`.
+  `empireOrder` untouched (it feeds the duel picker and the golden test).
+- New card list `swarajya` in `cards.json`, loaded as `SWARAJYA_CARDS` (`src/data/index.ts`, `src/engine/cards.ts`).
+- Ported the 7 draft cards the engine can already play: Hetkari, Bargir, Jijau's Counsel, Torna's Treasure,
+  Afzal Khan, Adilshahi Hasham, Adilshahi Gaja (Adilshahi cards moved from `neutral` to `adilshahi`).
+  Removed them from `data/cards.draft.json` (check-refs rejects duplicate ids).
+- Waiting for a mechanic, so not ported: Ganim cards (Shivaji, Mavla, Havaldar, Shiledar), Herkari, Dadoji,
+  Wagh Nakh, the 4 Gads, Gopinath, Topkhana.
+- Tests: 2 new in `tests/swarajya.test.ts` (cards registered under their empires; a Swarajya deck plays a
+  full game vs an Adilshahi deck). `npm test` 86 pass (golden unchanged), tsc and build pass.
+
+**Notes for next time**
+- Step 2 (Gad + capture) is next; the Ganim keyword is Phase 2 in PLAN but Mavla and Shivaji need it, so decide
+  whether a minimal Ganim lands in Phase 1 (the Torna deck has no Mavla until then).
+- No playtest this session: no scene uses the new cards yet.
