@@ -104,3 +104,17 @@ as **two different people** until a source joins them (TASKS: verify).
 | Venkoji (Ekoji) Bhonsle | Half-brother; ruler of Thanjavur | C-1677-VENKOJI | none | HISTORY |
 | Siddi of Janjira (the Siddi admirals) | Naval power allied to the Mughals | C-1654-NAVY, C-1679-KHANDERI | `sd_siddi_admiral` (generic until a named source) | HISTORY |
 | Gaga Bhatt | Priest of the coronation | C-1674-CORONATION | none | HISTORY |
+| Sambhaji Kavji Kondhalkar | Shivaji's commander who killed Hanmantrao | C-1656-JAOLI | none | HISTORY (S-PURANDARE) |
+| Haibatrao Shilamkar | Shilamkar Deshmukh; fought for Shivaji at Javli | C-1656-JAOLI | none | HISTORY (S-PURANDARE) |
+| Murar Baji Deshpande | Fought for the Mores; joined Swarajya | C-1656-JAOLI | none | HISTORY (S-PURANDARE; VERIFY: Pon to confirm spelling) |
+| Krishnaji Babaji | First subedar of Javli | C-1656-JAOLI | none | HISTORY (S-PURANDARE) |
+| Arjoji Yadav, Ganoji Govind | First fort commanders of Pratapgad | C-1656-PRATAPGAD-BUILT | none | HISTORY (S-PURANDARE) |
+| Gorakhoji Kakde | Subedar of Javli | C-1656-PRATAPGAD-BUILT | none | HISTORY (S-PURANDARE) |
+| Sambhaji Mohite | Shahaji's brother-in-law; commander at Supa | C-1656-SUPA | none | HISTORY (S-PURANDARE) |
+| Yesaji Ganesh Atre | Havaldar of Supa after 1656 | C-1656-SUPA | none | HISTORY (S-PURANDARE) |
+| Sonopant Dabir, Raghunathpant Korde | Shivaji's envoys to Aurangzeb 1657 | C-1657-MUGHALS | none | HISTORY (S-PURANDARE) |
+| Nausirkhan | Mughal officer at Ahmednagar 1657 | C-1657-MUGHALS | none | HISTORY (S-PURANDARE) |
+| Raghunath Ballal Atre | Took Dabhol 1657 | C-1657-NORTH-KONKAN | none | HISTORY (S-PURANDARE) |
+| Dadaji Bapuji Ranzekar, Sakho Krishna Lohokare | Commanders at Kalyan and Bhivandi 1657 | C-1657-NORTH-KONKAN | none | HISTORY (S-PURANDARE) |
+| Daryasarang, Maynak Bhandari | First naval commanders | C-1654-NAVY | none | HISTORY (S-PURANDARE) |
+| Govlekar Sawant | Sawant chief; gave the Bhavani sword | C-1656-BHAVANI-SWORD | none | HISTORY (S-PURANDARE) |

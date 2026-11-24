@@ -11,7 +11,9 @@
 - [ ] Read `history/CONTESTED.md` and `docs/DESIGN.md` §5 (chapter list) and §3 (new mechanics).
 - [ ] Find a Marathi reader to review strings before Gate 1 (Q-05).
 - [ ] Paint from `art/PROMPTS-BATCH1.md` (written 24 Nov 2026): 20 cards + 2 battlefields; Shivaji Raje first, then save PNGs in `art/source/cards/` and `art/source/battlefields/`, then `npm run assets`.
-- [ ] Decide Q-07 (Torna garrison, CONTESTED #25) and Q-08 (Rajgad naming, #21).
+- [x] Torna and Rajgad as per the book (D-19, D-20), 24 Nov 2026.
+- [ ] Send Vol. I p. 213, then the Afzal Khan / Pratapgad pages (pp. 235-287); decides Q-07 (CONTESTED #27, #28).
+- [ ] Rewrite `ch01_torna` objective as a take-hold-fortify race when the Gad mechanic lands (Phase 1 step 2).
 - [ ] Send the next Purandare pages (list in `history/PURANDARE-CHECK.md`): Pratapgad pp. 235-287 first, then pp. 171-200.
 - [x] Name: YUDDH: Swarajya (D-14). Dadoji as teacher (D-15). English edition; Sangamner kept (D-16).
 - [x] Repo `medh-eng/Swarajya` created; Gemini report re-sent and reviewed.

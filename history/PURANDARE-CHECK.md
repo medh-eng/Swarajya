@@ -16,11 +16,11 @@ Status: `not yet checked` · `agrees` · `adds detail` (note it) · `differs` (b
 | C-1647-RAJGAD | Murumbdev becomes Rajgad | Vol. I pp. 157-158, 168-169 | agrees (Murumbdev, treasure) · differs (renamed at once, not 1654) | CONTESTED #21 updated. Adds the three machis and the gate names from the map on p. 168. |
 | C-1648-SHAHAJI | Shahaji arrested; Bijapur strikes back | Vol. I pp. 167-169 (run-up only) | adds detail (run-up) | Mustafakhan leaves for Jinji 17 Jan 1648 with Baji Ghorpade; the arrest itself (25 Jul 1648) is on later pages (p. 171 "Betrayal"). Fateh Khan at Purandar still VERIFY. |
 | C-1649-PAUSE | Five quiet years |  | not yet checked |  |
-| C-1654-NAVY | The first warships |  | not yet checked |  |
-| C-1656-JAOLI | Jaoli and the Mores |  | not yet checked |  |
-| C-1656-PRATAPGAD-BUILT | Pratapgad raised above Jaoli |  | not yet checked |  |
-| C-1657-MUGHALS | First clash with the Mughals |  | not yet checked |  |
-| C-1657-SAMBHAJI-BORN | Sambhaji born |  | not yet checked |  |
+| C-1654-NAVY | The first warships | Vol. I pp. 223-225 | differs (timing) | Book puts the first fleet in late 1657-early 1658; entry gives 1654-59. Names Daryasarang, Daulatkhan, Maynak Bhandari. Dates VERIFY. |
+| C-1656-JAOLI | Jaoli and the Mores | Vol. I pp. 207-212 | differs (method, fate, dates) | No marriage embassy; Hanmantrao killed by Sambhaji Kavji; Chandrarao beheaded after a failed escape with his sons killed. CONTESTED #4, #24, #26, #27. p. 213 not seen. |
+| C-1656-PRATAPGAD-BUILT | Pratapgad raised above Jaoli | Vol. I pp. 226-227 | adds detail | Designer Moropant; setting; Kedareshwar; first commanders. No completion year. Fort section pp. 257+ not yet seen. |
+| C-1657-MUGHALS | First clash with the Mughals | Vol. I pp. 218-221 | adds detail | Junnar 30 Apr 1657, Ahmednagar, Aurangzeb letters 23 Apr 1657 and 14 Feb 1658. |
+| C-1657-SAMBHAJI-BORN | Sambhaji born | Vol. I p. 222 | agrees + adds detail | 14 May 1657, probably Purandar. CONTESTED #28 (elder brother). |
 | C-1659-AFZAL-MARCH | Afzal Khan marches |  | not yet checked |  |
 | C-1659-PRATAPGAD | The meeting below Pratapgad |  | not yet checked |  |
 | C-1659-KOLHAPUR | Battle of Kolhapur |  | not yet checked |  |
@@ -73,12 +73,15 @@ Status: `not yet checked` · `agrees` · `adds detail` (note it) · `differs` (b
 
 ## Pages photographed so far (24 Nov 2026, Vol. I, Edition 2, April 2022)
 Credits page; index (pp. of all Vol. I sections: see `SOURCES.md`); pp. 154-158 (Fort Torangad); 159 and 161 (Pant Dadaji Konddev);
-165-167 and 168-169 (Fort Kondana). Not photographed: 160 (and the rest of the Dadoji section up to 164), 162-164.
+165-167 and 168-169 (Fort Kondana). Also pp. 207-212 (In Javli Jungles), 214-222 (Supa, Karhe plateau), 223-227 (Darya Sarang). Not photographed: 160, 162-164, 213.
 Note: page 156 is a full-page sketch with a short text below; the sketches are Deenanath Dalal's and are never used as art references.
 
 ## Pages to ask Pon for (in this order; photos of each page are enough)
 1. **Vol. I pp. 171-175** ("Betrayal": Shahaji's arrest) and **176-184** (Subhan Mangal) and **185-200** (Purandar, "Soubhagyachi Vatpournima"):
    checks C-1648-SHAHAJI, C-1647-EXPANSION, and decides whether chapter 2 (Purandar 1648) can be built.
 2. **pp. 160, 162-164**: the rest of Dadoji's section (his teaching, his death, any date).
-3. **Pratapgad (needed for Gate 1):** pp. 235-240 (Afzalkhan), 246-256 (Kanhoji Jedhe, Khan's envoy), **257-287 (Khan's envoy and Fort Pratapgad)**; also 207-213 (In Javli Jungles) for CONTESTED #4, #24, #26.
+3. **Pratapgad (needed for Gate 1):** pp. 235-240 (Afzalkhan), 246-256 (Kanhoji Jedhe, Khan's envoy), **257-287 (Khan's envoy and Fort Pratapgad)**; also **p. 213** (end of Javli) and pp. 228-234 (rest of Darya Sarang) to check what follows the Sawant treaty. (Javli pp. 207-212 now seen.)
 4. **Early chapters** (pp. 1-98 and 102-145): birth, Shivneri, Jijabai, Pune (C-1630-BIRTH, C-1640-PUNE, tutorial `ch00_maval`).
+
+
+New entries from pp. 207-227 (all single-source, dates VERIFY): C-1656-SUPA, C-1656-BHAVANI-SWORD, C-1657-KONDHANA-RETAKEN, C-1657-NORTH-KONKAN.

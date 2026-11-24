@@ -80,6 +80,8 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 | D-15 | **Dadoji Kondadeo is shown as Shivaji's teacher**, following Purandare; the History panel notes that historians dispute it (CONTESTED #6). Samarth Ramdas does not appear. | 24 Nov 2026 |
 | D-16 | Chapter `ch20b_sangamner` (Shivaji's last battle, 1679) is in the campaign. Pon's copy of the standard reference: *Raja Shivachhatrapati*, English edition, latest printing. | 24 Nov 2026 |
 | D-18 | **S-PURANDARE edition recorded:** Vol. I, English, Edition 2 (April 2022), trans. Dr. Hema Hirlekar. The book's sketches are never used as art references; its wording is never quoted. | 24 Nov 2026 |
+| D-19 | **Torna as in Purandare:** an unguarded fort taken without a fight. Chapter 1 becomes a race to take, hold and fortify it; no enemy hero (CONTESTED #25). | 24 Nov 2026 |
+| D-20 | **Rajgad named at once** (Purandare), no year printed for the renaming (CONTESTED #21). | 24 Nov 2026 |
 | D-17 | Phase 0 keeps YUDDH's content code (`src/campaign/*`, YUDDH cards and duel factions in `src/data/*.json`) as **scaffolding** so the battle screen, duel and tests keep compiling. It is not reachable from the game (the title is a placeholder). Phase 1 replaces it piece by piece with Swarajya content and deletes what is left. YUDDH's art is not copied (`src/assets/card-art.json` is empty, so cards draw their placeholder frame). | 24 Nov 2026 |
 
 
@@ -89,9 +91,7 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 | Q-03 | Narrator voice | Text only · Pon records the shahir · generated voice | Text first; voice at Phase 5 |
 | Q-04 | Vertical slice chapters | Tutorial + Torna + Pratapgad (plan) · or Pavan Khind instead of Torna | Plan as written |
 | Q-05 | Who reviews the Marathi | — | Someone Pon trusts, before Gate 1 |
-| Q-07 | **Torna: empty fort or garrison?** (CONTESTED #25) | Purandare: no garrison, no fight → chapter becomes a race to hold and fortify · or keep an assault | Follow Purandare |
-| Q-08 | **Rajgad renamed at once or in 1654?** (CONTESTED #21) | Purandare: at once | Follow Purandare, print no year |
-| Q-09 | **Javli 1647 episode** (CONTESTED #26) | Read pp. 207 ff. first | Wait for the pages |
+| Q-07 | **Chandrarao More's sons and Baji's fate** (CONTESTED #27); **elder brother Sambhaji and Afzal** (#28) | Purandare vs earlier retellings | Follow Purandare once the Afzal pages (Vol. I pp. 235+) are seen |
 | Q-06 | Swarajya passive | Sahyadri (first Mavla has Vega) · Gadkot (forts heal the Durg) | Sahyadri, test in Phase 1 |
 (Q-01 and Q-02 resolved: D-14, D-13; the old Q-07 and Q-08 became D-15 and D-16.)
 
@@ -102,7 +102,7 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 - C-1677-VENKOJI (battle).
 - C-1672-JAWHAR: months.
 - C-1674-CORONATION: Henry Oxenden's attendance (check Factory Records).
-- CONTESTED #24: Javli, January or April–May 1656.
+- CONTESTED #27, #28 (Baji More's fate; Afzal and the elder Sambhaji). Dates in C-1656-SUPA, C-1657-KONDHANA-RETAKEN, C-1657-NORTH-KONKAN are single-source (Purandare).
 - Card `jm_hanmantrao` (only one secondary source).
 - "Bahlol Khan" at Salher (Mughal) vs the Bijapuri Bahlol Khan: assumed two people.
 
@@ -111,4 +111,4 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
    https://medh-eng.github.io/Swarajya/ on the phone. Send page photos of *Raja Shivachhatrapati* (English)
    for Torna, the Afzal Khan episode and Pratapgad.
 2. Claude: Phase 1 step 2–3: the Gad card type and `capture` objective (then port the 4 Gad cards).
-3. Pon: paint from `art/PROMPTS-BATCH1.md` (Shivaji Raje first); send the pages listed at the bottom of `history/PURANDARE-CHECK.md` (Pratapgad pp. 235-287 first); decide Q-07.
+3. Pon: paint from `art/PROMPTS-BATCH1.md` (Shivaji Raje first); send the pages listed at the bottom of `history/PURANDARE-CHECK.md` (Pratapgad pp. 235-287 first); send p. 213 and the Afzal pages; Q-07 waits for them. Note: the Pratapgad card (15) and battlefield (B2) prompts were updated with the book's setting; if you already painted them, see "Changed from the first version" in the sheet.

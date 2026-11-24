@@ -141,10 +141,9 @@ a high crag, scaffolding of bamboo on one wall, masons and carriers on the paths
 saffron flag over the citadel. Smoke from iron-smiths' fires. A fort becoming a capital: busy, ambitious, still raw. Late afternoon light.
 
 ### 15. `sw_gad_pratapgad` — Pratapgad · rare · Gad
-*Basis: HISTORY [C-1656-PRATAPGAD-BUILT: built in the Jaoli country, 1656]. The chronology says nothing more about the fort's form, so this is a generic hill fort; Pon may refine it when Purandare's "Fort Pratapgad" pages (p. 267 ff.) are photographed.*
-**Prompt:** A fortress on a forested Sahyadri ridge above a deep green valley in the Jaoli country, ramparts following the contour of
-the hill, a saffron flag on the topmost bastion, low cloud filling the valley below, tall trees pressing up the slope. Late autumn
-(early winter) light, cold and clear, mist at the base. Strong and quiet.
+*Basis: HISTORY [C-1656-PRATAPGAD-BUILT, S-PURANDARE pp. 226-227]. Updated 24 Nov 2026 with the book's description of the setting.*
+**Prompt:** A fortress with a stone citadel crowning a high, forested Sahyadri spur, huge mountain ridges rising close behind it to the east, sheer drops on its north and south sides, and deep green valleys opening to the west; the forest below so dense that even an elephant could hide in it. Ramparts follow the contour of the hill, a saffron flag on the highest bastion, small ponds and a modest stone Shiva temple half-hidden among creepers on a terrace inside the walls, low cloud filling the valley below. Late autumn (early winter) light, cold and clear, mist at the base. Strong and quiet.
+**Changed from the first version (if you have already painted it):** the cliffs on two sides, the mountains behind and the very dense forest are new; the rest is the same.
 
 ---
 
@@ -195,7 +194,7 @@ stone ground) for the cards. No people in the foreground.
 ### B2. `pratapgad` — The forest below Pratapgad (chapter 4)
 *Basis: HISTORY [C-1659-PRATAPGAD: the meeting in a pavilion below the fort; November 1659]. Season hemanta (early winter). The battle itself is INVENTED.*
 **File:** `art/source/battlefields/pratapgad.png`, 2560 × 1440.
-**Prompt:** A wide morning view of dense Sahyadri forest on a steep slope below a fort silhouetted on the ridge high above; a cleared
+**Prompt:** A wide morning view of very dense Sahyadri forest (so thick that a hidden elephant would be hard to find) on a steep slope below a fort silhouetted on the ridge high above, with deep valleys falling away to one side and only narrow foot tracks visible; a cleared
 level space in the middle with a large cream pavilion (a parley tent) standing alone, ground mist on the forest floor, tall trees, cold
 early-winter light slanting through the trees. Tense and still. **Leave the middle band calm.** No figures near the pavilion.
 

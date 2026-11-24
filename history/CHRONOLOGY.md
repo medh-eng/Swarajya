@@ -63,9 +63,9 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 
 ### C-1646-TORNA · Torna, the first fort
 - **Date:** 1646 (popular sources also say 1645 or 1647)
-- **Event:** Aged about 16, Shivaji took Torna fort from its Bijapur commandant while the Bijapur court was in confusion over the sultan's illness. Treasure found there paid for a new fort, Rajgad, which was his seat of government for over a decade. Torna was renamed Prachandagad.
-- **Basis:** HISTORY (year: CONTESTED.md #2)
-- **Refs:** W-SHIVAJI, W-TORNA
+- **Event:** Aged about 16, Shivaji took Torna fort while the Bijapur court was in confusion over the sultan's illness. **Following Purandare (Pon's decision D-19):** the fort stood neglected and unguarded and he took charge without a fight (some references say he took it from its commandant: CONTESTED.md #25). Treasure found there paid for a new fort, Rajgad, which was his seat of government for over a decade. Torna was renamed Prachandagad.
+- **Basis:** HISTORY (year: CONTESTED.md #2; unguarded fort: S-PURANDARE, D-19)
+- **Refs:** W-SHIVAJI, W-TORNA, S-PURANDARE
 - **Game:** `ch01_torna`, cards `sw_gad_torna`, `sw_torna_hoard`
 
 ### C-1647-EXPANSION · Kondhana, Purandar, Chakan and the Konkan
@@ -76,7 +76,7 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Game:** campaign map (forts lit after `ch01_torna`)
 
 ### C-1647-RAJGAD · Murumbdev becomes Rajgad
-- **Date:** taken c. 1647 (references vary from 1646 to 1648); repairs from 1649; renamed Rajgad in 1654
+- **Date:** taken c. 1647 (references vary from 1646 to 1648); **named Rajgad as soon as it was taken (S-PURANDARE; Pon's decision D-20)**; some references say repairs from 1649 and the renaming in 1654
 - **Event:** The hill fort of Murumbdev, near Torna, was taken and rebuilt (with treasure from Torna) and renamed Rajgad. It was Shivaji's seat of government until Raigad became the capital. How long it served is given differently: "over a decade" (W-SHIVAJI) or "almost 26 years" (W-RAJGAD, citing A. R. Kulkarni); the move to Raigad is dated anywhere from 1662 to 1674.
 - **Basis:** HISTORY (capture, renaming) · CONTESTED (dates, length as capital: CONTESTED.md #21)
 - **Refs:** W-RAJGAD, W-SHIVAJI, W-HISTFILES-TORNA
@@ -101,7 +101,7 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 ### C-1647-JAVLI · Javli's succession (1647), as Purandare tells it
 - **Date:** 1647 (Chandrarao More's death); Shivaji in his seventeenth year
 - **Event:** Chandrarao More of Javli (Chandrarao was the family's title; the man who died was Daulatrao) had no son. The widow, fearing the estate would be taken by relatives or by Bijapur, and looking towards Shivaji's Rajgad, asked him to come. He came with cavalry and troops, took over Javli's posts without difficulty and, as she wished, set up the man she had chosen from the More family of Shivthar as the new Chandrarao: an adult with two sons, probably named Yashwantrao. Purandare presents this as Shivaji keeping faith with the widow, and expecting the new Chandrarao's loyalty.
-- **Basis:** HISTORY per S-PURANDARE (single source) · VERIFY (year and adoption: not yet matched with Sabhasad, Jedhe or Mehendale; differs from the 1656 retellings: CONTESTED.md #26). Not used in any card until checked.
+- **Basis:** HISTORY per S-PURANDARE (single source; agrees with pp. 207 and 211, which present Yashwantrao as the heir Shivaji's favour had secured; CONTESTED.md #26 now closed as consistent). Year and the adoption: VERIFY in Mehendale or Jedhe before a card states them.
 - **Refs:** S-PURANDARE (Vol. I, Campaign: Fort Shivneri, "Fort Kondana", pp. 165-166)
 - **Game:** none yet (D-07: the later killing of Chandrarao More is never playable)
 
@@ -124,35 +124,68 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Date:** c. 1654 (some sources c. 1657–59)
 - **Event:** Shivaji had the first Maratha naval vessels built in a creek near Kalyan, mainly to check the Siddis of Janjira. By 1659 the fleet is put at about 20 ships.
 - **Basis:** HISTORY (start date approximate)
-- **Refs:** W-NAVY, W-ESAM-NAVY
+- **Refs:** W-NAVY, W-ESAM-NAVY, S-PURANDARE (Vol. I, "Darya Sarang", pp. 223-225)
+- **Purandare adds:** he places the first fleet in late 1657 and early 1658 (after the taking of Kalyan, 24 October 1657): the later range above. Daryasarang was the first naval commander, with Daulatkhan and Maynak Bhandari; a fort and naval centre was started in the Kalyan creek under Abaji Mahadev; warships (Sangamiri among them) were built.
 - **Game:** unlocks navy cards (`sw_galbat`)
 
 ### C-1656-JAOLI · Jaoli and the Mores
 - **Date:** 1656. The Jedhe chronology puts Chandrarao's surrender in Vaishakh, Shaka 1578 (April–May 1656); popular sources and the Gemini report give 15 January 1656. These may be two stages (Javli taken, then Chandrarao's surrender at Rairi): CONTESTED.md #24
 - **Event:** Shivaji seized the valley of Jaoli from Chandrarao More, a fellow Maratha feudatory of Bijapur who had backed an attempt to ambush him. Chandrarao and his sons were imprisoned; after an escape attempt Chandrarao and his son Krishnaji were executed, and the son Baji escaped. Raigad (then Rairi) and other forts followed. How Jaoli was taken (Maratha accounts include a pretended marriage embassy) is disputed.
-- **Basis:** HISTORY (outcome) · CONTESTED (method: CONTESTED.md #4)
-- **Refs:** W-JAOLI, W-TAKAKHAV-JAOLI
+- **Basis:** HISTORY (outcome) · CONTESTED (method: CONTESTED.md #4; sons' fate: #27)
+- **Refs:** W-JAOLI, W-TAKAKHAV-JAOLI, S-PURANDARE (Vol. I, Campaign: Pratapgad Wartime, "In Javli Jungles", pp. 207-212)
+- **Purandare adds (pp. 207-212), dates he gives:** Javli taken **15 January 1656**; Shivaji's force moved on Rairi fort **6 April 1656**; Chandrarao gave in after about a month of siege (so April-May 1656: this joins the two dates above, CONTESTED #24); he was shown mercy, but while in Shivaji's camp he was caught corresponding with Bijapur and the Ghorpades of Mudhol, fled, was caught and beheaded (after 27 August 1656); his sons Baji and Krishnaji were killed too. **No pretended marriage embassy:** Purandare tells it as a quarrel that grew over months. The Mores' lord and his captain Hanmantrao More claimed Gunjan Mawal, which belonged to the Shilamkar Deshmukhs, harboured a criminal fleeing Shivaji's justice, and attacked Rohidkhore (killing two local patils); Shivaji sent warnings and letters (including a mediator, Raghunathpant), then moved against the Mores with the Deshmukhs Kanhoji Jedhe and Haibatrao Shilamkar, Sambhaji Kavji Kondhalkar, Bandal Naik and Raghunathpant Sabnis. In the fighting at Chaturbet in the Johor valley and at Javli, Sambhaji Kavji killed Hanmantrao; Chandrarao fled to Rairi; his brother Prataprao fled to Bijapur. Murar Baji Deshpande, fighting for the Mores, so impressed Shivaji that he was invited, and agreed, to join Swarajya. Krishnaji Babaji became Javli's subedar and Viro Ram its mujumdar. Chandragad, Makarandgad, Kangori, Songad and Chambhargad then joined Swarajya; Rairi was repaired and renamed Raigad. Shilamkar, Chandrarao's nephew, fought on Shivaji's side. The same pages say the present Chandrarao (Yashwantrao) held Javli only through Shivaji's favour (C-1647-JAVLI).
 - **Game:** `ch03_jaoli`; the History panel shows both views
 
 ### C-1656-PRATAPGAD-BUILT · Pratapgad raised above Jaoli
 - **Date:** 1656
 - **Event:** The fort of Pratapgad was built in the Jaoli country.
 - **Basis:** HISTORY
-- **Refs:** W-PRATAPGAD-FORT
+- **Refs:** W-PRATAPGAD-FORT, S-PURANDARE (Vol. I, "Darya Sarang", pp. 226-227)
+- **Purandare adds (pp. 226-227):** The fort was designed and built by Moropant (Pingle) in the Javli valley; the book gives no year for its completion and tells it after the late-1656 treaty with Sawant (so: started 1656, finished at an unknown later date: VERIFY). Shivaji came to inspect it and named it Pratapgad; Jijabai admired it. It had living quarters, offices, ponds, secret passages, strong armour-like defences and a citadel. A Shiva lingam found under a creeper on the site became a temple, Kedareshwar. Huge mountains of the Mahabaleshwar range lie to the east, sheer drops north and south and deep valleys west; the forest around was so dense that even an elephant hidden in it would be hard to find; only Mavle dared the foot tracks down towards Rohidkhore. First fort commander: Arjoji Yadav, later Ganoji Govind; Gorakhoji Kakde ("Dinkarrao") was subedar of Javli. Nearby guard-forts: Makarandgad (near Ghonaspur), Chandragad (near Umrathe, Tanaji Malusare's village) and Mangalgad.
 - **Game:** `ch04_pratapgad` battlefield; card `sw_gad_pratapgad`
 
 ### C-1657-MUGHALS · First clash with the Mughals
 - **Date:** late March – 31 May 1657
 - **Event:** While Aurangzeb, then Mughal viceroy of the Deccan, besieged Bidar, Maratha horsemen raided Mughal villages towards Ahmadnagar and Shivaji raided Junnar. Nasiri Khan beat the raiders back. Aurangzeb soon left for the north to fight the war of succession.
 - **Basis:** HISTORY
-- **Refs:** W-AHMEDNAGAR, W-SHIVAJI, W-SARKAR-TOC
+- **Refs:** W-AHMEDNAGAR, W-SHIVAJI, W-SARKAR-TOC, S-PURANDARE (Vol. I, "Karhe plateau", pp. 218-221)
+- **Purandare adds:** Shivaji first sent Sonopant Dabir to Aurangzeb at Bidar to have his Konkan gains approved (Aurangzeb's letter is dated 23 April 1657); then, on a dark night, Shivaji's Mavle went over the wall of the Mughal post at **Junnar (30 April 1657)** and cleared its treasure and stables; he raided Ahmednagar's town, where the Mughal officer Nausirkhan came out against him. Aurangzeb ordered his officers (including Kartalabkhan) to punish Shivaji's land; Shivaji sent Raghunathpant Korde to apologise and Aurangzeb, anxious about his sick father Shah Jahan, forgave him in a letter dated 14 February 1658. Bijapur's sultan Muhammad Adilshah died on 4 November 1656 (the book's date).
 - **Game:** interlude text; possible small raid chapter later
+
+### C-1656-SUPA · Supa taken from Sambhaji Mohite
+- **Date:** 24 September 1656
+- **Event:** Supa, part of Shahaji's jagir, was held by Shahaji's brother-in-law Sambhaji Mohite, whom Shivaji addressed as maternal uncle (his stepmother Tukabai's brother). Complaints of bribes and cruelty reached Shahaji. Shivaji rode to Supa after the Dasara festival, entered unannounced, asked for the post, the fort and the district, was refused, and had Mohite taken into custody. Shivaji then sent him to Shahaji in the Karnatak with an honourable escort; Yesaji Ganesh Atre was made havaldar of Supa.
+- **Basis:** HISTORY per S-PURANDARE (single source: VERIFY the date)
+- **Refs:** S-PURANDARE (Vol. I, "Karhe plateau", pp. 215-217)
+- **Game:** none planned (family matter); person file only
+
+### C-1656-BHAVANI-SWORD · The gift of a European sword
+- **Date:** end of 1656 or soon after (the book places it after the treaty with Sawant)
+- **Event:** After the Sawants of Sawantwadi accepted Shivaji's overlordship, Govlekar Sawant presented him with a fine double-edged European sword; Shivaji paid for it, and gave ceremonial clothes, and named the sword Bhavani.
+- **Basis:** HISTORY per S-PURANDARE (single source) · TRADITION (that this is the sword later called "the Bhavani Talwar")
+- **Refs:** S-PURANDARE (Vol. I, "Darya Sarang", p. 226)
+- **Game:** possible order or item card; label as tradition
+
+### C-1657-KONDHANA-RETAKEN · Kondhana won back
+- **Date:** around 13 August 1657
+- **Event:** Kondhana had been handed back to Bijapur at the time of Shahaji's release (1649). With Aurangzeb gone north and Bijapur weakened, Shivaji's forces took it again; a saffron flag went up on the fort.
+- **Basis:** HISTORY per S-PURANDARE (single source: VERIFY the date). It was given up again at the Treaty of Purandar (C-1665-TREATY) and taken a third time in 1670 (C-1670-SINHAGAD).
+- **Refs:** S-PURANDARE (Vol. I, "Darya Sarang", p. 223)
+- **Game:** campaign map only
+
+### C-1657-NORTH-KONKAN · Kalyan, Bhivandi and the northern Konkan
+- **Date:** August 1657 – May 1658
+- **Event:** Raghunath Ballal Atre took Dabhol (about August 1657) and went on to Dandarajpuri, facing Janjira. In October 1657 Shivaji sent his commanders against Kalyan and Bhivandi (Dadaji Bapuji Ranzekar, Sakho Krishna Lohokare); both fell on 24 October 1657, and about forty hill forts (including Lohgad, Tung, Tikona, Visapur, Rajmachi, Prabalgad and Sarasgad) followed. In January 1658 Shivaji took Mahuli (a fort Shahaji had defended in 1636), then dealt with the Portuguese-held Chaul region, taking Tale and Ghosale. Portugal's governor at Goa reported anxiously to Lisbon (5 May 1658).
+- **Basis:** HISTORY per S-PURANDARE (single source: VERIFY each date)
+- **Refs:** S-PURANDARE (Vol. I, "Darya Sarang", pp. 223-225)
+- **Game:** campaign map; navy cards
 
 ### C-1657-SAMBHAJI-BORN · Sambhaji born
 - **Date:** 1657
 - **Event:** Sambhaji, Shivaji's eldest son, was born to his first wife Saibai.
-- **Basis:** HISTORY
-- **Refs:** W-DECCANWARS
+- **Basis:** HISTORY (day and place: S-PURANDARE)
+- **Refs:** W-DECCANWARS, S-PURANDARE (Vol. I, "Karhe plateau", p. 222)
+- **Purandare adds:** born **14 May 1657**, probably at Purandar, where Saibai had gone to stay with Jijabai; named for Shivaji's elder brother Sambhaji, who had died at Kanakgiri (CONTESTED.md #28).
 - **Game:** person file only
 
 ### C-1659-AFZAL-MARCH · Afzal Khan marches

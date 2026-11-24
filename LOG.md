@@ -156,3 +156,17 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 - The book frames some events in language D-05 forbids; the game takes facts only. The book's sketches are not used as references.
 - Dates: none of the pages photographed gives a year for Torna; the book's age cues (15, 16) agree with 1645-47.
 - Next code step is unchanged: Phase 1 step 2 (Gad + capture), but Q-07 may change what `ch01_torna` needs: ask Pon first.
+
+## 24 Nov 2026 · Session 6 (third part) · Claude (with Pon)
+
+**Asked:** keep Torna and Rajgad as in the book; read 20 more pages (Vol. I pp. 207-212, 214-222, 223-227: Javli, Supa, Karhe plateau, Darya Sarang).
+
+**Done**
+- Recorded D-19 (Torna unguarded, no fight) and D-20 (Rajgad named at once); CONTESTED #21 and #25 closed, #4, #24, #26 updated; new #27 (fate of Chandrarao's sons) and #28 (elder Sambhaji and Afzal).
+- CHRONOLOGY now 70 entries: updated JAOLI, PRATAPGAD-BUILT, MUGHALS, SAMBHAJI-BORN, NAVY, TORNA, RAJGAD, JAVLI; added SUPA, BHAVANI-SWORD, KONDHANA-RETAKEN, NORTH-KONKAN. PEOPLE: 15 rows added. PURANDARE-CHECK rows and page lists updated.
+- `ch01_torna` text rewritten to the D-19 decision (objective rewrite waits for the Gad mechanic).
+- `art/PROMPTS-BATCH1.md`: card 15 (`sw_gad_pratapgad`) and battlefield B2 (`pratapgad`) refreshed with the book's setting; the sheet tells Pon what changed.
+
+**Notes for next time**
+- Book says Baji More was killed in 1656; earlier entry had him fighting at Pavan Khind (CONTESTED #27): do not name his fate in cards.
+- Missing: p. 213; Afzal pages pp. 235+.
