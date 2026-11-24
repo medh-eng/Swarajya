@@ -199,3 +199,8 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 **Notes for next time**
 - Chapter 4 design notes are in C-1659-PRATAPGAD: Bhet = negotiating the terms; hidden-force cannon signal; battle = forest ambush; surrender spares the unarmed.
 - The book's killing scenes and religious language: facts only; no depiction of the blow (art rule).
+
+## 24 Nov 2026 · Session 6 (sixth part) · Claude (with Pon)
+
+**Asked:** Pon sent web screenshots of Torna, Pratapgad, Rajgad/Raigad, Lohagad, Shivneri and wagh nakh images as fort references for painting.
+**Done:** a "Reference photos" section in `art/PROMPTS-BATCH1.md` (features to carry into nos. 12-16 and B1-B2; Rajgad vs Raigad warning; Lohagad and Shivneri noted for later batches; what not to use). Photos not stored in the repo. No code change.

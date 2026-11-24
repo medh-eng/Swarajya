@@ -200,6 +200,28 @@ early-winter light slanting through the trees. Tense and still. **Leave the midd
 
 ---
 
+## Reference photos from Pon (24 Nov 2026): what to take from them
+
+Pon's phone screenshots (real fort photographs from the web) are **references for Pon's own painting only**: they are not copied into the repo,
+and the paintings must be original (no tracing, no pasting a photograph). What the photos show, in words, so the prompts above can be checked against them:
+
+- **Torna (nos. 13, 16, B1):** a long, saw-toothed ridge spine rather than a single tower: bare rock and grass slopes falling away on both sides, a
+  stone wall that zigzags along the contour of the ridge with stepped sections, a bastion at the far end and a small flag at the top. It is green in the rains
+  and golden-brown when dry (our season is autumn: green turning gold). Keep the "huge crest rock" from the prompt, but make the ridge **long and narrow**.
+- **Pratapgad (no. 15, B2):** a narrow ridge path climbing a green, moss-covered spur to a tall square citadel with a stairway and a flagpole, walls
+  twisting down both sides, cloud and mist all round. For 1659-60 leave out the modern shed roofs, railings and tourists. Add the **flagpole** and the **mossy walls**.
+- **Rajgad (no. 14):** the photo shows a **round bastion with a wide stairway** climbing to it, on a sheer green ridge with a flag above. Use it for the
+  citadel bastion. **Not** the aerial photo of the walled courtyard with a temple and water tank: that is **Raigad** (Jagdishwar temple, built 1670s),
+  a different fort and a later time. Rajgad (1647) and Raigad (1674) are different forts: do not mix them.
+- **Wagh nakh (no. 12):** the museum photographs show a short curved bar with **four curved claws and two finger-rings**: matches the prompt.
+- **For later batches (not painted yet):** **Lohagad** (a black basalt hill, an arched gateway at the end of a wide stone stairway between high walls;
+  taken in the 1657 northern Konkan campaign, C-1657-NORTH-KONKAN) and **Shivneri** (a square stone tower with a crenellated top and balcony windows, an arched
+  stone gate with winding steps; birthplace, used for the opening chapter).
+- **Do not use:** the modern paintings and posters in the search results that show Shivaji's face, the Afzal scene (any blow) or Jijabai: our rule is period portraits only (D-10)
+  and no depiction of the act.
+
+---
+
 ## Checklist (Pon ticks when the PNG is in `art/source/…`)
 
 | # | File | Painted |
