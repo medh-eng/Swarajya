@@ -204,3 +204,8 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 
 **Asked:** Pon sent web screenshots of Torna, Pratapgad, Rajgad/Raigad, Lohagad, Shivneri and wagh nakh images as fort references for painting.
 **Done:** a "Reference photos" section in `art/PROMPTS-BATCH1.md` (features to carry into nos. 12-16 and B1-B2; Rajgad vs Raigad warning; Lohagad and Shivneri noted for later batches; what not to use). Photos not stored in the repo. No code change.
+
+## 24 Nov 2026 · Session 6 (seventh part) · Claude (with Pon)
+
+**Asked:** put exact picture specifications in the prompt sheet (cards 5:7 with clear space above the head, forts square, battlefields 16:9) and check four finished paintings (sw_shivaji, sw_mavla, sw_havaldar, sw_hetkari).
+**Done:** new "Format and safe-area specification" in `art/PROMPTS-BATCH1.md`, derived from the code: card face 480 x 672 (5:7), art window 424 x 404, cover-fit with focus 0.3, so a 5:7 picture shows about 10-77 % of its height (token: 7-83 %). Simulated the four paintings in the card and token windows: all read well. Gad cards will need a square window (Phase 1 step 2, noted in TASKS).

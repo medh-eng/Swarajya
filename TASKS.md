@@ -45,7 +45,7 @@ Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a g
        `EMPIRE_STYLE` in `src/game/theme.ts`) and a new card list `swarajya` (loaded by `src/data/index.ts`
        and `src/engine/cards.ts` like `yuddh`). Port the `phase: 1` cards from `data/cards.draft.json`
        (drop the `_engine`/`_history` notes; keep `refs`). Cards whose effect needs a new mechanic wait for it.
-2. [ ] **Gad card type + capture** (DESIGN §3.1): `type: 'gad'` in `types.ts`; played to the Rajya line;
+2. [ ] **Gad card type + capture** (DESIGN §3.1; **Gad cards use a square art window**: Pon's fort paintings are 1:1, the character cards 5:7 and shown through the existing arched window): `type: 'gad'` in `types.ts`; played to the Rajya line;
        destroyed by an enemy unit on the Yudhbhumi → flips to that side; immune to "destroy" orders.
        AI value in `ai.ts`/`search.ts`. Tests in `tests/gad.test.ts`. Glossary entry.
 3. [ ] **`capture` objective** (`Objective` in `types.ts`, checked where `survive`/`deadline` are).

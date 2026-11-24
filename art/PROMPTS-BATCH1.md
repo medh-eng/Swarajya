@@ -14,13 +14,49 @@ taken from the book's sketches.*
    painting keeps its drawn placeholder, so you can add pictures in any order and the game keeps working.
 4. Tick the box in the tables at the end.
 
-**Card paintings:** square, **1536 × 1536** (or larger, still square). They are shown in an arched window about 424 × 404 px
-on the card, so: put the main subject in the **upper-middle**, keep the **lowest fifth and the four corners simple**
-(the arch and the stat badges cover them), and leave breathing room round heads. Units also appear small on the
-battlefield, so a face or silhouette must still read at thumbnail size.
+## Format and safe-area specification (updated 24 Nov 2026)
 
-**Battlefields:** wide **2560 × 1440** (16:9). Cards and the Durg sit over the picture, so keep the **middle horizontal band calm**
-(soft ground, mist) and put the drama in the sky and the top and bottom thirds.
+There are three picture formats. **Always generate in the exact ratio**; the game crops by "cover" (it never stretches), so a wrong ratio is cut.
+
+| Kind | Which pictures | Ratio | Master size (PNG, sRGB, no transparency) | File name |
+|---|---|---|---|---|
+| **Character and order cards** | Nos. 1-12 and 17-20 (all but the forts) | **5:7 portrait** | **1500 × 2100** (minimum 1080 × 1512) | `art/source/cards/<id>.png` |
+| **Fort (Gad) cards** | Nos. 13-16 (`sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held`) | **1:1 square** | **1536 × 1536** (minimum 1080 × 1080) | `art/source/cards/<id>.png` |
+| **Battlefields** | B1 `torna`, B2 `pratapgad` | **16:9 landscape** | **2560 × 1440** | `art/source/battlefields/<name>.png` |
+
+`npm run assets` turns cards into 720-px-wide web files (5:7 → 720 × 1008, forts → 720 × 720) and battlefields into 2560 px wide.
+Paint to the very edge of the picture: **no deckled or stained paper edge, no border, no frame.**
+
+### 5:7 character and order cards: safe area
+
+The card shows the painting in an arched window, so **only the middle of the 5:7 picture is seen** (about 68 % of its height; the sides are
+seen in full). Measured from the top of the picture:
+
+| Zone (top = 0 %) | What happens | What to put there |
+|---|---|---|
+| **0 – 10 %** | **cut off** on the card | plain sky or background only |
+| **10 – 22 %** | visible; the arch's rounded top covers the two top corners | **clear space above the head**: sky, mist, a flag or a distant fort; nothing important in the top corners |
+| **head top at 22 – 30 %**, eyes at about 30 – 36 % | visible, upper-middle of the window | **the head, centred or slightly off-centre**; leave at least ~8 % of the height of empty space above the headgear or plume |
+| **30 – 77 %** | visible | face, shoulders, chest, hands, the weapon or object that identifies the card |
+| **77 – 100 %** | **cut off** on cards (and 83 – 100 % on board tokens) | ground, feet, hem: **nothing that matters**; the figure may continue down, but a 3/4-length pose (knees up) is better than a full-length one |
+| **left and right 6 %** | visible but near the frame | keep faces, hands and weapon tips out of the extreme edges |
+
+The same painting is also the small **board token** (a 340 × 420 card with a slightly squarer window), so **the face, the main weapon and the colour of
+the dress must read at thumbnail size**: strong silhouette, one clear colour accent (the saffron sash), no tiny details that carry meaning.
+Orders and objects (Torna hoard, Wagh Nakh, Jijau's counsel) follow the same zones with the object centred at 35 – 65 %.
+
+### Fort (Gad) cards: safe area (square)
+
+The whole fort should be readable as one shape. Put the **main structure (the citadel, the gate or the tallest bastion) in the middle three-fifths**,
+keep a **margin of about 8 %** on every side (the frame will cover the edges), leave the **top 12 % as sky** (for the flag and a clear silhouette) and the
+**bottom 15 % simple** (ground, mist or slope: the title ribbon overlaps it). One fort, one strong silhouette. The captured and the neglected Torna (nos. 13 and 16) must be **the same
+view in the same position** so the two cards match when flipped.
+
+### Battlefields: safe area (16:9)
+
+Wide **2560 × 1440**. Cards and the Durg sit over the picture, so keep the **middle horizontal band (about 35 % to 70 % of the height) calm**
+(soft ground, mist) and put the drama in the sky and the top and bottom thirds. Keep the **left and right 5 %** free of anything important. No figures
+in the middle band.
 
 **Order I suggest:** 1 Shivaji Raje (it fixes his face for everything else) → 2 Torna (card + battlefield) → 3 the Swarajya soldiers →
 4 the Adilshahi cards → 5 Pratapgad pieces.
@@ -31,7 +67,7 @@ battlefield, so a face or silhouette must still read at thumbnail size.
 > watercolour and gouache on aged paper, fine brush outlines, rich flat colour fields with subtle shading, gold-leaf highlights, delicate
 > patterned textiles; blended with a warm "living miniature" atmosphere (soft lamplight or low sun, depth, a little mist). Palette: Sahyadri
 > basalt grey, monsoon-cloud blue-grey, red laterite earth, saffron, deep teal and cream. Dignified, historically careful, painterly, no
-> caricature, no gore. Square composition, main subject upper-middle, lower fifth and corners simple.
+> caricature, no gore. Paint to the edge of the picture (no deckled paper edge). **Format line (use the one that applies):** *Portrait 5:7: clear sky above the head, head top about a quarter of the way down, 3/4-length figure, lower quarter simple.* / *Square 1:1: one strong silhouette, 8 % margin, sky above, simple ground below.* / *Landscape 16:9: calm middle band.*
 
 For **Adilshahi** pictures add: *"Bijapur school colours: deep green lacquer, lavender-grey, gold, ivory marble; Deccani court elegance."*
 
