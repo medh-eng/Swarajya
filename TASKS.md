@@ -146,4 +146,34 @@ Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a g
        files deliberately, not as a Phase-1-closing afterthought. `src/game/scenes/standing.ts` and
        `src/game/scenes/gallery.ts` (unreachable from the Swarajya title, confirmed not imported from
        `main.ts` or any test) are zero-risk to delete whenever someone gets to this — just not yet done.
-10. [ ] Balance: Torna and Pratapgad in band (45–70%); playtests desktop and phone; Gate 1 with Pon.
+10. [~] Balance: Torna and Pratapgad in band (45–70%); playtests desktop and phone; Gate 1 with Pon.
+    25 Nov 2026 session 8 (cont.): Pon played the live Phase 1 site and lost all four chapters
+    (Torna, Pratapgad, and the two Bhet branches of Pratapgad) — ran out of cards in a losing
+    position. Built `tests/balance.harness.test.ts` to check this with data instead of guessing:
+    it plays a scenario hundreds of times with the in-game AI on both sides (`aiTurn()`, the same
+    function the live game calls) and reports the player's win rate. Run it with
+    `BALANCE=1 npx vitest run tests/balance.harness.test.ts --reporter=verbose` (skipped by
+    default, so `npm test` is unaffected).
+    - **Torna: FIXED.** Baseline was 10.7% player wins (`src/data/decks.json`'s `ch01_torna` deck
+      had only 6 real fighting units — 3 Bargir, 3 Hetkari — out of 13 cards, against 10 copies of
+      `as_hasham`, which is a strictly better stat-line at the same cost: 2/2/2 vs the enemy's
+      2/2/3). Swept several deck-list variants through the harness; `sw_bargir*5, sw_hetkari*5,
+      sw_jijau_counsel*2, sw_torna_hoard*1, sw_gad_torna*2` (dropped `sw_gad_rajgad` from this
+      deck — it's the next fort, not a fighting card for this battle) lands at 58.3% over 300
+      seeded games, inside the 45-70% band. Applied to `decks.json`; `npm test`, `tsc --noEmit`,
+      `npm run build` all pass.
+    - **Pratapgad: NOT fixed, root cause found.** Baseline 0.7% player wins. Swept deck sizes up to
+      absurd (7 Bargir, 7 Hetkari, double Jijau's Counsel) and it only reached 71.5% *without*
+      Afzal Khan on the field at all — the moment `preset.enemyFront: ['as_afzal_khan']` (he starts
+      already deployed, no cost paid, his own deploy buff already live) is added back, the same
+      deck drops to 29.5%. Nerfing his raw stats (atk 5→4, hp 8→6) barely moved the needle
+      (22.7% → 22.3%) — so this isn't a numbers-tuning problem, it's the encounter's structure: a
+      cost-7 legendary with `raksha`, a +1-atk-to-all-his-units deploy trigger, and free turn-1
+      deployment is overwhelming almost regardless of player deck size. Needs a design decision,
+      not a deck edit — options for Pon to pick from next session: (a) have Afzal Khan enter later
+      (e.g. turn 3) instead of pre-deployed; (b) weaken or remove the all-units buff and let his own
+      stats carry the "legendary general" feel instead; (c) give the player deck a turn-1-reachable
+      answer card (a cheap removal/Dharma order) rather than touching Afzal at all. Did not change
+      his card def or the preset — his numbers are unreviewed and he's historically significant
+      (CONTESTED-adjacent figure), so this is a call for Pon, not something to guess at silently.
+    - Still to do once Pratapgad is fixed: phone playtest (desktop only so far), then Gate 1.

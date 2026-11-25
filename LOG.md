@@ -626,3 +626,47 @@ marriage embassy in any prompt, matching the chapter's planned straight-assault 
 stale `TASKS.md` line that still said art batch 1 was only half-painted (it's complete).
 
 STATE.md, PROGRESS.md, TASKS.md updated.
+
+## 25 Nov 2026 — session 8 (cont.): GitHub Pages fix confirmed; built the balance harness; Torna fixed, Pratapgad diagnosed
+
+The live site bug from earlier (stuck on "SWARAJYA" with no buttons) was GitHub Pages' Settings →
+Pages → Source pointing at `main` instead of `gh-pages`, the branch the deploy workflow actually
+publishes the built game to (`.github/workflows/deploy.yml`'s own setup comment says as much). Pon
+fixed it in the GitHub UI.
+
+With the site actually loading, Pon played Phase 1 properly for the first time and lost all four
+chapters (Torna, Pratapgad, both Bhet branches) — ran out of cards while losing. Rather than guess
+at a fix, built `tests/balance.harness.test.ts`: it plays a scenario hundreds of times using the
+in-game AI on both sides (`aiTurn()`, the exact function the live game calls for AI turns), a
+different seed each run, and reports the player's win rate against CLAUDE.md's 45-70% Gate 1 band.
+It's skipped by default (`describe.skipIf(!process.env.BALANCE)`) so `npm test` is unaffected; run
+it with `BALANCE=1 npx vitest run tests/balance.harness.test.ts --reporter=verbose`.
+
+Baseline: Torna 10.7% player wins, Pratapgad 0.7%. Both far outside the band — matches Pon's
+experience exactly.
+
+**Torna, root cause and fix:** `decks.json`'s `ch01_torna` player deck had only 6 real fighting
+units (3 Bargir, 3 Hetkari) in a 13-card deck, facing 10 copies of `as_hasham` — which is a
+strictly better card at the same cost (2/2/3 vs the player's 2/2/2). Swept deck-list variants
+through the harness (more bodies, trimmed enemy count, etc.) until one landed in band:
+`sw_bargir*5, sw_hetkari*5, sw_jijau_counsel*2, sw_torna_hoard*1, sw_gad_torna*2` (dropped
+`sw_gad_rajgad` from this deck — it belongs to the next chapter's fort, not this battle) scores
+58.3% over 300 seeded games. Applied to `decks.json`. `npx tsc --noEmit`, `npm test` (129 passed),
+`npm run build` all pass with the change.
+
+**Pratapgad, root cause found, not yet fixed:** swept deck sizes all the way up to absurd (7
+Bargir, 7 Hetkari, doubled utility cards) and still only reached 71.5% player wins — *without*
+Afzal Khan on the field. The moment `preset.enemyFront: ['as_afzal_khan']` is restored (he starts
+already deployed at scenario start, no cost paid, his own "all his units +1 attack" deploy trigger
+already live), the same oversized deck drops to 29.5%. Tried nerfing his raw stats in-memory
+(atk 5→4, hp 8→6) against a more reasonable deck and it barely moved the result (22.7% → 22.3%),
+which rules out "his numbers are too high" as the real problem — it's the encounter's shape: a
+free, pre-buffed, pre-deployed legendary from turn 1 is overwhelming almost regardless of what the
+player brings. Wrote up three options for Pon to choose from in `TASKS.md` step 10 (delay his
+entry, remove/shrink the buff, or give the player an early answer card) rather than silently
+editing a historically-significant card's power level. Did not touch `as_afzal_khan`'s card def or
+`ch04_pratapgad`'s deck list — only the harness and the diagnostic record.
+
+TASKS.md, PROGRESS.md, STATE.md updated. Temporary scratch test files used while sweeping
+(`_balance-check.test.ts`, `_balance-sweep.test.ts`) were deleted; only the permanent
+`tests/balance.harness.test.ts` remains.

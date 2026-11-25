@@ -3,7 +3,7 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 25 Nov 2026 (session 8) · **Phase:** 0 done → **Phase 1 nearly done (step 9 partly done, of 10)** → **Phase 2 started (step 1 of 6 done)** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 25 Nov 2026 (session 8) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 started (step 1 of 6 done)** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
 YUDDH: Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on
@@ -26,7 +26,14 @@ YUDDH battle-screen chrome stays English pending PLAN.md's later reviewed Marath
 `duel.json`'s factions — is load-bearing for four *other* test files and for Phase 4's planned Duel reuse,
 so it's left for its own dedicated pass rather than forced through now (see `TASKS.md` step 9 for the
 full finding). Phase 1 now has only step 9 (the rest of it) and step 10 left (balance + Gate 1 with Pon
-— the latter needs Pon's own hands-on playtest and cannot be done by Claude alone). **Art batch 1 is
+— the latter needs Pon's own hands-on playtest and cannot be done by Claude alone). Step 10 is
+now under way: GitHub Pages was pointed at `main` instead of `gh-pages` (fixed by Pon in repo
+Settings), and once the live site actually loaded, Pon played it and lost all four chapters. Built
+`tests/balance.harness.test.ts` (an AI-vs-AI win-rate checker, run with `BALANCE=1 npx vitest run
+tests/balance.harness.test.ts`) to measure instead of guess: **Torna fixed** (10.7% → 58.3% player
+wins, a deck-list edit in `decks.json`), **Pratapgad still out of band** (0.7%) — the cause is
+structural (Afzal Khan deploys free on turn 1 with an all-units buff), not deck size, and needs
+Pon's design call (options in `TASKS.md` step 10). **Art batch 1 is
 complete**: all 20 card
 paintings and all 3 battlefields (`torna`, `pratapgad`, `maval`) are done (Pon), registered in
 `src/assets/card-art.json` and `public/assets/battlefields/`. GitHub Pages is switched on (Pon, 24 Nov
@@ -44,7 +51,9 @@ Phase 2's first chapter.
    is partly done (see `TASKS.md`). Two kinds of work are open now:
    - **Finish Phase 1**: `TASKS.md` → Phase 1, the rest of step 9 (remove the remaining YUDDH scaffolding
      — read the finding there first, it's bigger than it looks) is Claude-doable; step 10 (balance +
-     Gate 1) needs Pon's own playtest approval.
+     Gate 1) needs Pon's own playtest approval. Torna is now in band; Pratapgad needs a design
+     decision from Pon on Afzal Khan (three options written up in `TASKS.md` step 10) before another
+     harness/fix pass makes sense — read that before touching `as_afzal_khan` or `ch04_pratapgad`.
    - **Continue Phase 2**: `TASKS.md` → "For Claude: Phase 2", step 1 (Ganim) is done; continue with
      step 2 (Khind — `frontSize`, replacing the hard-coded Yudhbhumi size of 4 — two `>= 4` checks in
      `rules.ts`, per the engine-baseline notes below), then Ratra/`raid`, then the Act I/II chapters

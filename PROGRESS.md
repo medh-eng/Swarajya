@@ -48,7 +48,11 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
       `"yuddh"` card pool, `duel.json`'s YUDDH factions) is load-bearing for four other test files
       (`seleucid.test.ts`, `search.test.ts`, `standing.test.ts`, `duelBalance.test.ts`) and for Phase 4's
       planned Duel reuse — see `TASKS.md` step 9 for the full finding and a safer plan.
-- [ ] Step 10 (balance, playtests, Gate 1)
+- [~] Step 10 (balance, playtests, Gate 1) — 25 Nov 2026 session 8 (cont.): built an AI-vs-AI
+      balance harness (`tests/balance.harness.test.ts`, run with `BALANCE=1 npx vitest run ...`).
+      Torna fixed (10.7% → 58.3% player wins, deck-list edit only, see TASKS.md). Pratapgad still
+      badly out of band (0.7%) — root cause is Afzal Khan's free turn-1 deployment + all-units
+      buff, not deck size; needs a design call from Pon, options written up in TASKS.md.
 
 ## Phase 2 · Act I and II
 - [x] Step 1 (Ganim keyword, 25 Nov 2026 session 8): `canFallback()` + a `fallback` Action (Swarajya
