@@ -604,3 +604,25 @@ no Swarajya mechanic is in use), now resting on data that won't move again regar
 rewritten test still has 6 `it`s under its `describe` block), `npm run build` all pass.
 
 STATE.md, PROGRESS.md, TASKS.md updated.
+
+## 25 Nov 2026 — session 8 (cont.): pushed the vertical slice live; art batch 2 prompt sheet (Jaoli)
+
+Pon reported GitHub Pages still showing "coming soon" at https://medh-eng.github.io/Swarajya/. The local
+repo was 7 commits ahead of `origin/main` (everything from the Bhet scene onward had never been pushed).
+`git push origin main` (the repo had also moved to `medh-eng/Swarajya`, corrected the remote URL), which
+triggered the "Test and publish" GitHub Actions workflow; it finished green and the live site now serves
+the real title screen ("YUDDH: Swarajya," the rotate-your-phone prompt, confirmed via a fetch of the live
+page) instead of the placeholder.
+
+Also wrote `art/PROMPTS-BATCH2.md`: the next art batch, for chapter 3 (Jaoli) — the next chapter in
+`TASKS.md`'s Phase 2 list (chapter 2, Purandar 1648, stays blocked on its VERIFY source). 3 character
+cards (`jm_chandrarao`, `jm_hanmantrao` — flagged VERIFY, low priority, per `PEOPLE.md`/`TASKS.md`'s open
+research item — and `jm_jaoli_foot`) and 1 battlefield (`jaoli`, dense forest, distinct from every
+battlefield painted so far). Same STYLE/AVOID/safe-area/likeness rules as batch 1, with one addition: a
+third palette (earthy forest tones) for the Jaoli/More family, so Swarajya (saffron), Bijapur (green-
+gold) and Jaoli (olive-brown) read apart at a glance. Sourced from `history/CHRONOLOGY.md`'s
+`C-1656-JAOLI` entry and `history/CONTESTED.md` #4 (the disputed "how Jaoli was taken" — no pretended
+marriage embassy in any prompt, matching the chapter's planned straight-assault treatment). Also fixed a
+stale `TASKS.md` line that still said art batch 1 was only half-painted (it's complete).
+
+STATE.md, PROGRESS.md, TASKS.md updated.

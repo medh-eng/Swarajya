@@ -7,7 +7,11 @@
 - [x] Purandare pages for the vertical slice (Torna to the Pratapgad meeting) sent and recorded. **No more pages needed** (D-22).
 - [ ] Read `history/CONTESTED.md` and `docs/DESIGN.md` §5 (chapter list) and §3 (new mechanics).
 - [ ] Find a Marathi reader to review strings before Gate 1 (Q-05).
-- [ ] Paint the rest of `art/PROMPTS-BATCH1.md` (10 of 20 cards done). PNGs go in `art/source/cards/` (5:7), `art/source/forts/` (square) and `art/source/battlefields/` (16:9); then `npm run assets`. Redo sw_dadoji, sw_gopinath, sw_jijau_counsel at 1080 px wide or more if possible.
+- [x] `art/PROMPTS-BATCH1.md` fully painted (20 of 20 cards, 3 of 3 battlefields; confirmed 25 Nov 2026).
+- [ ] **New:** `art/PROMPTS-BATCH2.md` written (25 Nov 2026, session 8) — 3 cards + 1 battlefield for
+      chapter 3 (Jaoli), the next chapter in line. PNGs go in `art/source/cards/` (5:7) and
+      `art/source/battlefields/` (16:9); then `npm run assets`. `jm_hanmantrao` is VERIFY (low priority —
+      may be dropped, see the sheet).
 - [x] Torna and Rajgad as per the book (D-19, D-20), 24 Nov 2026.
 - [ ] Claude: online research pass on the VERIFY items and unchecked chronology rows (D-22); ask Pon for specific book pages only for CONTESTED #27-#29 if online sources cannot settle them.
 - [x] Rewrite `ch01_torna` objective as a take-hold-fortify race now that the Gad mechanic and `capture` objective exist (25 Nov 2026, Phase 1 step 5).
@@ -43,7 +47,9 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
        (Surat), 11 (Purandar treaty scene) — each needs its own chronology check (two independent sources
        per fact, D-22) before it ships, not just the mechanic that powers it.
 5. [ ] Mughal faction cards (new empire, alongside `swarajya`/`adilshahi`).
-6. [ ] Art batches 2-4 (prompt sheets after batch 1's pattern in `art/PROMPTS-BATCH1.md`).
+6. [~] Art batches 2-4 (prompt sheets after batch 1's pattern in `art/PROMPTS-BATCH1.md`). Batch 2
+       (`art/PROMPTS-BATCH2.md`, chapter 3 Jaoli, 3 cards + 1 battlefield) written 25 Nov 2026, session 8.
+       Batches 3-4 (the later Phase 2 chapters) follow once each is actually being built, same pattern.
 
 ## For Claude: Phase 0 — done (24 Nov 2026, session 5)
 Engine copied at YUDDH 6f1c852; ruleset `'swarajya'`; check-refs in `npm test`; placeholder title; deploy
