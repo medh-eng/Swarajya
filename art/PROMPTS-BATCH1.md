@@ -273,16 +273,16 @@ and the paintings must be original (no tracing, no pasting a photograph). What t
 | 8 | `cards/sw_gopinath` | [x] |
 | 9 | `cards/sw_jijau_counsel` | [x] |
 | 10 | `cards/sw_dadoji` | [x] |
-| 11 | `cards/sw_torna_hoard` | [ ] |
-| 12 | `cards/sw_wagh_nakh` | [ ] |
+| 11 | `cards/sw_torna_hoard` | [x] |
+| 12 | `cards/sw_wagh_nakh` | [x] |
 | 13 | `cards/sw_gad_torna` | [x] |
 | 14 | `cards/sw_gad_rajgad` | [x] |
 | 15 | `cards/sw_gad_pratapgad` | [x] |
 | 16 | `cards/as_gad_torna_held` | [x] |
-| 17 | `cards/as_afzal_khan` | [ ] |
-| 18 | `cards/as_hasham` | [ ] |
-| 19 | `cards/as_gaja` | [ ] |
-| 20 | `cards/as_topkhana` | [ ] |
+| 17 | `cards/as_afzal_khan` | [x] |
+| 18 | `cards/as_hasham` | [x] |
+| 19 | `cards/as_gaja` | [x] |
+| 20 | `cards/as_topkhana` | [x] |
 | B1 | `battlefields/torna` | [ ] |
 | B2 | `battlefields/pratapgad` | [ ] |
 

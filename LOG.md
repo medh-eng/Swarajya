@@ -228,3 +228,11 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 - Saved to `art/source/cards/<id>.png` (per the format table in `art/PROMPTS-BATCH1.md`, not `art/source/forts/`), ran `npm run assets`: 14 webp files in `public/assets/cards/`, `src/assets/card-art.json` now lists 14 ids.
 - Checklist in `art/PROMPTS-BATCH1.md` ticked for nos. 13-16. `npm test` (check-refs + 86 Vitest tests), `npx tsc --noEmit`, `npm run build` all pass.
 - Remaining from batch 1: `sw_torna_hoard`, `sw_wagh_nakh`, `as_afzal_khan`, `as_hasham`, `as_gaja`, `as_topkhana`, and battlefields `torna`, `pratapgad`.
+
+## 25 Nov 2026 — part 11: six more cards absorbed; a mismatch flagged, not absorbed
+- Pon sent 10 paintings: `as_afzal_khan`, `as_gaja`, `as_hasham`, `as_topkhana`, `sw_torna_hoard`, `sw_wagh_nakh` (all new, 1500x2100, 5:7) plus resends of `sw_gad_torna`, `sw_gad_pratapgad`, `sw_gad_rajgad`, `as_gad_torna_held`.
+- Absorbed the 6 new ones: saved to `art/source/cards/<id>.png`, `npm run assets` (20 webp files, `card-art.json` now lists all 20 batch-1 ids). Batch 1 card paintings are complete; only the 2 battlefields are left.
+- **Did not absorb** the 4 resent Gad files, for two reasons:
+  1. The resent `sw_gad_pratapgad` and `sw_gad_rajgad` (1254x1254, checked by diffing pixels and viewing both) depict a single-ridge, single-gate, single-path fort — reads as Torna, not Pratapgad (no cliffs/temple/ponds) or Rajgad (no three terraces/lake/scaffolding). The versions already committed (part 10) correctly match their prompts and were kept.
+  2. The resent `sw_gad_torna` and `as_gad_torna_held` are 504x504 — below the 1080x1080 minimum in `art/source/README.md` and lower-resolution than the 1254x1254 versions already committed. Kept the committed versions.
+- Flagged as an open question in `STATE.md`. `npm test` (86 tests + check-refs), `npx tsc --noEmit`, `npm run build` all pass with only the 6 new files added.

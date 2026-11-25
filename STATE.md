@@ -11,7 +11,7 @@ the YUDDH engine. The repo `medh-eng/Swarajya` holds the planning package (sourc
 entries, 23 chapters, 71 draft cards) and, since session 5, the YUDDH engine copied at its baseline
 with a new ruleset `'swarajya'`. `npm test` (check-refs + 84 Vitest tests incl. the 154-game golden
 replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn placeholder title
-("Coming soon"). Session 6 added empires `swarajya` and `adilshahi` and 7 playable cards (86 tests). No Swarajya mechanic or chapter is in the game yet. **Fourteen card paintings are done** (Pon, art batch 1): the ten from session 6 plus, session 7, all four Gad cards — `sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held` (the neglected-fort pair for the capture flip) — registered in `src/assets/card-art.json`. GitHub Pages is switched on (Pon, 24 Nov 2026).
+("Coming soon"). Session 6 added empires `swarajya` and `adilshahi` and 7 playable cards (86 tests). No Swarajya mechanic or chapter is in the game yet. **All 20 of art batch 1's card paintings are now done** (Pon), registered in `src/assets/card-art.json`; only the 2 battlefields (`torna`, `pratapgad`) remain unpainted. GitHub Pages is switched on (Pon, 24 Nov 2026). **Open question:** the `sw_gad_pratapgad` and `sw_gad_rajgad` files committed in session 7 part 10 are kept as-is (they match their prompts: cliffs/temple/ponds for Pratapgad, three terraces/lake/scaffolding for Rajgad). Part 11 resent files under those same two names instead, but those depict a single-ridge, single-gate, single-path fort (reads as Torna), not Pratapgad or Rajgad — not absorbed. Part 11 also resent `sw_gad_torna` and `as_gad_torna_held` at only 504×504, below the 1080×1080 minimum and lower-res than the 1254×1254 versions already committed — not absorbed either. Ask Pon to confirm before touching these four files.
 
 ## Start here (next session)
 1. Read this file, `TASKS.md` (section "Phase 1"), the last three `LOG.md` entries, then `CLAUDE.md`.
@@ -44,7 +44,7 @@ replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn pla
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts` |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main |
 | Art prompts | `art/PROMPTS-BATCH1.md` | 20 card + 2 battlefield prompts, with exact formats (5:7 cards, square forts, 16:9 battlefields) and safe areas |
-| Art (painted) | `art/source/cards/` | 14 of 20 cards done: sw_shivaji, mavla, havaldar, hetkari, bargir, shiledar, herkari, gopinath, jijau_counsel, dadoji, plus all 4 Gad cards (sw_gad_torna, sw_gad_rajgad, sw_gad_pratapgad, as_gad_torna_held). Remaining: sw_torna_hoard, sw_wagh_nakh, as_afzal_khan, as_hasham, as_gaja, as_topkhana, and the 2 battlefields. Folder `battlefields/` is ready and empty |
+| Art (painted) | `art/source/cards/` | 20 of 20 batch-1 cards done. Only the 2 battlefields (`torna`, `pratapgad`) remain; folder `battlefields/` is ready and empty. See the open question above on `sw_gad_pratapgad`/`sw_gad_rajgad`/`sw_gad_torna`/`as_gad_torna_held` |
 | Sound | — | none yet (icons and favicon drawn in code) |
 
 ## Engine baseline and how the ruleset works
