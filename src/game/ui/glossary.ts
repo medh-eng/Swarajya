@@ -7,7 +7,17 @@
 import { CARDS, EMPIRES, RANK_NAMES, isSteadfast, isYuddhRules, routLine, type GameState, type Season, type Unit } from '../../engine';
 
 export type GlossIcon = 'charge' | 'foot' | 'ranged' | 'melee' | 'raksha' | 'veg' | 'rank' | 'deploy' | 'yantra'
-  | 'shakti' | 'mantra' | 'kosha' | 'op' | 'empire' | 'wound';
+  | 'shakti' | 'mantra' | 'kosha' | 'op' | 'empire' | 'wound' | 'gad';
+
+/** DESIGN 3.1: plain words for a Gad's standing benefit, by `CardDef.gad` */
+const GAD_BENEFIT: Record<string, string> = {
+  kosha1: 'While it stands, gain 1 Kosha at the start of your turn.',
+  drawEvery2: 'While it stands, draw an extra card every second turn.',
+  rakshaHp: 'While it stands, your Raksha units have +1 health.',
+  durgWard: "While it stands, its owner's Durg takes 1 less damage from each attack.",
+  shipsAtk: 'While it stands, your ships have +1 attack.',
+  none: 'No standing benefit — take it and it is yours.'
+};
 export interface Gloss { icon: GlossIcon; title: string; body: string }
 
 const CHARGES = new Set(['Cavalry', 'Chariot', 'Elite Chariot', 'Legendary Warrior']);
@@ -41,6 +51,9 @@ export function glossFor(cardId: string, unit?: Unit, cost?: number, season?: Se
     if (/^Deploy/i.test(c.text) || /Deploy —/.test(c.text)) out.push({ icon: 'deploy', title: 'DEPLOY', body: 'The effect happens once, when the card is played.' });
     if (!unit?.rank) out.push({ icon: 'rank', title: 'PROMOTION', body: 'Destroy an enemy and survive: Veer (+1 health), then Mahaveer (+1 attack, +1 health more).' });
     out.push({ icon: 'op', title: `ORDERS COST ${c.op ?? 1}`, body: `Advancing or attacking spends ${c.op ?? 1} Kosha (the bronze coin).` });
+  } else if (c.type === 'gad') {
+    out.push({ icon: 'gad', title: 'GAD', body: 'A fort: played to your Rajya line, no attack of its own. Beaten to 0 health it does not fall — it flips to the side that struck the blow, at a third of its defence, and its benefit now works for them. It cannot be destroyed outright, only fought for.' });
+    if (c.gad && c.gad !== 'none') out.push({ icon: 'gad', title: c.name.toUpperCase(), body: GAD_BENEFIT[c.gad] ?? c.text });
   } else if (c.type === 'yantra') {
     out.push({ icon: 'yantra', title: 'YANTRA', body: 'A hidden trap. It is set face-down and springs by itself when its moment comes. Setting one moves you toward Kuta.' });
   } else if (c.kind === 'shakti') {

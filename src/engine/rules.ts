@@ -3,11 +3,11 @@
    Ported line-for-line from the prototype engine; the golden
    trace test proves the two produce identical games.
    ============================================================ */
-import { isYuddhRules } from './ruleset';
+import { isSwarajyaRules, isYuddhRules } from './ruleset';
 import { CARDS, CARD_LIST, EMPIRES } from './cards';
 import { RULES } from '../data';
 import type {
-  Action, CardDef, Check, EmpireId, GameEvent, GameState, Line, NewGameOptions,
+  Action, CardDef, Check, EmpireId, GadEffect, GameEvent, GameState, Line, NewGameOptions,
   Player, PlayerIndex, SideConfig, Target, Unit, YantraTrigger
 } from './types';
 
@@ -71,6 +71,8 @@ function makeUnit(st: GameState, cardId: string, owner: PlayerIndex): Unit {
   if (emp === 'rajput' && u.kw.includes('veg')) u.atk += 1;
   if (emp === 'chola' && u.range === 'ranged') u.atk += 1;
   if (emp === 'chalukya' && u.kw.includes('raksha')) u.atk += 1;
+  // Pratapgad-like Gads (DESIGN 3.1, `rakshaHp`): a Raksha unit raised while one stands is born with the bonus
+  if (u.kw.includes('raksha')) { const b = raksaHpBonus(st, owner); if (b) { u.hp += b; u.maxHp += b; } }
   return u;
 }
 
@@ -156,13 +158,78 @@ function destroyUnit(st: GameState, owner: PlayerIndex, uid: number): void {
   }
 }
 
-function damageUnit(st: GameState, owner: PlayerIndex, uid: number, amount: number): void {
+/* ---------------- Gad: forts that change hands (DESIGN 3.1) ----------------
+   A Gad is played to the Rajya line like a unit, has defence (hp) and no attack, and gives its
+   owner a standing benefit while it stands. It is never truly "destroyed": an order that destroys
+   outright (e.g. a Vighna Yantra trap) simply has no code path that reaches a Gad — the capture
+   logic below only ever runs from ordinary hp damage. When its hp is beaten to 0 it flips to the
+   side that struck the last blow, at a third of its defence, and its benefit now works for them. */
+export const isGadCard = (cardId: string): boolean => CARDS[cardId]?.type === 'gad';
+/** every Gad `owner` holds whose standing benefit is `effect` */
+function gadsOf(st: GameState, owner: PlayerIndex, effect: GadEffect): Unit[] {
+  return st.players[owner].support.filter(u => isGadCard(u.cardId) && CARDS[u.cardId].gad === effect);
+}
+/** the Raksha-health bonus a side's Pratapgad-like Gads grant (DESIGN 3.1, `rakshaHp`) */
+function raksaHpBonus(st: GameState, owner: PlayerIndex): number {
+  return isSwarajyaRules(st.rules) ? gadsOf(st, owner, 'rakshaHp').length : 0;
+}
+
+/** a Gad beaten to 0 health does not fall: it flips to `attacker`'s side at a third of its
+    defence, and its standing benefit (if any) now works for them. Returns false if `uid` is not
+    a Gad on `owner`'s Rajya line (it can never be anywhere else), so the caller destroys it as usual. */
+function captureGad(st: GameState, owner: PlayerIndex, uid: number, attacker: PlayerIndex): boolean {
+  const p = st.players[owner];
+  const idx = p.support.findIndex(x => x.uid === uid);
+  if (idx < 0 || !isGadCard(p.support[idx].cardId)) return false;
+  const [u] = p.support.splice(idx, 1);
+  const c = CARDS[u.cardId];
+  // the bonus it gave its old side lapses the moment the banner comes down
+  if (c.gad === 'rakshaHp') allUnits(st, owner).forEach(x => {
+    if (x.unit.kw.includes('raksha')) { x.unit.hp = Math.max(1, x.unit.hp - 1); x.unit.maxHp = Math.max(1, x.unit.maxHp - 1); }
+  });
+  u.maxHp = Math.max(1, Math.ceil(u.maxHp / 3));
+  u.hp = u.maxHp;
+  u.owner = attacker;
+  u.canAct = false; u.moved = false; u.attacked = false;
+  delete u.routed;
+  const np = st.players[attacker];
+  if (np.support.length < 4) {
+    np.support.push(u);
+    // and now works for its new side
+    if (c.gad === 'rakshaHp') allUnits(st, attacker).forEach(x => {
+      if (x.unit.kw.includes('raksha') && x.unit.uid !== u.uid) { x.unit.hp += 1; x.unit.maxHp += 1; }
+    });
+  } else {
+    p.discard.push(u.cardId); // no room to raise the banner; the fort is razed instead
+  }
+  log(st, `${u.name} falls — ${EMPIRES[np.empire].name} raises its banner over the Gad.`, attacker);
+  pushEvent(st, { t: 'capture', owner: attacker, uid: u.uid, cardId: u.cardId, from: owner });
+  checkCapture(st);
+  return true;
+}
+
+/** DESIGN 3.6: the `capture` objective — player 0 wins once it holds every listed Gad. */
+function checkCapture(st: GameState): void {
+  if (st.over) return;
+  const o = st.objective;
+  if (o.type !== 'capture') return;
+  const p0 = st.players[0];
+  const held = (cardId: string) => p0.support.some(u => u.cardId === cardId)
+    || (st.front.owner === 0 && st.front.units.some(u => u.cardId === cardId));
+  if (o.forts.length && o.forts.every(held)) {
+    st.over = true; st.winner = 0; st.winReason = 'capture';
+    log(st, 'The banner is raised. The fort is taken.', 0);
+  }
+}
+
+function damageUnit(st: GameState, owner: PlayerIndex, uid: number, amount: number, attacker?: PlayerIndex): void {
   const f = findUnit(st, owner, uid);
   if (!f) return;
   const before = f.unit.hp;
   f.unit.hp -= amount;
-  if (f.unit.hp <= 0) destroyUnit(st, owner, uid);
-  else checkRout(st, f.unit, before);
+  if (f.unit.hp <= 0) {
+    if (attacker === undefined || !captureGad(st, owner, f.unit.uid, attacker)) destroyUnit(st, owner, uid);
+  } else checkRout(st, f.unit, before);
 }
 
 /* ---------------- Morale and rout ----------------
@@ -206,8 +273,8 @@ function checkRout(st: GameState, u: Unit, hpBefore: number): void {
   pushEvent(st, { t: 'rout', owner, uid: u.uid, fled });
 }
 
-function damageAll(st: GameState, owner: PlayerIndex, amount: number): void {
-  allUnits(st, owner).slice().forEach(x => damageUnit(st, owner, x.unit.uid, amount));
+function damageAll(st: GameState, owner: PlayerIndex, amount: number, attacker?: PlayerIndex): void {
+  allUnits(st, owner).slice().forEach(x => damageUnit(st, owner, x.unit.uid, amount, attacker));
 }
 
 function damageHQ(st: GameState, owner: PlayerIndex, amount: number): void {
@@ -324,6 +391,8 @@ function startTurn(st: GameState, idx: PlayerIndex, first?: boolean): void {
   p.counters.unitsThisTurn = 0;
   p.counters.mantraThisTurn = false;
   allUnits(st, idx).forEach(x => {
+    // a Gad never acts: it only ever sits on the Rajya line and gives its standing benefit
+    if (isGadCard(x.unit.cardId)) return;
     x.unit.canAct = true;
     x.unit.moved = false;
     x.unit.attacked = false;
@@ -340,6 +409,20 @@ function startTurn(st: GameState, idx: PlayerIndex, first?: boolean): void {
   if (!first) draw(st, idx, 1 + (p.drawBonus || 0));
   log(st, `${EMPIRES[p.empire].name} — turn begins.`, idx);
 
+  // Gad upkeep (DESIGN 3.1): the standing benefit of every fort this side holds
+  if (isSwarajyaRules(st.rules)) {
+    const kosha1 = gadsOf(st, idx, 'kosha1').length;
+    if (kosha1) {
+      p.kosha = Math.min(p.maxKosha + kosha1, p.kosha + kosha1);
+      log(st, `${EMPIRES[p.empire].name}'s forts yield ${kosha1} Kosha.`, idx);
+    }
+    const drawEvery2 = gadsOf(st, idx, 'drawEvery2').length;
+    if (drawEvery2 && st.turn % 2 === 0) {
+      draw(st, idx, drawEvery2);
+      log(st, `${EMPIRES[p.empire].name}'s forts supply an extra card.`, idx);
+    }
+  }
+
   // clock objectives, checked when a new round begins
   const o = st.objective;
   if (idx === 0 && o.turns && st.turn > o.turns) {
@@ -349,8 +432,12 @@ function startTurn(st: GameState, idx: PlayerIndex, first?: boolean): void {
     } else if (o.type === 'deadline') {
       st.over = true; st.winner = 1; st.winReason = 'deadline';
       log(st, 'Reinforcements arrive. The moment has passed.', 1);
+    } else if (o.type === 'capture') {
+      st.over = true; st.winner = 1; st.winReason = 'capture';
+      log(st, 'The defenders hold; the moment has passed.', 1);
     }
   }
+  if (idx === 0) checkCapture(st);
 }
 
 /* ---------- Yantra resolution ---------- */
@@ -404,6 +491,7 @@ export function canAttack(st: GameState, pIdx: PlayerIndex, attackerUid: number,
   const found = findUnit(st, pIdx, attackerUid);
   if (!found) return { ok: false, reason: 'No such unit' };
   const a = found.unit;
+  if (isGadCard(a.cardId)) return { ok: false, reason: 'A Gad has no attack of its own' };
   if (!a.canAct || a.attacked) return { ok: false, reason: 'Already acted' };
   const yuddh = isYuddhRules(st.rules);
   if (yuddh && a.moved && !canCharge(a) && a.surge !== st.turn) return { ok: false, reason: 'It advanced this turn; only cavalry and chariots can charge straight in' };
@@ -439,6 +527,7 @@ export function canMove(st: GameState, pIdx: PlayerIndex, uid: number): Check {
   const found = findUnit(st, pIdx, uid);
   if (!found || found.line !== 'support') return { ok: false, reason: 'Only from the Rajya line' };
   const u = found.unit;
+  if (isGadCard(u.cardId)) return { ok: false, reason: 'A Gad cannot leave the Rajya line' };
   if (!u.canAct || u.moved) return { ok: false, reason: 'Already acted' };
   if (isYuddhRules(st.rules) && u.attacked) return { ok: false, reason: 'It has already attacked this turn' };
   if (p.kosha < u.op) return { ok: false, reason: 'Not enough Kosha' };
@@ -455,7 +544,7 @@ export function canPlay(st: GameState, pIdx: PlayerIndex, handIdx: number, targe
   if (!cardId) return { ok: false, reason: 'No such card' };
   const c = CARDS[cardId];
   if (p.kosha < koshaCost(st, pIdx, c)) return { ok: false, reason: 'Not enough Kosha' };
-  if (c.type === 'unit' && p.support.length >= 4) return { ok: false, reason: 'Rajya line is full' };
+  if ((c.type === 'unit' || c.type === 'gad') && p.support.length >= 4) return { ok: false, reason: 'Rajya line is full' };
   if (c.id === 'm_sindhu_nauka' && ferryable(st, pIdx).length === 0) return { ok: false, reason: 'No ready unit on your Rajya line can cross' };
   if (c.type === 'yantra' && p.yantras.length >= 2) return { ok: false, reason: 'You have two Yantras set' };
   if (c.target === 'enemyUnit') {
@@ -509,17 +598,17 @@ function applyOrder(st: GameState, pIdx: PlayerIndex, cardId: string, target?: T
   const p = st.players[pIdx];
   const t = target as Extract<Target, { kind: 'unit' }>;
   switch (cardId) {
-    case 'n_aakraman': damageUnit(st, t.owner, t.uid, 2); break;
+    case 'n_aakraman': damageUnit(st, t.owner, t.uid, 2, pIdx); break;
     case 'n_sena_bhojan': p.hq.hp = Math.min(p.hq.maxHp, p.hq.hp + 4); break;
     case 'n_yudh_niti': draw(st, pIdx, 2); break;
-    case 'n_visha_baan': damageAll(st, other(pIdx), 1); break;
+    case 'n_visha_baan': damageAll(st, other(pIdx), 1, pIdx); break;
     case 'm_arthashastra': draw(st, pIdx, 1); p.kosha = Math.min(p.maxKosha + 1, p.kosha + 2); break;
     case 'g_swarn_yug': draw(st, pIdx, 2); p.hq.hp = Math.min(p.hq.maxHp, p.hq.hp + 3); break;
     case 'c_shilpa': p.hq.hp = Math.min(p.hq.maxHp, p.hq.hp + 5); p.kosha = Math.min(p.maxKosha + 1, p.kosha + 1); break;
     case 'ch_vyapari': p.kosha = Math.min(p.maxKosha + 1, p.kosha + 2); break;
     case 'r_kshatra': if (st.front.owner === pIdx) st.front.units.forEach(u => { u.atk += 2; }); break;
-    case 's_agni': damageUnit(st, t.owner, t.uid, 5); break;
-    case 's_chakravyuha': damageAll(st, other(pIdx), 2); break;
+    case 's_agni': damageUnit(st, t.owner, t.uid, 5, pIdx); break;
+    case 's_chakravyuha': damageAll(st, other(pIdx), 2, pIdx); break;
     case 'nd_nanda_kosha': p.kosha = Math.min(p.maxKosha + 2, p.kosha + 3); break;
     case 'm_sindhu_nauka':
       // river boats: up to two ready units cross free and may strike at once
@@ -543,10 +632,10 @@ function applyOrder(st: GameState, pIdx: PlayerIndex, cardId: string, target?: T
     default: {
       // orders described by data (cards.json): power → damage to the target, hqDamage → its Durg, draw, dharma
       const c = CARDS[cardId];
-      if (c.power && t && t.kind === 'unit') damageUnit(st, t.owner, t.uid, c.power);
+      if (c.power && t && t.kind === 'unit') damageUnit(st, t.owner, t.uid, c.power, pIdx);
       if (c.hqDamage && t && t.kind === 'unit') damageHQ(st, t.owner, c.hqDamage);
-      if (c.damageAll) damageAll(st, other(pIdx), c.damageAll);
-      if (c.damageFront && st.front.owner === other(pIdx)) [...st.front.units].forEach(u => damageUnit(st, other(pIdx), u.uid, c.damageFront as number));
+      if (c.damageAll) damageAll(st, other(pIdx), c.damageAll, pIdx);
+      if (c.damageFront && st.front.owner === other(pIdx)) [...st.front.units].forEach(u => damageUnit(st, other(pIdx), u.uid, c.damageFront as number, pIdx));
       if (c.buffAtk) allUnits(st, pIdx).forEach(x => { x.unit.atk += c.buffAtk as number; });
       if (c.kosha) p.kosha = Math.min(p.maxKosha + c.kosha, p.kosha + c.kosha);
       if (c.heal) p.hq.hp = Math.min(p.hq.maxHp, p.hq.hp + c.heal);
@@ -598,6 +687,16 @@ export function applyActionCore(st: GameState, action: Action): Check {
       // an enemy Vighna Yantra may unmake the deployment
       const trap = fireYantra(st, other(pIdx), 'onEnemyDeploy');
       if (trap) destroyUnit(st, pIdx, u.uid);
+    } else if (c.type === 'gad') {
+      // DESIGN 3.1: raised on the Rajya line, not a combatant, never exposed to a deploy trap
+      // (a Vighna Yantra "destroys" what it catches — a Gad is never a legal target for that).
+      const u = makeUnit(st, cardId, pIdx);
+      p.support.push(u);
+      log(st, `${EMPIRES[p.empire].name} raises ${u.name}.`, pIdx);
+      pushEvent(st, { t: 'deploy', owner: pIdx, uid: u.uid, cardId });
+      if (c.gad === 'rakshaHp') allUnits(st, pIdx).forEach(x => {
+        if (x.unit.kw.includes('raksha') && x.unit.uid !== u.uid) { x.unit.hp += 1; x.unit.maxHp += 1; }
+      });
     } else if (c.type === 'yantra') {
       p.yantras.push({ cardId, uid: st.nextUid++ });
       log(st, `${EMPIRES[p.empire].name} sets a Yantra, face down.`, pIdx);
@@ -641,7 +740,7 @@ export function applyActionCore(st: GameState, action: Action): Check {
       const ward = fireYantra(st, action.target.owner, 'onHQAttack');
       if (ward) dmg = Math.max(0, dmg - ward.power);
       // the timber walls also shoot back
-      if (ward && ward.card.id === 'nd_kashtha_prakara') damageUnit(st, pIdx, a.uid, 2);
+      if (ward && ward.card.id === 'nd_kashtha_prakara') damageUnit(st, pIdx, a.uid, 2, action.target.owner);
       log(st, dmg > 0
         ? `${a.name} strikes the enemy Durg for ${dmg}.`
         : `${a.name}'s blow is turned aside by the ward.`, pIdx);
@@ -656,33 +755,44 @@ export function applyActionCore(st: GameState, action: Action): Check {
     pushEvent(st, { t: 'attack', owner: pIdx, uid: a.uid, target: { owner: tgt.owner, uid: d.uid }, dmg: hit });
     const dHpBefore = d.hp, aHpBefore = a.hp;
     d.hp -= hit;
+    const hpAfterHit = d.hp; // d.hp itself changes if the blow captures a Gad (see below)
     // a routed unit has turned its back: no counter-blow
     let dmgBack = (a.range === 'melee' && d.range === 'melee' && !(isYuddhRules(st.rules) && d.routed)) ? d.atk : 0;
     // Yuddh rules: pikes punish a melee unit that advanced this turn and struck them
     if (isYuddhRules(st.rules) && a.range === 'melee' && a.moved) dmgBack += CARDS[d.cardId]?.reprisal ?? 0;
     if (dmgBack > 0) a.hp -= dmgBack;
-    if (d.hp <= 0) { pushEvent(st, { t: 'death', owner: tgt.owner, uid: d.uid }); destroyUnit(st, tgt.owner, d.uid); }
-    if (d.hp <= 0 && a.range === 'melee' && !(isYuddhRules(st.rules) && d.routed)) shiftDharma(st, pIdx, 1, 'a fair fight won');
+    const dWasGad = isGadCard(d.cardId);
+    if (hpAfterHit <= 0) {
+      // DESIGN 3.1: a Gad beaten to 0 flips to the attacker's side instead of falling
+      if (!dWasGad || !captureGad(st, tgt.owner, d.uid, pIdx)) {
+        pushEvent(st, { t: 'death', owner: tgt.owner, uid: d.uid });
+        destroyUnit(st, tgt.owner, d.uid);
+      }
+    }
+    if (hpAfterHit <= 0 && a.range === 'melee' && !(isYuddhRules(st.rules) && d.routed)) shiftDharma(st, pIdx, 1, 'a fair fight won');
     // Yuddh rules: a war elephant that crushes a unit tramples on; the blow it did not need falls on the enemy Durg
-    if (isYuddhRules(st.rules) && d.hp < 0 && a.range === 'melee' && isElephant(a)) {
-      const over = -d.hp;
+    if (isYuddhRules(st.rules) && hpAfterHit < 0 && a.range === 'melee' && isElephant(a)) {
+      const over = -hpAfterHit;
       log(st, `${a.name} tramples on and strikes the Durg for ${over}.`, pIdx);
       pushEvent(st, { t: 'trample', owner: tgt.owner, uid: a.uid, dmg: over });
       damageHQ(st, tgt.owner, over);
     }
     if (a.hp <= 0) { pushEvent(st, { t: 'death', owner: pIdx, uid: a.uid }); destroyUnit(st, pIdx, a.uid); }
     // Yuddh rules: a unit that destroys an enemy and lives is promoted: Veer +1 health, Mahaveer +1 attack more
-    else if (isYuddhRules(st.rules) && d.hp <= 0 && (a.rank ?? 0) < MAX_RANK) {
+    else if (isYuddhRules(st.rules) && hpAfterHit <= 0 && (a.rank ?? 0) < MAX_RANK) {
       a.rank = (a.rank ?? 0) + 1; a.hp += 1; a.maxHp += 1; if (a.rank === 2) a.atk += 1;
       log(st, `${a.name} is honoured for valour (${RANK_NAMES[a.rank]}).`, pIdx);
       pushEvent(st, { t: 'promote', owner: pIdx, uid: a.uid, rank: a.rank });
     }
-    // morale: the defender may break under the blow; the attacker too, unless it destroyed its foe
-    if (d.hp > 0) checkRout(st, d, dHpBefore);
-    if (a.hp > 0 && d.hp > 0) checkRout(st, a, aHpBefore);
+    // morale: the defender may break under the blow; the attacker too, unless it destroyed its foe.
+    // A captured Gad's hp is no longer the blow's hp (it was reset at a third of its defence): skip it.
+    if (!dWasGad) {
+      if (d.hp > 0) checkRout(st, d, dHpBefore);
+      if (a.hp > 0 && d.hp > 0) checkRout(st, a, aHpBefore);
+    } else if (a.hp > 0 && hpAfterHit > 0) checkRout(st, a, aHpBefore);
     // a Pratikar Yantra punishes the attacker
     const reprisal = fireYantra(st, tgt.owner, 'onUnitAttack');
-    if (reprisal) damageUnit(st, pIdx, a.uid, reprisal.power);
+    if (reprisal) damageUnit(st, pIdx, a.uid, reprisal.power, tgt.owner);
     checkDeath(st);
     return { ok: true };
   }
@@ -698,10 +808,17 @@ export function applyActionCore(st: GameState, action: Action): Check {
 }
 
 export function objectiveStatus(st: GameState):
-  { type: 'destroy' } | { type: 'survive' | 'deadline'; remaining: number; total: number } {
+  | { type: 'destroy' }
+  | { type: 'survive' | 'deadline'; remaining: number; total: number }
+  | { type: 'capture'; forts: string[]; remaining?: number; total?: number } {
   const o = st.objective || { type: 'destroy' };
   if (o.type === 'survive' || o.type === 'deadline') {
     return { type: o.type, remaining: Math.max(0, o.turns - st.turn + 1), total: o.turns };
+  }
+  if (o.type === 'capture') {
+    return o.turns
+      ? { type: 'capture', forts: o.forts, remaining: Math.max(0, o.turns - st.turn + 1), total: o.turns }
+      : { type: 'capture', forts: o.forts };
   }
   return { type: 'destroy' };
 }

@@ -54,6 +54,10 @@ function redeal(st: GameState, me: PlayerIndex): void {
 const unitScore = (u: Unit): number =>
   (u.atk * 1.35 + u.hp + (u.kw.includes('raksha') ? 1.5 : 0) + (u.kw.includes('veg') ? 1 : 0) + (u.rank ?? 0) * 1.2) * (u.routed ? 0.45 : 1);
 
+/** DESIGN 3.1: a captured Gad simply moves from one side's `support` to the other's, so its hp
+    (and so its value) swings from the opponent's sum to ours without any special-casing here; and
+    completing a `capture` objective ends the game, which the first line below already rewards
+    (see rules.ts captureGad → checkCapture). */
 export function evaluate(st: GameState, me: PlayerIndex): number {
   if (st.over) return st.winner === me ? 1e6 - st.turn : st.winner === null ? 0 : -1e6 + st.turn;
   const op = other(me);

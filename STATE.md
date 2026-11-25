@@ -3,22 +3,35 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 25 Nov 2026 (session 7) · **Phase:** 0 done → **Phase 1 next** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 25 Nov 2026 (session 8) · **Phase:** 0 done → **Phase 1 in progress** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
 YUDDH: Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on
 the YUDDH engine. The repo `medh-eng/Swarajya` holds the planning package (sourced chronology of 73
-entries, 23 chapters, 71 draft cards) and, since session 5, the YUDDH engine copied at its baseline
-with a new ruleset `'swarajya'`. `npm test` (check-refs + 84 Vitest tests incl. the 154-game golden
+entries, 23 chapters, 67 draft cards) and, since session 5, the YUDDH engine copied at its baseline
+with a new ruleset `'swarajya'`. `npm test` (check-refs + 103 Vitest tests incl. the 154-game golden
 replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn placeholder title
-("Coming soon"). Session 6 added empires `swarajya` and `adilshahi` and 7 playable cards (86 tests). No Swarajya mechanic or chapter is in the game yet. **Art batch 1 is complete**: all 20 card paintings and both battlefields (`torna`, `pratapgad`) are done (Pon), registered in `src/assets/card-art.json` and `public/assets/battlefields/`. GitHub Pages is switched on (Pon, 24 Nov 2026). The mismatched resends of `sw_gad_pratapgad`, `sw_gad_rajgad`, `sw_gad_torna` and `as_gad_torna_held` from part 11 were not absorbed; Pon confirmed (part 12) to drop it — the four files already committed stand as the batch-1 art for those cards.
+("Coming soon"). Session 6 added empires `swarajya` and `adilshahi` and 7 playable cards. Session 8
+(Phase 1 step 2) added the engine's first Swarajya mechanic: the **Gad card type** (a fort played to
+the Rajya line, no attack, beaten down it is *captured* rather than destroyed) and the **`capture`
+objective** — see TASKS.md Phase 1 steps 2–3 for what landed. The 4 vertical-slice Gad cards
+(`sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held`) are now playable (11 cards
+total). No chapter uses any of this yet — that is steps 4–5. **Art batch 1 is complete**: all 20 card
+paintings and both battlefields (`torna`, `pratapgad`) are done (Pon), registered in
+`src/assets/card-art.json` and `public/assets/battlefields/` — this already covers the 4 Gad cards.
+GitHub Pages is switched on (Pon, 24 Nov 2026).
 
 ## Start here (next session)
 1. Read this file, `TASKS.md` (section "Phase 1"), the last three `LOG.md` entries, then `CLAUDE.md`.
 2. `npm ci`, then `npm test`, `npx tsc --noEmit`, `npm run build`: all must pass before you change anything.
-3. Phase 1 step 1 (data) is done for the cards that need no new mechanic. Continue with **TASKS.md → Phase 1,
-   step 2 (Gad card type + capture)**; port the waiting draft cards as each mechanic lands. Do not start art or
-   the Bhet before the Gad mechanic works.
+3. Phase 1 steps 1–3 (data; the Gad type + capture; and the `capture` objective) are done. Continue with
+   **TASKS.md → Phase 1, step 4 (battle without art)**, then step 5 (the three vertical-slice scenarios —
+   this is where `ch01_torna` actually becomes a `capture` chapter). durgWard/shipsAtk (Chakan,
+   Sindhudurg, Khanderi, Panhala — all Phase 2+) are recorded in the `GadEffect` type but the engine does
+   not apply them yet; wire them in when their chapter is built, the same way `kosha1`/`drawEvery2`/
+   `rakshaHp` were. The renderer still shows every card through the arched window sized for 5:7 art — a
+   Gad needs a square window (Pon's fort paintings are 1:1); fix that in `src/game/cards/paint.ts` /
+   `cardView.ts` when step 5 first puts a Gad in front of the player, not before.
 4. The YUDDH repo is the reference for how a finished feature looks: clone it read-only
    (`GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/medh-eng/yuddh`; skip `art/`, it is ~1 GB).
    Its `src/main.ts` shows the full scene wiring that this repo's placeholder `src/main.ts` replaced.
@@ -35,13 +48,13 @@ replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn pla
 | AI reports review | `history/AI-REPORTS-REVIEW.md` | ChatGPT and Gemini reports checked claim by claim |
 | Purandare check list | `history/PURANDARE-CHECK.md` | Rows checked from the pages Pon sent (not a gate, D-22); no more pages needed unless a point is disputed |
 | Chapters (design data) | `data/chapters.json` | 23 (1 blocked: `ch02_purandar1648`) |
-| Cards (design data) | `data/cards.draft.json` | 71 draft (7 ported to the game), unbalanced, not loaded |
+| Cards (design data) | `data/cards.draft.json` | 67 draft (11 ported to the game), unbalanced, not loaded |
 | Ref checker | `scripts/check-refs.mjs` | in `npm test`; passes (1 warning: `jm_hanmantrao` VERIFY) |
-| Engine (rules, AI, search) | `src/engine/` | YUDDH baseline + `ruleset.ts` (`isYuddhRules`, `isSwarajyaRules`) |
-| Renderer, scenes, UI | `src/game/` | YUDDH baseline + `scenes/swarajyaTitle.ts` (placeholder) |
-| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17) + `swarajya` list: 7 cards (4 Swarajya, 3 Adilshahi) |
+| Engine (rules, AI, search) | `src/engine/` | YUDDH baseline + `ruleset.ts` (`isYuddhRules`, `isSwarajyaRules`); **Gad card type + `capture` objective** (DESIGN 3.1, 3.6; session 8) |
+| Renderer, scenes, UI | `src/game/` | YUDDH baseline + `scenes/swarajyaTitle.ts` (placeholder); glossary entry for Gad, no square art window yet |
+| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17) + `swarajya` list: 11 cards (7 Swarajya, 3 Adilshahi, 1 neutral — 4 of them Gads) |
 | Campaign code | `src/campaign/` | YUDDH's (scaffolding, D-17); `missions.ts` must stay (golden test) |
-| Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts` |
+| Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts` |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main |
 | Art prompts | `art/PROMPTS-BATCH1.md` | 20 card + 2 battlefield prompts, with exact formats (5:7 cards, square forts, 16:9 battlefields) and safe areas |
 | Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 2 of 2 battlefields (`torna`, `pratapgad`) |
@@ -54,12 +67,22 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
   Never write `st.rules === 'yuddh'` again (it would switch the rule off for Swarajya).
 - `tests/swarajya.test.ts` proves a 'swarajya' game plays exactly like the same 'yuddh' game. When a
   Swarajya mechanic lands, keep that test for games that do not use the mechanic.
-- Useful facts: objectives `survive` and `deadline` exist (`Objective` in `types.ts`, checked in
-  `rules.ts` at turn start); the Yudhbhumi size is a hard-coded 4 in `rules.ts` (two `>= 4` checks),
-  which the Khind mechanic will replace with `frontSize`; Dhuan (hidden until it strikes) is the basis for Ratra.
+- Useful facts: objectives `survive`, `deadline` and (since session 8) `capture` exist (`Objective` in
+  `types.ts`, checked in `rules.ts` at turn start, plus `capture` the instant it's achieved via
+  `checkCapture`); the Yudhbhumi size is a hard-coded 4 in `rules.ts` (two `>= 4` checks), which the
+  Khind mechanic will replace with `frontSize`; Dhuan (hidden until it strikes) is the basis for Ratra.
 - Without art, `hasArt()` is false for every card, so cards draw their placeholder frame. Battle
   backgrounds (`loadBattlefield`) still expect files in `public/assets/battlefields/`; Phase 1 needs a
   fallback or Pon's first painting before a battle scene can open.
+- **Gad (session 8, DESIGN 3.1):** `type: 'gad'` in `types.ts`, `isGadCard()` in `rules.ts`/exported
+  from `src/engine`. A Gad lives only ever in `support` (the Rajya line); `canMove`/`canAttack` refuse
+  it by type, not by `canAct` (which `startTurn` also always keeps `false` for it). It is never routed
+  and never exposed to a deploy trap. Capture (beaten to 0 hp) is `captureGad()`, called from the combat
+  path in `applyActionCore` and from `damageUnit` (which now takes an optional `attacker` — every order
+  that can hit a unit threads it through, so a future "deal N damage to an enemy Gad" card captures
+  correctly too). `GadEffect` (`CardDef.gad`) holds the standing benefit; `kosha1`/`drawEvery2` fire in
+  `startTurn`, `rakshaHp` at unit creation (`makeUnit`) and on capture (added/removed from the relevant
+  side's Raksha units); `durgWard`/`shipsAtk` are typed but not yet wired (no Phase 1 chapter needs them).
 
 ## Decisions locked
 | ID | Decision | Date |
@@ -111,5 +134,8 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 
 ## Next three things
 1. Claude: online research pass (no book needed) on the VERIFY items: the Fateh Khan episode at Purandar 1648 (unblocks `ch02_purandar1648`), Javli 1647, the dates for Baji More's fate and Siddi Hilal's side (CONTESTED #27-#29), then the remaining "not yet checked" chronology rows (D-22).
-2. Claude: Phase 1 step 2: the Gad card type with a **square art window** and the `capture` objective (then port the 4 Gad cards).
-3. Pon: keep painting from `art/PROMPTS-BATCH1.md` (remaining: Torna hoard, Wagh Nakh, the four fort cards in `art/source/forts/`, Afzal Khan, Hasham, Gaja, Topkhana, and the two battlefields in `art/source/battlefields/`); three finished cards (sw_dadoji, sw_gopinath, sw_jijau_counsel) are only 345 px wide and tight at the top: redo them at 1080 px or wider if the tool allows.
+2. Claude: Phase 1 step 4 (battle without art fallback), then step 5: the three vertical-slice
+   scenarios (`ch00_maval`, `ch01_torna` as `capture`, `ch04_pratapgad` as Bhet + battle) and wiring
+   title → campaign → battle in `src/main.ts`. That is also when the Gad card needs its **square art
+   window** in the renderer (not done yet — step 2 was engine-only).
+3. Pon: keep painting from `art/PROMPTS-BATCH1.md` (remaining: Torna hoard, Wagh Nakh, Afzal Khan, Hasham, Gaja, Topkhana, and the two battlefields in `art/source/battlefields/` — the four Gad/fort cards are already done, registered in `src/assets/card-art.json`); three finished cards (sw_dadoji, sw_gopinath, sw_jijau_counsel) are only 345 px wide and tight at the top: redo them at 1080 px or wider if the tool allows.

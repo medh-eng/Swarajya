@@ -7,7 +7,12 @@
 export type EmpireId = 'maurya' | 'gupta' | 'chalukya' | 'chola' | 'rajput' | 'swarajya' | 'adilshahi' | 'neutral';
 export type PlayerIndex = 0 | 1;
 export type Keyword = 'veg' | 'raksha' | 'dhuan';
-export type CardType = 'unit' | 'order' | 'yantra';
+export type CardType = 'unit' | 'order' | 'yantra' | 'gad';
+/** DESIGN 3.1: the standing benefit a Gad gives the side that holds it, while it stands.
+    'none' = no standing benefit (a bare fort, e.g. an enemy-held Torna waiting to be taken).
+    durgWard and shipsAtk are recorded for later chapters (Chakan, Sindhudurg, Khanderi, Panhala)
+    and are not yet applied by the engine. */
+export type GadEffect = 'kosha1' | 'drawEvery2' | 'rakshaHp' | 'durgWard' | 'shipsAtk' | 'none';
 export type Range = 'melee' | 'ranged';
 export type AiLevel = 'easy' | 'normal' | 'hard' | 'search';
 export type Line = 'support' | 'front';
@@ -61,6 +66,8 @@ export interface CardDef {
   /** Elephant-slayers: extra damage when this unit strikes a War Elephant (Yuddh rules) */
   vsElephant?: number;
   rarity?: Rarity;
+  /** Swarajya rules, type 'gad' only: the standing benefit this fort gives while it stands */
+  gad?: GadEffect;
 }
 
 export interface Unit {
@@ -116,9 +123,13 @@ export interface Player {
 export type Objective =
   | { type: 'destroy'; turns?: number }
   | { type: 'survive'; turns: number }
-  | { type: 'deadline'; turns: number };
+  | { type: 'deadline'; turns: number }
+  /** DESIGN 3.6: take the listed Gad(s) (by cardId) away from whoever starts holding them.
+      Checked after every capture, and (if `turns` is set) as a deadline at the start of a round,
+      the same way `survive`/`deadline` are. */
+  | { type: 'capture'; forts: string[]; turns?: number };
 
-export type WinReason = 'destroy' | 'both' | 'survive' | 'deadline' | null;
+export type WinReason = 'destroy' | 'both' | 'survive' | 'deadline' | 'capture' | null;
 
 export interface LogEntry { turn: number; msg: string; side: number }
 
@@ -136,6 +147,8 @@ export type GameEvent =
   | { t: 'heal'; owner: PlayerIndex; uid: number; amount: number; by: number }
   | { t: 'rout'; owner: PlayerIndex; uid: number; fled: boolean }
   | { t: 'rally'; owner: PlayerIndex; uid: number }
+  /** DESIGN 3.1: a Gad is beaten down but does not fall — it flips to the attacker's side */
+  | { t: 'capture'; owner: PlayerIndex; uid: number; cardId: string; from: PlayerIndex }
   | { t: 'dharma'; owner: PlayerIndex; value: number; delta: number; why: string }
   | { t: 'attrition'; owner: PlayerIndex; dmg: number; fatigue: number };
 

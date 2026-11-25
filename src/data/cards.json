@@ -219,7 +219,11 @@
  {"id":"sw_torna_hoard","name":"Torna's Treasure","sub":"Found in the Ruins","empire":"swarajya","type":"order","cost":1,"kosha":3,"text":"Gain 3 Kosha.","rarity":"rare","basis":"HISTORY","refs":["C-1646-TORNA"]},
  {"id":"as_afzal_khan","name":"Afzal Khan","sub":"General of Bijapur","empire":"adilshahi","type":"unit","cost":7,"op":2,"atk":5,"hp":8,"range":"melee","kw":["raksha"],"deploy":"buffAll","text":"Raksha. Deploy — all his units get +1 attack.","rarity":"legendary","basis":"HISTORY","refs":["C-1659-AFZAL-MARCH","C-1659-PRATAPGAD"]},
  {"id":"as_hasham","name":"Adilshahi Hasham","sub":"Household Infantry","empire":"adilshahi","type":"unit","cost":2,"op":1,"atk":2,"hp":3,"range":"melee","text":"The sultan's household foot.","rarity":"common","basis":"GENERIC","refs":[]},
- {"id":"as_gaja","name":"Adilshahi Gaja","sub":"War Elephant","empire":"adilshahi","type":"unit","cost":5,"op":2,"atk":4,"hp":6,"range":"melee","kw":["raksha"],"text":"Raksha. Tramples.","rarity":"rare","basis":"GENERIC","refs":[]}
+ {"id":"as_gaja","name":"Adilshahi Gaja","sub":"War Elephant","empire":"adilshahi","type":"unit","cost":5,"op":2,"atk":4,"hp":6,"range":"melee","kw":["raksha"],"text":"Raksha. Tramples.","rarity":"rare","basis":"GENERIC","refs":[]},
+ {"id":"sw_gad_torna","name":"Torna","sub":"Prachandagad","empire":"swarajya","type":"gad","cost":2,"hp":8,"gad":"kosha1","text":"Gad — while it stands, gain 1 Kosha at the start of your turn.","rarity":"rare","basis":"HISTORY","refs":["C-1646-TORNA"]},
+ {"id":"sw_gad_rajgad","name":"Rajgad","sub":"The Seat of Government","empire":"swarajya","type":"gad","cost":3,"hp":10,"gad":"drawEvery2","text":"Gad — while it stands, draw an extra card every second turn.","rarity":"epic","basis":"HISTORY","refs":["C-1646-TORNA"]},
+ {"id":"sw_gad_pratapgad","name":"Pratapgad","sub":"Fort above Jaoli","empire":"swarajya","type":"gad","cost":3,"hp":9,"gad":"rakshaHp","text":"Gad — while it stands, your Raksha units have +1 health.","rarity":"rare","basis":"HISTORY","refs":["C-1656-PRATAPGAD-BUILT"]},
+ {"id":"as_gad_torna_held","name":"Torna (held for Bijapur)","sub":"Hill Fort","empire":"neutral","type":"gad","cost":0,"hp":9,"gad":"none","text":"Gad. Take it and it is yours.","rarity":"rare","basis":"HISTORY","refs":["C-1646-TORNA"]}
 ],
 "pendingArt": [
 ]

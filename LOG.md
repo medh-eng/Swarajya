@@ -243,3 +243,54 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 - Checklist in `art/PROMPTS-BATCH1.md` ticked for B1 and B2. **Art batch 1 is now fully complete: 20 of 20 cards, 2 of 2 battlefields.**
 - Pon's call on the part-11 mismatch (sw_gad_pratapgad, sw_gad_rajgad, sw_gad_torna, as_gad_torna_held): forget it — keep the four files already committed, no further resend expected. STATE.md's open question removed accordingly.
 - `npm test` (86 tests + check-refs), `npx tsc --noEmit`, `npm run build` all pass.
+
+## 25 Nov 2026 — session 8: Phase 1 step 2 (Gad card type + capture) and step 3 (`capture` objective)
+
+**Asked:** do the next step — Phase 1 step 2.
+
+**Done**
+- **Gad card type** (DESIGN 3.1): `type: 'gad'` and `GadEffect` in `src/engine/types.ts`; a Gad is played to
+  the Rajya line like a unit (shares the 4-slot cap), has defence and no attack, cannot move or attack
+  (`canMove`/`canAttack` refuse it by type), and `startTurn` never lets it act. Deploying one goes through
+  its own branch in `applyActionCore` (not the unit branch), so it is never exposed to a Vighna Yantra's
+  on-deploy trap — immune to a "destroy" order by construction, not a bolted-on exception.
+- **Capture**: `captureGad()` in `rules.ts`, called from the combat path (melee/ranged attack) and from
+  `damageUnit` (which now takes an optional `attacker`, threaded through every order that can damage a
+  unit — `n_aakraman`, `s_agni`, `n_visha_baan`, `s_chakravyuha`, data-driven `power`/`damageAll`/
+  `damageFront` — so a future "damage an enemy Gad" card captures correctly, not just the vertical
+  slice's melee case). A captured Gad flips owner at `Math.ceil(maxHp / 3)` and keeps its standing
+  benefit for the new side; the combat code was reworked to snapshot `hpAfterHit` before the capture
+  mutates `d.hp`, so trample/promotion/Dharma logic (which read the post-hit hp) are unaffected.
+- **Standing benefits** (`CardDef.gad`): `kosha1` and `drawEvery2` fire in `startTurn` (gated
+  `isSwarajyaRules`); `rakshaHp` (Pratapgad) applies at unit creation (`makeUnit`) and is moved from the
+  old holder's Raksha units to the new holder's on capture. `durgWard` and `shipsAtk` (Chakan,
+  Sindhudurg, Khanderi, Panhala — all Phase 2+) are typed but not yet applied; no chapter needs them yet.
+- **`capture` objective** (DESIGN 3.6): `{ type: 'capture', forts: string[], turns?: number }`.
+  `checkCapture()` ends the game the instant every listed fort is held (called from `captureGad` and,
+  as a backstop, every `startTurn`); an optional `turns` deadline hands the defender the win if missed,
+  mirroring `survive`/`deadline`. `objectiveStatus()` reports it.
+- **AI**: `gadPlayScore` in `ai.ts` (worth playing early; a sharp bonus if the scenario's `capture`
+  objective names that exact fort); `attackScore` now adds a capture bonus when the kill is a Gad.
+  `search.ts` needed no change — a captured Gad's hp already moves from one side's `evaluate()` sum to
+  the other's by virtue of changing `support` arrays, and a finished `capture` objective is a win the
+  search already takes immediately (`st.over && st.winner === me`); added a comment there so the next
+  reader doesn't go looking for special-case code that isn't needed.
+- **Glossary**: a `gad` entry in `src/game/ui/glossary.ts` (the capture rule, plus each Gad's standing
+  benefit in plain words) and a new `gad` battlement icon in `src/game/ui/inspect.ts`.
+- **Data**: ported the 4 vertical-slice Gads from `data/cards.draft.json` to `src/data/cards.json`
+  (`sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held`) — art for all four was
+  already painted and registered (session 7), so no art blocker. 11 Swarajya/Adilshahi cards now
+  playable (was 7). Draft file's `_about` note and the four entries removed.
+- **Tests**: `tests/gad.test.ts`, 17 cases — play/slot/move/attack restrictions, Vighna immunity, capture
+  math (including the no-room-to-raise-the-banner path left untested — deferred, not expected to come up
+  in the vertical slice), the three upkeep effects (including the Raksha-shield rule blocking a direct
+  melee/ranged attack on a Gad sharing its line with a Raksha unit — real existing YUDDH behaviour, not
+  new, which is why the "bonus moves on capture" case uses an order (Agni Baan) instead of combat), and
+  the `capture` objective (instant win, multi-fort, and the turn-limit loss).
+**Deviation from TASKS.md's step-2 wording:** the square art window for Gad cards (noted in TASKS as
+part of step 2) was **not** done — it is a renderer change (`src/game/cards/paint.ts`/`cardView.ts`)
+that only matters once a Gad appears in an actual battle scene, which is step 5. Doing it now would be
+working ahead of the material, same reasoning as "Opened first, the skill's instructions pull the work
+toward layouts... while there is nothing yet to put in them." Left as an open item in STATE.md/TASKS.md.
+**Checks:** `npm test` (check-refs + 103 Vitest tests, incl. the golden replay and `swarajya.test.ts`
+unchanged), `npx tsc --noEmit`, `npm run build` all pass. STATE.md, PROGRESS.md, TASKS.md updated.

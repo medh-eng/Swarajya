@@ -20,12 +20,28 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 - [x] Placeholder title screen built and deploy workflow in place (24 Nov 2026) · [x] Pages switched on (Pon, 24 Nov 2026)
 - [ ] Online research pass: Act I VERIFY items cleared (Claude, D-22)
 
+## Phase 1 · Vertical slice "The Rebel"
+- [x] Step 1 (data, partial — session 6): empires `swarajya`/`adilshahi`, 7 cards needing no new mechanic
+- [x] Step 2 (Gad card type + capture, 25 Nov 2026 session 8): `type: 'gad'`, Rajya-line placement,
+      capture-on-defeat at a third of defence, immune to destroy orders, `kosha1`/`drawEvery2`/`rakshaHp`
+      upkeep, AI value, glossary entry, `tests/gad.test.ts` (17 tests). Square art window for Gads: not
+      yet (deferred to step 5, when a Gad first appears in a battle scene).
+- [x] Step 1 (data, cont. — session 8): the 4 vertical-slice Gad cards ported alongside step 2
+      (`sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held`) — 11 cards playable now
+- [x] Step 3 (`capture` objective, 25 Nov 2026 session 8): done alongside step 2
+- [ ] Step 4 (battle without art fallback)
+- [ ] Step 5 (scenarios: `ch00_maval`, `ch01_torna`, `ch04_pratapgad`; title → campaign → battle wiring)
+- [ ] Step 6 (Bhet scene + AI stance table)
+- [ ] Step 8 (campaign map v1; Marathi strings for the slice)
+- [ ] Step 9 (remove YUDDH scaffolding Swarajya no longer needs)
+- [ ] Step 10 (balance, playtests, Gate 1)
+
 ## Mechanics
 | Mechanic | Engine | AI | Tests | Glossary/UI | Status |
 |---|---|---|---|---|---|
-| Gad (fort cards, capture) | [ ] | [ ] | [ ] | [ ] | planned (Phase 1) |
+| Gad (fort cards, capture) | [x] | [x] | [x] | [x] | built (Phase 1 step 2, session 8) — `durgWard`/`shipsAtk` not yet applied |
 | Bhet (parley scene) | [ ] | [ ] | [ ] | [ ] | planned (Phase 1) |
-| New objective `capture` | [ ] | [ ] | [ ] | [ ] | planned (Phase 1) |
+| New objective `capture` | [x] | [x] | [x] | [x] | built (Phase 1 step 3, session 8) |
 | Swarajya map (forts light up) | n/a | n/a | [ ] | [ ] | planned (Phase 1) |
 | Khind (`frontSize`) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
 | Ganim keyword | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |

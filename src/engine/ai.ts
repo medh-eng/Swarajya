@@ -7,15 +7,20 @@
 import { isYuddhRules } from './ruleset';
 import { CARDS } from './cards';
 import {
-  allUnits, applyAction, canAttack, canMove, canPlay, findUnit, koshaCost, other, wouldRout
+  allUnits, applyAction, canAttack, canMove, canPlay, findUnit, isGadCard, koshaCost, other, wouldRout
 } from './rules';
 import { searchTurn } from './search';
 import type { AiLevel, CardDef, GameState, PlayerIndex, Target, Unit } from './types';
 
-interface PlayOption { i: number; c: CardDef; target: Target | null; kind: 'unit' | 'removal' | 'order'; victim?: Unit }
+interface PlayOption { i: number; c: CardDef; target: Target | null; kind: 'unit' | 'removal' | 'order' | 'gad'; victim?: Unit }
 
 const unitValue = (u: Unit) =>
   u.atk * 1.35 + u.hp + (u.kw.includes('raksha') ? 1.5 : 0) + (u.kw.includes('veg') ? 1 : 0);
+
+/** is this Gad one the scenario's `capture` objective actually wants? */
+function gadWantedByObjective(st: GameState, cardId: string): boolean {
+  return st.objective.type === 'capture' && st.objective.forts.includes(cardId);
+}
 
 /** total damage we could put into the enemy Durg this turn */
 export function faceDamageAvailable(st: GameState, pIdx: PlayerIndex): number {
@@ -53,8 +58,11 @@ function attackScore(st: GameState, pIdx: PlayerIndex, a: Unit, target: Target, 
   // morale: a routed unit turns its back and strikes no counter-blow
   const retaliation = (a.range === 'melee' && d.range === 'melee' && !(yuddh && d.routed)) ? d.atk : 0;
   const weDie = retaliation >= a.hp;
+  const isGad = isGadCard(d.cardId);
+  // a Gad never strikes back: beating one down captures it (DESIGN 3.1) — a fort is worth taking
+  const capturePrize = isGad ? 4 + (gadWantedByObjective(st, d.cardId) ? 8 : 0) : 0;
   let s = 0;
-  if (kills) s += unitValue(d) + 2.5;
+  if (kills) s += unitValue(d) + 2.5 + capturePrize;
   else s += Math.min(a.atk, d.hp) * 0.45;
   // a blow that breaks them takes them out of the next turn; a blow that breaks us costs us the same
   if (yuddh && !kills && wouldRout(st, d, d.hp, d.hp - a.atk)) s += unitValue(d) * 0.45 + (f.line === 'front' ? 1.2 : 0);
@@ -90,6 +98,9 @@ function playableCards(st: GameState, pIdx: PlayerIndex): PlayOption[] {
     if (c.type === 'unit') {
       if (!canPlay(st, pIdx, i).ok) return;
       out.push({ i, c, target: null, kind: 'unit' });
+    } else if (c.type === 'gad') {
+      if (!canPlay(st, pIdx, i).ok) return;
+      out.push({ i, c, target: null, kind: 'gad' });
     } else if (c.target === 'enemyUnit') {
       const enemy = other(pIdx);
       allUnits(st, enemy).forEach(x => {
@@ -151,6 +162,18 @@ function unitPlayScore(st: GameState, pIdx: PlayerIndex, entry: PlayOption): num
   return s;
 }
 
+/** DESIGN 3.1: a Gad is cheap defence with no attack — worth raising early, and worth racing to
+    put down when the scenario's `capture` objective names it (a fort not yet on the board can't
+    be taken). */
+function gadPlayScore(st: GameState, pIdx: PlayerIndex, entry: PlayOption): number {
+  const c = entry.c;
+  const cost = koshaCost(st, pIdx, c);
+  let s = (c.hp ?? 0) * 0.7 - cost * 0.4 + 1.5;
+  if (c.gad === 'rakshaHp' && allUnits(st, pIdx).some(x => x.unit.kw.includes('raksha'))) s += 2;
+  if (gadWantedByObjective(st, c.id)) s += 6;
+  return s;
+}
+
 export function aiPlayPhase(st: GameState, pIdx: PlayerIndex, level: AiLevel): void {
   let guard = 0;
   const rng = st.rng;
@@ -158,7 +181,7 @@ export function aiPlayPhase(st: GameState, pIdx: PlayerIndex, level: AiLevel): v
     const options = playableCards(st, pIdx);
     if (!options.length) break;
     const scored = options.map(o => ({
-      o, score: o.kind === 'unit' ? unitPlayScore(st, pIdx, o) : orderValue(st, pIdx, o)
+      o, score: o.kind === 'unit' ? unitPlayScore(st, pIdx, o) : o.kind === 'gad' ? gadPlayScore(st, pIdx, o) : orderValue(st, pIdx, o)
     })).filter(x => x.score > 0);
     if (!scored.length) break;
 

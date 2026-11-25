@@ -33,6 +33,11 @@ function icon(kind: GlossIcon, r: number): Graphics {
     case 'op': g.circle(0, 0, s * 0.8).fill(0x8a5a32).stroke({ width: 2, color: INK.goldPale }); break;
     case 'empire': g.poly([-s * 0.8, s * 0.6, -s * 0.8, -s * 0.2, -s * 0.4, -s * 0.6, 0, -s * 0.2, s * 0.4, -s * 0.6, s * 0.8, -s * 0.2, s * 0.8, s * 0.6]).fill(INK.goldPale); break;
     case 'wound': g.moveTo(-s * 0.7, -s * 0.2).lineTo(s * 0.7, -s * 0.2).moveTo(0, -s * 0.8).lineTo(0, s * 0.8).stroke({ width: 4, color: 0xff8f7a }); break;
+    // a battlement: a fort, for a Gad card
+    case 'gad': g.rect(-s * 0.8, -s * 0.2, s * 1.6, s * 1.0).stroke(gold)
+      .rect(-s * 0.8, -s * 0.8, s * 0.4, s * 0.6).stroke(gold)
+      .rect(-s * 0.1, -s * 0.8, s * 0.4, s * 0.6).stroke(gold)
+      .rect(s * 0.4, -s * 0.8, s * 0.4, s * 0.6).stroke(gold); break;
   }
   return g;
 }

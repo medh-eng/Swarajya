@@ -1,5 +1,5 @@
 {
-  "_about": "(Playable cards live in src/data/cards.json: 7 ported 24 Nov 2026, removed here.) DRAFT card roster for SWARAJYA. Not balanced, not loaded by the game. Same schema as YUDDH's src/data/cards.json, plus: refs (chronology IDs, required when basis is HISTORY or TRADITION), basis (HISTORY | TRADITION | GENERIC = a type of soldier or a game term, no claim about a person), phase (when it is needed), and _engine (NEW = needs engine work). type 'gad' is new (fort card, see DESIGN 3.1). Keyword 'ganim' is new (DESIGN 3.3). Stats move to src/data/cards.json only after balancing.",
+  "_about": "(Playable cards live in src/data/cards.json: 7 ported 24 Nov 2026 + 4 Gads ported 25 Nov 2026 (session 8, Phase 1 step 2), removed here.) DRAFT card roster for SWARAJYA. Not balanced, not loaded by the game. Same schema as YUDDH's src/data/cards.json, plus: refs (chronology IDs, required when basis is HISTORY or TRADITION), basis (HISTORY | TRADITION | GENERIC = a type of soldier or a game term, no claim about a person), phase (when it is needed), and _engine (NEW = needs engine work). type 'gad' is new (fort card, see DESIGN 3.1; the engine now has it). Keyword 'ganim' is new (DESIGN 3.3). Stats move to src/data/cards.json only after balancing.",
   "empires": {
     "swarajya": {
       "id": "swarajya",
@@ -261,60 +261,6 @@
       ],
       "phase": 2,
       "_engine": "NEW: grant Dhuan"
-    },
-    {
-      "id": "sw_gad_torna",
-      "name": "Torna",
-      "sub": "Prachandagad",
-      "empire": "swarajya",
-      "type": "gad",
-      "cost": 2,
-      "hp": 8,
-      "gad": "kosha1",
-      "text": "Gad — while it stands, gain 1 Kosha at the start of your turn.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1646-TORNA"
-      ],
-      "phase": 1,
-      "_engine": "NEW type gad"
-    },
-    {
-      "id": "sw_gad_rajgad",
-      "name": "Rajgad",
-      "sub": "The Seat of Government",
-      "empire": "swarajya",
-      "type": "gad",
-      "cost": 3,
-      "hp": 10,
-      "gad": "drawEvery2",
-      "text": "Gad — while it stands, draw an extra card every second turn.",
-      "rarity": "epic",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1646-TORNA"
-      ],
-      "phase": 1,
-      "_engine": "NEW type gad"
-    },
-    {
-      "id": "sw_gad_pratapgad",
-      "name": "Pratapgad",
-      "sub": "Fort above Jaoli",
-      "empire": "swarajya",
-      "type": "gad",
-      "cost": 3,
-      "hp": 9,
-      "gad": "rakshaHp",
-      "text": "Gad — while it stands, your Raksha units have +1 health.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1656-PRATAPGAD-BUILT"
-      ],
-      "phase": 1,
-      "_engine": "NEW type gad"
     },
     {
       "id": "sw_gad_chakan",
@@ -821,24 +767,6 @@
         "C-1679-KHANDERI"
       ],
       "phase": 4
-    },
-    {
-      "id": "as_gad_torna_held",
-      "name": "Torna (held for Bijapur)",
-      "sub": "Hill Fort",
-      "empire": "neutral",
-      "type": "gad",
-      "cost": 0,
-      "hp": 9,
-      "gad": "none",
-      "text": "Gad. Take it and it is yours.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1646-TORNA"
-      ],
-      "phase": 1,
-      "_engine": "NEW type gad"
     },
     {
       "id": "as_gad_panhala",
