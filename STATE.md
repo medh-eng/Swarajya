@@ -3,7 +3,7 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 24 Nov 2026 (session 6, second half) · **Phase:** 0 done → **Phase 1 next** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 25 Nov 2026 (session 7) · **Phase:** 0 done → **Phase 1 next** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
 YUDDH: Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on
@@ -11,7 +11,7 @@ the YUDDH engine. The repo `medh-eng/Swarajya` holds the planning package (sourc
 entries, 23 chapters, 71 draft cards) and, since session 5, the YUDDH engine copied at its baseline
 with a new ruleset `'swarajya'`. `npm test` (check-refs + 84 Vitest tests incl. the 154-game golden
 replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn placeholder title
-("Coming soon"). Session 6 added empires `swarajya` and `adilshahi` and 7 playable cards (86 tests). No Swarajya mechanic or chapter is in the game yet. **Ten card paintings are done** (Pon, art batch 1) and registered in `src/assets/card-art.json`; GitHub Pages is switched on (Pon, 24 Nov 2026).
+("Coming soon"). Session 6 added empires `swarajya` and `adilshahi` and 7 playable cards (86 tests). No Swarajya mechanic or chapter is in the game yet. **Fourteen card paintings are done** (Pon, art batch 1): the ten from session 6 plus, session 7, all four Gad cards — `sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held` (the neglected-fort pair for the capture flip) — registered in `src/assets/card-art.json`. GitHub Pages is switched on (Pon, 24 Nov 2026).
 
 ## Start here (next session)
 1. Read this file, `TASKS.md` (section "Phase 1"), the last three `LOG.md` entries, then `CLAUDE.md`.
@@ -44,7 +44,7 @@ replay), `npx tsc --noEmit` and `npm run build` pass. The page shows a drawn pla
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts` |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main |
 | Art prompts | `art/PROMPTS-BATCH1.md` | 20 card + 2 battlefield prompts, with exact formats (5:7 cards, square forts, 16:9 battlefields) and safe areas |
-| Art (painted) | `art/source/cards/` | 10 of 20 cards done: sw_shivaji, mavla, havaldar, hetkari, bargir, shiledar, herkari, gopinath, jijau_counsel, dadoji. Folders `forts/` and `battlefields/` are ready and empty |
+| Art (painted) | `art/source/cards/` | 14 of 20 cards done: sw_shivaji, mavla, havaldar, hetkari, bargir, shiledar, herkari, gopinath, jijau_counsel, dadoji, plus all 4 Gad cards (sw_gad_torna, sw_gad_rajgad, sw_gad_pratapgad, as_gad_torna_held). Remaining: sw_torna_hoard, sw_wagh_nakh, as_afzal_khan, as_hasham, as_gaja, as_topkhana, and the 2 battlefields. Folder `battlefields/` is ready and empty |
 | Sound | — | none yet (icons and favicon drawn in code) |
 
 ## Engine baseline and how the ruleset works

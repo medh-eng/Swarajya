@@ -275,10 +275,10 @@ and the paintings must be original (no tracing, no pasting a photograph). What t
 | 10 | `cards/sw_dadoji` | [x] |
 | 11 | `cards/sw_torna_hoard` | [ ] |
 | 12 | `cards/sw_wagh_nakh` | [ ] |
-| 13 | `cards/sw_gad_torna` | [ ] |
-| 14 | `cards/sw_gad_rajgad` | [ ] |
-| 15 | `cards/sw_gad_pratapgad` | [ ] |
-| 16 | `cards/as_gad_torna_held` | [ ] |
+| 13 | `cards/sw_gad_torna` | [x] |
+| 14 | `cards/sw_gad_rajgad` | [x] |
+| 15 | `cards/sw_gad_pratapgad` | [x] |
+| 16 | `cards/as_gad_torna_held` | [x] |
 | 17 | `cards/as_afzal_khan` | [ ] |
 | 18 | `cards/as_hasham` | [ ] |
 | 19 | `cards/as_gaja` | [ ] |

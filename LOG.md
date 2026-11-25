@@ -222,3 +222,9 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
 ## 25 Nov 2026 — part 9: corrected paintings
 - Pon re-sent sw_bargir, sw_dadoji, sw_jijau_counsel at 1080 x 1512. Checked with the arched-window crop preview: clear headroom, no arch clipping, readable. Assets rebuilt (10 webp), 86 tests pass, check-refs OK. Commit 3276e5d.
 - Still outstanding from Pon: sw_gopinath (345 px wide, redo at 1080+ with more headroom), Torna hoard, Wagh Nakh, four fort cards (square), Afzal Khan, Hasham, Gaja, Topkhana, two battlefields (16:9).
+
+## 25 Nov 2026 — part 10: four Gad cards absorbed
+- Pon sent the four fort (Gad) paintings for batch 1: `sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held` (the neglected pre-capture pair for Torna), each 1254 x 1254 PNG — above the 1080 x 1080 minimum, square as specified.
+- Saved to `art/source/cards/<id>.png` (per the format table in `art/PROMPTS-BATCH1.md`, not `art/source/forts/`), ran `npm run assets`: 14 webp files in `public/assets/cards/`, `src/assets/card-art.json` now lists 14 ids.
+- Checklist in `art/PROMPTS-BATCH1.md` ticked for nos. 13-16. `npm test` (check-refs + 86 Vitest tests), `npx tsc --noEmit`, `npm run build` all pass.
+- Remaining from batch 1: `sw_torna_hoard`, `sw_wagh_nakh`, `as_afzal_khan`, `as_hasham`, `as_gaja`, `as_topkhana`, and battlefields `torna`, `pratapgad`.
