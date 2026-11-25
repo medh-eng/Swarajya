@@ -2,8 +2,22 @@
    Durgs, its music, and how to set up the game. The First Throne and the
    tutorial are both scenarios; later campaign missions will be too. */
 import type { GameState } from '../engine/types';
+import type { BhetOdds, BhetOutcome } from '../engine/bhet';
 
 export interface DuelSide { name: string; hero: string; durg: string }
+
+/** DESIGN 3.5: a scenario that opens with a Bhet (parley) before the battle. The resolution
+    table and the AI's pick live in the engine (`src/engine/bhet.ts`) and in `RULES.bhet`; this
+    is only the per-chapter framing and, when "Guard" wins out, which card each side's extra
+    unit is. */
+export interface BhetConfig {
+  /** shown on the Bhet scene before the player picks a stance */
+  intro: string;
+  /** override the even default odds (RULES.bhet.aiOdds) for this chapter's AI pick */
+  aiOdds?: BhetOdds;
+  /** the unit a side gains in support when its Guard reads the other side's Strike */
+  extraUnit: { player: string; enemy: string };
+}
 
 export interface Scenario {
   id: string;
@@ -27,7 +41,9 @@ export interface Scenario {
   goLabel: string;
   playerDeck: string[];
   enemyDeck: string[];
-  game: (seed: number) => GameState;
+  game: (seed: number, bhet?: BhetOutcome) => GameState;
+  /** DESIGN 3.5: play a Bhet scene before the battle. Absent on most chapters. */
+  bhet?: BhetConfig;
   /** the battle that follows in the campaign, and the label of the victory button that leads to it */
   nextId?: string;
   nextLabel?: string;

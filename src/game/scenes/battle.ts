@@ -22,6 +22,7 @@ import { mirrorAction, syncHash, isYuddhRules } from '../../engine';
 import type { NetMsg } from '../net/link';
 import { FIRST_THRONE_SCENARIO } from '../../campaign/firstThrone';
 import type { Scenario } from '../../campaign/scenario';
+import type { BhetOutcome } from '../../engine/bhet';
 import { markTutorialDone } from '../../campaign/tutorial';
 import { battlesWon, empireOfBattle, markBattleWon } from '../../campaign/campaign';
 import { EMPIRES as RENOWN_EMPIRES, standing, type Gain } from '../../meta/standing';
@@ -127,7 +128,7 @@ function snapshot(st: GameState): Snap {
 /** where the pause menu and the end screen can lead: the campaign map (if the battle came from there) and the title */
 export interface BattleNav { map?: () => void; title: () => void; /** duel: back to choosing factions */ setup?: () => void }
 
-export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST_THRONE_SCENARIO, next?: () => void, nav?: BattleNav): Scene {
+export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST_THRONE_SCENARIO, next?: () => void, nav?: BattleNav, bhetOutcome?: BhetOutcome): Scene {
   const s: Scene = new Container();
   let L = battleLayout(view);
   let st: GameState;
@@ -457,7 +458,7 @@ export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST
   function start(): void {
     yashNote = null; yashDone = false;
     flipped = false; curtainDone = null;
-    st = sc.game(sc.fixedSeed ?? Math.floor(Math.random() * 1e9));
+    st = sc.game(sc.fixedSeed ?? Math.floor(Math.random() * 1e9), bhetOutcome);
     if (guest) { swapSides(st); flipped = true; }
     baseLevel = st.aiLevel;
     if (!sc.coached) st.aiLevel = foeLevel(baseLevel);

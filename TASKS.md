@@ -14,6 +14,27 @@
 - [x] Name: YUDDH: Swarajya (D-14). Dadoji as teacher (D-15). English edition; Sangamner kept (D-16).
 - [x] Repo `medh-eng/Swarajya` created; Gemini report re-sent and reviewed.
 
+## For Claude: Phase 2 · Act I and II (next; the vertical slice is not yet Gate-1-approved — see Phase 1
+## step 10 below, which still needs Pon's own playtest. Phase 2 content work can proceed alongside it.)
+Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khind, Ganim, Ratra) and §5
+(chapters 3, 5-11) first. Same rule as Phase 1: every mechanic ships with engine code behind
+`isSwarajyaRules`, an AI value, a rules test, a glossary entry; then `npm test`, `npx tsc --noEmit`,
+`npm run build`, a real playtest, and the end-of-session documentation cycle, before the next mechanic.
+1. [ ] **Ganim** (DESIGN 3.3, "strike and fade") — first increment. Unlocks `sw_shivaji` (Shivaji's own
+       playable card), `sw_mavla`, `sw_havaldar`, `sw_shiledar` (currently stuck in `data/cards.draft.json`
+       per step 1's notes above). Needs a rules test proving a Ganim unit's attack-and-return doesn't
+       break the golden test for non-Swarajya rulesets, and an AI value in `search.ts`/`ai.ts` that
+       understands the fade-back (a plain `attackScore` will otherwise treat it as a normal attack).
+2. [ ] Khind (`frontSize`) — replaces the hard-coded Yudhbhumi size of 4 in `rules.ts` for chapters fought
+       in a narrow pass (Pavan Khind, ch06). Touches both `>= 4` checks noted in STATE.md's engine section.
+3. [ ] Ratra (night) and the `raid` objective, then enemy Gads on the board (Chakan's `durgWard`,
+       Sindhudurg/Khanderi's `shipsAtk` — typed in `GadEffect` since step 2 but unapplied).
+4. [ ] Chapters 3 (Jaoli), 5 (Kolhapur), 6 (Pavan Khind), 7 (Chakan), 8 (Umberkhind), 9 (Lal Mahal), 10
+       (Surat), 11 (Purandar treaty scene) — each needs its own chronology check (two independent sources
+       per fact, D-22) before it ships, not just the mechanic that powers it.
+5. [ ] Mughal faction cards (new empire, alongside `swarajya`/`adilshahi`).
+6. [ ] Art batches 2-4 (prompt sheets after batch 1's pattern in `art/PROMPTS-BATCH1.md`).
+
 ## For Claude: Phase 0 — done (24 Nov 2026, session 5)
 Engine copied at YUDDH 6f1c852; ruleset `'swarajya'`; check-refs in `npm test`; placeholder title; deploy
 workflow; new app id `com.medheng.swarajya`. Deviation from PLAN: YUDDH content kept as scaffolding (D-17).
@@ -54,7 +75,17 @@ Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a g
        `data/cards.draft.json` — see LOG.md for the full story. Known loose end: the tutorial's coach
        callout still shows Chanakya's portrait (YUDDH scaffolding) instead of Jijabai; cosmetic, not a
        crash; candidate for step 9's cleanup.
-6. [ ] **Bhet scene** (Trust / Guard / Strike) + AI stance table in `rules.json` ("bhet").
+6. [x] **Bhet scene** (Trust / Guard / Strike) + AI stance table in `rules.json` ("bhet") (25 Nov 2026,
+       session 8). `src/engine/bhet.ts`: `chooseBhetStance` (AI value, weighted over `RULES.bhet.aiOdds`,
+       even by default) and `resolveBhet` (full 3×3 payoff table, extended symmetrically from DESIGN
+       3.5's two examples — Strike/Strike wounds both sides equally, nothing calm resolves asymmetrically).
+       Generic `playerWoundFrac`/`enemyWoundFrac` on `Preset`, applied by `newGame()`'s `woundSide()`
+       helper (damages a side's preset unit, or its own Durg/HQ if it has none) — reusable by any later
+       Bhet chapter. `src/game/scenes/bhet.ts` shown before battle when `Scenario.bhet` is set;
+       `ch04_pratapgad` now opens on the meeting itself (the "happened offscreen" framing from step 5 is
+       gone). `tests/bhet.test.ts` (11 cases). No glossary icon (not a card keyword) — explained in-scene,
+       same as `capture`. Real playtest: zero console/page errors, both a Strike/Guard and a Strike/Strike
+       outcome verified correct.
 7. [x] **Art batch 1 prompt sheet** `art/PROMPTS-BATCH1.md` (24 Nov 2026; 20 cards + 2 battlefields).
 8. [ ] Campaign map v1 (forts light after a win). Marathi strings for the slice.
 9. [ ] Remove the YUDDH scaffolding that Swarajya no longer needs (D-17): YUDDH chapters in

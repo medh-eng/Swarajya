@@ -19,6 +19,11 @@
  "finalists": 16,
  "replies": 3
 },
+"bhet": {
+ "_about": "DESIGN 3.5: the Trust/Guard/Strike parley before some battles. The Bhet never claims to show what really happened in the tent, so these odds are deliberately even between Guard and Strike, and the same for both sides; a scenario may give its own odds instead (Scenario['bhet'].aiOdds) without changing this default.",
+ "aiOdds": { "trust": 0.34, "guard": 0.33, "strike": 0.33 },
+ "woundFraction": 0.4
+},
 "seasons": {
  "sharad": { "name": "Sharad", "english": "Autumn", "rule": "The campaigning season: clear skies, firm ground. No special rule." },
  "varsha": { "name": "Varsha", "english": "Monsoon", "rule": "Mud: cavalry and chariots cannot charge. Every unit advances or attacks, not both." },

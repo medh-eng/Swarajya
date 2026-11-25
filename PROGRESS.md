@@ -34,7 +34,11 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 - [x] Step 5 (scenarios, 25 Nov 2026 session 8): `ch00_maval`, `ch01_torna` (`capture`), `ch04_pratapgad`
       (battle only, Bhet deferred); title → campaign → battle wired in `src/main.ts`;
       `tests/scenarios.test.ts` (5 tests) + a real e2e playtest (`tests/e2e/swarajyaPlaytest.cjs`)
-- [ ] Step 6 (Bhet scene + AI stance table)
+- [x] Step 6 (Bhet scene + AI stance table, 25 Nov 2026 session 8): `src/engine/bhet.ts`
+      (`chooseBhetStance` AI value, `resolveBhet` full 3×3 payoff table), generic
+      `playerWoundFrac`/`enemyWoundFrac` on `Preset` + `newGame()`'s `woundSide()`, `src/game/scenes/bhet.ts`
+      shown before battle via `Scenario.bhet`, `ch04_pratapgad` now opens on the meeting itself (no longer
+      "happened offscreen"). `tests/bhet.test.ts` (11 tests). Explained in-scene, no glossary icon.
 - [ ] Step 8 (campaign map v1; Marathi strings for the slice)
 - [ ] Step 9 (remove YUDDH scaffolding Swarajya no longer needs)
 - [ ] Step 10 (balance, playtests, Gate 1)
@@ -43,7 +47,7 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 | Mechanic | Engine | AI | Tests | Glossary/UI | Status |
 |---|---|---|---|---|---|
 | Gad (fort cards, capture) | [x] | [x] | [x] | [x] | built (Phase 1 step 2, session 8) — `durgWard`/`shipsAtk` not yet applied |
-| Bhet (parley scene) | [ ] | [ ] | [ ] | [ ] | planned (Phase 1) |
+| Bhet (parley scene) | [x] | [x] | [x] | [x] | built (Phase 1 step 6, session 8) — explained in-scene, no glossary icon |
 | New objective `capture` | [x] | [x] | [x] | [x] | built (Phase 1 step 3, session 8) |
 | Swarajya map (forts light up) | n/a | n/a | [ ] | [ ] | planned (Phase 1) |
 | Khind (`frontSize`) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |

@@ -45,7 +45,8 @@ export const RULES = {
   kutaCards: new Set<string>(rulesJson.kutaCards),
   ai: rulesJson.ai as { beam: number; maxDepth: number; finalists: number; replies: number },
   chargeClasses: new Set<string>(rulesJson.chargeClasses),
-  seasons: rulesJson.seasons as Record<Season, { name: string; english: string; rule: string }>
+  seasons: rulesJson.seasons as Record<Season, { name: string; english: string; rule: string }>,
+  bhet: rulesJson.bhet as { aiOdds: { trust: number; guard: number; strike: number }; woundFraction: number }
 };
 
 /* ---- the history notes (history.json) ---- */

@@ -24,9 +24,11 @@ import { Stage } from './game/stage';
 import { swarajyaTitleScene } from './game/scenes/swarajyaTitle';
 import { campaignScene } from './game/scenes/campaign';
 import { battleScene, preloadBattle } from './game/scenes/battle';
+import { bhetScene } from './game/scenes/bhet';
 import { SWARAJYA, scenarioById } from './campaign/campaign';
 import { MAVAL_TUTORIAL } from './campaign/mavalTutorial';
 import type { Scenario } from './campaign/scenario';
+import type { BhetOutcome } from './engine/bhet';
 import { FONT_DEVA, FONT_SERIF, FONT_TITLE } from './game/theme';
 
 async function boot(): Promise<void> {
@@ -51,13 +53,18 @@ async function boot(): Promise<void> {
   // the Swarajya campaign only: pass a single-campaign pool so "More empires" (the YUDDH
   // scaffolding campaigns) never shows up here (D-17).
   const showCampaign = (): void => stage.show(campaignScene(stage, sc => void enterBattle(sc), showTitle, SWARAJYA, [SWARAJYA]));
-  async function enterBattle(sc: Scenario): Promise<void> {
+  /** DESIGN 3.5: a scenario with a Bhet plays it first; its outcome then feeds the battle's preset. */
+  async function enterBattle(sc: Scenario, bhetOutcome?: BhetOutcome): Promise<void> {
+    if (sc.bhet && !bhetOutcome) {
+      stage.show(bhetScene(stage, sc, outcome => void enterBattle(sc, outcome), showCampaign));
+      return;
+    }
     await preloadBattle(sc);
     const goNext = (): void => {
       const n = sc.nextId && scenarioById(sc.nextId);
       if (n) void enterBattle(n); else showCampaign();
     };
-    stage.show(battleScene(stage, showCampaign, sc, sc.nextId ? goNext : undefined));
+    stage.show(battleScene(stage, showCampaign, sc, sc.nextId ? goNext : undefined, undefined, bhetOutcome));
   }
 
   showTitle();

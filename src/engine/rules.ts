@@ -350,6 +350,17 @@ export function newGame(opts: NewGameOptions): GameState {
   (preset.enemySupport || []).forEach(cardId => { const u = makeUnit(st, cardId, 1); u.canAct = true; st.players[1].support.push(u); });
   (preset.playerSupport || []).forEach(cardId => { const u = makeUnit(st, cardId, 0); u.canAct = true; st.players[0].support.push(u); });
 
+  /* DESIGN 3.5 (Bhet): wound the side's preset commander if it has one on the front, else
+     take the same fraction off its own Durg. Never leaves a unit or Durg below 1 hp. */
+  const woundSide = (idx: PlayerIndex, frac: number | undefined): void => {
+    if (!frac) return;
+    const commander = st.front.owner === idx ? st.front.units[0] : undefined;
+    if (commander) commander.hp = Math.max(1, commander.hp - Math.round(commander.maxHp * frac));
+    else { const hq = st.players[idx].hq; hq.hp = Math.max(1, hq.hp - Math.round(hq.maxHp * frac)); }
+  };
+  woundSide(0, preset.playerWoundFrac);
+  woundSide(1, preset.enemyWoundFrac);
+
   draw(st, 0, opts.player.handSize || 4);
   draw(st, 1, opts.enemy.handSize || 4);
   if (opts.player.openingHand && opts.player.openingHand.length) {

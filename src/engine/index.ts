@@ -7,3 +7,5 @@ export {
 } from './rules';
 export { aiTurn, aiPlayPhase, aiCombatPhase, hasLethal, faceDamageAvailable } from './ai';
 export { swapSides, fixTurnAfterEnd, mirrorAction, syncHash } from './duel';
+export { chooseBhetStance, resolveBhet, BHET_STANCES } from './bhet';
+export type { BhetStance, BhetOdds, BhetOutcome } from './bhet';

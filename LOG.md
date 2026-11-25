@@ -389,3 +389,56 @@ Pon painted `maval` (the B3 prompt added earlier this session) and sent it over.
 Verified in a real playtest: the tutorial's briefing screen now shows the painted valley, not the
 procedural ground. Ticked B3 in `PROMPTS-BATCH1.md`'s checklist; batch 1 is now fully painted (20
 cards + 3 battlefields). `npm test` (108 tests), `tsc --noEmit`, `npm run build` all pass.
+
+## 25 Nov 2026 — session 8 (cont.): Phase 1 step 6 — the Bhet scene (Trust / Guard / Strike)
+
+Built the parley minigame DESIGN 3.5 describes, closing the "offscreen" deferral noted in `ch04_pratapgad`
+since session 8's step 5. `ch04_pratapgad` now opens on the meeting itself, not straight to battle.
+
+- **Engine (`src/engine/bhet.ts`, pure, no DOM)**: `BhetStance = 'trust' | 'guard' | 'strike'`.
+  `chooseBhetStance(rng, odds)` is the mechanic's AI value — a weighted pick over `{trust, guard,
+  strike}` odds (default even, `RULES.bhet.aiOdds` in `src/data/rules.json`, overridable per scenario).
+  `resolveBhet(player, enemy)` is the full 3×3 payoff table, extended symmetrically from DESIGN 3.5's two
+  given examples (Strike vs Guard: striker wounded, guard reinforced; Strike vs Trust: truster wounded):
+  Trust/Trust, Guard/Guard and Guard/Trust are all calm (no blade drawn, nothing provoked); Strike/Strike
+  wounds both sides equally, so no side keeps an edge from mutual ambush — DESIGN 3.5's own words, "a
+  game about the fear of treachery that both men had," ruled out any asymmetric default. Always returns a
+  neutral `resultLine` describing what each side *came with*, never what "really" happened at Pratapgad.
+- **Generic wound/reinforce plumbing**, not Bhet-specific: `Preset` (`src/engine/types.ts`) gained
+  `playerWoundFrac`/`enemyWoundFrac`; `newGame()`'s new `woundSide()` helper (`src/engine/rules.ts`)
+  damages that side's preset front unit by the given fraction of its max HP, or — when a side has no
+  preset unit, as the player doesn't at Pratapgad — its own Durg/HQ instead. Reusable as-is by any future
+  Bhet chapter (Purandar, Umberkhind) regardless of whether that chapter presets a commander.
+- **`src/game/scenes/bhet.ts`**: a `Scene` shown via `stage.show()` before the battle scene, same pattern
+  as `swarajyaTitleScene()`. Shows the chapter's own intro text over its battlefield painting (reused
+  directly — Pratapgad's painting already shows the parley tent, confirmed in session 8 step 4; no new
+  art needed), three stance buttons each with a one-line plain-language description, then on pick rolls
+  the AI's stance and shows a reveal: the neutral result line plus, per side, what changed ("Your side
+  starts the battle with its commander already wounded" / "...one extra unit ready in support"), never
+  both phrased as if the same fact were being repeated from two angles — revised once after the first
+  playtest caught a redundant "you start wounded" tacked onto an already-explicit sentence.
+- **Wiring**: `Scenario` (`src/campaign/scenario.ts`) gained optional `bhet?: BhetConfig` (intro text,
+  optional AI-odds override, which card is each side's "extra unit") and `game`'s signature widened to
+  `(seed, bhet?: BhetOutcome) => GameState`, backward compatible — every non-Bhet scenario ignores the
+  new parameter. `pratapgad.ts` fills it in (`extraUnit: { player: 'sw_bargir', enemy: 'as_hasham' }`)
+  and its `game()` closure spreads the wound/support preset fields from the outcome; the "meeting already
+  happened offscreen" framing is gone from the briefing text. `main.ts`'s `enterBattle` now checks
+  `sc.bhet` and shows `bhetScene` first when present, recursing once the player has chosen.
+- **Tests**: `tests/bhet.test.ts`, 11 cases — the full payoff matrix (6), `chooseBhetStance`'s
+  distribution and deterministic edges (2, one with a seeded xorshift RNG over 3000 trials), `newGame`
+  preset-wound-field integration (3, using 12-card test decks after an unrelated "fatigue" attrition
+  mechanic corrupted two early runs with 1-card decks — traced and fixed, not an engine bug).
+- **Glossary**: no `src/game/ui/glossary.ts` entry (Bhet is a scene, not a card keyword); explained
+  in-context by the scene's own intro and stance text, the same way the `capture` objective explains
+  itself through briefing/`objectiveStatus` text rather than a glossary icon.
+
+**Verified:** real Playwright playtest against `vite preview` (zero console/page errors both runs):
+title → Campaign → Pratapgad card (campaign nodes use raw `pointertap`, invisible to the
+`window.__yuddhButtons()` test hook — clicked by screen coordinates, re-estimated after the campaign
+map's layout shifted since session 8 step 5) → Bhet scene opens on the painted pavilion with Trust/Guard/
+Strike buttons → picked Strike → reveal correctly showed a Strike-vs-Guard result (player wounded, enemy
+reinforced) on the first run and a Strike-vs-Strike result (both wounded, cleanly worded with no
+repetition) on the second, after the reveal-text rewrite → "To the field" → existing battle briefing.
+
+**Checks:** `npm test` (check-refs + 119 Vitest tests, incl. the golden replay), `npx tsc --noEmit`,
+`npm run build` all pass. STATE.md, PROGRESS.md, TASKS.md updated.

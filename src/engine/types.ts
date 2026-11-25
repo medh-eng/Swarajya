@@ -204,6 +204,10 @@ export interface Preset {
   playerFront?: string[];
   enemySupport?: string[];
   playerSupport?: string[];
+  /** DESIGN 3.5 (Bhet): wound a side's commander at creation — a fraction of max health taken
+      off its preset front unit, or off its own Durg if it has none placed. Never below 1 hp. */
+  enemyWoundFrac?: number;
+  playerWoundFrac?: number;
 }
 
 export interface NewGameOptions {
