@@ -94,6 +94,14 @@ function archPath(g: CanvasRenderingContext2D, x: number, y: number, w: number, 
   g.closePath();
 }
 
+/** the painting window's outline: a cusped arch for a portrait (unit/order/yantra), a plain
+    square-cornered frame for a Gad — Pon's fort paintings are 1:1, not the 5:7 portraits the
+    arch is cut for (Phase 1 step 5, STATE.md). */
+function artWindowPath(g: CanvasRenderingContext2D, type: CardDef['type'], x: number, y: number, w: number, h: number): void {
+  if (type === 'gad') roundRect(g, x, y, w, h, 14);
+  else archPath(g, x, y, w, h);
+}
+
 function drawArt(g: CanvasRenderingContext2D, id: string, x: number, y: number, w: number, h: number, focusY = 0.38): void {
   const img = artImage(id);
   if (!img) {
@@ -216,7 +224,9 @@ function wrapRich(g: CanvasRenderingContext2D, text: string, x: number, y: numbe
 /** unit classes that may advance and attack in one turn (engine: canCharge) */
 const CHARGES = new Set(['Cavalry', 'Chariot', 'Elite Chariot', 'Legendary Warrior']);
 const typeLabel = (c: CardDef) =>
-  c.type === 'unit' ? c.sub.toUpperCase() + (CHARGES.has(c.sub) ? ' · CHARGES' : '') : c.kind === 'shakti' ? 'SHAKTI' : c.type === 'yantra' ? 'YANTRA' : 'MANTRA';
+  c.type === 'unit' ? c.sub.toUpperCase() + (CHARGES.has(c.sub) ? ' · CHARGES' : '')
+    : c.type === 'gad' ? 'GAD' + (c.sub ? ' · ' + c.sub.toUpperCase() : '')
+    : c.kind === 'shakti' ? 'SHAKTI' : c.type === 'yantra' ? 'YANTRA' : 'MANTRA';
 
 /* ============================================================ card face */
 const faceCache = new Map<string, Texture>();
@@ -242,10 +252,11 @@ export function cardFace(id: string, upgrade = 0, cost?: number): Texture {
   roundRect(g, 9, 9, W - 18, H - 18, 20);
   g.lineWidth = 2; g.strokeStyle = 'rgba(255,240,200,0.45)'; g.stroke();
 
-  // painting in a cusped arch
-  const ax = 28, ay = 34, aw = W - 56, ah = 404;
+  // painting in a cusped arch (a plain square frame for a Gad: Pon's fort paintings are 1:1, not
+  // the 5:7 portraits the arch is cut for — Phase 1 step 5, STATE.md)
+  const ax = 28, ay = 34, aw = W - 56, ah = c.type === 'gad' ? aw : 404;
   g.save();
-  archPath(g, ax, ay, aw, ah);
+  artWindowPath(g, c.type, ax, ay, aw, ah);
   g.clip();
   drawArt(g, id, ax, ay, aw, ah, 0.3);
   // lamp-light vignette over the painting
@@ -253,9 +264,9 @@ export function cardFace(id: string, upgrade = 0, cost?: number): Texture {
   vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(10,5,0,0.55)');
   g.fillStyle = vg; g.fillRect(ax, ay, aw, ah);
   g.restore();
-  archPath(g, ax, ay, aw, ah);
+  artWindowPath(g, c.type, ax, ay, aw, ah);
   g.lineWidth = 6; g.strokeStyle = 'rgba(20,10,4,0.95)'; g.stroke();
-  archPath(g, ax - 4, ay - 4, aw + 8, ah + 4);
+  artWindowPath(g, c.type, ax - 4, ay - 4, aw + 8, ah + 4);
   g.lineWidth = 2.5; g.strokeStyle = '#e7c46e'; g.stroke();
 
   // name ribbon
@@ -303,10 +314,12 @@ export function cardFace(id: string, upgrade = 0, cost?: number): Texture {
   if (c.type === 'unit') coin(g, W - 56, 58, 36, String(c.op ?? 0), 'bronze');
   gem(g, W / 2, 26, 15, c.rarity);
 
-  // stats
+  // stats — a Gad has defence and no attack of its own (DESIGN 3.1)
   if (c.type === 'unit') {
     statBadge(g, 66, H - 64, 46, 'atk', String((c.atk ?? 0) + upgrade));
     statBadge(g, W - 66, H - 64, 46, 'hp', String((c.hp ?? 0) + upgrade));
+  } else if (c.type === 'gad') {
+    statBadge(g, W - 66, H - 64, 46, 'hp', String(c.hp ?? 0));
   }
   if (upgrade) {
     g.fillStyle = '#e7c46e'; g.font = `700 22px ${BODY}`;

@@ -12,7 +12,7 @@
    sideways, where the board is drawn larger and text bigger. When the
    window switches between them the board is rebuilt from the state.
    ============================================================ */
-import { Container, FederatedPointerEvent, Graphics, Point, Sprite, Text, Texture, Ticker } from 'pixi.js';
+import { Container, FederatedPointerEvent, Graphics, Point, Sprite, Text, Ticker } from 'pixi.js';
 import gsap from 'gsap';
 import {
   CARDS, EMPIRES, RANK_NAMES, SEASONS, dharmaOf, strikeDamage, actionObservers, findUnit, aiTurn, allUnits, applyAction, canAttack, canCharge, canMove, canPlay, koshaCost,
@@ -38,7 +38,7 @@ import { glossPanel, inspectOverlay, type InspectExtra } from '../ui/inspect';
 import { glossFor } from '../ui/glossary';
 import { epiloguePanel, historyPanel } from '../ui/historyPanel';
 import { historyOf } from '../../data';
-import { battlefieldUrl, loadArt, loadBattlefield, orTimeout } from '../../assets/manifest';
+import { loadArt, loadBattlefield, orTimeout } from '../../assets/manifest';
 import { destroyTree, type Scene, type Stage } from '../stage';
 
 /* ---------------- layout ---------------- */
@@ -170,7 +170,9 @@ export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST
   const fsz = (n: number) => Math.round(n * L.ui);
 
   /* ---------------- scenery ---------------- */
-  stage.setBackdrop(Texture.from(battlefieldUrl(sc.battlefield)), 0.62);
+  // loadBattlefield resolves to a drawn placeholder when Pon hasn't painted this battlefield yet
+  // (Phase 1 step 4), so the board never opens blank; preloadBattle already warmed this call.
+  void loadBattlefield(sc.battlefield).then(t => { if (alive) stage.setBackdrop(t, 0.62); });
 
   const lanes = new Graphics();
   const zoneGlow = new Graphics();

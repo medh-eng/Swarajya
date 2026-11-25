@@ -9,7 +9,14 @@ import { Container, Graphics, Text, Ticker } from 'pixi.js';
 import gsap from 'gsap';
 import { FONT_DEVA, FONT_SERIF, FONT_TITLE, INK } from '../theme';
 import { view } from '../view';
+import { makeButton } from '../ui/button';
+import { battlesWon } from '../../campaign/campaign';
+import { MAVAL_TUTORIAL } from '../../campaign/mavalTutorial';
 import type { Scene, Stage } from '../stage';
+
+/** Phase 1 step 5: the title now leads somewhere — the coached tutorial for a first-time
+    player, the campaign for a returning one, mirroring YUDDH's own title screen. */
+export interface TitleNav { tutorial(): void; campaign(): void }
 
 /** a jagged ridge line across the width: `seed` varies the shape, `base` is the height of the valley floor */
 function ridge(W: number, H: number, top: number, base: number, seed: number): number[] {
@@ -32,7 +39,7 @@ function blend(stops: number[], t: number): number {
   return ch(16) | ch(8) | ch(0);
 }
 
-export function swarajyaTitleScene(stage: Stage): Scene {
+export function swarajyaTitleScene(stage: Stage, go: TitleNav): Scene {
   const s: Scene = new Container();
   const sky = new Graphics();
   const sun = new Graphics();
@@ -46,12 +53,25 @@ export function swarajyaTitleScene(stage: Stage): Scene {
   const deva = new Text({ text: 'स्वराज्य', style: { fontFamily: FONT_DEVA, fontSize: 96, fill: INK.goldPale, stroke: { color: 0x1a0d05, width: 5 } } });
   const title = new Text({ text: 'YUDDH: SWARAJYA', style: { fontFamily: FONT_TITLE, fontSize: 104, fontWeight: '700', letterSpacing: 14, fill: INK.goldPale, stroke: { color: 0x1a0d05, width: 6 }, dropShadow: { color: 0x000000, blur: 16, distance: 0, alpha: 0.85 } } });
   const sub = new Text({ text: 'A CARD GAME OF CHHATRAPATI SHIVAJI MAHARAJ’S WARS', style: { fontFamily: FONT_TITLE, fontSize: 26, fontWeight: '700', letterSpacing: 6, fill: INK.gold, stroke: { color: 0x1a0d05, width: 4 } } });
-  const soon = new Text({ text: 'Coming soon', style: { fontFamily: FONT_SERIF, fontSize: 40, fontStyle: 'italic', fontWeight: '600', fill: INK.cream, stroke: { color: 0x000000, width: 4 } } });
-  const note = new Text({ text: 'Phase 0 build · the YUDDH engine under a new banner', style: { fontFamily: FONT_SERIF, fontSize: 20, fontStyle: 'italic', fill: INK.cream, stroke: { color: 0x000000, width: 3 } } });
+  const soon = new Text({ text: 'Act I · The Rebel', style: { fontFamily: FONT_SERIF, fontSize: 40, fontStyle: 'italic', fontWeight: '600', fill: INK.cream, stroke: { color: 0x000000, width: 4 } } });
+  const note = new Text({ text: 'Phase 1 vertical slice · the Maval to Pratapgad', style: { fontFamily: FONT_SERIF, fontSize: 20, fontStyle: 'italic', fill: INK.cream, stroke: { color: 0x000000, width: 3 } } });
   [deva, title, sub, soon, note].forEach(t => { t.anchor.set(0.5); t.eventMode = 'none'; });
   const rule = new Graphics();
   rule.eventMode = 'none';
   s.addChild(deva, title, sub, rule, soon, note);
+
+  // one choice per visit: a second tap while a battle's paintings load would start a second scene
+  let chosen = false;
+  const buttons = new Container();
+  s.addChild(buttons);
+  const fresh = !battlesWon().includes(MAVAL_TUTORIAL.id);
+  const list: [string, () => void, boolean][] = fresh
+    ? [['Learn to play', go.tutorial, true], ['Campaign', go.campaign, false]]
+    : [['Campaign', go.campaign, true], ['Learn to play', go.tutorial, false]];
+  list.forEach(([label, fn, primary]) => {
+    const b = makeButton(label, () => { if (chosen) return; chosen = true; fn(); }, { primary, w: 320 });
+    buttons.addChild(b);
+  });
 
   // birds wheeling over the ridge
   const birds = new Container();
@@ -98,6 +118,8 @@ export function swarajyaTitleScene(stage: Stage): Scene {
       .poly([W / 2, ry - 8, W / 2 + 8, ry, W / 2, ry + 8, W / 2 - 8, ry]).fill(INK.gold);
     soon.position.set(W / 2, ry + (ph ? 70 : 80));
     note.position.set(W / 2, H - (ph ? 34 : 40));
+    const by = soon.y + (ph ? 54 : 64);
+    buttons.children.forEach((b, i) => { b.position.set(W / 2, by + i * (ph ? 58 : 64)); });
     flock.forEach((b, i) => { b.y0 = H * (0.36 + (i % 3) * 0.05); b.g.position.set((W * i) / flock.length, b.y0); });
   }
   layout();
@@ -118,6 +140,7 @@ export function swarajyaTitleScene(stage: Stage): Scene {
     Ticker.shared.add(tick);
     gsap.from([deva, title, sub], { y: '+=30', alpha: 0, duration: 1.2, stagger: 0.15, ease: 'power3.out' });
     gsap.from([soon, note], { alpha: 0, duration: 1, delay: 0.9 });
+    gsap.from(buttons.children, { alpha: 0, duration: 0.8, delay: 1.1, stagger: 0.12 });
   };
   s.leave = () => { Ticker.shared.remove(tick); };
   return s;

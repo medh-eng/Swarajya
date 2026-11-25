@@ -10,7 +10,7 @@ import { cardFace } from '../cards/paint';
 import { makeButton } from './button';
 import { HISTORY_NOTICE, historyOf, type HistoryBasis } from '../../data';
 
-const TAG: Record<HistoryBasis, number> = { HISTORY: 0xe6bd62, TRADITION: 0x8fc4ff, INVENTED: 0xff9a86 };
+const TAG: Record<HistoryBasis, number> = { HISTORY: 0xe6bd62, TRADITION: 0x8fc4ff, INVENTED: 0xff9a86, CONTESTED: 0xd68fff };
 
 interface Block { head: string; text?: string; rows?: { basis: HistoryBasis; text: string }[] }
 interface Spec { kicker: string; title: string; card?: string; blocks: Block[]; source: string; button: string; onClose: () => void }
@@ -85,8 +85,9 @@ function build(spec: Spec): Container {
 /** the History note of a battle; null when it has none */
 export function historyPanel(scenarioId: string, title: string, card: string, onClose: () => void, button = 'Back'): Container | null {
   const h = historyOf(scenarioId); if (!h) return null;
-  return build({ kicker: 'HISTORY · ' + h.kicker, title, card, button, onClose, source: h.source,
-    blocks: [{ head: 'WHAT HISTORY SAYS', text: h.happened }, { head: 'WHAT THE GAME CHANGES', rows: h.changed }] });
+  const blocks: Block[] = [{ head: 'WHAT HISTORY SAYS', text: h.happened }, { head: 'WHAT THE GAME CHANGES', rows: h.changed }];
+  if (h.otherSide) blocks.push({ head: 'THE OTHER SIDE WROTE', text: h.otherSide });
+  return build({ kicker: 'HISTORY · ' + h.kicker, title, card, button, onClose, source: h.source, blocks });
 }
 
 /** after a victory: a short epilogue with the same source line */

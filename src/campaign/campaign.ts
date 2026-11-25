@@ -24,6 +24,9 @@ import { PULLALUR_SCENARIO } from './pullalur';
 import { BADAMI_SCENARIO } from './badami';
 import { KOPPAM_SCENARIO } from './koppam';
 import { VIKRAM_RETURN_SCENARIO } from './vikramReturn';
+import { MAVAL_TUTORIAL } from './mavalTutorial';
+import { TORNA } from './torna';
+import { PRATAPGAD } from './pratapgad';
 
 export interface CampaignNode {
   scenario: Scenario;
@@ -78,6 +81,16 @@ export const CHOLA_CAMPAIGN: CampaignNode[] = [
   { scenario: KOPPAM_SCENARIO, face: 'wc_someshvara', blurb: "Hold the field at Koppam against Someshvara I, whatever it costs." }
 ];
 
+/** the real campaign (session 8). Kept out of `CAMPAIGNS` below on purpose: that list, and the
+    Renown/standing meta-system and tests built on it, are YUDDH-specific scaffolding (D-17) that
+    the Swarajya title never shows. `src/main.ts` imports `SWARAJYA` directly. */
+export const SWARAJYA_CAMPAIGN: CampaignNode[] = [
+  { scenario: MAVAL_TUTORIAL, face: 'sw_jijau_counsel', blurb: "Jijabai's counsel and a mavla's first lessons." },
+  { scenario: TORNA, face: 'sw_gad_torna', blurb: 'Take Torna before Bijapur reacts.' },
+  { scenario: PRATAPGAD, face: 'as_afzal_khan', blurb: 'Meet Afzal Khan below Pratapgad.' }
+];
+export const SWARAJYA: Campaign = { id: 'swarajya', kicker: 'ACT I · THE REBEL', title: 'Hindavi Swarajya', ground: 'torna', nodes: SWARAJYA_CAMPAIGN };
+
 export const CAMPAIGNS: Campaign[] = [
   { id: 'maurya', kicker: 'THE MAURYA CAMPAIGN', title: 'Rise of Magadha', ground: 'pataliputra', map: 'map_maurya', nodes: MAURYA_CAMPAIGN },
   { id: 'gupta', kicker: 'THE GUPTA CAMPAIGN', title: 'The Golden Age', ground: 'ujjain', map: 'map_gupta', nodes: GUPTA_CAMPAIGN },
@@ -86,8 +99,9 @@ export const CAMPAIGNS: Campaign[] = [
   { id: 'rajput', kicker: 'THE RAJPUT CAMPAIGN', title: 'The Saffron Banner', ground: 'tarain', map: 'map_rajput', nodes: RAJPUT_CAMPAIGN }
 ];
 
+/** every scenario reachable from either the YUDDH scaffolding campaigns or the real one */
 export const scenarioById = (id: string): Scenario | undefined =>
-  CAMPAIGNS.flatMap(c => c.nodes).find(n => n.scenario.id === id)?.scenario;
+  [...CAMPAIGNS.flatMap(c => c.nodes), ...SWARAJYA_CAMPAIGN].find(n => n.scenario.id === id)?.scenario;
 
 /** the first campaign that still has a battle not won (the last one when all are done) */
 export function currentCampaign(): Campaign {

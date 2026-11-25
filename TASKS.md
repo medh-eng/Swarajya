@@ -10,7 +10,7 @@
 - [ ] Paint the rest of `art/PROMPTS-BATCH1.md` (10 of 20 cards done). PNGs go in `art/source/cards/` (5:7), `art/source/forts/` (square) and `art/source/battlefields/` (16:9); then `npm run assets`. Redo sw_dadoji, sw_gopinath, sw_jijau_counsel at 1080 px wide or more if possible.
 - [x] Torna and Rajgad as per the book (D-19, D-20), 24 Nov 2026.
 - [ ] Claude: online research pass on the VERIFY items and unchecked chronology rows (D-22); ask Pon for specific book pages only for CONTESTED #27-#29 if online sources cannot settle them.
-- [ ] Rewrite `ch01_torna` objective as a take-hold-fortify race now that the Gad mechanic and `capture` objective exist (Phase 1 step 2 done; the scenario itself is step 5).
+- [x] Rewrite `ch01_torna` objective as a take-hold-fortify race now that the Gad mechanic and `capture` objective exist (25 Nov 2026, Phase 1 step 5).
 - [x] Name: YUDDH: Swarajya (D-14). Dadoji as teacher (D-15). English edition; Sangamner kept (D-16).
 - [x] Repo `medh-eng/Swarajya` created; Gemini report re-sent and reviewed.
 
@@ -40,13 +40,20 @@ Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a g
 1. [~] **Data (partly done, 24 Nov 2026 session 6; the 4 Gads ported 25 Nov 2026 session 8).** Done: empires, `swarajya` card list, 11 cards that need no further mechanic (`sw_hetkari`, `sw_bargir`, `sw_jijau_counsel`, `sw_torna_hoard`, `as_afzal_khan`, `as_hasham`, `as_gaja`, `sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held`). Left in `data/cards.draft.json` until their mechanic exists: Ganim cards (`sw_shivaji`, `sw_mavla`, `sw_havaldar`, `sw_shiledar`), `sw_herkari` (revealHand), `sw_dadoji` (cost cut), `sw_wagh_nakh` (vsLegendary), `sw_gopinath` (Bhet), `as_topkhana` (static), and the Phase 2+ Gads (`sw_gad_chakan`, `sw_gad_sindhudurg`, `sw_gad_khanderi`, `as_gad_panhala` — their `durgWard`/`shipsAtk` benefits are recorded in `GadEffect` but not yet applied by the engine). Each moves to `src/data/cards.json` in the step that adds its mechanic.
 2. [x] **Gad card type + capture (25 Nov 2026, session 8).** `type: 'gad'` in `types.ts`; played to the Rajya line, takes a slot, cannot move or attack; beaten to 0 health in combat (or by a direct-damage order) it flips to the attacker's side at a third of its defence (`Math.ceil(maxHp/3)`), its standing benefit now working for them; never exposed to a deploy trap (Vighna Yantra), so it is immune to a "destroy" order by construction, not by a special case. `kosha1` and `drawEvery2` upkeep, and `rakshaHp` (applied at creation and moved on capture), are wired in `rules.ts`; `durgWard`/`shipsAtk` are recorded but not yet applied (no chapter needs them yet). AI value: `gadPlayScore` in `ai.ts` (worth playing early; a sharp jump when the scenario's `capture` objective names it), and `attackScore` now rates finishing a Gad as a capture, not a kill; `search.ts`'s `evaluate` needed no change (a captured Gad's hp already moves from one side's sum to the other's, and a finished `capture` objective ends the game, which the search already takes). Tests: `tests/gad.test.ts` (17 cases). Glossary entry in `src/game/ui/glossary.ts` + a new `gad` icon in `inspect.ts`. **Still open:** the square art window for Gad cards (the renderer still shows them through the arched window sized for 5:7 art) — left for step 5, when a Gad first appears in a real battle scene.
 3. [x] **`capture` objective (25 Nov 2026, session 8, alongside step 2).** `{ type: 'capture', forts: string[], turns?: number }` in `types.ts`; `checkCapture` in `rules.ts` fires the instant every listed fort is held (called from `captureGad` and, as a backstop, every `startTurn`), and — mirroring `survive`/`deadline` — a `turns` deadline hands the defender the win if it's missed. `objectiveStatus` reports it for the UI.
-4. [ ] **Battle without art:** a fallback for `loadBattlefield` (plain painted gradient like the title)
-       so a battle opens before Pon's paintings arrive.
-5. [ ] **Scenarios** in `src/campaign/` for chapters `ch00_maval` (coached tutorial), `ch01_torna`
-       (`capture`), `ch04_pratapgad` (Bhet + battle), each with `rules: 'swarajya'`, decks in
-       `src/data/decks.json`, History notes in `src/data/history.json` written **only** from
-       CHRONOLOGY entries (and S-PURANDARE pages when Pon sends them). Wire the title → campaign → battle
-       flow in `src/main.ts` (copy the pattern of YUDDH's main.ts).
+4. [x] **Battle without art (25 Nov 2026, session 8).** `loadBattlefield()` falls back to a drawn,
+       hue-shifted ridge-and-sky placeholder (`src/assets/manifest.ts`) when the real painting fails to
+       load, so a battle opens before Pon's paintings arrive. Also closed the Gad square-art-window gap
+       left open since step 2 (`artWindowPath()` in `src/game/cards/paint.ts`).
+5. [x] **Scenarios (25 Nov 2026, session 8).** `ch00_maval` (coached tutorial), `ch01_torna` (`capture`,
+       `as_gad_torna_held` preset on the board), `ch04_pratapgad` (battle only — Bhet deferred to step 6,
+       Afzal Khan preset on the front), each `rules: 'swarajya'`; decks in `src/data/decks.json`, History
+       notes in `src/data/history.json` from CHRONOLOGY only. Title → campaign → battle wired in
+       `src/main.ts`; `campaignScene()` gained a `pool` parameter so the Swarajya-only flow doesn't expose
+       YUDDH's scaffolding campaigns. Real playtest run (mandatory step) caught and fixed a crash:
+       `heroCard`/`face` must be a card id that's actually loaded in `src/data/cards.json`, not just in
+       `data/cards.draft.json` — see LOG.md for the full story. Known loose end: the tutorial's coach
+       callout still shows Chanakya's portrait (YUDDH scaffolding) instead of Jijabai; cosmetic, not a
+       crash; candidate for step 9's cleanup.
 6. [ ] **Bhet scene** (Trust / Guard / Strike) + AI stance table in `rules.json` ("bhet").
 7. [x] **Art batch 1 prompt sheet** `art/PROMPTS-BATCH1.md` (24 Nov 2026; 20 cards + 2 battlefields).
 8. [ ] Campaign map v1 (forts light after a win). Marathi strings for the slice.

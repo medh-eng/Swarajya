@@ -30,7 +30,10 @@ let reveal: (id: string) => void = () => {};
   [...nodes.filter(c => !c.destroyed && c.parent).map((c, i) => ({ id: ids[i], c })), ...tabs.filter(t => !t.c.destroyed && t.c.parent).map(t => ({ id: 'tab:' + t.id, c: t.c }))]
     .map(({ id, c }) => { const p = c.getGlobalPosition(); return { id, x: p.x, y: p.y }; });
 
-export function campaignScene(stage: Stage, go: (sc: Scenario) => void, back: () => void, start?: Campaign): Scene {
+/** `pool` is the set of campaigns "More empires" can switch between; pass a single-campaign pool
+    (and a `start`) to show just that campaign with the picker hidden — used by the Swarajya
+    campaign (session 8), which has nothing to do with the YUDDH scaffolding campaigns (D-17). */
+export function campaignScene(stage: Stage, go: (sc: Scenario) => void, back: () => void, start?: Campaign, pool: Campaign[] = CAMPAIGNS): Scene {
   const s: Scene = new Container();
   let cur = start ?? currentCampaign();
   let alive = true;
@@ -67,12 +70,12 @@ export function campaignScene(stage: Stage, go: (sc: Scenario) => void, back: ()
     head.anchor.set(0.5); head.position.set(W / 2, headY);
     p.addChild(dim, head);
     const bw = 380, bwPx = bw * k, gx = 36;
-    const n = CAMPAIGNS.length;
+    const n = pool.length;
     const cols = Math.max(1, Math.min(n, Math.floor((W - 160 + gx) / (bwPx + gx))));
     const rows = Math.ceil(n / cols), rowH = 64 * k + 62 * k;
     const headBottom = headY + 25 * k, closeTop = closeY - 32 * k;
     const y0 = headBottom + (closeTop - headBottom - rows * rowH) / 2 + 36 * k;
-    CAMPAIGNS.forEach((c, i) => {
+    pool.forEach((c, i) => {
       const r = Math.floor(i / cols), col = i % cols, inRow = Math.min(cols, n - r * cols);
       const x = W / 2 + (col - (inRow - 1) / 2) * (bwPx + gx), y = y0 + r * rowH;
       const b = makeButton(c.title, () => choose(c), { w: bw, primary: c === cur });
@@ -204,13 +207,19 @@ export function campaignScene(stage: Stage, go: (sc: Scenario) => void, back: ()
       if (onTap) { c.eventMode = 'static'; c.cursor = 'pointer'; c.on('pointertap', onTap); }
       return c;
     };
-    const pCur = mkPill(cur.title, true, false);
-    const pMore = mkPill('More empires', false, true, openPicker);
-    const gapP = 24, totalP = pCur.width + gapP + pMore.width;
-    pCur.position.set(W / 2 - totalP / 2 + pCur.width / 2, headH + 30);
-    pMore.position.set(W / 2 + totalP / 2 - pMore.width / 2, headH + 30);
-    body.addChild(pCur, pMore);
-    tabs.push({ id: 'more', c: pMore });
+    if (pool.length > 1) {
+      const pCur = mkPill(cur.title, true, false);
+      const pMore = mkPill('More empires', false, true, openPicker);
+      const gapP = 24, totalP = pCur.width + gapP + pMore.width;
+      pCur.position.set(W / 2 - totalP / 2 + pCur.width / 2, headH + 30);
+      pMore.position.set(W / 2 + totalP / 2 - pMore.width / 2, headH + 30);
+      body.addChild(pCur, pMore);
+      tabs.push({ id: 'more', c: pMore });
+    } else {
+      const pCur = mkPill(cur.title, true, false);
+      pCur.position.set(W / 2, headH + 30);
+      body.addChild(pCur);
+    }
 
     const bk = makeButton('Back', back, { w: ph ? 150 : 170 });
     bk.position.set(ph ? W - 104 : W - 120, ph ? 52 : 70);

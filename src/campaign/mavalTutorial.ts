@@ -1,0 +1,46 @@
+/* ============================================================
+   Phase 1 step 5 — "The Mavlas of the Maval" (DESIGN §5, chapter 0):
+   a short coached battle that teaches the basics, set in the years
+   Shivaji grew up in the Pune jagir. The fight itself is invented
+   (see src/data/history.json); the birth, the jagir and Dadoji's
+   administration of it are not (CHRONOLOGY C-1630-CONTEXT,
+   C-1630-BIRTH, C-1640-PUNE).
+   ============================================================ */
+import { newGame } from '../engine/rules';
+import { decksOf } from '../data';
+import type { Scenario } from './scenario';
+
+const { player: playerDeck, enemy: enemyDeck } = decksOf('ch00_maval');
+
+export const MAVAL_TUTORIAL: Scenario = {
+  id: 'ch00_maval',
+  title: 'The Mavlas of the Maval',
+  place: 'Pune jagir, the Maval valleys',
+  year: 'c. 1640s',
+  // no painting yet (Pon has not reached this one): loadBattlefield draws a placeholder (step 4)
+  battlefield: 'maval',
+  briefing: 'Before you lead an army, Jijabai wants to see you command one. A small border post sits across the field, nothing like the forts you will one day take — but a lesson learned small is learned safely.',
+  objective: 'Learn to play: destroy the border post.',
+  heroCard: 'sw_jijau_counsel',
+  defeatCard: 'as_hasham',
+  enemyName: 'Border post',
+  durgArt: ['durg_pune_jagir', 'durg_border_post'],
+  winText: turn => `The border post falls in turn ${turn}. Jijabai nods: the lessons have taken root.`,
+  loseText: 'The post holds. Even a Raje must lose a few battles before he wins one. Try again.',
+  goLabel: 'Begin training',
+  nextId: 'ch01_torna',
+  nextLabel: 'Torna',
+  playerDeck, enemyDeck,
+  coached: true,
+  game: seed => newGame({
+    seed,
+    player: { empire: 'swarajya', deck: playerDeck, hq: 24, faction: 'Swarajya', capital: "Jijabai's Camp",
+      openingHand: ['sw_bargir', 'sw_hetkari', 'sw_bargir', 'sw_jijau_counsel'] },
+    enemy: { empire: 'neutral', deck: enemyDeck, hq: 12, startKosha: 0, faction: 'Border Post', capital: 'Border Post' },
+    aiLevel: 'easy',
+    objective: { type: 'destroy' },
+    scenarioId: 'ch00_maval',
+    scenarioName: 'The Mavlas of the Maval',
+    rules: 'swarajya'
+  })
+};

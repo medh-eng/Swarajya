@@ -294,3 +294,88 @@ working ahead of the material, same reasoning as "Opened first, the skill's inst
 toward layouts... while there is nothing yet to put in them." Left as an open item in STATE.md/TASKS.md.
 **Checks:** `npm test` (check-refs + 103 Vitest tests, incl. the golden replay and `swarajya.test.ts`
 unchanged), `npx tsc --noEmit`, `npm run build` all pass. STATE.md, PROGRESS.md, TASKS.md updated.
+
+## 25 Nov 2026 — session 8 (cont.): Phase 1 step 4 (battle without art) and step 5 (vertical-slice scenarios)
+
+**Asked:** do the next steps — Phase 1 steps 4 and 5.
+
+**Done**
+- **Battle without art** (`src/assets/manifest.ts`): `loadBattlefield(name)` now tries the real painting
+  first and falls back to a drawn placeholder (`fallbackBattlefield`) on load failure — a canvas-drawn
+  dawn-gradient sky over three jagged hazy ridge silhouettes, hue-shifted and shaped from a hash of the
+  battlefield's name so each unpainted ground still looks distinct, same approach as the existing title
+  placeholder. Cached per name. `src/game/scenes/battle.ts` now awaits `loadBattlefield()` instead of
+  `Texture.from(battlefieldUrl(...))` directly, so a battle opens with or without Pon's painting.
+- **Gad square art window** (the item STATE.md had been carrying since step 2, now that a Gad appears in
+  a real scene): `src/game/cards/paint.ts` gained `artWindowPath()` — a plain rounded rect for
+  `type === 'gad'`, the existing arch for every other type — used in `cardFace()`'s three art-window
+  draws. `typeLabel` prints `GAD · <sub>` for a Gad's type line; the stats block draws a single HP badge
+  (a Gad has no attack to show).
+- **CONTESTED history note support**: `src/data/index.ts`'s `HistoryBasis` gained `'CONTESTED'` and
+  `HistoryNote` an optional `otherSide` field; `src/game/ui/historyPanel.ts` gained a `CONTESTED` tag
+  colour and, when `otherSide` is set, a "THE OTHER SIDE WROTE" block — used by Torna's history note
+  (CONTESTED #25: Purandare's unguarded fort vs. later retellings that name a garrison).
+- **Three scenarios** in `src/campaign/` (`mavalTutorial.ts`, `torna.ts`, `pratapgad.ts`), decks in
+  `src/data/decks.json` and History notes in `src/data/history.json`, written only from
+  `history/CHRONOLOGY.md` (C-1630-CONTEXT, C-1630-BIRTH, C-1640-PUNE, C-1646-TORNA, C-1647-EXPANSION,
+  C-1656-PRATAPGAD-BUILT, C-1659-AFZAL-MARCH, C-1659-PRATAPGAD), all `rules: 'swarajya'`:
+  - `ch00_maval` — coached tutorial, invented border-post fight (no chronology claim), teaches play
+    against the Border Post Durg; `nextId: 'ch01_torna'`.
+  - `ch01_torna` — the `capture` objective exercised for the first time: `as_gad_torna_held` starts
+    already on Bijapur's side of the board (`preset.enemySupport`) and the player must raise the banner
+    and hold it 14 turns. Following D-19/CONTESTED #25, neither the briefing nor `enemyName` ("Bijapur")
+    says "garrison" or "commandant" — framed as Bijapur's slow response, not a siege.
+  - `ch04_pratapgad` — a `destroy` battle with Afzal Khan's army pre-placed (`preset.enemyFront:
+    ['as_afzal_khan']`). DESIGN 3.5 calls this a Bhet-and-battle chapter; the Bhet (parley) minigame is
+    step 6 and not built yet, so the meeting is framed as having already happened offscreen — documented
+    in the file's own header so it reads as a deliberate deferral, not an oversight. No `nextId` (end of
+    the vertical slice).
+  - `SWARAJYA_CAMPAIGN`/`SWARAJYA` (`src/campaign/campaign.ts`) ties the three into one `Campaign`, kept
+    **out** of the global `CAMPAIGNS` array (that array drives `tests/seleucid.test.ts`'s YUDDH-empire-
+    order check and `tests/standing.test.ts`'s Renown-system check, neither of which has a `'swarajya'`
+    entry) — `scenarioById()` widened to search both lists so `nextId` chaining still resolves.
+- **Title → campaign → battle wiring** (`src/main.ts`, rewritten; `src/game/scenes/swarajyaTitle.ts`
+  gained real buttons): title now shows "Learn to play" (fresh) or "Campaign" (once `ch00_maval` is
+  won — same fresh/returning pattern as YUDDH's own title), going to `campaignScene(stage, go, back,
+  SWARAJYA, [SWARAJYA])` — the new optional `pool` parameter on `campaignScene()` restricts the picker to
+  a single campaign and hides YUDDH's "More empires" pill entirely (`src/game/scenes/campaign.ts`) rather
+  than exposing the scaffolding campaigns (D-17). Battle completion chains to `sc.nextId` via
+  `scenarioById()` and `preloadBattle`.
+- **Tests**: `tests/scenarios.test.ts`, 5 cases (deck non-emptiness, each `game(1)` builds without an
+  engine-level throw, the `nextId` chain, `SWARAJYA_CAMPAIGN` order, `ch01_torna`'s preset fort + capture
+  objective shape, `ch04_pratapgad`'s Afzal-on-front placement). These are engine-level only; they do not
+  exercise the renderer.
+- **Real playtest** (`tests/e2e/swarajyaPlaytest.cjs`, adapted from YUDDH's own `playtest.cjs`): found,
+  during this mandatory step, a crash that none of `tsc`/`vitest`/`vite build` nor the engine-level test
+  above could see — `cardFace('sw_shivaji')` threw `TypeError: Cannot read properties of undefined
+  (reading 'empire')` on the briefing screen, because `cardFace()` reads the full `CardDef` out of the
+  engine's live `CARDS` table, and `sw_shivaji` exists only in `data/cards.draft.json` (not loaded by the
+  game — it is blocked on the unbuilt Ganim mechanic, per TASKS.md step 1). All three scenarios and
+  `SWARAJYA_CAMPAIGN`'s node faces had used `sw_shivaji` as a stand-in portrait. Fixed by using cards
+  that *are* loaded and fit each chapter instead: `sw_jijau_counsel` (Jijabai's Counsel) for `ch00_maval`,
+  `sw_gad_torna` for `ch01_torna`, `sw_gad_pratapgad` for `ch04_pratapgad`; `as_afzal_khan` (already
+  loaded) was fine as-is for Pratapgad's enemy face. A `heroCard`/`face`/`defeatCard` id must always be a
+  loaded, playable card — noted in STATE.md so the next new scenario doesn't repeat this.
+- Also fixed the playtest script's own bug while debugging the above: its `catch` handler didn't call
+  `b.close()`, so an uncaught page error left the headless Chromium child alive indefinitely (looked like
+  a hang when piped through `tail`, which buffers until the upstream process's stdout closes). Now
+  wrapped in `try`/`finally`.
+
+**Verified:** full playtest run against `vite preview` — title → "Learn to play" → briefing (Jijabai's
+Counsel portrait renders) → "Begin training" → cards dealt → several turns of scripted play (Border
+Post Durg brought from 12 to 7 hp, no win/loss within the script's 24-turn cap — expected, it only plays
+whatever move is offered first) → zero console or page errors. Separately drove the title → "Campaign"
+→ campaign screen: all three chapter cards (Jijabai's Counsel, Torna, Afzal Khan) render correctly with
+no "More empires" picker.
+
+**Known loose ends, not fixed this session:**
+- The coached tutorial's in-battle coach callout is hardcoded to Chanakya's portrait
+  (`cardFace('m_chanakya')`, `src/game/scenes/battle.ts`) — inherited YUDDH scaffolding, not something
+  step 5 touched; shows "Chanakya" instead of Jijabai during `ch00_maval`'s coaching. Cosmetic, not a
+  crash (`m_chanakya` is a loaded card). Worth parametrizing by scenario, or removing along with the rest
+  of the YUDDH scaffolding in step 9.
+- `tests/scenarios.test.ts` cannot catch a `cardFace()`/missing-`CARDS`-entry crash like the one found
+  this session, since it never calls rendering code — the real playtest is the only check that does.
+
+**Checks:** `npm test` (check-refs + 108 Vitest tests, incl. the golden replay), `npx tsc --noEmit`,
+`npm run build` all pass. Real playtest run (above). STATE.md, PROGRESS.md, TASKS.md updated.

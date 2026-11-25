@@ -648,5 +648,41 @@
 "n_aakraman",
 "y_kavach"
 ]
+},
+"ch00_maval": {
+"player": [
+"sw_bargir*4",
+"sw_hetkari*4",
+"sw_jijau_counsel*2"
+],
+"enemy": [
+"as_hasham*8"
+]
+},
+"ch01_torna": {
+"player": [
+"sw_bargir*3",
+"sw_hetkari*3",
+"sw_jijau_counsel*2",
+"sw_torna_hoard*2",
+"sw_gad_torna*2",
+"sw_gad_rajgad*1"
+],
+"enemy": [
+"as_hasham*10"
+]
+},
+"ch04_pratapgad": {
+"player": [
+"sw_bargir*4",
+"sw_hetkari*4",
+"sw_jijau_counsel*2",
+"sw_torna_hoard*1",
+"sw_gad_pratapgad*2"
+],
+"enemy": [
+"as_hasham*6",
+"as_gaja*3"
+]
 }
 }

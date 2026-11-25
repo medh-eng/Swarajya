@@ -49,13 +49,18 @@ export const RULES = {
 };
 
 /* ---- the history notes (history.json) ---- */
-export type HistoryBasis = 'HISTORY' | 'TRADITION' | 'INVENTED';
+// CONTESTED (Swarajya, session 8 — DESIGN 3.9, CLAUDE.md basis tags): a point historians argue
+// over, where the game still had to pick one version for play; see history/CONTESTED.md.
+export type HistoryBasis = 'HISTORY' | 'TRADITION' | 'INVENTED' | 'CONTESTED';
 export interface HistoryNote {
   kicker: string;
   happened: string;
   changed: { basis: HistoryBasis; text: string }[];
   source: string;
   epilogue: string;
+  /** DESIGN 3.9: "the other side wrote…" — a Persian, Bijapuri or English record's different
+      account, in one or two lines, shown as its own block when present. */
+  otherSide?: string;
 }
 export const HISTORY_NOTICE = historyJson.notice;
 /** the History note of a battle, if it has one (the Training Ground has none) */

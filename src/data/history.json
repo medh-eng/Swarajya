@@ -380,6 +380,67 @@
       ],
       "source": "Sources: Gadval, Nerur and Kendur copper-plate grants of Vikramaditya I; later Chalukya inscriptions of his reign and his successors.",
       "epilogue": "Vikramaditya I reigned into the 680s and rebuilt Chalukya power across the Deccan. The Chalukya–Pallava rivalry he inherited from his father continued under his own son, Vinayaditya, and beyond."
+    },
+    "ch00_maval": {
+      "kicker": "THE MAVAL · BEFORE THE WAR",
+      "happened": "Shivaji was born at Shivneri hill fort in 1630 to Shahaji Bhonsle and Jijabai, in a Deccan then divided between the sultanates of Bijapur, Ahmadnagar and Golconda, with the Mughals pressing from the north. He grew up in the family's Pune jagir, where Shahaji's administrator Dadoji Kondadeo ran the estate in his name and, as Purandare's account tells it, helped shape the young Raje alongside Jijabai.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "The birth at Shivneri, the family, and growing up in the Pune jagir under Dadoji's administration are recorded."
+        },
+        {
+          "basis": "CONTESTED",
+          "text": "That Dadoji was also Shivaji's teacher comes from Purandare's account; other historians dispute it. The game follows Purandare, as Pon decided (D-15)."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "This training battle and the border post it is fought against. No such fight is recorded; it stands in for the years Shivaji spent learning to command, and Jijabai's counsel here is the game's own words."
+        }
+      ],
+      "source": "Sources: standard accounts of Shivaji's early life (W-EARLY, W-SHIVAJI); Babasaheb Purandare, Raja Shivachhatrapati, Vol. I.",
+      "epilogue": "Within a few years the lessons of the Maval would be tested for real, on the ramparts of an unguarded hill fort named Torna."
+    },
+    "ch01_torna": {
+      "kicker": "TORNA · 1646",
+      "happened": "At about sixteen, Shivaji took charge of Torna fort while the Bijapur court was thrown into confusion over the sultan's illness. Following Purandare's account, the fort stood neglected and unguarded, and he took it without a fight. Treasure found there paid for a new fort nearby, which he named Rajgad and kept as his seat of government for years afterward.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "Torna changed hands in 1646 (some references give 1645 or 1647) and was renamed Prachandagad; the treasure, and Rajgad built from it, are recorded."
+        },
+        {
+          "basis": "CONTESTED",
+          "text": "One widely used reference says Shivaji took the fort from its Bijapur commandant rather than finding it unguarded; the game follows Purandare's account of an empty fort (D-19)."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The race to fortify Torna before Bijapur reacts, and the pace of that reaction, are the game's own — no army arrived at Torna to contest it."
+        }
+      ],
+      "source": "Sources: standard accounts of Shivaji's early campaigns (W-SHIVAJI, W-TORNA); Babasaheb Purandare, Raja Shivachhatrapati, Vol. I.",
+      "epilogue": "Torna was the first stone of Swarajya. Thirteen years later, at the foot of another fort built with its treasure, Shivaji would face the Bijapur general sent to end his rebellion."
+    },
+    "ch04_pratapgad": {
+      "kicker": "PRATAPGAD · 10 NOVEMBER 1659",
+      "happened": "The Bijapur court sent its veteran general Afzal Khan to arrest or destroy Shivaji. By agreement the two met in a pavilion below Pratapgad, each with only a sword and a small escort. Shivaji, expecting treachery, wore armour under his clothes, a tiger-claw blade on his hand and a dagger at his side. Afzal Khan was killed at the meeting, and the Maratha troops waiting nearby routed his army.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "Afzal Khan's march, the parley below Pratapgad, his death there and the rout that followed are recorded."
+        },
+        {
+          "basis": "CONTESTED",
+          "text": "Who struck first is disputed: Maratha sources say Afzal Khan seized Shivaji and struck first; accounts hostile to Shivaji call it a killing at a parley Shivaji had arranged."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The battle that follows the meeting is the game's own, with no numbers for either army."
+        }
+      ],
+      "otherSide": "Sources unfriendly to Shivaji describe the meeting as a premeditated killing of a general who had come under a pledge of safety, not a response to an attack on him.",
+      "source": "Sources: the Sabhasad chronicle; an English factor's letter of 10 December 1659 (Henry Revington); Babasaheb Purandare, Raja Shivachhatrapati, Vol. I.",
+      "epilogue": "The victory at Pratapgad broke Bijapur's attempt to crush the new state in the hills, and Shivaji's name began to travel far beyond the Maval."
     }
   }
 }

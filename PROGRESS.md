@@ -29,8 +29,11 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 - [x] Step 1 (data, cont. — session 8): the 4 vertical-slice Gad cards ported alongside step 2
       (`sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held`) — 11 cards playable now
 - [x] Step 3 (`capture` objective, 25 Nov 2026 session 8): done alongside step 2
-- [ ] Step 4 (battle without art fallback)
-- [ ] Step 5 (scenarios: `ch00_maval`, `ch01_torna`, `ch04_pratapgad`; title → campaign → battle wiring)
+- [x] Step 4 (battle without art fallback, 25 Nov 2026 session 8): `loadBattlefield()` falls back to a
+      drawn placeholder ground; Gad square art window also closed (deferred from step 2)
+- [x] Step 5 (scenarios, 25 Nov 2026 session 8): `ch00_maval`, `ch01_torna` (`capture`), `ch04_pratapgad`
+      (battle only, Bhet deferred); title → campaign → battle wired in `src/main.ts`;
+      `tests/scenarios.test.ts` (5 tests) + a real e2e playtest (`tests/e2e/swarajyaPlaytest.cjs`)
 - [ ] Step 6 (Bhet scene + AI stance table)
 - [ ] Step 8 (campaign map v1; Marathi strings for the slice)
 - [ ] Step 9 (remove YUDDH scaffolding Swarajya no longer needs)
@@ -57,11 +60,11 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 ## Chapters
 | # | Chapter | History note | Deck | Art | Balance | Status |
 |---|---|---|---|---|---|---|
-| 0 | The Mavlas of the Maval (tutorial) | [ ] | [ ] | [ ] | n/a | planned |
-| 1 | Torna | [ ] | [ ] | [ ] | [ ] | planned |
+| 0 | The Mavlas of the Maval (tutorial) | [x] | [x] | [x] (placeholder ground) | n/a | built, unbalanced |
+| 1 | Torna | [x] | [x] | [x] (painted) | [ ] | built, unbalanced |
 | 2 | Purandar 1648 | — | — | — | — | blocked (VERIFY) |
 | 3 | Jaoli | [ ] | [ ] | [ ] | [ ] | planned |
-| 4 | Pratapgad | [ ] | [ ] | [ ] | [ ] | planned |
+| 4 | Pratapgad | [x] | [x] | [x] (painted) | [ ] | built, unbalanced (battle only — Bhet minigame not yet built, step 6) |
 | 5 | Kolhapur | [ ] | [ ] | [ ] | [ ] | planned |
 | 6 | Panhala and the Pass | [ ] | [ ] | [ ] | [ ] | planned |
 | 7 | Fifty-six Days at Chakan | [ ] | [ ] | [ ] | [ ] | planned |
