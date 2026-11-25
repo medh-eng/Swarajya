@@ -42,7 +42,12 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 - [x] Step 8 (campaign map v1 confirmed on the existing shared `campaignScene`; Marathi strings for the
       slice via new `src/i18n.ts` + `localizeScenario`/`localizeCampaign`; `hasDevanagari`/`fontFor` font
       fix; 25 Nov 2026 session 8) — generic battle chrome stays English pending the later reviewed pass
-- [ ] Step 9 (remove YUDDH scaffolding Swarajya no longer needs)
+- [~] Step 9 (remove YUDDH scaffolding Swarajya no longer needs) — partly done, 25 Nov 2026 session 8:
+      `tests/swarajya.test.ts` no longer needs `src/campaign/duel.ts`'s YUDDH factions (rebuilt on the
+      permanent "classic" 50 cards instead). The larger removal (19 chapter files, `CAMPAIGNS`, the
+      `"yuddh"` card pool, `duel.json`'s YUDDH factions) is load-bearing for four other test files
+      (`seleucid.test.ts`, `search.test.ts`, `standing.test.ts`, `duelBalance.test.ts`) and for Phase 4's
+      planned Duel reuse — see `TASKS.md` step 9 for the full finding and a safer plan.
 - [ ] Step 10 (balance, playtests, Gate 1)
 
 ## Phase 2 · Act I and II

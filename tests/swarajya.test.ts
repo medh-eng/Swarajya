@@ -5,8 +5,7 @@
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { describe, expect, it } from 'vitest';
-import { aiTurn, isSwarajyaRules, isYuddhRules, newGame, type GameState } from '../src/engine';
-import { FACTIONS, duelGame } from '../src/campaign/duel';
+import { aiTurn, isSwarajyaRules, isYuddhRules, newGame, type EmpireId, type GameState } from '../src/engine';
 
 function fingerprint(st: GameState) {
   const h = createHash('sha1');
@@ -34,14 +33,28 @@ describe("ruleset 'swarajya'", () => {
     expect(st.rules).toBe('swarajya');
   });
 
-  it('plays every faction pairing exactly as YUDDH does (same seed, same game)', () => {
+  it('plays every classic-empire pairing exactly as YUDDH does (same seed, same game)', async () => {
+    // Built from the "classic" 50 cards (src/data/cards.json's `_about`: "the golden test replays
+    // them; do not touch") rather than src/campaign/duel.ts's FACTIONS — that module's current
+    // factions are tied to the YUDDH chapter decks step 9 removed; the classic empires are
+    // permanent, so this equivalence check no longer depends on scaffolding that might move again.
+    const { CARDS } = await import('../src/engine');
+    const empires: EmpireId[] = ['maurya', 'gupta', 'chalukya', 'chola', 'rajput'];
+    const deckFor = (e: EmpireId): string[] =>
+      Object.values(CARDS).filter(c => c.empire === e).flatMap(c => Array(4).fill(c.id));
+    const mkGame = (a: EmpireId, b: EmpireId, seed: number, rules: 'yuddh' | 'swarajya'): GameState =>
+      newGame({
+        seed, rules, season: 'sharad',
+        player: { empire: a, deck: deckFor(a) } as never,
+        enemy: { empire: b, deck: deckFor(b) } as never
+      });
     let games = 0;
-    for (const a of FACTIONS) for (const b of FACTIONS.slice(0, 3)) {
+    for (const a of empires) for (const b of empires) {
+      if (a === b) continue;
       const seed = 700 + games * 17;
-      const y = duelGame(a, b, seed);
-      const s = duelGame(a, b, seed);
-      s.rules = 'swarajya';
-      expect(play(s), `${a.id} vs ${b.id} seed ${seed}`).toEqual(play(y));
+      const y = mkGame(a, b, seed, 'yuddh');
+      const s = mkGame(a, b, seed, 'swarajya');
+      expect(play(s), `${a} vs ${b} seed ${seed}`).toEqual(play(y));
       games++;
     }
     expect(games).toBeGreaterThan(10);

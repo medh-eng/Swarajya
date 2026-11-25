@@ -567,3 +567,40 @@ which needs the first two chapters won first) but uses the exact same `loc()`/`f
 proven correct on three other screens, and was reviewed by reading the edited file in full.
 
 STATE.md, PROGRESS.md, TASKS.md updated.
+
+## 25 Nov 2026 — session 8 (cont.): Phase 1 step 9 — scaffolding removal, partly done
+
+Set out to do TASKS.md's step 9 as written: delete the 19 YUDDH chapter scenario files in
+`src/campaign/`, `campaign.ts`'s `CAMPAIGNS`/`MAURYA_CAMPAIGN`/etc., the `"yuddh"` card list in
+`src/data/cards.json`, and the YUDDH factions in `src/data/duel.json`, keeping only `missions.ts` and
+the "classic" 50 cards per CLAUDE.md. Before touching anything, mapped every importer of the files this
+would delete, and found the removal is load-bearing for four test files the step didn't mention:
+`tests/seleucid.test.ts` (imports `INDUS_LINE_SCENARIO` and `CAMPAIGNS`/`MAURYA_CAMPAIGN` directly),
+`tests/search.test.ts` (builds its search-AI sample games from `firstThroneGame`/`indusLineGame`),
+`tests/standing.test.ts` (tests the Yash/rank system via `CAMPAIGNS`/`empireOfBattle`), and
+`tests/duelBalance.test.ts` (exercises every faction in `duel.json` through `duel.ts`). Deleting the
+scaffolding without first rewriting all four of those — not a quick patch, since each uses it as real
+test *data*, not just an import — would silently drop real engine coverage (search AI, Seleucid card
+interactions, the rank system). It would also cut against `docs/DESIGN.md`'s own Duel section, which
+plans to *reuse* this Duel infrastructure in Phase 4 with new Swarajya-era factions rather than delete it
+now and rebuild it later.
+
+Decided not to force the full removal through in this session — did the one piece that was both in scope
+and genuinely safe, and wrote up the rest as a finding for whoever does it properly next (TASKS.md step
+9 has the full list and a recommended sequencing: do it alongside Phase 4's duel-faction swap, or as its
+own dedicated cleanup session, not as a Phase-1-closing afterthought).
+
+**Done:** `tests/swarajya.test.ts`'s "plays every faction pairing exactly as YUDDH does" test used to
+build its games from `src/campaign/duel.ts`'s `FACTIONS`/`duelGame` — i.e. from the exact YUDDH duel
+scaffolding step 9 is meant to eventually remove, which is why the step called this test out by name.
+Rewrote it to build decks directly from the "classic" 50 cards instead (`src/data/cards.json`'s own
+comment: "the golden test replays them; do not touch" — these are permanent, unlike the duel factions),
+pairing all five classic empires (maurya, gupta, chalukya, chola, rajput) against each other under both
+rulesets. Same assertion as before (a `'swarajya'` game plays identically to the same `'yuddh'` game when
+no Swarajya mechanic is in use), now resting on data that won't move again regardless of what happens to
+`duel.ts`/`duel.json` later.
+
+**Verified:** `npx tsc --noEmit`, `npm test` (check-refs + 129 Vitest tests, same count as before — the
+rewritten test still has 6 `it`s under its `describe` block), `npm run build` all pass.
+
+STATE.md, PROGRESS.md, TASKS.md updated.

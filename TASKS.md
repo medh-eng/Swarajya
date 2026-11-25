@@ -112,7 +112,32 @@ Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a g
        Devanagari glyphs. Every Marathi string is flagged `unreviewed — see src/i18n.ts` pending Q-05.
        Real playtest: title, campaign map, and tutorial briefing verified correct in Marathi (no missing
        glyphs, correct word-wrap); the Bhet scene uses the identical pattern but wasn't reached live.
-9. [ ] Remove the YUDDH scaffolding that Swarajya no longer needs (D-17): YUDDH chapters in
-       `src/campaign/`, YUDDH cards and duel factions. **Keep** `missions.ts` and the classic 50 cards
-       (golden test). Update `tests/swarajya.test.ts` (it uses YUDDH's duel factions today).
+9. [~] Remove the YUDDH scaffolding that Swarajya no longer needs (D-17) — **partly done, 25 Nov 2026
+       session 8; scope found larger than first scoped, see below.**
+       **Done:** `tests/swarajya.test.ts`'s ruleset-equivalence test no longer depends on
+       `src/campaign/duel.ts`'s `FACTIONS`/`duelGame` — it now builds its own decks straight from the
+       "classic" 50 cards (`src/data/cards.json`'s `_about`: "the golden test replays them; do not
+       touch"), so it no longer needs updating again if the duel scaffolding below ever moves.
+       **Found, not yet done — this needs its own session, not a quick follow-on:** the other three
+       pieces named in this step (the 19 YUDDH chapter scenario files in `src/campaign/` — `badami.ts`
+       through `vikramReturn.ts` plus `tutorial.ts`; `campaign.ts`'s `CAMPAIGNS`/`MAURYA_CAMPAIGN`/etc./
+       `currentCampaign`/`empireOfBattle`; the ~2300-line `"yuddh"` card list in `src/data/cards.json`;
+       and the YUDDH duel factions in `src/data/duel.json`) turn out to be load-bearing for **four other
+       test files**, not just `swarajya.test.ts`:
+       - `tests/seleucid.test.ts` imports `INDUS_LINE_SCENARIO` and `CAMPAIGNS`/`MAURYA_CAMPAIGN` directly.
+       - `tests/search.test.ts` imports `firstThroneGame`/`indusLineGame` from `firstThrone.ts`/
+         `indusLine.ts` to build its search-AI sample games.
+       - `tests/standing.test.ts` imports `CAMPAIGNS`/`empireOfBattle` to test the Yash/rank system.
+       - `tests/duelBalance.test.ts` exercises every faction in `duel.json` via `duel.ts`'s `FACTIONS`.
+       Removing the chapter files / `CAMPAIGNS` / the `"yuddh"` card pool without first rewriting (not
+       just patching) all four of those tests would silently cut real engine-test coverage (search AI,
+       Seleucid card interactions, the rank system) — a bigger and more careful job than this step
+       originally described. It's also in tension with `docs/DESIGN.md`'s own Duel section, which plans
+       to **reuse** this exact Duel infrastructure in Phase 4 with new factions (Swarajya, Adilshahi,
+       Mughal, Jaoli, Siddi) rather than delete it now and rebuild it later. **Recommendation:** do this
+       properly as its own step, either right before Phase 4 swaps in the new duel factions (so the old
+       ones are replaced, not just deleted) or as a dedicated cleanup session that rewrites all four test
+       files deliberately, not as a Phase-1-closing afterthought. `src/game/scenes/standing.ts` and
+       `src/game/scenes/gallery.ts` (unreachable from the Swarajya title, confirmed not imported from
+       `main.ts` or any test) are zero-risk to delete whenever someone gets to this — just not yet done.
 10. [ ] Balance: Torna and Pratapgad in band (45–70%); playtests desktop and phone; Gate 1 with Pon.

@@ -3,7 +3,7 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 25 Nov 2026 (session 8) · **Phase:** 0 done → **Phase 1 nearly done (step 8 of 10)** → **Phase 2 started (step 1 of 6 done)** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 25 Nov 2026 (session 8) · **Phase:** 0 done → **Phase 1 nearly done (step 9 partly done, of 10)** → **Phase 2 started (step 1 of 6 done)** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
 YUDDH: Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on
@@ -20,9 +20,14 @@ battle. Then (step 8, same session) **campaign map v1** (confirmed on the existi
 which already shows win/next state) and a full **Marathi localization layer** for the vertical slice's own
 text (`src/i18n.ts`, `localizeScenario`/`localizeCampaign`, a `hasDevanagari`/`fontFor` font fix) — title
 screen, the three chapters' briefing/objective text, and the Bhet scene now toggle EN/MR; generic
-YUDDH battle-screen chrome stays English pending PLAN.md's later reviewed Marathi pass (Q-05). Phase 1
-now has only steps 9–10 left (remove YUDDH scaffolding; balance + Gate 1 with Pon — the latter needs
-Pon's own hands-on playtest and cannot be done by Claude alone). **Art batch 1 is complete**: all 20 card
+YUDDH battle-screen chrome stays English pending PLAN.md's later reviewed Marathi pass (Q-05). Step 9
+(remove YUDDH scaffolding) turned out bigger than scoped: `tests/swarajya.test.ts` no longer needs
+`duel.ts`'s YUDDH factions (done), but the rest — 19 chapter files, `CAMPAIGNS`, the `"yuddh"` card pool,
+`duel.json`'s factions — is load-bearing for four *other* test files and for Phase 4's planned Duel reuse,
+so it's left for its own dedicated pass rather than forced through now (see `TASKS.md` step 9 for the
+full finding). Phase 1 now has only step 9 (the rest of it) and step 10 left (balance + Gate 1 with Pon
+— the latter needs Pon's own hands-on playtest and cannot be done by Claude alone). **Art batch 1 is
+complete**: all 20 card
 paintings and all 3 battlefields (`torna`, `pratapgad`, `maval`) are done (Pon), registered in
 `src/assets/card-art.json` and `public/assets/battlefields/`. GitHub Pages is switched on (Pon, 24 Nov
 2026). Phase 2 ("Act I and II", per `docs/PLAN.md`) has begun: step 1, the **Ganim keyword** (strike and
@@ -35,10 +40,11 @@ Phase 2's first chapter.
 1. Read this file, `TASKS.md` (sections "Phase 1" and "Phase 2"), the last three `LOG.md` entries, then `CLAUDE.md`.
 2. `npm ci`, then `npm test`, `npx tsc --noEmit`, `npm run build`: all must pass before you change anything.
 3. Phase 1 steps 1–8 are done (data; Gad + capture; battle-without-art fallback; the three vertical-slice
-   scenarios wired title → campaign → battle; the Bhet scene; campaign map v1 + Marathi strings). Two
-   kinds of work are open now:
-   - **Finish Phase 1**: `TASKS.md` → Phase 1, step 9 (remove YUDDH scaffolding) is Claude-doable; step 10
-     (balance + Gate 1) needs Pon's own playtest approval.
+   scenarios wired title → campaign → battle; the Bhet scene; campaign map v1 + Marathi strings). Step 9
+   is partly done (see `TASKS.md`). Two kinds of work are open now:
+   - **Finish Phase 1**: `TASKS.md` → Phase 1, the rest of step 9 (remove the remaining YUDDH scaffolding
+     — read the finding there first, it's bigger than it looks) is Claude-doable; step 10 (balance +
+     Gate 1) needs Pon's own playtest approval.
    - **Continue Phase 2**: `TASKS.md` → "For Claude: Phase 2", step 1 (Ganim) is done; continue with
      step 2 (Khind — `frontSize`, replacing the hard-coded Yudhbhumi size of 4 — two `>= 4` checks in
      `rules.ts`, per the engine-baseline notes below), then Ratra/`raid`, then the Act I/II chapters
