@@ -670,3 +670,31 @@ editing a historically-significant card's power level. Did not touch `as_afzal_k
 TASKS.md, PROGRESS.md, STATE.md updated. Temporary scratch test files used while sweeping
 (`_balance-check.test.ts`, `_balance-sweep.test.ts`) were deleted; only the permanent
 `tests/balance.harness.test.ts` remains.
+
+## 25 Nov 2026 — session 8 (cont.): art batch 2 painted and registered; art batch 3 (Kolhapur) written; a CONTESTED/draft-data mismatch caught
+
+Pon painted all 4 pieces from `art/PROMPTS-BATCH2.md` (`jm_chandrarao`, `jm_hanmantrao`,
+`jm_jaoli_foot`, and the `jaoli` battlefield) and sent them back. Copied them into
+`art/source/cards/` and `art/source/battlefields/jaoli.png`, ran `npm run assets`: 23 card
+paintings now registered in `src/assets/card-art.json`, `public/assets/battlefields/jaoli.webp`
+generated alongside `maval`/`pratapgad`/`torna`. `npx tsc --noEmit`, `npm test` (129 passed),
+`npm run build` all pass with no changes needed elsewhere — this is purely an asset-registration
+step, no engine or data wiring (these are Phase 2 chapter-3 cards, not yet ported into
+`src/data/cards.json` as playable).
+
+Wrote `art/PROMPTS-BATCH3.md` for chapter 5 (Kolhapur, 28 Dec 1659) — the next chapter needing new
+art, since chapter 4 (Pratapgad) was already fully painted in batch 1. 2 cards (`as_rustam_zaman`,
+`as_fazl_khan`, both Bijapur cavalry officers, reusing batch 1's green-and-gold court palette) and
+1 battlefield (`kolhapur` — open winter plain, the opposite mood from Jaoli's dense jungle).
+
+**Caught a real inconsistency while researching this batch:** `history/CHRONOLOGY.md`'s own
+`C-1659-KOLHAPUR` entry names `sw_siddi_hilal` as one of the chapter's cards, and both
+`history/PEOPLE.md` and `data/cards.draft.json` already tag him `basis: HISTORY` on Shivaji's side
+— but `history/CONTESTED.md` #29 says plainly that no card or text should put Siddi Hilal on
+either side in 1659 until Sabhasad/Mehendale settle it (the same source, Purandare Vol. I pp. 257
+and 284, also lists a Siddi Hilal among *Afzal Khan's* officers). So two files are ahead of where
+the project's own CONTESTED register says it stands. Did not silently fix the basis tags — left
+`sw_siddi_hilal` out of batch 3 entirely and added it to `TASKS.md`'s research list and to the
+batch 3 sheet's own warning, so nobody paints or ships that card until it's checked.
+
+TASKS.md, PROGRESS.md, STATE.md updated.

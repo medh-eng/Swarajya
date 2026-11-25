@@ -66,7 +66,8 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 - [ ] Step 3 (Ratra/night, `raid` objective, enemy Gads on the board)
 - [ ] Step 4 (chapters 3, 5-11, each with its own chronology check)
 - [ ] Step 5 (Mughal faction cards)
-- [ ] Step 6 (art batches 2-4)
+- [~] Step 6 (art batches 2-4) — batch 2 (Jaoli, ch3) painted and registered 25 Nov 2026 session 8
+      (cont.), 23 card paintings total. Batch 3 (Kolhapur, ch5) prompts written, not yet painted.
 
 ## Mechanics
 | Mechanic | Engine | AI | Tests | Glossary/UI | Status |
