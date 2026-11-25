@@ -236,3 +236,10 @@ keep Sangamner; set up the engine (Phase 0); finish everything in this chat (nex
   1. The resent `sw_gad_pratapgad` and `sw_gad_rajgad` (1254x1254, checked by diffing pixels and viewing both) depict a single-ridge, single-gate, single-path fort — reads as Torna, not Pratapgad (no cliffs/temple/ponds) or Rajgad (no three terraces/lake/scaffolding). The versions already committed (part 10) correctly match their prompts and were kept.
   2. The resent `sw_gad_torna` and `as_gad_torna_held` are 504x504 — below the 1080x1080 minimum in `art/source/README.md` and lower-resolution than the 1254x1254 versions already committed. Kept the committed versions.
 - Flagged as an open question in `STATE.md`. `npm test` (86 tests + check-refs), `npx tsc --noEmit`, `npm run build` all pass with only the 6 new files added.
+
+## 25 Nov 2026 — part 12: battlefields absorbed; batch 1 done
+- Pon sent `torna.png` and `pratapgad.png`, both 1672x941 (16:9), for the two battlefield slots.
+- Saved to `art/source/battlefields/<name>.png` (the folder didn't exist yet — created it), ran `npm run assets`: `public/assets/battlefields/torna.webp` and `pratapgad.webp` produced. Both read well against their prompts (Torna: ridge, path, cliffs, mist, flag; Pratapgad: pavilion tent in dense forest below the fort silhouette, calm middle band).
+- Checklist in `art/PROMPTS-BATCH1.md` ticked for B1 and B2. **Art batch 1 is now fully complete: 20 of 20 cards, 2 of 2 battlefields.**
+- Pon's call on the part-11 mismatch (sw_gad_pratapgad, sw_gad_rajgad, sw_gad_torna, as_gad_torna_held): forget it — keep the four files already committed, no further resend expected. STATE.md's open question removed accordingly.
+- `npm test` (86 tests + check-refs), `npx tsc --noEmit`, `npm run build` all pass.

@@ -11,7 +11,7 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 - [x] Repo created (Pon) and planning package committed (23 Nov 2026)
 - [x] Engine, renderer, tests copied from YUDDH @ 6f1c852 (24 Nov 2026; YUDDH content kept as scaffolding, D-17)
 - [x] Ruleset `'swarajya'` (24 Nov 2026) · [x] empires `swarajya` and `adilshahi` in cards.json (25 Nov 2026, Phase 1 step 1)
-- [x] Art batch 1 prompt sheet written (24 Nov 2026) · [x] Art batch 1 cards painted (20 of 20, 25 Nov 2026 session 7); [ ] the 2 battlefields still to paint
+- [x] Art batch 1 prompt sheet written (24 Nov 2026) · [x] Art batch 1 complete (20 of 20 cards + 2 of 2 battlefields, 25 Nov 2026 session 7)
 - [x] First Purandare pages checked (Vol. I pp. 154-169); more recorded: pp. 207-284 (24 Nov 2026)
 - [x] Decisions D-19 to D-22 (Torna and Rajgad per the book; Shivaji never in teal or green; online research workflow) (24 Nov 2026)
 - [x] Art folders `art/source/cards|forts|battlefields` and the fort converter job (24 Nov 2026)
