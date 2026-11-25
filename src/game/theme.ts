@@ -18,6 +18,11 @@ export const FONT_TITLE = "'Cinzel', Georgia, serif";
 export const FONT_BODY = "'Alegreya Sans', 'Trebuchet MS', sans-serif";
 export const FONT_DEVA = "'Tiro Devanagari Hindi', 'Noto Serif Devanagari', serif";
 
+/** Phase 1 step 8: none of the Latin display fonts above carry Devanagari glyphs, so any text that
+    might be Marathi (src/i18n.ts) should pick its font with this instead of naming one outright. */
+export const hasDevanagari = (s: string): boolean => /[ऀ-ॿ]/.test(s);
+export const fontFor = (s: string, latin: string): string => hasDevanagari(s) ? FONT_DEVA : latin;
+
 export const INK = {
   night: 0x120c08,
   teak: 0x3a2416,

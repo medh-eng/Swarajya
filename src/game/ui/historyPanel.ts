@@ -3,7 +3,7 @@
    and a source line at the bottom. Also used for the epilogue after a victory
    and for the one-time "history and imagination" notice. */
 import { Container, Graphics, Sprite, Text } from 'pixi.js';
-import { FONT_STORY, FONT_TITLE, INK } from '../theme';
+import { FONT_STORY, FONT_TITLE, INK, fontFor } from '../theme';
 import { makePan, panBar } from './pan';
 import { view } from '../view';
 import { cardFace } from '../cards/paint';
@@ -31,7 +31,9 @@ function build(spec: Spec): Container {
   }
   const wrap = W - tx - (ph ? 40 : 100);
   const kick = new Text({ text: spec.kicker, style: { fontFamily: FONT_TITLE, fontSize: Math.round(20 * k), fontWeight: '700', letterSpacing: 6, fill: INK.gold } });
-  const title = new Text({ text: spec.title, style: { fontFamily: FONT_TITLE, fontSize: ph ? 54 : 64, fontWeight: '700', fill: INK.goldPale } });
+  // Phase 1 step 8: spec.title may be Marathi (localizeScenario, src/i18n.ts) — the History note's
+  // own prose (kicker/blocks/source, from src/data/history.json) stays English in this first pass.
+  const title = new Text({ text: spec.title, style: { fontFamily: fontFor(spec.title, FONT_TITLE), fontSize: ph ? 54 : 64, fontWeight: '700', fill: INK.goldPale } });
   if (title.width > wrap) title.scale.set(wrap / title.width);
   const btn = makeButton(spec.button, spec.onClose, { primary: true, w: 300 });
   const btnY = H - (ph ? 54 : 78);

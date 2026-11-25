@@ -1,6 +1,6 @@
 import { Container, Graphics, Text } from 'pixi.js';
 import gsap from 'gsap';
-import { INK, FONT_TITLE } from '../theme';
+import { INK, FONT_DEVA, FONT_TITLE, hasDevanagari } from '../theme';
 import { view } from '../view';
 
 /** every live button, so the automated playtest can find and press them by label */
@@ -27,9 +27,10 @@ export function makeButton(label: string, onTap: () => void, opts: { w?: number;
     bg.roundRect(-w / 2 + 6, -h / 2 + 6, w - 12, h - 12, 3).stroke({ width: 1, color: INK.goldPale, alpha: 0.25 });
   };
   draw(false);
+  const deva = hasDevanagari(label);
   const t = new Text({
-    text: label.toUpperCase(),
-    style: { fontFamily: FONT_TITLE, fontSize: Math.round(24 * k), fontWeight: '700', letterSpacing: 5, fill: opts.primary ? 0x22150d : INK.goldPale }
+    text: deva ? label : label.toUpperCase(),
+    style: { fontFamily: deva ? FONT_DEVA : FONT_TITLE, fontSize: Math.round((deva ? 22 : 24) * k), fontWeight: '700', letterSpacing: deva ? 0 : 5, fill: opts.primary ? 0x22150d : INK.goldPale }
   });
   t.anchor.set(0.5);
   // long labels on narrow buttons shrink to fit

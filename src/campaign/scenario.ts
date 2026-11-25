@@ -3,6 +3,7 @@
    tutorial are both scenarios; later campaign missions will be too. */
 import type { GameState } from '../engine/types';
 import type { BhetOdds, BhetOutcome } from '../engine/bhet';
+import { pick } from '../i18n';
 
 export interface DuelSide { name: string; hero: string; durg: string }
 
@@ -17,6 +18,8 @@ export interface BhetConfig {
   aiOdds?: BhetOdds;
   /** the unit a side gains in support when its Guard reads the other side's Strike */
   extraUnit: { player: string; enemy: string };
+  /** Marathi for `intro` (Phase 1 step 8; unreviewed — see src/i18n.ts) */
+  mr?: { intro?: string };
 }
 
 export interface Scenario {
@@ -57,4 +60,35 @@ export interface Scenario {
   online?: { link: import('../game/net/link').Link; role: 'host' | 'guest' };
   /** two phones: both devices deal from this seed */
   fixedSeed?: number;
+  /** Marathi for the chapter's own text (Phase 1 step 8; unreviewed — see src/i18n.ts).
+      Generic battle-screen chrome (buttons, tooltips, the History panel) is not covered
+      here — that is PLAN.md's later "Full Marathi pass." Use `localizeScenario()` to apply. */
+  mr?: {
+    title?: string; place?: string; briefing?: string; objective?: string;
+    goLabel?: string; nextLabel?: string;
+    winText?: (turn: number) => string; loseText?: string;
+    // `enemyName` is deliberately NOT here: battle.ts splices it into English sentences
+    // ("The ${enemyName} is moving…", "THE ${enemyName} MOVES") that this pass doesn't translate,
+    // so a lone Marathi word there would read as broken, not bilingual. Leave it English until
+    // those two sentences are translated too (part of the later "Full Marathi pass", PLAN.md).
+  };
+}
+
+/** a shallow copy of `sc` with its Marathi text swapped in for the fields that have it,
+    when Marathi is the active language; English fields stand in for any gap. */
+export function localizeScenario(sc: Scenario): Scenario {
+  const m = sc.mr;
+  if (!m) return sc;
+  return {
+    ...sc,
+    title: pick(sc.title, m.title),
+    place: pick(sc.place, m.place),
+    briefing: pick(sc.briefing, m.briefing),
+    objective: pick(sc.objective, m.objective),
+    goLabel: pick(sc.goLabel, m.goLabel),
+    nextLabel: pick(sc.nextLabel, m.nextLabel),
+    winText: pick(sc.winText, m.winText),
+    loseText: pick(sc.loseText, m.loseText),
+    bhet: sc.bhet && { ...sc.bhet, intro: pick(sc.bhet.intro, sc.bhet.mr?.intro) }
+  };
 }

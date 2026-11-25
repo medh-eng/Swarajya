@@ -8,7 +8,8 @@
    ============================================================ */
 import { Container, Graphics, Sprite, Text, Texture } from 'pixi.js';
 import gsap from 'gsap';
-import { FONT_BODY, FONT_STORY, FONT_TITLE, INK } from '../theme';
+import { FONT_BODY, FONT_STORY, FONT_TITLE, INK, fontFor } from '../theme';
+import { pick } from '../../i18n';
 import { view } from '../view';
 import { cardFace, FACE_H, FACE_W } from '../cards/paint';
 import { makeButton } from '../ui/button';
@@ -104,9 +105,9 @@ export function campaignScene(stage: Stage, go: (sc: Scenario) => void, back: ()
     const headH = ph ? 118 : 205;
 
     const shade = new Graphics().rect(0, 0, W, headH).fill({ color: 0x0a0604, alpha: 0.6 });
-    const kicker = new Text({ text: cur.kicker, style: { fontFamily: FONT_TITLE, fontSize: Math.round(20 * k), fontWeight: '700', letterSpacing: 8, fill: INK.gold, stroke: { color: 0x000000, width: 4 } } });
+    const kicker = new Text({ text: cur.kicker, style: { fontFamily: fontFor(cur.kicker, FONT_TITLE), fontSize: Math.round(20 * k), fontWeight: '700', letterSpacing: 8, fill: INK.gold, stroke: { color: 0x000000, width: 4 } } });
     kicker.position.set(ph ? 60 : 100, ph ? 12 : 40);
-    const title = new Text({ text: cur.title, style: { fontFamily: FONT_TITLE, fontSize: ph ? 54 : 72, fontWeight: '700', fill: INK.goldPale, stroke: { color: 0x000000, width: 6 } } });
+    const title = new Text({ text: cur.title, style: { fontFamily: fontFor(cur.title, FONT_TITLE), fontSize: ph ? 54 : 72, fontWeight: '700', fill: INK.goldPale, stroke: { color: 0x000000, width: 6 } } });
     title.position.set(ph ? 56 : 96, ph ? 38 : 70);
     body.addChild(shade, kicker, title);
 
@@ -165,15 +166,17 @@ export function campaignScene(stage: Stage, go: (sc: Scenario) => void, back: ()
       face.tint = isWon ? 0xcfcfcf : 0xffffff;
       c.addChild(face);
       const room = cw + gap - 24;
-      const t1 = new Text({ text: sc.title, style: { fontFamily: FONT_TITLE, fontSize: Math.round(28 * k), fontWeight: '700', fill: INK.goldPale, stroke: { color: 0x000000, width: 4 }, align: 'center' } });
+      const t1 = new Text({ text: sc.title, style: { fontFamily: fontFor(sc.title, FONT_TITLE), fontSize: Math.round(28 * k), fontWeight: '700', fill: INK.goldPale, stroke: { color: 0x000000, width: 4 }, align: 'center' } });
       t1.anchor.set(0.5, 0); t1.position.set(0, ch / 2 + (ph ? 8 : 14));
       if (t1.width > room) t1.scale.set(room / t1.width);
-      const t2 = new Text({ text: `${sc.place} · ${sc.year}`, style: { fontFamily: FONT_STORY, fontWeight: '500', fontSize: Math.round(24 * k), fontStyle: 'italic', fill: INK.creamBright, stroke: { color: 0x000000, width: 3 }, align: 'center' } });
+      const placeYear = `${sc.place} · ${sc.year}`;
+      const t2 = new Text({ text: placeYear, style: { fontFamily: fontFor(placeYear, FONT_STORY), fontWeight: '500', fontSize: Math.round(24 * k), fontStyle: fontFor(placeYear, FONT_STORY) === FONT_STORY ? 'italic' : 'normal', fill: INK.creamBright, stroke: { color: 0x000000, width: 3 }, align: 'center' } });
       t2.anchor.set(0.5, 0); t2.position.set(0, t1.y + t1.height * t1.scale.y + 2);
       if (t2.width > room) t2.scale.set(room / t2.width);
       c.addChild(t1, t2);
       if (isWon || isNext) {
-        const tag = new Text({ text: isWon ? '✦ WON' : 'NEXT', style: { fontFamily: FONT_TITLE, fontSize: Math.round(22 * k), fontWeight: '700', letterSpacing: 6, fill: isWon ? INK.goldPale : 0x22150d } });
+        const tagText = isWon ? pick('✦ WON', '✦ जिंकले') : pick('NEXT', 'पुढे');
+        const tag = new Text({ text: tagText, style: { fontFamily: fontFor(tagText, FONT_TITLE), fontSize: Math.round(22 * k), fontWeight: '700', letterSpacing: fontFor(tagText, FONT_TITLE) === FONT_TITLE ? 6 : 0, fill: isWon ? INK.goldPale : 0x22150d } });
         tag.anchor.set(0.5);
         const pill = new Graphics().roundRect(-tag.width / 2 - 14, -tag.height / 2 - 6, tag.width + 28, tag.height + 12, 6).fill({ color: isWon ? 0x24170e : INK.gold, alpha: 0.95 }).stroke({ width: 2, color: INK.gold });
         const tg = new Container(); tg.addChild(pill, tag); tg.position.set(0, -ch / 2 - (ph ? 4 : 6));

@@ -35,7 +35,18 @@ export const PRATAPGAD: Scenario = {
   playerDeck, enemyDeck,
   bhet: {
     intro: "Afzal Khan's tent stands in a cleared space on the slope below the fort. You will meet him with only a few men at your side — he asks the same of you. How do you come to the meeting?",
-    extraUnit: { player: 'sw_bargir', enemy: 'as_hasham' }
+    extraUnit: { player: 'sw_bargir', enemy: 'as_hasham' },
+    mr: { intro: 'अफझल खानाचा तंबू किल्ल्याखालच्या उतारावरील मोकळ्या जागेत उभा आहे. तुम्ही फक्त थोड्या माणसांसह त्याला भेटाल — त्यानेही तेच मागितले आहे. तुम्ही या भेटीला कसे जाता?' }
+  },
+  // Phase 1 step 8 (TASKS.md), unreviewed — see src/i18n.ts
+  mr: {
+    title: 'प्रतापगड',
+    place: 'प्रतापगड किल्ल्याच्या पायथ्याशी',
+    briefing: 'अफझल खान तुमचे बंड मोडून काढण्यासाठी विजापूरहून निघाला आहे. त्याने किल्ल्याच्या पायथ्याशी खासगी भेटीची मागणी केली आहे, दोघांनीही फक्त थोडे रक्षक घेऊन यावे. त्या तंबूत तुम्ही कसे जाता, हे नंतरच्या लढाईइतकेच महत्त्वाचे ठरू शकते.',
+    objective: 'किल्ल्याच्या पायथ्याशी अफझल खानाला भेटा, मग त्याचे सैन्य उद्ध्वस्त करा.',
+    goLabel: 'प्रतापगडाच्या पायथ्याशी भेटीसाठी',
+    winText: turn => `${turn} व्या डावात अफझल खानाचे सैन्य कोलमडते. प्रतापगडाचे नाव मावळाच्या सीमा ओलांडून दूरवर पोहोचेल.`,
+    loseText: 'प्रतापगडाच्या पायथ्याशी फळी तुटते. बंडाची पहिली मोठी कसोटी हरली जाते.'
   },
   game: (seed, bhet?: BhetOutcome) => newGame({
     seed,

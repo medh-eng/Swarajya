@@ -3,7 +3,7 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 25 Nov 2026 (session 8) · **Phase:** 0 done → **Phase 1 nearly done (step 6 of 10)** → **Phase 2 started (step 1 of 6 done)** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 25 Nov 2026 (session 8) · **Phase:** 0 done → **Phase 1 nearly done (step 8 of 10)** → **Phase 2 started (step 1 of 6 done)** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
 YUDDH: Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on
@@ -16,29 +16,39 @@ steps 2–3: the **Gad card type** and the **`capture` objective**), made the ve
 to end (steps 4–5: title → "Learn to play"/"Campaign" → briefing → battle → win/loss → next chapter, for
 `ch00_maval`, `ch01_torna`, `ch04_pratapgad`), and then (step 6, same session) built the **Bhet scene**
 (Trust/Guard/Strike) — `ch04_pratapgad` now opens on the parley itself instead of skipping straight to
-battle. Phase 1 now has only steps 8–10 left (campaign map v1 + Marathi strings; remove YUDDH
-scaffolding; balance + Gate 1 with Pon — the last of which needs Pon's own hands-on playtest and cannot
-be done by Claude alone). **Art batch 1 is complete**: all 20 card paintings and all 3 battlefields
-(`torna`, `pratapgad`, `maval`) are done (Pon), registered in `src/assets/card-art.json` and
-`public/assets/battlefields/`. GitHub Pages is switched on (Pon, 24 Nov 2026). Phase 2 ("Act I and II",
-per `docs/PLAN.md`) has begun: step 1, the **Ganim keyword** (strike and fade — DESIGN 3.3), is built,
-with AI values for both the search and heuristic AI, a glossary entry and icon, and `sw_shivaji` (Shivaji's
-own playable card) plus three Mavla-army units now loaded and playable. No vertical-slice chapter decks
-them yet, so this step changed no visible gameplay — it is groundwork for Phase 2's first chapter.
+battle. Then (step 8, same session) **campaign map v1** (confirmed on the existing shared `campaignScene`,
+which already shows win/next state) and a full **Marathi localization layer** for the vertical slice's own
+text (`src/i18n.ts`, `localizeScenario`/`localizeCampaign`, a `hasDevanagari`/`fontFor` font fix) — title
+screen, the three chapters' briefing/objective text, and the Bhet scene now toggle EN/MR; generic
+YUDDH battle-screen chrome stays English pending PLAN.md's later reviewed Marathi pass (Q-05). Phase 1
+now has only steps 9–10 left (remove YUDDH scaffolding; balance + Gate 1 with Pon — the latter needs
+Pon's own hands-on playtest and cannot be done by Claude alone). **Art batch 1 is complete**: all 20 card
+paintings and all 3 battlefields (`torna`, `pratapgad`, `maval`) are done (Pon), registered in
+`src/assets/card-art.json` and `public/assets/battlefields/`. GitHub Pages is switched on (Pon, 24 Nov
+2026). Phase 2 ("Act I and II", per `docs/PLAN.md`) has begun: step 1, the **Ganim keyword** (strike and
+fade — DESIGN 3.3), is built, with AI values for both the search and heuristic AI, a glossary entry and
+icon, and `sw_shivaji` (Shivaji's own playable card) plus three Mavla-army units now loaded and playable.
+No vertical-slice chapter decks them yet, so this step changed no visible gameplay — it is groundwork for
+Phase 2's first chapter.
 
 ## Start here (next session)
 1. Read this file, `TASKS.md` (sections "Phase 1" and "Phase 2"), the last three `LOG.md` entries, then `CLAUDE.md`.
 2. `npm ci`, then `npm test`, `npx tsc --noEmit`, `npm run build`: all must pass before you change anything.
-3. Phase 1 steps 1–6 are done (data; Gad + capture; battle-without-art fallback; the three vertical-slice
-   scenarios wired title → campaign → battle; the Bhet scene). Two kinds of work are open now:
-   - **Finish Phase 1**: `TASKS.md` → Phase 1, steps 8–9 (campaign map v1 + Marathi strings; remove YUDDH
-     scaffolding) are Claude-doable; step 10 (balance + Gate 1) needs Pon's own playtest approval.
+3. Phase 1 steps 1–8 are done (data; Gad + capture; battle-without-art fallback; the three vertical-slice
+   scenarios wired title → campaign → battle; the Bhet scene; campaign map v1 + Marathi strings). Two
+   kinds of work are open now:
+   - **Finish Phase 1**: `TASKS.md` → Phase 1, step 9 (remove YUDDH scaffolding) is Claude-doable; step 10
+     (balance + Gate 1) needs Pon's own playtest approval.
    - **Continue Phase 2**: `TASKS.md` → "For Claude: Phase 2", step 1 (Ganim) is done; continue with
      step 2 (Khind — `frontSize`, replacing the hard-coded Yudhbhumi size of 4 — two `>= 4` checks in
      `rules.ts`, per the engine-baseline notes below), then Ratra/`raid`, then the Act I/II chapters
      themselves. Either kind of work (finishing Phase 1 or continuing Phase 2) can proceed; they don't
      block each other. durgWard/shipsAtk (Chakan, Sindhudurg, Khanderi, Panhala) are recorded in the
      `GadEffect` type but unapplied — wire them in when their chapter is built (Phase 2 step 3).
+3a. **The Bhet scene's Marathi was reviewed by reading the code, not seen live** (reaching it needs the
+    first two vertical-slice chapters won first) — if you're in the area, a real playtest that plays
+    through to Pratapgad in Marathi mode would close that gap. Also worth a glance: whether Marathi text
+    anywhere overflows its box at phone width (this session only checked 1600×900 desktop).
 4. **Lesson from this session, worth re-reading before adding any new scenario:** a `Scenario`'s
    `heroCard`/`defeatCard` (and a `CampaignNode`'s `face`) are not just "an art reference" — `cardFace()`
    looks the id up in the engine's live `CARDS` table (`src/data/cards.json`) to draw the full card
@@ -71,7 +81,8 @@ them yet, so this step changed no visible gameplay — it is groundwork for Phas
 | Cards (design data) | `data/cards.draft.json` | 67 draft (11 ported to the game), unbalanced, not loaded |
 | Ref checker | `scripts/check-refs.mjs` | in `npm test`; passes (1 warning: `jm_hanmantrao` VERIFY) |
 | Engine (rules, AI, search) | `src/engine/` | YUDDH baseline + `ruleset.ts` (`isYuddhRules`, `isSwarajyaRules`); **Gad card type + `capture` objective** (DESIGN 3.1, 3.6; session 8); **Bhet mechanic** (`bhet.ts`: `chooseBhetStance`, `resolveBhet`; DESIGN 3.5; session 8); **Ganim keyword** (`canFallback` + `fallback` Action, `ganimFallback` AI heuristic; DESIGN 3.3; Phase 2 step 1, session 8) |
-| Renderer, scenes, UI | `src/game/` | YUDDH baseline + `scenes/swarajyaTitle.ts` (real buttons, session 8); `scenes/bhet.ts` (parley scene, session 8); square art window for Gad; `loadBattlefield` falls back to a drawn ground; History panel supports `CONTESTED`/`otherSide` |
+| Renderer, scenes, UI | `src/game/` | YUDDH baseline + `scenes/swarajyaTitle.ts` (real buttons + language toggle, session 8); `scenes/bhet.ts` (parley scene, session 8); square art window for Gad; `loadBattlefield` falls back to a drawn ground; History panel supports `CONTESTED`/`otherSide`; `theme.ts`'s `hasDevanagari`/`fontFor` pick a safe font for Marathi text (session 8 step 8) |
+| Localization | `src/i18n.ts` | `Lang`/`pick`/`getLang`/`setLang`/`toggleLang` (session 8 step 8); vertical-slice-only Marathi (title, chapter text, Bhet scene) — unreviewed, pending Q-05; generic battle chrome still English |
 | Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17) + `swarajya` list: 11 cards (7 Swarajya, 3 Adilshahi, 1 neutral — 4 of them Gads); decks + History notes for `ch00_maval`/`ch01_torna`/`ch04_pratapgad`; `rules.json`'s `"bhet"` (AI odds, wound fraction) |
 | Campaign code | `src/campaign/` | YUDDH's kept as scaffolding (D-17) + `mavalTutorial.ts`/`torna.ts`/`pratapgad.ts` (now with `bhet` config) and `SWARAJYA`/`SWARAJYA_CAMPAIGN` (kept out of the global `CAMPAIGNS` array — see LOG.md session 8); `missions.ts` must stay (golden test) |
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → [Bhet scene when `sc.bhet` is set] → battle → next chapter, fully wired (session 8; was a placeholder) |
@@ -123,6 +134,18 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
   in which case it holds the ground instead. Glossary entry + a drawn `ganim` icon (unlike Bhet/`capture`,
   this is a card keyword). Cards: `sw_shivaji`, `sw_mavla`, `sw_havaldar`, `sw_shiledar` — none in a
   vertical-slice deck yet, so no visible gameplay change until a Phase 2 chapter uses them.
+- **Marathi (Phase 1 step 8, session 8):** `src/i18n.ts` is a from-scratch `pick(en, mr)` overlay system
+  (no DOM i18n library applies to a Pixi-rendered game) — `Scenario`/`Campaign` carry an optional `mr`
+  field and `localizeScenario`/`localizeCampaign` apply it once at the top of `main.ts`, so `battle.ts`
+  and `bhet.ts` never need to know a language exists; they just read `sc.title` etc. as always. Scope is
+  deliberately narrow: only the vertical slice's own authored text (title, chapter briefing/objective/
+  labels, Bhet scene) — not YUDDH's generic battle chrome, which PLAN.md puts in a separate, later,
+  Pon-reviewed "Full Marathi pass" (Q-05). `enemyName` is excluded from the overlay on purpose: `battle.ts`
+  splices it into two untranslated English sentences, so translating the noun alone would look broken.
+  Every Marathi string carries an inline "unreviewed" comment. Font gap: `FONT_TITLE`/`FONT_STORY`/
+  `FONT_BODY` have no Devanagari glyphs, so `theme.ts`'s `hasDevanagari`/`fontFor` pick `FONT_DEVA`
+  instead wherever a string might be Marathi (applied in `button.ts`, `swarajyaTitle.ts`, `campaign.ts`,
+  `bhet.ts`, `battle.ts`'s briefing/pause screens, `historyPanel.ts`).
 
 ## Decisions locked
 | ID | Decision | Date |
@@ -174,9 +197,9 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 
 ## Next three things
 1. Claude: online research pass (no book needed) on the VERIFY items: the Fateh Khan episode at Purandar 1648 (unblocks `ch02_purandar1648`), Javli 1647, the dates for Baji More's fate and Siddi Hilal's side (CONTESTED #27-#29), then the remaining "not yet checked" chronology rows (D-22).
-2. Claude: Phase 1 steps 8-9 (campaign map v1 + Marathi strings; remove YUDDH scaffolding) — or continue
-   Phase 2 with step 2, Khind (`TASKS.md` → "For Claude: Phase 2"; step 1, Ganim, is done). Either is
-   fine; step 10 (balance + Gate 1) is the only remaining Phase 1 item that needs Pon, not Claude.
+2. Claude: Phase 1 step 9 (remove YUDDH scaffolding) — or continue Phase 2 with step 2, Khind
+   (`TASKS.md` → "For Claude: Phase 2"; step 1, Ganim, is done). Either is fine; step 10 (balance + Gate 1)
+   is the only remaining Phase 1 item that needs Pon, not Claude.
 3. Pon: three painted cards (sw_dadoji, sw_gopinath, sw_jijau_counsel) are only 345 px wide and tight
    at the top — redo them at 1080 px or wider if the tool allows. Otherwise art batch 1 is complete
    (all 20 cards + all 3 battlefields painted, `maval` added 25 Nov 2026).

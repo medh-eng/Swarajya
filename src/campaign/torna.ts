@@ -31,6 +31,17 @@ export const TORNA: Scenario = {
   nextId: 'ch04_pratapgad',
   nextLabel: 'Pratapgad',
   playerDeck, enemyDeck,
+  // Phase 1 step 8 (TASKS.md), unreviewed — see src/i18n.ts
+  mr: {
+    title: 'तोरणा',
+    place: 'तोरणा किल्ला, पुणे जिल्हा',
+    briefing: 'विजापूरच्या दरबारात सुलतानाच्या आजारपणामुळे गोंधळ माजला असताना तोरणा दुर्लक्षित उभा आहे, त्याच्या भिंतींवर कोणाचेही लक्ष नाही. त्यावर आपला झेंडा फडकवा, त्याच्या खजिन्याचा उपयोग करा, आणि विजापूरचे उत्तर येण्याआधी तो राखून ठेवा.',
+    objective: '१४ व्या डावाआधी तोरणा ताब्यात घ्या आणि राखा.',
+    goLabel: 'तोरण्याकडे',
+    nextLabel: 'प्रतापगड',
+    winText: turn => `${turn} व्या डावात तोरण्यावर झेंडा फडकतो. त्याच्या खजिन्यातून राजगड उभा राहील.`,
+    loseText: 'विजापूरचे उत्तर वेळेत पोहोचते. तोरणा आणखी काही काळ अंधारात राहतो.'
+  },
   game: seed => newGame({
     seed,
     player: { empire: 'swarajya', deck: playerDeck, hq: 24, faction: 'Swarajya', capital: 'The Maval' },

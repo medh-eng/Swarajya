@@ -39,7 +39,9 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
       `playerWoundFrac`/`enemyWoundFrac` on `Preset` + `newGame()`'s `woundSide()`, `src/game/scenes/bhet.ts`
       shown before battle via `Scenario.bhet`, `ch04_pratapgad` now opens on the meeting itself (no longer
       "happened offscreen"). `tests/bhet.test.ts` (11 tests). Explained in-scene, no glossary icon.
-- [ ] Step 8 (campaign map v1; Marathi strings for the slice)
+- [x] Step 8 (campaign map v1 confirmed on the existing shared `campaignScene`; Marathi strings for the
+      slice via new `src/i18n.ts` + `localizeScenario`/`localizeCampaign`; `hasDevanagari`/`fontFor` font
+      fix; 25 Nov 2026 session 8) — generic battle chrome stays English pending the later reviewed pass
 - [ ] Step 9 (remove YUDDH scaffolding Swarajya no longer needs)
 - [ ] Step 10 (balance, playtests, Gate 1)
 
@@ -63,7 +65,8 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 | Gad (fort cards, capture) | [x] | [x] | [x] | [x] | built (Phase 1 step 2, session 8) — `durgWard`/`shipsAtk` not yet applied |
 | Bhet (parley scene) | [x] | [x] | [x] | [x] | built (Phase 1 step 6, session 8) — explained in-scene, no glossary icon |
 | New objective `capture` | [x] | [x] | [x] | [x] | built (Phase 1 step 3, session 8) |
-| Swarajya map (forts light up) | n/a | n/a | [ ] | [ ] | planned (Phase 1) |
+| Swarajya map (forts light up) | n/a | n/a | n/a | [x] | v1 built on existing `campaignScene` (Phase 1 step 8, session 8); full painted map later |
+| Marathi localization (vertical slice) | n/a | n/a | n/a | [x] | built (Phase 1 step 8, session 8) — `src/i18n.ts`; generic battle chrome still English, pending Q-05 |
 | Khind (`frontSize`) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
 | Ganim keyword | [x] | [x] | [x] | [x] | built (Phase 2 step 1, session 8) — no chapter uses it yet |
 | Ratra (night) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |

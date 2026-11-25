@@ -32,6 +32,17 @@ export const MAVAL_TUTORIAL: Scenario = {
   nextLabel: 'Torna',
   playerDeck, enemyDeck,
   coached: true,
+  // Phase 1 step 8 (TASKS.md), unreviewed — see src/i18n.ts
+  mr: {
+    title: 'मावळातले मावळे',
+    place: 'पुणे जहागीर, मावळ खोरी',
+    briefing: 'सैन्याचे नेतृत्व करण्याआधी, जिजाबाईंना तुम्ही एक तुकडी चालवताना पाहायचे आहे. मैदानापलीकडे एक छोटी सीमाचौकी आहे, पुढे जिंकाल त्या किल्ल्यांसारखी मुळीच नाही — पण लहान धडा सुरक्षित असतो.',
+    objective: 'खेळायला शिका: सीमाचौकी उद्ध्वस्त करा.',
+    goLabel: 'प्रशिक्षण सुरू करा',
+    nextLabel: 'तोरणा',
+    winText: turn => `सीमाचौकी ${turn} व्या डावात पडते. जिजाबाई मान हलवतात: धडे रुजले आहेत.`,
+    loseText: 'चौकी टिकते. राजालाही जिंकण्याआधी काही लढाया हराव्या लागतात. पुन्हा प्रयत्न करा.'
+  },
   game: seed => newGame({
     seed,
     player: { empire: 'swarajya', deck: playerDeck, hq: 24, faction: 'Swarajya', capital: "Jijabai's Camp",

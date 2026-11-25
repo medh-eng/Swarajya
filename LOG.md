@@ -493,3 +493,77 @@ zero console/page errors, play proceeds exactly as before. No new scenario or UI
 demonstrate Ganim directly; that lands with Phase 2's first chapter.
 
 STATE.md, PROGRESS.md, TASKS.md updated.
+
+## 25 Nov 2026 — session 8 (cont.): Phase 1 step 8 — campaign map v1 and Marathi strings for the slice
+
+Two separate pieces of "Yes complete phase 1," both Claude-doable (step 10, balance + Gate 1, still
+needs Pon's own playtest and is left for him).
+
+**Campaign map v1.** `docs/DESIGN.md` §3.7's full vision — a painted geographic map of the Sahyadri/
+Konkan with named forts, a 23-forts-go-dark Purandar treaty scene, milestone unlocks — needs art that
+doesn't exist yet and is genuinely later-phase scope; building a placeholder geographic map now would
+likely be thrown away once Pon paints the real one. But the shared `src/game/scenes/campaign.ts`
+(YUDDH scaffolding, reused as-is) already does the functional job a "v1" needs: `battlesWon()`/
+`markBattleWon()` (`src/campaign/campaign.ts`) are wired from `battle.ts`'s victory path, and
+`campaignScene` already shows a gold "✦ WON" pill plus a desaturated tint on a completed node, and a
+"NEXT" tag on the next unplayed one, connected by a dashed road. Nothing needed building here — this
+session's work was confirming it, screenshotting it (see the Marathi section below, same screen), and
+recording it as the v1 this step asked for. The real painted map stays a `docs/PLAN.md`/Phase-2-or-later
+item.
+
+**Marathi strings for the slice.** D-09 says Marathi from the start; PLAN.md separately lists a later
+"Full Marathi pass (reviewed by a Marathi reader Pon trusts)" as its own gate, tied to the still-open
+Q-05. Translating the whole 2000-line, YUDDH-inherited `battle.ts` chrome (End Turn, card tooltips,
+History-note prose) unreviewed would be high-risk for low confidence; this step instead translates only
+the vertical slice's **own authored content** — title screen, the three chapters' briefing/objective/
+labels, the Bhet scene — and leaves generic battle-screen chrome in English for the later reviewed pass.
+Every Marathi string is flagged inline (`// ... unreviewed — see src/i18n.ts`) and the scope boundary is
+documented in `src/i18n.ts`'s header comment.
+
+- **`src/i18n.ts`** (new): `Lang = 'en' | 'mr'`, persisted to `localStorage` (`swarajya.lang.v1`);
+  `pick(en, mr)` returns `mr` when active and defined, else falls back to `en`; `getLang`/`setLang`/
+  `toggleLang`.
+- **`src/campaign/scenario.ts`**: `Scenario` gained an optional `mr` overlay (title/place/briefing/
+  objective/goLabel/nextLabel/winText/loseText/bhet.intro) and `localizeScenario(sc)`, which shallow-
+  copies `sc` with each field run through `pick()`. `id`, `battlefield`, decks, `game`, `nextId` etc. all
+  pass through untouched, so save data and scenario lookups are unaffected by language. **`enemyName` is
+  deliberately not in the overlay**: `battle.ts` splices it into two English sentences ("The ${enemyName}
+  is moving…", "THE ${enemyName} MOVES") that this pass doesn't translate, so translating the noun alone
+  would read as broken, not bilingual — left for the later full pass once those two sentences are done too.
+- **`src/campaign/campaign.ts`**: `Campaign` gained an `mr` overlay (kicker/title) and
+  `localizeCampaign(c)`, which also localizes every node's scenario via `localizeScenario`. `SWARAJYA`'s
+  kicker/title now have Marathi.
+- **`src/campaign/mavalTutorial.ts`, `torna.ts`, `pratapgad.ts`**: each chapter's `mr` block written
+  (title, place, briefing, objective, goLabel, nextLabel, win/lose text; Pratapgad's `bhet.intro` too).
+- **`src/main.ts`**: `showCampaign` now shows `localizeCampaign(SWARAJYA)`; `enterBattle` localizes its
+  scenario once at the top via `localizeScenario`, before the Bhet-scene branch or battle preload — the
+  rest of the codebase (`battle.ts`, `bhet.ts`) reads `sc.title`/`sc.briefing`/etc. exactly as before and
+  never needs to know a language exists.
+- **Devanagari font gap found and fixed**: `FONT_TITLE`/`FONT_STORY`/`FONT_BODY` are Latin-only; only
+  `FONT_DEVA` renders Marathi. Added `hasDevanagari(s)` and `fontFor(s, latin)` to `src/game/theme.ts`,
+  then applied them everywhere newly-localizable text is drawn: `ui/button.ts` (`makeButton` now
+  auto-detects a Devanagari label and switches font/size/letter-spacing, so every call site gets this
+  free), `scenes/swarajyaTitle.ts` (subtitle, "Act I" line, footnote, the two nav buttons, plus a new
+  language-toggle button), `scenes/campaign.ts` (header kicker/title, node title/place-year, the "✦ WON"/
+  "NEXT" tag), `scenes/bhet.ts` (title, stance labels/bodies, intro, secrecy prompt, reveal lines, both
+  buttons), `scenes/battle.ts` (briefing screen's place/year/title/briefing/objective, pause menu's
+  chapter-name line), `ui/historyPanel.ts` (the shared History/epilogue panel title — the note's own prose
+  from `history.json` stays English this pass).
+- **Naming collision avoided**: `bhet.ts` already had a local `pick(stance)` for the player's stance
+  choice, so the i18n module's `pick` is imported there as `loc`.
+
+**Verified:** `npx tsc --noEmit`, `npm test` (check-refs + 129 Vitest tests, unaffected — no engine or
+rules code touched), `npm run build` all pass. Real playtest (`vite preview` + Playwright, 1600×900):
+title screen toggled EN→MR→EN, Devanagari renders correctly with no missing glyphs in "स्वराज्य", the
+subtitle, "अंक १ · बंडखोर", and both nav buttons ("खेळायला शिका"/"मोहीम"); campaign screen in Marathi shows
+the localized kicker "अंक १ · बंडखोर", title "हिंदवी स्वराज्य", and per-node title/place-year text
+("मावळातले मावळे", "तोरणा", with their Marathi place/year lines) with the "पुढे" (NEXT) tag correctly
+drawn in Devanagari; opened the tutorial chapter in Marathi and confirmed the briefing screen's place-
+year line, title, full briefing paragraph and objective line all word-wrap correctly inside their boxes,
+with the "प्रशिक्षण सुरू करा" (Begin training) button rendering correctly; played several turns of the
+battle itself with zero console/page errors (the battle board's own chrome is unlocalized by design, as
+documented above). The Bhet scene was not reached in this playtest (it only opens on `ch04_pratapgad`,
+which needs the first two chapters won first) but uses the exact same `loc()`/`fontFor()` pattern already
+proven correct on three other screens, and was reviewed by reading the edited file in full.
+
+STATE.md, PROGRESS.md, TASKS.md updated.

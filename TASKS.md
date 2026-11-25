@@ -97,7 +97,21 @@ Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a g
        same as `capture`. Real playtest: zero console/page errors, both a Strike/Guard and a Strike/Strike
        outcome verified correct.
 7. [x] **Art batch 1 prompt sheet** `art/PROMPTS-BATCH1.md` (24 Nov 2026; 20 cards + 2 battlefields).
-8. [ ] Campaign map v1 (forts light after a win). Marathi strings for the slice.
+8. [x] **Campaign map v1 + Marathi strings for the slice (25 Nov 2026, session 8).** Campaign map v1: the
+       existing shared `campaignScene` (YUDDH scaffolding) already shows a "✦ WON" tag + desaturated tint
+       on a completed node and a "NEXT" tag on the next one, wired to `battlesWon()`/`markBattleWon()` —
+       confirmed as satisfying this step; the full painted geographic map (DESIGN 3.7) needs art that
+       doesn't exist yet and is later-phase scope. Marathi: new `src/i18n.ts` (`pick()`/`getLang`/
+       `toggleLang`, persisted to `localStorage`); `Scenario`/`Campaign` gained an optional `mr` overlay
+       and `localizeScenario`/`localizeCampaign` (applied once in `main.ts`); title screen, the three
+       vertical-slice chapters' briefing/objective/labels, and the Bhet scene are translated — generic
+       YUDDH battle-screen chrome is deliberately left English, per PLAN.md's separate later "Full
+       Marathi pass" gate (Q-05). `enemyName` is deliberately not translated (would break two English
+       sentences it's spliced into in `battle.ts`). Added `hasDevanagari`/`fontFor` (`src/game/theme.ts`)
+       and applied them everywhere newly-localizable text renders, since the Latin display fonts have no
+       Devanagari glyphs. Every Marathi string is flagged `unreviewed — see src/i18n.ts` pending Q-05.
+       Real playtest: title, campaign map, and tutorial briefing verified correct in Marathi (no missing
+       glyphs, correct word-wrap); the Bhet scene uses the identical pattern but wasn't reached live.
 9. [ ] Remove the YUDDH scaffolding that Swarajya no longer needs (D-17): YUDDH chapters in
        `src/campaign/`, YUDDH cards and duel factions. **Keep** `missions.ts` and the classic 50 cards
        (golden test). Update `tests/swarajya.test.ts` (it uses YUDDH's duel factions today).

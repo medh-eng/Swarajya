@@ -27,7 +27,7 @@ import { markTutorialDone } from '../../campaign/tutorial';
 import { battlesWon, empireOfBattle, markBattleWon } from '../../campaign/campaign';
 import { EMPIRES as RENOWN_EMPIRES, standing, type Gain } from '../../meta/standing';
 import { foeLevel, setVeteranFoe, veteranFoe } from '../../campaign/difficulty';
-import { FONT_SERIF, FONT_STORY, INK, FONT_TITLE, FONT_BODY } from '../theme';
+import { FONT_SERIF, FONT_STORY, INK, FONT_TITLE, FONT_BODY, fontFor } from '../theme';
 import { makePan, panBar } from '../ui/pan';
 import { view, type View } from '../view';
 import { audio, type Sfx, type Track } from '../audio';
@@ -501,10 +501,13 @@ export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST
     const as = L.phone ? (H * 0.82) / 672 : 0.8;
     art.scale.set(as); art.position.set(L.phone ? 40 + 240 * as : 560, L.phone ? H / 2 : 520);
     const tx = L.phone ? 40 + 480 * as + 60 : 860, wrap = L.phone ? W - tx - 50 : 820;
-    const t1 = new Text({ text: `${sc.place.toUpperCase()} · ${sc.year.toUpperCase()}`, style: { fontFamily: FONT_TITLE, fontSize: Math.round(22 * k), fontWeight: '700', letterSpacing: 8, fill: INK.gold } });
-    const t2 = new Text({ text: sc.title, style: { fontFamily: FONT_TITLE, fontSize: 86, fontWeight: '700', fill: INK.goldPale } });
-    const t3 = new Text({ text: sc.briefing, style: { fontFamily: FONT_STORY, fontWeight: '500', fontSize: Math.round(30 * k), fill: INK.creamBright, wordWrap: true, wordWrapWidth: wrap, lineHeight: Math.round(42 * k) } });
-    const t4 = new Text({ text: sc.objective, style: { fontFamily: FONT_STORY, fontWeight: '500', fontSize: Math.round(27 * k), fontStyle: 'italic', fill: INK.gold, wordWrap: true, wordWrapWidth: wrap } });
+    // Phase 1 step 8: sc's own text may be Marathi (localizeScenario in main.ts) — fontFor picks
+    // the Devanagari font for it, since none of the Latin display fonts above carry those glyphs.
+    const placeYearText = `${sc.place.toUpperCase()} · ${sc.year.toUpperCase()}`;
+    const t1 = new Text({ text: placeYearText, style: { fontFamily: fontFor(placeYearText, FONT_TITLE), fontSize: Math.round(22 * k), fontWeight: '700', letterSpacing: fontFor(placeYearText, FONT_TITLE) === FONT_TITLE ? 8 : 0, fill: INK.gold } });
+    const t2 = new Text({ text: sc.title, style: { fontFamily: fontFor(sc.title, FONT_TITLE), fontSize: 86, fontWeight: '700', fill: INK.goldPale } });
+    const t3 = new Text({ text: sc.briefing, style: { fontFamily: fontFor(sc.briefing, FONT_STORY), fontWeight: '500', fontSize: Math.round(30 * k), fill: INK.creamBright, wordWrap: true, wordWrapWidth: wrap, lineHeight: Math.round(42 * k) } });
+    const t4 = new Text({ text: sc.objective, style: { fontFamily: fontFor(sc.objective, FONT_STORY), fontWeight: '500', fontSize: Math.round(27 * k), fontStyle: fontFor(sc.objective, FONT_STORY) === FONT_STORY ? 'italic' : 'normal', fill: INK.gold, wordWrap: true, wordWrapWidth: wrap } });
     const ss = SEASONS[st.season ?? 'sharad'];
     const t5 = new Text({ text: `${ss.name.toUpperCase()} · ${ss.english.toUpperCase()}\n${ss.rule}`, style: { fontFamily: FONT_BODY, fontSize: Math.round(24 * k), fontWeight: '700', fill: SEASON_TINT[st.season ?? 'sharad'], wordWrap: true, wordWrapWidth: wrap, lineHeight: Math.round(32 * k) } });
     t2.style.fontSize = L.phone ? 76 : 86;
@@ -1917,7 +1920,7 @@ export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST
     const dim = new Graphics().rect(0, 0, W, H).fill({ color: 0x000000, alpha: 0.72 }); dim.eventMode = 'static';
     const t = new Text({ text: 'PAUSED', style: { fontFamily: FONT_TITLE, fontSize: ph ? 72 : 88, fontWeight: '700', letterSpacing: 16, fill: INK.goldPale, stroke: { color: 0x000000, width: 6 } } });
     t.anchor.set(0.5); t.position.set(W / 2, ph ? H * 0.2 : H * 0.22);
-    const sub = new Text({ text: sc.title, style: { fontFamily: FONT_STORY, fontWeight: '500', fontSize: Math.round(30 * L.ui), fontStyle: 'italic', fill: INK.cream } });
+    const sub = new Text({ text: sc.title, style: { fontFamily: fontFor(sc.title, FONT_STORY), fontWeight: '500', fontSize: Math.round(30 * L.ui), fontStyle: fontFor(sc.title, FONT_STORY) === FONT_STORY ? 'italic' : 'normal', fill: INK.cream } });
     sub.anchor.set(0.5); sub.position.set(W / 2, t.y + (ph ? 62 : 74));
     c.addChild(dim, t, sub);
     const items: [string, () => void, boolean][] = [['Resume', close, true]];

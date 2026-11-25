@@ -5,6 +5,8 @@
    The Training Ground → The First Throne → The Indus Line.
    ============================================================ */
 import type { Scenario } from './scenario';
+import { localizeScenario } from './scenario';
+import { pick } from '../i18n';
 import { TUTORIAL, tutorialDone } from './tutorial';
 import { FIRST_THRONE_SCENARIO } from './firstThrone';
 import { INDUS_LINE_SCENARIO } from './indusLine';
@@ -46,6 +48,19 @@ export interface Campaign {
   /** a painted campaign map (art/PROMPTS-MAPS.md), used instead of the battlefield once delivered: name of a file in art/source/battlefields, e.g. 'map_chola' */
   map?: string;
   nodes: CampaignNode[];
+  /** Marathi for `kicker`/`title` (Phase 1 step 8; unreviewed — see src/i18n.ts) */
+  mr?: { kicker?: string; title?: string };
+}
+
+/** a shallow copy of `c` with its own Marathi text swapped in, and the same done to each node's
+    scenario (`localizeScenario`) — so the campaign screen reads in Marathi end to end. */
+export function localizeCampaign(c: Campaign): Campaign {
+  return {
+    ...c,
+    kicker: pick(c.kicker, c.mr?.kicker),
+    title: pick(c.title, c.mr?.title),
+    nodes: c.nodes.map(n => ({ ...n, scenario: localizeScenario(n.scenario) }))
+  };
 }
 
 export const MAURYA_CAMPAIGN: CampaignNode[] = [
@@ -89,7 +104,11 @@ export const SWARAJYA_CAMPAIGN: CampaignNode[] = [
   { scenario: TORNA, face: 'sw_gad_torna', blurb: 'Take Torna before Bijapur reacts.' },
   { scenario: PRATAPGAD, face: 'as_afzal_khan', blurb: 'Meet Afzal Khan below Pratapgad.' }
 ];
-export const SWARAJYA: Campaign = { id: 'swarajya', kicker: 'ACT I · THE REBEL', title: 'Hindavi Swarajya', ground: 'torna', nodes: SWARAJYA_CAMPAIGN };
+export const SWARAJYA: Campaign = {
+  id: 'swarajya', kicker: 'ACT I · THE REBEL', title: 'Hindavi Swarajya', ground: 'torna', nodes: SWARAJYA_CAMPAIGN,
+  // Phase 1 step 8 (TASKS.md), unreviewed — see src/i18n.ts
+  mr: { kicker: 'अंक १ · बंडखोर', title: 'हिंदवी स्वराज्य' }
+};
 
 export const CAMPAIGNS: Campaign[] = [
   { id: 'maurya', kicker: 'THE MAURYA CAMPAIGN', title: 'Rise of Magadha', ground: 'pataliputra', map: 'map_maurya', nodes: MAURYA_CAMPAIGN },

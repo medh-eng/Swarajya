@@ -25,9 +25,9 @@ import { swarajyaTitleScene } from './game/scenes/swarajyaTitle';
 import { campaignScene } from './game/scenes/campaign';
 import { battleScene, preloadBattle } from './game/scenes/battle';
 import { bhetScene } from './game/scenes/bhet';
-import { SWARAJYA, scenarioById } from './campaign/campaign';
+import { SWARAJYA, localizeCampaign, scenarioById } from './campaign/campaign';
 import { MAVAL_TUTORIAL } from './campaign/mavalTutorial';
-import type { Scenario } from './campaign/scenario';
+import { localizeScenario, type Scenario } from './campaign/scenario';
 import type { BhetOutcome } from './engine/bhet';
 import { FONT_DEVA, FONT_SERIF, FONT_TITLE } from './game/theme';
 
@@ -52,9 +52,15 @@ async function boot(): Promise<void> {
   const showTitle = (): void => stage.show(swarajyaTitleScene(stage, { tutorial: () => void enterBattle(MAVAL_TUTORIAL), campaign: showCampaign }));
   // the Swarajya campaign only: pass a single-campaign pool so "More empires" (the YUDDH
   // scaffolding campaigns) never shows up here (D-17).
-  const showCampaign = (): void => stage.show(campaignScene(stage, sc => void enterBattle(sc), showTitle, SWARAJYA, [SWARAJYA]));
+  const showCampaign = (): void => {
+    const sw = localizeCampaign(SWARAJYA); // Phase 1 step 8: Marathi titles/places on the map, when active
+    stage.show(campaignScene(stage, sc => void enterBattle(sc), showTitle, sw, [sw]));
+  };
   /** DESIGN 3.5: a scenario with a Bhet plays it first; its outcome then feeds the battle's preset. */
-  async function enterBattle(sc: Scenario, bhetOutcome?: BhetOutcome): Promise<void> {
+  async function enterBattle(scIn: Scenario, bhetOutcome?: BhetOutcome): Promise<void> {
+    // Phase 1 step 8: swap in the chapter's Marathi text when that's the active language
+    // (src/i18n.ts). `sc.game` and ids are untouched — only the words shown on screen change.
+    const sc = localizeScenario(scIn);
     if (sc.bhet && !bhetOutcome) {
       stage.show(bhetScene(stage, sc, outcome => void enterBattle(sc, outcome), showCampaign));
       return;

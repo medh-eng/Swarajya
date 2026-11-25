@@ -12,6 +12,7 @@ import { view } from '../view';
 import { makeButton } from '../ui/button';
 import { battlesWon } from '../../campaign/campaign';
 import { MAVAL_TUTORIAL } from '../../campaign/mavalTutorial';
+import { getLang, pick, toggleLang } from '../../i18n';
 import type { Scene, Stage } from '../stage';
 
 /** Phase 1 step 5: the title now leads somewhere — the coached tutorial for a first-time
@@ -50,11 +51,13 @@ export function swarajyaTitleScene(stage: Stage, go: TitleNav): Scene {
   s.addChild(sky, sun, far, mid, fort, near);
   [sky, sun, far, mid, fort, near].forEach(g => { g.eventMode = 'none'; });
 
+  // Phase 1 step 8 (TASKS.md): the title's own actionable text switches with the language toggle
+  // below; the Marathi here is unreviewed (src/i18n.ts) pending a trusted reader (Q-05).
   const deva = new Text({ text: 'स्वराज्य', style: { fontFamily: FONT_DEVA, fontSize: 96, fill: INK.goldPale, stroke: { color: 0x1a0d05, width: 5 } } });
   const title = new Text({ text: 'YUDDH: SWARAJYA', style: { fontFamily: FONT_TITLE, fontSize: 104, fontWeight: '700', letterSpacing: 14, fill: INK.goldPale, stroke: { color: 0x1a0d05, width: 6 }, dropShadow: { color: 0x000000, blur: 16, distance: 0, alpha: 0.85 } } });
-  const sub = new Text({ text: 'A CARD GAME OF CHHATRAPATI SHIVAJI MAHARAJ’S WARS', style: { fontFamily: FONT_TITLE, fontSize: 26, fontWeight: '700', letterSpacing: 6, fill: INK.gold, stroke: { color: 0x1a0d05, width: 4 } } });
-  const soon = new Text({ text: 'Act I · The Rebel', style: { fontFamily: FONT_SERIF, fontSize: 40, fontStyle: 'italic', fontWeight: '600', fill: INK.cream, stroke: { color: 0x000000, width: 4 } } });
-  const note = new Text({ text: 'Phase 1 vertical slice · the Maval to Pratapgad', style: { fontFamily: FONT_SERIF, fontSize: 20, fontStyle: 'italic', fill: INK.cream, stroke: { color: 0x000000, width: 3 } } });
+  const sub = new Text({ text: pick('A CARD GAME OF CHHATRAPATI SHIVAJI MAHARAJ’S WARS', 'छत्रपती शिवाजी महाराजांच्या लढायांचा पत्त्यांचा खेळ'), style: { fontFamily: FONT_DEVA, fontSize: 26, fontWeight: '700', letterSpacing: getLang() === 'mr' ? 1 : 6, fill: INK.gold, stroke: { color: 0x1a0d05, width: 4 } } });
+  const soon = new Text({ text: pick('Act I · The Rebel', 'अंक १ · बंडखोर'), style: { fontFamily: getLang() === 'mr' ? FONT_DEVA : FONT_SERIF, fontSize: 40, fontStyle: getLang() === 'mr' ? 'normal' : 'italic', fontWeight: '600', fill: INK.cream, stroke: { color: 0x000000, width: 4 } } });
+  const note = new Text({ text: pick('Phase 1 vertical slice · the Maval to Pratapgad', 'पहिला टप्पा · मावळ ते प्रतापगड'), style: { fontFamily: getLang() === 'mr' ? FONT_DEVA : FONT_SERIF, fontSize: 20, fontStyle: getLang() === 'mr' ? 'normal' : 'italic', fill: INK.cream, stroke: { color: 0x000000, width: 3 } } });
   [deva, title, sub, soon, note].forEach(t => { t.anchor.set(0.5); t.eventMode = 'none'; });
   const rule = new Graphics();
   rule.eventMode = 'none';
@@ -65,13 +68,24 @@ export function swarajyaTitleScene(stage: Stage, go: TitleNav): Scene {
   const buttons = new Container();
   s.addChild(buttons);
   const fresh = !battlesWon().includes(MAVAL_TUTORIAL.id);
+  const learnLabel = pick('Learn to play', 'खेळायला शिका');
+  const campaignLabel = pick('Campaign', 'मोहीम');
   const list: [string, () => void, boolean][] = fresh
-    ? [['Learn to play', go.tutorial, true], ['Campaign', go.campaign, false]]
-    : [['Campaign', go.campaign, true], ['Learn to play', go.tutorial, false]];
+    ? [[learnLabel, go.tutorial, true], [campaignLabel, go.campaign, false]]
+    : [[campaignLabel, go.campaign, true], [learnLabel, go.tutorial, false]];
   list.forEach(([label, fn, primary]) => {
     const b = makeButton(label, () => { if (chosen) return; chosen = true; fn(); }, { primary, w: 320 });
     buttons.addChild(b);
   });
+
+  // Phase 1 step 8: a small toggle, named for the language it switches TO. Re-shows this
+  // scene so every label on it (and the campaign screen, scenario text) redraws in the new one.
+  const langBtn = makeButton(getLang() === 'mr' ? 'English' : 'मराठी', () => {
+    if (chosen) return;
+    toggleLang();
+    stage.show(swarajyaTitleScene(stage, go));
+  }, { w: 170, ui: 0.78 });
+  s.addChild(langBtn);
 
   // birds wheeling over the ridge
   const birds = new Container();
@@ -118,6 +132,7 @@ export function swarajyaTitleScene(stage: Stage, go: TitleNav): Scene {
       .poly([W / 2, ry - 8, W / 2 + 8, ry, W / 2, ry + 8, W / 2 - 8, ry]).fill(INK.gold);
     soon.position.set(W / 2, ry + (ph ? 70 : 80));
     note.position.set(W / 2, H - (ph ? 34 : 40));
+    langBtn.position.set(W - (ph ? 100 : 120), ph ? 36 : 44);
     const by = soon.y + (ph ? 54 : 64);
     buttons.children.forEach((b, i) => { b.position.set(W / 2, by + i * (ph ? 58 : 64)); });
     flock.forEach((b, i) => { b.y0 = H * (0.36 + (i % 3) * 0.05); b.g.position.set((W * i) / flock.length, b.y0); });
