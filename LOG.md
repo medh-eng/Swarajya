@@ -442,3 +442,54 @@ repetition) on the second, after the reveal-text rewrite → "To the field" → 
 
 **Checks:** `npm test` (check-refs + 119 Vitest tests, incl. the golden replay), `npx tsc --noEmit`,
 `npm run build` all pass. STATE.md, PROGRESS.md, TASKS.md updated.
+
+## 25 Nov 2026 — session 8 (cont.): Phase 2 begins — the Ganim keyword ("strike and fade")
+
+First Phase 2 increment, picked because it unlocks `sw_shivaji` — Shivaji's own playable card — along
+with three generic Mavla-army units, all stuck in `data/cards.draft.json` until this mechanic existed.
+
+- **`src/engine/rules.ts`**: `canFallback(st, pIdx, uid)` — Swarajya rules only. A unit on the Yudhbhumi
+  with the `ganim` keyword that has already attacked this turn, with room on the Rajya line, may fall
+  back there. A new `{ type: 'fallback'; uid }` Action (`types.ts`) does it in `applyActionCore`: no
+  Kosha cost, removed from `front.units`, pushed to `support`, and — mirroring `destroyUnit`'s existing
+  behaviour — `front.owner` resets to `null` if that was the Yudhbhumi's last unit (giving up the ground,
+  not just vacating one unit's spot). A `fallback` `GameEvent` was added alongside.
+- **New keyword**: `Keyword` gained `'ganim'` (`types.ts`); `KW_LABEL` (`cards.ts`) gained its label.
+- **AI value, two levels** (DESIGN 3.3: "The AI must value withdrawing"):
+  - *Search AI* (`search.ts`): `legalActions` now offers `fallback` for any front unit where
+    `canFallback` is true, exactly like any other action — the beam search already judges the resulting
+    position via `replyValue`, so no bespoke scoring was needed, matching DESIGN's own note that
+    "search.ts already handles extra moves."
+  - *Heuristic AI* (`ai.ts`): a new `ganimFallback(st, pIdx)`, called at the end of both `aiCombatPhase`
+    and `hardCombatPhase` (after the attack loop, before `ganimFallback` lets `aiTurn` play `end`). It
+    folds back every Ganim unit that attacked, with one exception: if it is the *only* unit holding the
+    Yudhbhumi and the enemy already has 2+ units massed in support (a visible second wave), it holds the
+    ground a turn longer instead — giving up the front for free safety isn't always the better trade.
+    `unitValue` (used when scoring which card to play) also gained a small `+0.5` for carrying `ganim`.
+- **Glossary**: `src/game/ui/glossary.ts` gained a `GANIM` entry (mirrors `VEGA`/`RAKSHA`'s pattern);
+  `src/game/ui/inspect.ts` gained a drawn `ganim` icon (an arrow out and the same line back, fainter, for
+  the fade) — the same "every mechanic ships with ... a glossary entry" rule the Gad and Bhet mechanics
+  followed, this time with an icon since Ganim *is* a card keyword (unlike Bhet or `capture`).
+- **Cards ported** `data/cards.draft.json` → `src/data/cards.json`'s `swarajya` list: `sw_shivaji`
+  (Shivaji Raje, legendary, 7 cost, 5/7, Vega + Ganim, Deploy — buffAll; refs C-1630-BIRTH,
+  C-1646-TORNA, C-1659-PRATAPGAD), `sw_mavla` (1-cost Hill Infantry, 1/2, Ganim), `sw_havaldar` (3-cost
+  Mavla Officer, 2/3, Ganim, Deploy — buffLine), `sw_shiledar` (3-cost Cavalry, 3/3, Vega + Ganim). Both
+  `buffAll` and `buffLine` deploy effects already existed in the engine (no new work there). None of
+  these four cards are in any vertical-slice chapter's deck yet — Phase 2's chapters haven't been built —
+  so this step changes no visible gameplay; it is pure engine/data groundwork for the chapters to come.
+- **Tests**: `tests/ganim.test.ts`, 10 cases — the keyword is present on the four cards; `canFallback`'s
+  four guard conditions (must have attacked, must carry `ganim`, Rajya line must have room, Swarajya
+  rules only — the identical position under `'yuddh'` rules is refused); the fallback itself (no Kosha
+  cost, event logged, `front.owner` cleared only when it was the last defender, not when a second unit
+  remains); that a fallen-back unit cannot act again the same turn (it still carries `attacked`); and
+  both heuristic-AI branches (an attacking Ganim unit folds back by itself; a lone defender holds the
+  line against a massed enemy instead).
+
+**Verified:** `npm test` (check-refs + 129 Vitest tests, incl. the golden replay — unaffected, since
+`canFallback`/`ganimFallback` gate on `isSwarajyaRules` and no-op for classic/Yuddh games), `npx tsc
+--noEmit`, `npm run build` all pass. Real playtest (regression check, since nothing changed in any
+currently playable scenario): ran the coached tutorial through several turns against `vite preview` —
+zero console/page errors, play proceeds exactly as before. No new scenario or UI surface exists yet to
+demonstrate Ganim directly; that lands with Phase 2's first chapter.
+
+STATE.md, PROGRESS.md, TASKS.md updated.

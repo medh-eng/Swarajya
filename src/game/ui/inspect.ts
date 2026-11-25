@@ -38,6 +38,11 @@ function icon(kind: GlossIcon, r: number): Graphics {
       .rect(-s * 0.8, -s * 0.8, s * 0.4, s * 0.6).stroke(gold)
       .rect(-s * 0.1, -s * 0.8, s * 0.4, s * 0.6).stroke(gold)
       .rect(s * 0.4, -s * 0.8, s * 0.4, s * 0.6).stroke(gold); break;
+    // strike and fade: an arrow out, then the same line back
+    case 'ganim': g.moveTo(-s * 0.8, s * 0.6).lineTo(s * 0.6, -s * 0.6).stroke(gold)
+      .poly([s * 0.6, -s * 0.6, s * 0.1, -s * 0.55, s * 0.55, -s * 0.1]).fill(INK.goldPale)
+      .moveTo(s * 0.6, -s * 0.6).lineTo(-s * 0.8, s * 0.6).stroke({ width: 2, color: INK.goldPale, alpha: 0.5 })
+      .poly([-s * 0.8, s * 0.6, -s * 0.25, s * 0.5, -s * 0.7, s * 0.05]).fill({ color: INK.goldPale, alpha: 0.5 }); break;
   }
   return g;
 }

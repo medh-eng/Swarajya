@@ -1,5 +1,5 @@
 {
-  "_about": "(Playable cards live in src/data/cards.json: 7 ported 24 Nov 2026 + 4 Gads ported 25 Nov 2026 (session 8, Phase 1 step 2), removed here.) DRAFT card roster for SWARAJYA. Not balanced, not loaded by the game. Same schema as YUDDH's src/data/cards.json, plus: refs (chronology IDs, required when basis is HISTORY or TRADITION), basis (HISTORY | TRADITION | GENERIC = a type of soldier or a game term, no claim about a person), phase (when it is needed), and _engine (NEW = needs engine work). type 'gad' is new (fort card, see DESIGN 3.1; the engine now has it). Keyword 'ganim' is new (DESIGN 3.3). Stats move to src/data/cards.json only after balancing.",
+  "_about": "(Playable cards live in src/data/cards.json: 7 ported 24 Nov 2026 + 4 Gads ported 25 Nov 2026 (session 8, Phase 1 step 2) + 4 Ganim units ported 25 Nov 2026 (Phase 2, Ganim mechanic: sw_shivaji, sw_mavla, sw_havaldar, sw_shiledar), removed here.) DRAFT card roster for SWARAJYA. Not balanced, not loaded by the game. Same schema as YUDDH's src/data/cards.json, plus: refs (chronology IDs, required when basis is HISTORY or TRADITION), basis (HISTORY | TRADITION | GENERIC = a type of soldier or a game term, no claim about a person), phase (when it is needed), and _engine (NEW = needs engine work). type 'gad' is new (fort card, see DESIGN 3.1; the engine now has it). Keyword 'ganim' is new (DESIGN 3.3; the engine now has it, Phase 2). Stats move to src/data/cards.json only after balancing.",
   "empires": {
     "swarajya": {
       "id": "swarajya",
@@ -12,32 +12,6 @@
     }
   },
   "cards": [
-    {
-      "id": "sw_shivaji",
-      "name": "Shivaji Raje",
-      "sub": "Raje of the Maval",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 7,
-      "op": 2,
-      "atk": 5,
-      "hp": 7,
-      "range": "melee",
-      "kw": [
-        "veg",
-        "ganim"
-      ],
-      "deploy": "buffAll",
-      "text": "Vega. Ganim. Deploy — all your units get +1 attack.",
-      "rarity": "legendary",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1630-BIRTH",
-        "C-1646-TORNA",
-        "C-1659-PRATAPGAD"
-      ],
-      "phase": 1
-    },
     {
       "id": "sw_chhatrapati",
       "name": "Chhatrapati Shivaji Maharaj",
@@ -62,74 +36,6 @@
       ],
       "phase": 3,
       "_engine": "NEW deploy buffAllBoth"
-    },
-    {
-      "id": "sw_mavla",
-      "name": "Mavla",
-      "sub": "Hill Infantry",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 1,
-      "op": 1,
-      "atk": 1,
-      "hp": 2,
-      "range": "melee",
-      "kw": [
-        "ganim"
-      ],
-      "text": "Ganim — after it attacks, it may fall back to your Rajya line.",
-      "rarity": "common",
-      "basis": "GENERIC",
-      "refs": [
-        "C-X-ARMY"
-      ],
-      "phase": 1
-    },
-    {
-      "id": "sw_havaldar",
-      "name": "Havaldar",
-      "sub": "Mavla Officer",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 3,
-      "op": 1,
-      "atk": 2,
-      "hp": 3,
-      "range": "melee",
-      "kw": [
-        "ganim"
-      ],
-      "deploy": "buffLine",
-      "text": "Ganim. Deploy — your other units in this line get +1 attack.",
-      "rarity": "common",
-      "basis": "GENERIC",
-      "refs": [
-        "C-X-ARMY"
-      ],
-      "phase": 1
-    },
-    {
-      "id": "sw_shiledar",
-      "name": "Shiledar",
-      "sub": "Cavalry",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 3,
-      "op": 1,
-      "atk": 3,
-      "hp": 3,
-      "range": "melee",
-      "kw": [
-        "veg",
-        "ganim"
-      ],
-      "text": "Vega. Ganim. Rides his own horse.",
-      "rarity": "common",
-      "basis": "GENERIC",
-      "refs": [
-        "C-X-ARMY"
-      ],
-      "phase": 1
     },
     {
       "id": "sw_herkari",

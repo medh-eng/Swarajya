@@ -7,7 +7,7 @@
 import { isYuddhRules } from './ruleset';
 import { CARDS } from './cards';
 import {
-  allUnits, applyAction, canAttack, canMove, canPlay, findUnit, isGadCard, koshaCost, other, wouldRout
+  allUnits, applyAction, canAttack, canFallback, canMove, canPlay, findUnit, isGadCard, koshaCost, other, wouldRout
 } from './rules';
 import { searchTurn } from './search';
 import type { AiLevel, CardDef, GameState, PlayerIndex, Target, Unit } from './types';
@@ -15,7 +15,8 @@ import type { AiLevel, CardDef, GameState, PlayerIndex, Target, Unit } from './t
 interface PlayOption { i: number; c: CardDef; target: Target | null; kind: 'unit' | 'removal' | 'order' | 'gad'; victim?: Unit }
 
 const unitValue = (u: Unit) =>
-  u.atk * 1.35 + u.hp + (u.kw.includes('raksha') ? 1.5 : 0) + (u.kw.includes('veg') ? 1 : 0);
+  u.atk * 1.35 + u.hp + (u.kw.includes('raksha') ? 1.5 : 0) + (u.kw.includes('veg') ? 1 : 0)
+  + (u.kw.includes('ganim') ? 0.5 : 0); // DESIGN 3.3: strikes without lasting exposure, worth a little more
 
 /** is this Gad one the scenario's `capture` objective actually wants? */
 function gadWantedByObjective(st: GameState, cardId: string): boolean {
@@ -216,6 +217,22 @@ function advance(st: GameState, pIdx: PlayerIndex, level: AiLevel): void {
   }
 }
 
+/** DESIGN 3.3, Ganim ("the AI must value withdrawing"): after the combat phase, pull a Ganim unit
+    that attacked back to the Rajya line — it is free and leaves nothing to counter-charge next turn.
+    The one exception: if it is the only unit holding the Yudhbhumi and the enemy already has a
+    second wave massed in support, holding the ground a turn longer is worth more than the safety. */
+function ganimFallback(st: GameState, pIdx: PlayerIndex): void {
+  let guard = 0;
+  while (guard++ < 4) {
+    const cand = st.front.units.find(u => canFallback(st, pIdx, u.uid).ok);
+    if (!cand) break;
+    const soleDefender = st.front.units.length === 1;
+    const enemyMassed = st.players[other(pIdx)].support.length >= 2;
+    if (soleDefender && enemyMassed) break;
+    if (!applyAction(st, { type: 'fallback', uid: cand.uid }).ok) break;
+  }
+}
+
 function strikeLethal(st: GameState, pIdx: PlayerIndex, ready: { unit: Unit }[]): boolean {
   const hq: Target = { kind: 'hq', owner: other(pIdx) };
   const cand = ready.filter(x => canAttack(st, pIdx, x.unit.uid, hq).ok).sort((a, b) => a.unit.op - b.unit.op)[0];
@@ -246,6 +263,7 @@ export function aiCombatPhase(st: GameState, pIdx: PlayerIndex, level: AiLevel):
     if (level !== 'easy' && b.score <= 0.4) break;
     if (!applyAction(st, { type: 'attack', uid: b.uid, target: b.target }).ok) break;
   }
+  ganimFallback(st, pIdx);
 }
 
 function hardCombatPhase(st: GameState, pIdx: PlayerIndex): void {
@@ -289,6 +307,7 @@ function hardCombatPhase(st: GameState, pIdx: PlayerIndex): void {
     if (!best || best.score <= 0.4) break;
     if (!applyAction(st, { type: 'attack', uid: best.uid, target: best.target }).ok) break;
   }
+  ganimFallback(st, pIdx);
 }
 
 export function aiTurn(st: GameState, pIdx: PlayerIndex, level?: AiLevel): void {

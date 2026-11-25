@@ -20,11 +20,21 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
 (chapters 3, 5-11) first. Same rule as Phase 1: every mechanic ships with engine code behind
 `isSwarajyaRules`, an AI value, a rules test, a glossary entry; then `npm test`, `npx tsc --noEmit`,
 `npm run build`, a real playtest, and the end-of-session documentation cycle, before the next mechanic.
-1. [ ] **Ganim** (DESIGN 3.3, "strike and fade") — first increment. Unlocks `sw_shivaji` (Shivaji's own
-       playable card), `sw_mavla`, `sw_havaldar`, `sw_shiledar` (currently stuck in `data/cards.draft.json`
-       per step 1's notes above). Needs a rules test proving a Ganim unit's attack-and-return doesn't
-       break the golden test for non-Swarajya rulesets, and an AI value in `search.ts`/`ai.ts` that
-       understands the fade-back (a plain `attackScore` will otherwise treat it as a normal attack).
+1. [x] **Ganim** (DESIGN 3.3, "strike and fade") — first increment (25 Nov 2026, session 8).
+       `src/engine/rules.ts`'s `canFallback()` + a new `fallback` Action: after a Ganim unit attacks, its
+       owner may move it from the Yudhbhumi back to the Rajya line at no Kosha cost (Swarajya rules only;
+       front resets to unheld if that was the last unit there). AI value: `search.ts`'s `legalActions`
+       offers `fallback` to the beam search like any other action (no new scoring needed — the search
+       already judges the position it reaches); the heuristic AI (`ai.ts`'s new `ganimFallback()`, called
+       at the end of `aiCombatPhase`/`hardCombatPhase`) always folds a Ganim unit back after it attacks,
+       except when it is the lone defender of the Yudhbhumi and the enemy has massed a second wave (2+
+       units in support) — then it holds the ground a turn longer. Glossary entry + a new `ganim` icon
+       (`src/game/ui/glossary.ts`, `src/game/ui/inspect.ts`). Unlocked `sw_shivaji` (Shivaji's own
+       playable card, legendary, 7-cost, buffAll on deploy), `sw_mavla`, `sw_havaldar`, `sw_shiledar` —
+       ported from `data/cards.draft.json` to `src/data/cards.json`'s `swarajya` list. `tests/ganim.test.ts`
+       (10 cases, incl. both AI-value branches). None of the four cards are in a vertical-slice deck yet
+       (no Phase 2 chapter built), so this ships with no visible gameplay change — a build/test/playtest
+       regression check only, confirming `ganimFallback()` no-ops harmlessly for every existing scenario.
 2. [ ] Khind (`frontSize`) — replaces the hard-coded Yudhbhumi size of 4 in `rules.ts` for chapters fought
        in a narrow pass (Pavan Khind, ch06). Touches both `>= 4` checks noted in STATE.md's engine section.
 3. [ ] Ratra (night) and the `raid` objective, then enemy Gads on the board (Chakan's `durgWard`,
@@ -58,7 +68,7 @@ Still open from Phase 0: research item 6 (Act I VERIFY gaps) — moved to the re
 Read `docs/DESIGN.md` §3.1 (Gad), §3 (Bhet), §5 (chapters 0, 1, 4) and `data/cards.draft.json` first.
 Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a glossary entry; then
 `npm test`, `npx tsc --noEmit`, `npm run build`, commit.
-1. [~] **Data (partly done, 24 Nov 2026 session 6; the 4 Gads ported 25 Nov 2026 session 8).** Done: empires, `swarajya` card list, 11 cards that need no further mechanic (`sw_hetkari`, `sw_bargir`, `sw_jijau_counsel`, `sw_torna_hoard`, `as_afzal_khan`, `as_hasham`, `as_gaja`, `sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held`). Left in `data/cards.draft.json` until their mechanic exists: Ganim cards (`sw_shivaji`, `sw_mavla`, `sw_havaldar`, `sw_shiledar`), `sw_herkari` (revealHand), `sw_dadoji` (cost cut), `sw_wagh_nakh` (vsLegendary), `sw_gopinath` (Bhet), `as_topkhana` (static), and the Phase 2+ Gads (`sw_gad_chakan`, `sw_gad_sindhudurg`, `sw_gad_khanderi`, `as_gad_panhala` — their `durgWard`/`shipsAtk` benefits are recorded in `GadEffect` but not yet applied by the engine). Each moves to `src/data/cards.json` in the step that adds its mechanic.
+1. [~] **Data (partly done, 24 Nov 2026 session 6; the 4 Gads ported 25 Nov 2026 session 8; the 4 Ganim units ported 25 Nov 2026 session 8, Phase 2 step 1).** Done: empires, `swarajya` card list, 15 cards that need no further mechanic (`sw_hetkari`, `sw_bargir`, `sw_jijau_counsel`, `sw_torna_hoard`, `as_afzal_khan`, `as_hasham`, `as_gaja`, `sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held`, `sw_shivaji`, `sw_mavla`, `sw_havaldar`, `sw_shiledar`). Left in `data/cards.draft.json` until their mechanic exists: `sw_herkari` (revealHand), `sw_dadoji` (cost cut), `sw_wagh_nakh` (vsLegendary), `sw_gopinath` (Bhet — note: the Bhet *mechanic* shipped in Phase 1 step 6, but this specific card wasn't needed for `ch04_pratapgad` and hasn't been re-checked against it), `as_topkhana` (static), and the Phase 2+ Gads (`sw_gad_chakan`, `sw_gad_sindhudurg`, `sw_gad_khanderi`, `as_gad_panhala` — their `durgWard`/`shipsAtk` benefits are recorded in `GadEffect` but not yet applied by the engine). Each moves to `src/data/cards.json` in the step that adds its mechanic.
 2. [x] **Gad card type + capture (25 Nov 2026, session 8).** `type: 'gad'` in `types.ts`; played to the Rajya line, takes a slot, cannot move or attack; beaten to 0 health in combat (or by a direct-damage order) it flips to the attacker's side at a third of its defence (`Math.ceil(maxHp/3)`), its standing benefit now working for them; never exposed to a deploy trap (Vighna Yantra), so it is immune to a "destroy" order by construction, not by a special case. `kosha1` and `drawEvery2` upkeep, and `rakshaHp` (applied at creation and moved on capture), are wired in `rules.ts`; `durgWard`/`shipsAtk` are recorded but not yet applied (no chapter needs them yet). AI value: `gadPlayScore` in `ai.ts` (worth playing early; a sharp jump when the scenario's `capture` objective names it), and `attackScore` now rates finishing a Gad as a capture, not a kill; `search.ts`'s `evaluate` needed no change (a captured Gad's hp already moves from one side's sum to the other's, and a finished `capture` objective ends the game, which the search already takes). Tests: `tests/gad.test.ts` (17 cases). Glossary entry in `src/game/ui/glossary.ts` + a new `gad` icon in `inspect.ts`. **Still open:** the square art window for Gad cards (the renderer still shows them through the arched window sized for 5:7 art) — left for step 5, when a Gad first appears in a real battle scene.
 3. [x] **`capture` objective (25 Nov 2026, session 8, alongside step 2).** `{ type: 'capture', forts: string[], turns?: number }` in `types.ts`; `checkCapture` in `rules.ts` fires the instant every listed fort is held (called from `captureGad` and, as a backstop, every `startTurn`), and — mirroring `survive`/`deadline` — a `turns` deadline hands the defender the win if it's missed. `objectiveStatus` reports it for the UI.
 4. [x] **Battle without art (25 Nov 2026, session 8).** `loadBattlefield()` falls back to a drawn,

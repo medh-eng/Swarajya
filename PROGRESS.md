@@ -43,6 +43,20 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 - [ ] Step 9 (remove YUDDH scaffolding Swarajya no longer needs)
 - [ ] Step 10 (balance, playtests, Gate 1)
 
+## Phase 2 · Act I and II
+- [x] Step 1 (Ganim keyword, 25 Nov 2026 session 8): `canFallback()` + a `fallback` Action (Swarajya
+      rules only) — a Ganim unit may return to the Rajya line at no Kosha cost after attacking. AI value
+      in both the search AI (`legalActions` offers it) and the heuristic AI (`ganimFallback()`, with a
+      hold-the-ground exception for a lone defender facing a massed enemy). Glossary entry + icon.
+      Unlocked `sw_shivaji`, `sw_mavla`, `sw_havaldar`, `sw_shiledar` (ported to `src/data/cards.json`).
+      `tests/ganim.test.ts` (10 tests). No chapter uses these cards yet — no visible gameplay change this
+      step, verified with a build/test/playtest regression check.
+- [ ] Step 2 (Khind — `frontSize`, replacing the hard-coded Yudhbhumi size of 4)
+- [ ] Step 3 (Ratra/night, `raid` objective, enemy Gads on the board)
+- [ ] Step 4 (chapters 3, 5-11, each with its own chronology check)
+- [ ] Step 5 (Mughal faction cards)
+- [ ] Step 6 (art batches 2-4)
+
 ## Mechanics
 | Mechanic | Engine | AI | Tests | Glossary/UI | Status |
 |---|---|---|---|---|---|
@@ -51,7 +65,7 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 | New objective `capture` | [x] | [x] | [x] | [x] | built (Phase 1 step 3, session 8) |
 | Swarajya map (forts light up) | n/a | n/a | [ ] | [ ] | planned (Phase 1) |
 | Khind (`frontSize`) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
-| Ganim keyword | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
+| Ganim keyword | [x] | [x] | [x] | [x] | built (Phase 2 step 1, session 8) — no chapter uses it yet |
 | Ratra (night) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
 | New objective `raid` | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
 | Neutral structures | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |

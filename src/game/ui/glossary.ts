@@ -7,7 +7,7 @@
 import { CARDS, EMPIRES, RANK_NAMES, isSteadfast, isYuddhRules, routLine, type GameState, type Season, type Unit } from '../../engine';
 
 export type GlossIcon = 'charge' | 'foot' | 'ranged' | 'melee' | 'raksha' | 'veg' | 'rank' | 'deploy' | 'yantra'
-  | 'shakti' | 'mantra' | 'kosha' | 'op' | 'empire' | 'wound' | 'gad';
+  | 'shakti' | 'mantra' | 'kosha' | 'op' | 'empire' | 'wound' | 'gad' | 'ganim';
 
 /** DESIGN 3.1: plain words for a Gad's standing benefit, by `CardDef.gad` */
 const GAD_BENEFIT: Record<string, string> = {
@@ -48,6 +48,7 @@ export function glossFor(cardId: string, unit?: Unit, cost?: number, season?: Se
     if (c.id === 'm_shalya_vaidya') out.push({ icon: 'wound', title: 'SURGEON', body: 'At the start of your turn he heals 2 health on your most wounded unit.' });
     if (c.kw?.includes('raksha')) out.push({ icon: 'raksha', title: 'RAKSHA', body: 'Guard: must be struck first in its line, and on the Rajya line it shields the Durg.' });
     if (c.kw?.includes('veg')) out.push({ icon: 'veg', title: 'VEGA', body: 'Swift: can move or attack on the turn it is deployed.' });
+    if (c.kw?.includes('ganim')) out.push({ icon: 'ganim', title: 'GANIM', body: 'Strike and fade: after it attacks, you may pull it back to your Rajya line at no cost, if there is room. It cannot be counter-charged there — it is no longer on the Yudhbhumi.' });
     if (/^Deploy/i.test(c.text) || /Deploy —/.test(c.text)) out.push({ icon: 'deploy', title: 'DEPLOY', body: 'The effect happens once, when the card is played.' });
     if (!unit?.rank) out.push({ icon: 'rank', title: 'PROMOTION', body: 'Destroy an enemy and survive: Veer (+1 health), then Mahaveer (+1 attack, +1 health more).' });
     out.push({ icon: 'op', title: `ORDERS COST ${c.op ?? 1}`, body: `Advancing or attacking spends ${c.op ?? 1} Kosha (the bronze coin).` });

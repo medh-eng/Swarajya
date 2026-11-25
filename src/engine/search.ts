@@ -19,8 +19,8 @@ import { isYuddhRules } from './ruleset';
 import { CARDS } from './cards';
 import { RULES } from '../data';
 import {
-  actionObservers, allUnits, applyAction, applyActionCore, canAttack, canMove, canPlay, dharmaOf,
-  DHARMA_MAX, other, rngFactory, shuffle
+  actionObservers, allUnits, applyAction, applyActionCore, canAttack, canFallback, canMove, canPlay,
+  dharmaOf, DHARMA_MAX, other, rngFactory, shuffle
 } from './rules';
 import { aiTurn } from './ai';
 import type { Action, GameState, PlayerIndex, Target, Unit } from './types';
@@ -111,6 +111,11 @@ function legalActions(st: GameState, p: PlayerIndex): Action[] {
       const tg: Target = { kind: 'unit', owner: enemy, uid: t.unit.uid };
       if (canAttack(st, p, x.unit.uid, tg).ok) out.push({ type: 'attack', uid: x.unit.uid, target: tg });
     });
+  });
+  // DESIGN 3.3, Ganim: strike-and-fade is just another action the beam search can choose or not —
+  // it is worth taking exactly when the position it reaches scores better, which replyValue already judges.
+  st.front.units.filter(u => u.owner === p).forEach(u => {
+    if (canFallback(st, p, u.uid).ok) out.push({ type: 'fallback', uid: u.uid });
   });
   return out;
 }

@@ -6,7 +6,10 @@
 
 export type EmpireId = 'maurya' | 'gupta' | 'chalukya' | 'chola' | 'rajput' | 'swarajya' | 'adilshahi' | 'neutral';
 export type PlayerIndex = 0 | 1;
-export type Keyword = 'veg' | 'raksha' | 'dhuan';
+/** 'ganim' (DESIGN 3.3, strike and fade / ganimi kava): Swarajya rules only. After this unit attacks,
+    its owner may pull it back to the Rajya line at no Kosha cost (if there is room) — see the
+    'fallback' Action and canFallback() in rules.ts. */
+export type Keyword = 'veg' | 'raksha' | 'dhuan' | 'ganim';
 export type CardType = 'unit' | 'order' | 'yantra' | 'gad';
 /** DESIGN 3.1: the standing benefit a Gad gives the side that holds it, while it stands.
     'none' = no standing benefit (a bare fort, e.g. an enemy-held Torna waiting to be taken).
@@ -149,6 +152,8 @@ export type GameEvent =
   | { t: 'rally'; owner: PlayerIndex; uid: number }
   /** DESIGN 3.1: a Gad is beaten down but does not fall — it flips to the attacker's side */
   | { t: 'capture'; owner: PlayerIndex; uid: number; cardId: string; from: PlayerIndex }
+  /** DESIGN 3.3: a Ganim unit strikes and fades back to the Rajya line after attacking */
+  | { t: 'fallback'; owner: PlayerIndex; uid: number }
   | { t: 'dharma'; owner: PlayerIndex; value: number; delta: number; why: string }
   | { t: 'attrition'; owner: PlayerIndex; dmg: number; fatigue: number };
 
@@ -181,6 +186,8 @@ export type Action =
   | { type: 'play'; handIndex: number; target?: Target | null }
   | { type: 'move'; uid: number }
   | { type: 'attack'; uid: number; target: Target }
+  /** DESIGN 3.3, Ganim only: fall back from the Yudhbhumi to the Rajya line at no Kosha cost. */
+  | { type: 'fallback'; uid: number }
   | { type: 'end' };
 
 export type Check = { ok: true } | { ok: false; reason: string };

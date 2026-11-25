@@ -547,6 +547,22 @@ export function canMove(st: GameState, pIdx: PlayerIndex, uid: number): Check {
   return { ok: true };
 }
 
+/** DESIGN 3.3, Ganim ("strike and fade"), Swarajya rules only: after attacking, a Ganim unit may
+    pull back from the Yudhbhumi to the Rajya line at no Kosha cost, if there is room. It cannot be
+    counter-charged there next turn because it is no longer on the front. */
+export function canFallback(st: GameState, pIdx: PlayerIndex, uid: number): Check {
+  if (st.over) return { ok: false, reason: 'Game over' };
+  if (pIdx !== st.active) return { ok: false, reason: 'Not your turn' };
+  if (!isSwarajyaRules(st.rules)) return { ok: false, reason: 'Ganim is a Swarajya rule' };
+  const found = findUnit(st, pIdx, uid);
+  if (!found || found.line !== 'front') return { ok: false, reason: 'Only from the Yudhbhumi' };
+  const u = found.unit;
+  if (!u.kw.includes('ganim')) return { ok: false, reason: 'Only a Ganim unit can fall back' };
+  if (!u.attacked) return { ok: false, reason: 'It must attack first' };
+  if (st.players[pIdx].support.length >= 4) return { ok: false, reason: 'The Rajya line is full' };
+  return { ok: true };
+}
+
 export function canPlay(st: GameState, pIdx: PlayerIndex, handIdx: number, target?: Target | null): Check {
   if (st.over) return { ok: false, reason: 'Game over' };
   if (pIdx !== st.active) return { ok: false, reason: 'Not your turn' };
@@ -735,6 +751,18 @@ export function applyActionCore(st: GameState, action: Action): Check {
     u.moved = true;
     log(st, `${u.name} advances to the Yudhbhumi.`, pIdx);
     pushEvent(st, { t: 'move', owner: pIdx, uid: u.uid });
+    return { ok: true };
+  }
+
+  if (action.type === 'fallback') {
+    const chk = canFallback(st, pIdx, action.uid);
+    if (!chk.ok) return chk;
+    const u = findUnit(st, pIdx, action.uid)!.unit;
+    st.front.units.splice(st.front.units.findIndex(x => x.uid === u.uid), 1);
+    if (st.front.units.length === 0) st.front.owner = null;
+    p.support.push(u);
+    log(st, `${u.name} strikes and fades back to the Rajya line.`, pIdx);
+    pushEvent(st, { t: 'fallback', owner: pIdx, uid: u.uid });
     return { ok: true };
   }
 

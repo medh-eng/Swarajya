@@ -14,4 +14,4 @@ export const CARD_LIST: CardDef[] = CLASSIC_CARDS;
 /** every card: the prototype's 50 and the YUDDH cards (which buildDeck never sees) */
 export const CARDS: Record<string, CardDef> = Object.fromEntries([...CARD_LIST, ...YUDDH_CARDS, ...SWARAJYA_CARDS].map(c => [c.id, c]));
 
-export const KW_LABEL: Record<Keyword, string> = { veg: "Vega", raksha: "Raksha", dhuan: "Dhuan" };
+export const KW_LABEL: Record<Keyword, string> = { veg: "Vega", raksha: "Raksha", dhuan: "Dhuan", ganim: "Ganim" };
