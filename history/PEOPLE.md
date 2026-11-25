@@ -16,7 +16,7 @@ Basis column: what we may show about them. `TRADITION` people (or deeds) are lab
 | Netaji Palkar | Sarnaubat (cavalry chief) in the 1660s | C-1660-PANHALA-SIEGE, C-1661-UMBERKHIND | `sw_netaji` | HISTORY |
 | Baji Prabhu Deshpande | Held Ghod Khind, 1660; killed | C-1660-PAVANKHIND | `sw_bajiprabhu` | HISTORY |
 | Shiva Kashid | Barber who dressed as Shivaji to decoy the pursuit | C-1660-PAVANKHIND | `sw_shiva_kashid` | TRADITION |
-| Siddi Hilal | Cavalry commander (Kolhapur, Panhala, Salher) | C-1659-KOLHAPUR, C-1672-SALHER, C-X-OFFICERS | `sw_siddi_hilal` | HISTORY |
+| Siddi Hilal | Cavalry commander, with Afzal Khan at Pratapgad, then Shivaji's from Kolhapur on (Panhala, Salher) | C-1659-PRATAPGAD, C-1659-KOLHAPUR, C-1672-SALHER, C-X-OFFICERS | `sw_siddi_hilal` | HISTORY |
 | Firangoji Narsala | Killedar of Chakan, 1660 | C-1660-CHAKAN | `sw_firangoji` | HISTORY |
 | Murarbaji Deshpande | Defender of Purandar, killed 1665 | C-1665-PURANDAR | `sw_murarbaji` | HISTORY |
 | Madari Mehtar | Attendant at Agra | C-1666-ESCAPE | `sw_madari_mehtar` | TRADITION (deed) |

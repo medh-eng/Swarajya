@@ -71,3 +71,27 @@ Treat statements such as "adopted by Purandare" as unverified until checked agai
 ### Agrees with our files
 Birth date, Pratapgad (10 Nov 1659), Pavan Khind, Lal Mahal, Surat 1664, Purandar, Agra (12 May 1666),
 Sinhagad, Vani-Dindori, Salher, the two coronations, Sindhudurg, death (3 April 1680).
+
+## Gemini (2): Siddi Hilal, pasted in chat, 25 Nov 2026 (session 8)
+
+Pon pasted a Gemini write-up on Siddi Hilal (full biography, a YouTube link, and troop-number
+figures for his campaigns). Checked against sources already in SOURCES.md plus one new web search.
+
+### Confirmed (new to our files, now in CHRONOLOGY.md and CONTESTED.md #29)
+| Claim | Verdict | Where it went |
+|---|---|---|
+| Siddi Hilal served under Afzal Khan at Pratapgad (1659), then switched to Shivaji's side after the defeat | Confirmed independently: Wikipedia's "Battle of Pratapgarh" (W-PRATAPGAD, already cited) names him among Afzal's chieftains and states defeated generals "like Siddi Hilal changed their loyalties and joined the Marathas"; matches W-GOODREADS-HILAL's independent account of him fighting *for* Shivaji at Kolhapur and Panhala. Two independent sources, resolves CONTESTED #29. | CHRONOLOGY.md C-1659-PRATAPGAD and C-1659-KOLHAPUR; CONTESTED.md #29 marked resolved; PEOPLE.md and cards.draft.json refs updated |
+| Fought for Shivaji at Kolhapur (28 Dec 1659) and the Panhala siege (1660), son Siddi Wahwah wounded and captured at Panhala | Already in our files (W-GOODREADS-HILAL), unchanged by this report | C-1659-KOLHAPUR, C-1660-PANHALA-SIEGE (pre-existing) |
+
+### Not confirmed, not added
+- **Died at Nesari, 1674, one of "the seven."** Not found in any source already in SOURCES.md, and
+  a quick web search didn't turn up independent confirmation beyond the report's own narrative (which
+  cites a YouTube video, not a checkable text). C-1674-NESARI already tags the six companions' names
+  as TRADITION, not HISTORY, specifically because the ballad tradition is the source for the names —
+  this claim fits that existing caution rather than requiring a new entry. Leave as is unless a
+  checkable source turns up.
+- **Specific troop numbers** (3,000-strong detachment; 10,000 vs Shivaji at Kolhapur; 15,000 at Nesari).
+  Not used regardless of source, per D-04 and CONTESTED #15 (bakhar troop figures are inflated and
+  contradictory) — this isn't a confirm/deny question, these numbers never go in the game.
+- **Left-flank command with Jadhavrao at Kolhapur.** Plausible but not checked against a source in
+  SOURCES.md; not added. Would need its own check before any card text implies a specific tactical role.

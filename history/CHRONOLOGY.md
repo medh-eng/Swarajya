@@ -213,6 +213,7 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Event:** Shivaji and Afzal Khan met in a pavilion below Pratapgad; by agreement each came armed only with a sword and with a very small escort. Shivaji, expecting treachery, wore armour under his clothes, a bagh nakh (tiger claw) concealed on his left arm and a dagger in his right hand. What happened inside is not known with historical certainty: Maratha sources say Afzal Khan seized Shivaji and struck first; sources hostile to Shivaji call it murder at a parley. Afzal Khan was killed, and the waiting Maratha troops routed his army.
 - **Basis:** HISTORY (meeting, death, rout) · CONTESTED (who struck first; army sizes are exaggerated in later bakhars: CONTESTED.md #5)
 - **Refs:** W-SHIVAJI, W-PRATAPGAD, W-AFZAL, W-SABHASAD, S-PURANDARE (Vol. I, "Fort Pratapgad", pp. 267-284)
+- **Siddi Hilal** (W-PRATAPGAD, not in Purandare's own named list below): among the Adilshahi officers in Afzal Khan's army before the battle; after the defeat he changed sides and fought for Shivaji from Kolhapur onward (C-1659-KOLHAPUR; CONTESTED #29, resolved).
 - **Purandare adds (pp. 270-284; Maratha-side account; single source for the detail):**
   - *Afzal's camp:* in the Koyna valley (Para), in thick forest; his heavy army looked small against it (p. 270). His chief officers there included Ankushkhan, Musekhan, Ambarkhan, Yakutkhan and Mumbaji Bhosale, a kinsman of Shivaji (pp. 270, 282).
   - *The terms (pp. 270-271):* sent by Pantaji, agreed by Afzal: Afzal to come in a palanquin with two or three servants and ten armed attendants kept an arrow's flight back; Shivaji likewise, with ten. Pantaji also had Afzal's diamond and pearl merchants sent up to the fort, where Shivaji kept them and their wares (to be paid after the visit), as an additional ruse (VERIFY: a vivid detail from one source).
@@ -249,9 +250,9 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 
 ### C-1659-KOLHAPUR · Battle of Kolhapur
 - **Date:** 28 December 1659
-- **Event:** After Pratapgad the Marathas pushed south (Panhala came into Shivaji's hands; Vasota and other forts fell). The Bijapur general Rustam Zaman, with Fazl Khan (Afzal's son), came up near Miraj; Shivaji attacked first, early on 28 December, and Rustam Zaman fled the field by afternoon. Siddi Hilal fought on Shivaji's side against Rustam Zaman and Fazl Khan (one account places that fight near Raibag in early 1660).
-- **Basis:** HISTORY (battle, result) · VERIFY (troop numbers 10,000 vs 3,500 and casualty figures: do not use)
-- **Refs:** W-KOLHAPUR, W-RUSTAM, W-GOODREADS-HILAL, W-PANHALA-FORT
+- **Event:** After Pratapgad the Marathas pushed south (Panhala came into Shivaji's hands; Vasota and other forts fell). The Bijapur general Rustam Zaman, with Fazl Khan (Afzal's son), came up near Miraj; Shivaji attacked first, early on 28 December, and Rustam Zaman fled the field by afternoon. Siddi Hilal fought on Shivaji's side against Rustam Zaman and Fazl Khan (one account places that fight near Raibag in early 1660) — he had served under Afzal Khan at Pratapgad weeks earlier and changed sides after that defeat (CONTESTED #29, resolved).
+- **Basis:** HISTORY (battle, result; Siddi Hilal's switch of sides) · VERIFY (troop numbers 10,000 vs 3,500 and casualty figures: do not use)
+- **Refs:** W-KOLHAPUR, W-RUSTAM, W-GOODREADS-HILAL, W-PANHALA-FORT, W-PRATAPGAD
 - **Game:** `ch05_kolhapur`; cards `as_rustam_zaman`, `sw_siddi_hilal`
 
 ---

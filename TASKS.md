@@ -12,18 +12,15 @@
       `jm_jaoli_foot` — and the `jaoli` battlefield; registered via `npm run assets` 25 Nov 2026 session 8
       (cont.), 23 card paintings now in `src/assets/card-art.json`). `jm_hanmantrao` is still VERIFY (see
       the open research item below) but is painted and ready if the research confirms him.
-- [ ] **New:** `art/PROMPTS-BATCH3.md` written (25 Nov 2026, session 8, cont.) — 2 cards
-      (`as_rustam_zaman`, `as_fazl_khan`) + 1 battlefield (`kolhapur`) for chapter 5 (Kolhapur) — chapter 4
-      (Pratapgad) is already fully painted from batch 1. **Flagged, not included:** `sw_siddi_hilal`, which
-      `data/cards.draft.json` and `history/PEOPLE.md` already tag `basis: HISTORY` on Shivaji's side, but
-      `history/CONTESTED.md` #29 explicitly says no card should take a side on him in 1659 until a source
-      check settles it (a Siddi Hilal also appears among *Afzal Khan's* officers in the same source,
-      Purandare Vol. I pp. 257, 284) — **PEOPLE.md and cards.draft.json are ahead of where CONTESTED.md
-      says the project stands; this needs a research pass or Pon's call before anyone paints or ships
-      that card.** PNGs go in `art/source/cards/` (5:7) and `art/source/battlefields/` (16:9); then
-      `npm run assets`.
+- [ ] **New:** `art/PROMPTS-BATCH3.md` written (25 Nov 2026, session 8, cont.) — 3 cards
+      (`as_rustam_zaman`, `as_fazl_khan`, `sw_siddi_hilal`) + 1 battlefield (`kolhapur`) for chapter 5
+      (Kolhapur) — chapter 4 (Pratapgad) is already fully painted from batch 1. `sw_siddi_hilal` was
+      initially left out pending a CONTESTED #29 check (Siddi Hilal's side in 1659 looked unresolved);
+      resolved the same session — he served Afzal Khan at Pratapgad, then switched to Shivaji's side —
+      and added to the sheet. PNGs go in `art/source/cards/` (5:7) and `art/source/battlefields/` (16:9);
+      then `npm run assets`.
 - [x] Torna and Rajgad as per the book (D-19, D-20), 24 Nov 2026.
-- [ ] Claude: online research pass on the VERIFY items and unchecked chronology rows (D-22); ask Pon for specific book pages only for CONTESTED #27-#29 if online sources cannot settle them.
+- [ ] Claude: online research pass on the VERIFY items and unchecked chronology rows (D-22); ask Pon for specific book pages only for CONTESTED #27-#28 if online sources cannot settle them.
 - [x] Rewrite `ch01_torna` objective as a take-hold-fortify race now that the Gad mechanic and `capture` objective exist (25 Nov 2026, Phase 1 step 5).
 - [x] Name: YUDDH: Swarajya (D-14). Dadoji as teacher (D-15). English edition; Sangamner kept (D-16).
 - [x] Repo `medh-eng/Swarajya` created; Gemini report re-sent and reviewed.
@@ -76,9 +73,10 @@ Still open from Phase 0: research item 6 (Act I VERIFY gaps) — moved to the re
 - [ ] Ashta Pradhan: confirm the eight titles and their 1674 holders (W-ASHTA, W-MSB7, Sen).
 - [ ] Bahlol Khan at Salher vs Bahlol Khan of Bijapur: one person or two?
 - [ ] Hanmantrao More: confirm in Mehendale or drop the card.
-- [ ] Siddi Hilal's side in 1659 (CONTESTED #29): `cards.draft.json`/`PEOPLE.md` already say Shivaji's
-      side, `CONTESTED.md` says undecided — check Sabhasad and Mehendale before `sw_siddi_hilal` is
-      painted or `ch05_kolhapur`/`ch06_pavankhind` is built, and fix whichever file is wrong.
+- [x] Siddi Hilal's side in 1659 (CONTESTED #29) — RESOLVED same session: he served Afzal Khan at
+      Pratapgad, switched to Shivaji's side after the defeat (confirmed in W-PRATAPGAD + W-GOODREADS-HILAL,
+      two independent sources — see `history/AI-REPORTS-REVIEW.md` and `CONTESTED.md` #29). `sw_siddi_hilal`
+      is cleared to paint; added to `art/PROMPTS-BATCH3.md`.
 - [x] Vellore's fall: August 1678 (Sarkar; Indian Culture portal gives 21 Aug).
 - [ ] The Venkoji battle (Nov 1677?).
 - [ ] Agra baskets: check Mehendale / the Rajasthani letters against the ChatGPT report's doubt (CONTESTED #20).

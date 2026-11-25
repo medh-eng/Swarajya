@@ -698,3 +698,34 @@ the project's own CONTESTED register says it stands. Did not silently fix the ba
 batch 3 sheet's own warning, so nobody paints or ships that card until it's checked.
 
 TASKS.md, PROGRESS.md, STATE.md updated.
+
+## 25 Nov 2026 — session 8 (cont.): resolved CONTESTED #29 (Siddi Hilal's side in 1659); batch 3 updated
+
+Pon pasted a Gemini write-up on Siddi Hilal mid-session, right after seeing the art-batch-3 flag that
+held his card back over the CONTESTED #29 contradiction. Checked its central claim (switched from
+Bijapur to Shivaji's side right after Pratapgad) against sources already in `SOURCES.md` plus one new
+web search, rather than taking the report at face value (CLAUDE.md: AI reports are leads, not sources).
+
+Found independent confirmation: Wikipedia's "Battle of Pratapgarh" article (W-PRATAPGAD, already
+cited in `C-1659-PRATAPGAD`'s refs) names Siddi Hilal among Afzal Khan's chieftains before the battle
+and states "some of the defeated Adilshahi generals like Siddi Hilal changed their loyalties and
+joined the Marathas to serve under Shivaji" right after — independently matching W-GOODREADS-HILAL's
+existing account of him fighting *for* Shivaji at Kolhapur and Panhala. Two independent sources, same
+resolution Purandare's apparent contradiction already pointed to (CONTESTED #29 had speculated exactly
+this: "or he changed sides after Pratapgad").
+
+Resolved CONTESTED #29 in place (struck the "VERIFY, no card may take a side" restriction, recorded
+the two-source confirmation). Added a line to `C-1659-PRATAPGAD` and strengthened `C-1659-KOLHAPUR`'s
+refs with W-PRATAPGAD. Added `C-1659-PRATAPGAD` to `sw_siddi_hilal`'s refs in `cards.draft.json` and to
+his `PEOPLE.md` row (which now also names his earlier Bijapur service, not just his Swarajya years).
+Recorded the full review — what was confirmed, what wasn't (a claimed death at Nesari 1674, and all
+troop-number figures from the report) — in `history/AI-REPORTS-REVIEW.md`, so the Nesari claim stays
+out unless a checkable source turns up (the existing `C-1674-NESARI` entry already tags its six
+companions' names TRADITION, not HISTORY, which already covers this kind of claim appropriately).
+
+With the contradiction resolved, `sw_siddi_hilal` came off TASKS.md's blocked list and into
+`art/PROMPTS-BATCH3.md` (now 3 cards instead of 2) — painted in Swarajya's saffron palette, not
+Bijapur's green, per D-21, with a note not to show the defection itself, just the officer he became.
+
+`node scripts/check-refs.mjs .`, `npx tsc --noEmit`, `npm test` (129 passed), `npm run build` all pass.
+TASKS.md updated.
