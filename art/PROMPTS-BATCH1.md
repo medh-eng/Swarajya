@@ -1,10 +1,11 @@
 # Art batch 1 — prompt sheet (Phase 1 vertical slice)
 
-*For Pon. 20 card paintings and 2 battlefield paintings: everything the first three chapters need
-(tutorial, Torna, Pratapgad). Written 24 Nov 2026 (session 6). Every historical detail below comes from
-`history/CHRONOLOGY.md` (IDs in brackets); anything not in the chronology is marked **GENERIC** (a type
-of soldier, no claim about a person or event) or **INVENTED** (the game's own scene). Nothing here is
-taken from the book's sketches.*
+*For Pon. 20 card paintings and 3 battlefield paintings: everything the first three chapters need
+(tutorial, Torna, Pratapgad). Written 24 Nov 2026 (session 6); B3 (`maval`) added 25 Nov 2026 once the
+tutorial chapter was actually wired up (Phase 1 step 5) and turned out to need its own ground. Every
+historical detail below comes from `history/CHRONOLOGY.md` (IDs in brackets); anything not in the
+chronology is marked **GENERIC** (a type of soldier, no claim about a person or event) or **INVENTED**
+(the game's own scene). Nothing here is taken from the book's sketches.*
 
 ## How to use this sheet
 
@@ -22,7 +23,7 @@ There are three picture formats. **Always generate in the exact ratio**; the gam
 |---|---|---|---|---|
 | **Character and order cards** | Nos. 1-12 and 17-20 (all but the forts) | **5:7 portrait** | **1500 × 2100** (minimum 1080 × 1512) | `art/source/cards/<id>.png` |
 | **Fort (Gad) cards** | Nos. 13-16 (`sw_gad_torna`, `sw_gad_rajgad`, `sw_gad_pratapgad`, `as_gad_torna_held`) | **1:1 square** | **1536 × 1536** (minimum 1080 × 1080) | `art/source/cards/<id>.png` |
-| **Battlefields** | B1 `torna`, B2 `pratapgad` | **16:9 landscape** | **2560 × 1440** | `art/source/battlefields/<name>.png` |
+| **Battlefields** | B1 `torna`, B2 `pratapgad`, B3 `maval` | **16:9 landscape** | **2560 × 1440** | `art/source/battlefields/<name>.png` |
 
 `npm run assets` turns cards into 720-px-wide web files (5:7 → 720 × 1008, forts → 720 × 720) and battlefields into 2560 px wide.
 Paint to the very edge of the picture: **no deckled or stained paper edge, no border, no frame.**
@@ -234,6 +235,16 @@ stone ground) for the cards. No people in the foreground.
 **Prompt (updated with Purandare pp. 271, 275: the pavilion stands in a cleared space on a spur about halfway up the hill, richly furnished, with deep pearl-trimmed velvet drapes and four tall standing lamps):** A wide morning view of very dense Sahyadri forest (so thick that a hidden elephant would be hard to find) on a steep slope below a fort silhouetted on the ridge high above, with deep valleys falling away to one side and only narrow foot tracks visible; a cleared
 level space in the middle with a large cream pavilion (a parley tent) standing alone, ground mist on the forest floor, tall trees, cold
 early-winter light slanting through the trees. Tense and still. **Leave the middle band calm.** No figures near the pavilion.
+*Already covers the Bhet (step 6): the parley tent is already in this picture, so the parley minigame can reuse this same painting — no separate Bhet background is needed.*
+
+### B3. `maval` — The Maval valleys (chapter 0, the tutorial) — added 25 Nov 2026 (session 8, Phase 1 step 5)
+*Basis: HISTORY [C-1630-CONTEXT, C-1640-PUNE: Shivaji and Jijabai's Pune jagir in the Maval valleys, c. 1636–1647, administered by Dadoji Kondadeo]. The training fight at a border post is wholly INVENTED (chapters.json: "the whole training fight"), so there is no historical battle to depict — paint the country, not an event. Until this is painted, the game opens the tutorial on a drawn placeholder ground (`loadBattlefield()`'s fallback, `src/assets/manifest.ts`), so the game works either way.*
+**File:** `art/source/battlefields/maval.png`, 2560 × 1440.
+**Prompt:** A wide dawn view of the Maval hill country near Pune: rolling, terraced valleys of the Sahyadri foothills, small fields and a
+scattering of thatched hill villages on the lower slopes, a modest stone border outpost (a watch-tower and a low stone wall, not a great
+fort) on a rise in the middle distance, hill paths winding between boulders and scrub, soft morning haze in the valley. Gentler and more
+settled than Torna or Pratapgad — this is home country, not a siege. **Leave the middle band calm** (haze and open ground) for the cards.
+No figures in the foreground.
 
 ---
 
@@ -285,6 +296,7 @@ and the paintings must be original (no tracing, no pasting a photograph). What t
 | 20 | `cards/as_topkhana` | [x] |
 | B1 | `battlefields/torna` | [x] |
 | B2 | `battlefields/pratapgad` | [x] |
+| B3 | `battlefields/maval` | [ ] |
 
 *Not in this batch:* card frames (drawn in code per faction: basalt-and-saffron for Swarajya, green lacquer for Adilshahi), the title screen
 (drawn in code until a painting exists), the campaign map (batch 2), Chhatrapati Shivaji Maharaj's coronation card (Phase 3), Siddi Jauhar,

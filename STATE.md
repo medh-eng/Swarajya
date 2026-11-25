@@ -69,8 +69,8 @@ opens on a drawn placeholder ground instead of failing to load. GitHub Pages is 
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → battle → next chapter, fully wired (session 8; was a placeholder) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`; `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main |
-| Art prompts | `art/PROMPTS-BATCH1.md` | 20 card + 2 battlefield prompts, with exact formats (5:7 cards, square forts, 16:9 battlefields) and safe areas |
-| Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 2 of 2 battlefields (`torna`, `pratapgad`) |
+| Art prompts | `art/PROMPTS-BATCH1.md` | 20 card + 3 battlefield prompts (B3 `maval` added session 8), with exact formats (5:7 cards, square forts, 16:9 battlefields) and safe areas |
+| Art (painted) | `art/source/cards/`, `art/source/battlefields/` | 20 of 20 cards, 2 of 3 battlefields (`torna`, `pratapgad`; `maval` prompt ready, not yet painted — the tutorial uses the code fallback ground meanwhile) |
 | Sound | — | none yet (icons and favicon drawn in code) |
 
 ## Engine baseline and how the ruleset works
@@ -149,6 +149,7 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 1. Claude: online research pass (no book needed) on the VERIFY items: the Fateh Khan episode at Purandar 1648 (unblocks `ch02_purandar1648`), Javli 1647, the dates for Baji More's fate and Siddi Hilal's side (CONTESTED #27-#29), then the remaining "not yet checked" chronology rows (D-22).
 2. Claude: Phase 1 step 6 — the Bhet scene (Trust / Guard / Strike) and its AI stance table
    (`rules.json`'s `"bhet"`), which `ch04_pratapgad` needs to stop being battle-only.
-3. Pon: three painted cards (sw_dadoji, sw_gopinath, sw_jijau_counsel) are only 345 px wide and tight
-   at the top — redo them at 1080 px or wider if the tool allows. Otherwise art batch 1 is complete;
-   nothing else is blocking on painting right now.
+3. Pon: paint the `maval` battlefield (prompt ready in `art/PROMPTS-BATCH1.md`, B3) so the tutorial
+   stops opening on the code-drawn placeholder ground; also, three painted cards (sw_dadoji,
+   sw_gopinath, sw_jijau_counsel) are only 345 px wide and tight at the top — redo them at 1080 px or
+   wider if the tool allows.
