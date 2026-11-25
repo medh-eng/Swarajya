@@ -296,7 +296,7 @@ and the paintings must be original (no tracing, no pasting a photograph). What t
 | 20 | `cards/as_topkhana` | [x] |
 | B1 | `battlefields/torna` | [x] |
 | B2 | `battlefields/pratapgad` | [x] |
-| B3 | `battlefields/maval` | [ ] |
+| B3 | `battlefields/maval` | [x] |
 
 *Not in this batch:* card frames (drawn in code per faction: basalt-and-saffron for Swarajya, green lacquer for Adilshahi), the title screen
 (drawn in code until a painting exists), the campaign map (batch 2), Chhatrapati Shivaji Maharaj's coronation card (Phase 3), Siddi Jauhar,

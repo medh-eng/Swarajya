@@ -379,3 +379,13 @@ no "More empires" picker.
 
 **Checks:** `npm test` (check-refs + 108 Vitest tests, incl. the golden replay), `npx tsc --noEmit`,
 `npm run build` all pass. Real playtest run (above). STATE.md, PROGRESS.md, TASKS.md updated.
+
+## 25 Nov 2026 — session 8 (cont.): Maval battlefield painted
+
+Pon painted `maval` (the B3 prompt added earlier this session) and sent it over. Saved to
+`art/source/battlefields/maval.png` (1672×941, same master size as `torna`/`pratapgad`), ran
+`npm run assets` to produce `public/assets/battlefields/maval.webp`. No code changes needed —
+`loadBattlefield()` just finds the real file now instead of falling back to the drawn placeholder.
+Verified in a real playtest: the tutorial's briefing screen now shows the painted valley, not the
+procedural ground. Ticked B3 in `PROMPTS-BATCH1.md`'s checklist; batch 1 is now fully painted (20
+cards + 3 battlefields). `npm test` (108 tests), `tsc --noEmit`, `npm run build` all pass.
