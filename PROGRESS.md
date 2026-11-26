@@ -64,11 +64,14 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
       step, verified with a build/test/playtest regression check.
 - [ ] Step 2 (Khind — `frontSize`, replacing the hard-coded Yudhbhumi size of 4)
 - [ ] Step 3 (Ratra/night, `raid` objective, enemy Gads on the board)
-- [ ] Step 4 (chapters 3, 5-11, each with its own chronology check)
+- [~] Step 4 (chapters 3, 5-11, each with its own chronology check) — **ch03 Jaoli built 26 Nov 2026
+      session 10** (new `jaoli` faction, 3 Jaoli cards ported, first chapter to deck Shivaji + the Ganim
+      units; 50.0% player wins in the balance harness; real playtest clean). Ch05-11 to go.
 - [ ] Step 5 (Mughal faction cards)
 - [~] Step 6 (art batches 2-4) — batch 2 (Jaoli, ch3) fully painted and registered. Batch 3 (Kolhapur,
       ch5) 3 of 4 painted 26 Nov 2026 session 9 (`sw_siddi_hilal` still outstanding); plus a bonus
-      early painting of `sw_bajiprabhu` (chapter 6). 26 card paintings total.
+      early painting of `sw_bajiprabhu` (chapter 6). Batch 4 (Pavan Khind, ch6) fully painted and
+      registered 26 Nov 2026 session 10 (4 cards + `ghod_khind`). 30 card paintings total.
 
 ## Mechanics
 | Mechanic | Engine | AI | Tests | Glossary/UI | Status |
@@ -79,7 +82,7 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 | Swarajya map (forts light up) | n/a | n/a | n/a | [x] | v1 built on existing `campaignScene` (Phase 1 step 8, session 8); full painted map later |
 | Marathi localization (vertical slice) | n/a | n/a | n/a | [x] | built (Phase 1 step 8, session 8) — `src/i18n.ts`; generic battle chrome still English, pending Q-05 |
 | Khind (`frontSize`) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
-| Ganim keyword | [x] | [x] | [x] | [x] | built (Phase 2 step 1, session 8) — no chapter uses it yet |
+| Ganim keyword | [x] | [x] | [x] | [x] | built (Phase 2 step 1, session 8) — first used in ch03 Jaoli (session 10) |
 | Ratra (night) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
 | New objective `raid` | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
 | Neutral structures | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |

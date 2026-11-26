@@ -19,7 +19,8 @@
       any prompt sheet yet, uploaded as `sw_baji_prabhu.png` (extra underscore; the real card id has
       none) and renamed to match before registering. Now in `card-art.json` (26 card paintings total)
       and ready to use whenever chapter 6 (Pavan Khind) is built.
-- [ ] **New:** `art/PROMPTS-BATCH4.md` written (26 Nov 2026, session 9) — the rest of chapter 6 (Panhala
+- [x] `art/PROMPTS-BATCH4.md` **fully painted and registered 26 Nov 2026, session 10** (all 4 cards +
+      `ghod_khind`; 30 card paintings now in `card-art.json`). Written 26 Nov 2026, session 9 — the rest of chapter 6 (Panhala
       and the Pass / Pavan Khind): `as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid` (TRADITION),
       `as_angrezi_gola` (order card) + the `ghod_khind` battlefield. `sw_bajiprabhu` (the hero) is already
       painted, not repeated on this sheet.
@@ -54,7 +55,14 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
        in a narrow pass (Pavan Khind, ch06). Touches both `>= 4` checks noted in STATE.md's engine section.
 3. [ ] Ratra (night) and the `raid` objective, then enemy Gads on the board (Chakan's `durgWard`,
        Sindhudurg/Khanderi's `shipsAtk` — typed in `GadEffect` since step 2 but unapplied).
-4. [ ] Chapters 3 (Jaoli), 5 (Kolhapur), 6 (Pavan Khind), 7 (Chakan), 8 (Umberkhind), 9 (Lal Mahal), 10
+4. [~] **Chapter 3 (Jaoli) built 26 Nov 2026, session 10** — `src/campaign/jaoli.ts`, between Torna and
+       Pratapgad on the map. New empire `jaoli` (types.ts, cards.json, theme.ts frame), `jm_chandrarao`,
+       `jm_hanmantrao` (now HISTORY, 3 sources), `jm_jaoli_foot` ported. Balance harness: 50.0% player wins
+       (enemy Durg 22; a free pre-placed Jaoli Foot made it 1% and was removed). History note with both
+       accounts (CONTESTED #4, #27, new #30). **Pon: please play it** (Campaign → Jaoli).
+       Next chapter: 5 (Kolhapur) — needs `sw_siddi_hilal` painted, and `as_rustam_zaman`/`as_fazl_khan`
+       ported; no new mechanic. Then 6 (Pavan Khind) — all art now painted, but needs step 2 (Khind) first.
+       Remaining: 5 (Kolhapur), 6 (Pavan Khind), 7 (Chakan), 8 (Umberkhind), 9 (Lal Mahal), 10
        (Surat), 11 (Purandar treaty scene) — each needs its own chronology check (two independent sources
        per fact, D-22) before it ships, not just the mechanic that powers it.
 5. [ ] Mughal faction cards (new empire, alongside `swarajya`/`adilshahi`).
@@ -76,7 +84,7 @@ Still open from Phase 0: research item 6 (Act I VERIFY gaps) — moved to the re
 - [ ] C-1648-SHAHAJI: find the Fateh Khan fight in a primary source, or drop chapter 2.
 - [ ] Ashta Pradhan: confirm the eight titles and their 1674 holders (W-ASHTA, W-MSB7, Sen).
 - [ ] Bahlol Khan at Salher vs Bahlol Khan of Bijapur: one person or two?
-- [ ] Hanmantrao More: confirm in Mehendale or drop the card.
+- [x] Hanmantrao More: confirmed in three independent sources (Purandare, Jedhe via W-JAOLI, Takakhav) 26 Nov 2026, session 10; card ships as HISTORY. How he died is CONTESTED #30.
 - [x] Siddi Hilal's side in 1659 (CONTESTED #29) — RESOLVED same session: he served Afzal Khan at
       Pratapgad, switched to Shivaji's side after the defeat (confirmed in W-PRATAPGAD + W-GOODREADS-HILAL,
       two independent sources — see `history/AI-REPORTS-REVIEW.md` and `CONTESTED.md` #29). `sw_siddi_hilal`

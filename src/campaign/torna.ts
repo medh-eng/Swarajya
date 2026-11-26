@@ -28,8 +28,8 @@ export const TORNA: Scenario = {
   winText: turn => `The banner is raised over Torna in turn ${turn}. Its treasure will build Rajgad.`,
   loseText: "Bijapur's response arrives in time. Torna stays dark a while longer.",
   goLabel: 'To Torna',
-  nextId: 'ch04_pratapgad',
-  nextLabel: 'Pratapgad',
+  nextId: 'ch03_jaoli',
+  nextLabel: 'Jaoli',
   playerDeck, enemyDeck,
   // Phase 1 step 8 (TASKS.md), unreviewed — see src/i18n.ts
   mr: {
@@ -38,7 +38,7 @@ export const TORNA: Scenario = {
     briefing: 'विजापूरच्या दरबारात सुलतानाच्या आजारपणामुळे गोंधळ माजला असताना तोरणा दुर्लक्षित उभा आहे, त्याच्या भिंतींवर कोणाचेही लक्ष नाही. त्यावर आपला झेंडा फडकवा, त्याच्या खजिन्याचा उपयोग करा, आणि विजापूरचे उत्तर येण्याआधी तो राखून ठेवा.',
     objective: '१४ व्या डावाआधी तोरणा ताब्यात घ्या आणि राखा.',
     goLabel: 'तोरण्याकडे',
-    nextLabel: 'प्रतापगड',
+    nextLabel: 'जावळी',
     winText: turn => `${turn} व्या डावात तोरण्यावर झेंडा फडकतो. त्याच्या खजिन्यातून राजगड उभा राहील.`,
     loseText: 'विजापूरचे उत्तर वेळेत पोहोचते. तोरणा आणखी काही काळ अंधारात राहतो.'
   },

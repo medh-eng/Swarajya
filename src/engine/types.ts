@@ -4,7 +4,7 @@
    worker for the AI, and in node for tests and balance runs.
    ============================================================ */
 
-export type EmpireId = 'maurya' | 'gupta' | 'chalukya' | 'chola' | 'rajput' | 'swarajya' | 'adilshahi' | 'neutral';
+export type EmpireId = 'maurya' | 'gupta' | 'chalukya' | 'chola' | 'rajput' | 'swarajya' | 'adilshahi' | 'jaoli' | 'neutral';
 export type PlayerIndex = 0 | 1;
 /** 'ganim' (DESIGN 3.3, strike and fade / ganimi kava): Swarajya rules only. After this unit attacks,
     its owner may pull it back to the Rajya line at no Kosha cost (if there is room) — see the

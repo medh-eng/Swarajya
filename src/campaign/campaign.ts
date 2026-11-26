@@ -28,6 +28,7 @@ import { KOPPAM_SCENARIO } from './koppam';
 import { VIKRAM_RETURN_SCENARIO } from './vikramReturn';
 import { MAVAL_TUTORIAL } from './mavalTutorial';
 import { TORNA } from './torna';
+import { JAOLI } from './jaoli';
 import { PRATAPGAD } from './pratapgad';
 
 export interface CampaignNode {
@@ -102,6 +103,7 @@ export const CHOLA_CAMPAIGN: CampaignNode[] = [
 export const SWARAJYA_CAMPAIGN: CampaignNode[] = [
   { scenario: MAVAL_TUTORIAL, face: 'sw_jijau_counsel', blurb: "Jijabai's counsel and a mavla's first lessons." },
   { scenario: TORNA, face: 'sw_gad_torna', blurb: 'Take Torna before Bijapur reacts.' },
+  { scenario: JAOLI, face: 'jm_chandrarao', blurb: 'Break the Mores in their forest valley.' },
   { scenario: PRATAPGAD, face: 'as_afzal_khan', blurb: 'Meet Afzal Khan below Pratapgad.' }
 ];
 export const SWARAJYA: Campaign = {

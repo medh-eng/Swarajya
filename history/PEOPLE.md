@@ -94,7 +94,7 @@ as **two different people** until a source joins them (TASKS: verify).
 | Name | Side | Refs | Card id | Basis |
 |---|---|---|---|---|
 | Chandrarao More (and sons Krishnaji, Baji) | Jaoli | C-1656-JAOLI | `jm_chandrarao` | HISTORY |
-| Hanmantrao More | Jaoli captain | C-1656-JAOLI | `jm_hanmantrao` | HISTORY (via Takakhav: VERIFY in Mehendale) |
+| Hanmantrao More | Jaoli captain | C-1656-JAOLI | `jm_hanmantrao` | HISTORY (Purandare + Jedhe via W-JAOLI + Takakhav; manner of death CONTESTED #30) |
 | George Oxenden | President of the English factory, Surat 1664 | C-1664-SURAT | none (`ei_factory_guard` generic) | HISTORY |
 | Henry Revington | English factor at Rajapur; letter of Dec 1659; prisoner 1660–63 | C-1659-AFZAL-MARCH, C-1660-RAJAPUR | none | HISTORY |
 | Narayan Shenvi | English interpreter; letter of Apr 1674 | C-1674-NESARI | none | HISTORY |

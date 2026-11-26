@@ -671,6 +671,22 @@
 "as_hasham*10"
 ]
 },
+"ch03_jaoli": {
+"player": [
+"sw_mavla*4",
+"sw_havaldar*2",
+"sw_shiledar*2",
+"sw_bargir*2",
+"sw_hetkari*3",
+"sw_jijau_counsel*2",
+"sw_shivaji*1"
+],
+"enemy": [
+"jm_jaoli_foot*8",
+"jm_hanmantrao*2",
+"jm_chandrarao*1"
+]
+},
 "ch04_pratapgad": {
 "player": [
 "sw_bargir*4",

@@ -3,9 +3,17 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 25 Nov 2026 (session 8) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 started (step 1 of 6 done)** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 26 Nov 2026 (session 10) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (step 1 done; step 4 begun: ch03 Jaoli built)** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
+**Session 10 (26 Nov 2026):** art batch 4 (Pavan Khind) fully painted and registered (30 card paintings,
+6 battlefields incl. `ghod_khind`). **Chapter 3, Jaoli, built and playable** (`src/campaign/jaoli.ts`;
+map order is now Maval → Torna → Jaoli → Pratapgad): new empire `jaoli` (dark-teak frame), three Jaoli
+cards ported, the first chapter to deck `sw_shivaji` and the Ganim units; harness 50.0% player wins;
+real playtest (desktop + phone) clean. `jm_hanmantrao` promoted to HISTORY (three sources); how he died
+is CONTESTED #30. Next: ch05 Kolhapur (waits on `sw_siddi_hilal`'s painting) or Phase 2 step 2 (Khind),
+which ch06 Pavan Khind needs.
+
 YUDDH: Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on
 the YUDDH engine. The repo `medh-eng/Swarajya` holds the planning package (sourced chronology of 73
 entries, 23 chapters, 67 draft cards) and, since session 5, the YUDDH engine copied at its baseline
@@ -98,12 +106,12 @@ Phase 2's first chapter.
 | Engine (rules, AI, search) | `src/engine/` | YUDDH baseline + `ruleset.ts` (`isYuddhRules`, `isSwarajyaRules`); **Gad card type + `capture` objective** (DESIGN 3.1, 3.6; session 8); **Bhet mechanic** (`bhet.ts`: `chooseBhetStance`, `resolveBhet`; DESIGN 3.5; session 8); **Ganim keyword** (`canFallback` + `fallback` Action, `ganimFallback` AI heuristic; DESIGN 3.3; Phase 2 step 1, session 8) |
 | Renderer, scenes, UI | `src/game/` | YUDDH baseline + `scenes/swarajyaTitle.ts` (real buttons + language toggle, session 8); `scenes/bhet.ts` (parley scene, session 8); square art window for Gad; `loadBattlefield` falls back to a drawn ground; History panel supports `CONTESTED`/`otherSide`; `theme.ts`'s `hasDevanagari`/`fontFor` pick a safe font for Marathi text (session 8 step 8) |
 | Localization | `src/i18n.ts` | `Lang`/`pick`/`getLang`/`setLang`/`toggleLang` (session 8 step 8); vertical-slice-only Marathi (title, chapter text, Bhet scene) — unreviewed, pending Q-05; generic battle chrome still English |
-| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17) + `swarajya` list: 11 cards (7 Swarajya, 3 Adilshahi, 1 neutral — 4 of them Gads); decks + History notes for `ch00_maval`/`ch01_torna`/`ch04_pratapgad`; `rules.json`'s `"bhet"` (AI odds, wound fraction) |
+| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17) + `swarajya` list: 11 cards (7 Swarajya, 3 Adilshahi, 1 neutral — 4 of them Gads); decks + History notes for `ch00_maval`/`ch01_torna`/`ch03_jaoli`/`ch04_pratapgad`; empire `jaoli` + 3 `jm_` cards (session 10); `rules.json`'s `"bhet"` (AI odds, wound fraction) |
 | Campaign code | `src/campaign/` | YUDDH's kept as scaffolding (D-17) + `mavalTutorial.ts`/`torna.ts`/`pratapgad.ts` (now with `bhet` config) and `SWARAJYA`/`SWARAJYA_CAMPAIGN` (kept out of the global `CAMPAIGNS` array — see LOG.md session 8); `missions.ts` must stay (golden test) |
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → [Bhet scene when `sc.bhet` is set] → battle → next chapter, fully wired (session 8; was a placeholder) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`, `bhet.test.ts`, `ganim.test.ts`; `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main; live at https://medh-eng.github.io/Swarajya/ (was 7 commits stale — pushed and confirmed live, session 8) |
-| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH4.md` | Batch 1 and 2: fully painted. Batch 3 (Kolhapur, ch5): 3 of 4 painted — **`sw_siddi_hilal` still outstanding**. Batch 4 (new, session 9): rest of chapter 6 (Pavan Khind) — `sw_bajiprabhu` (hero) already painted early; `as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola` + `ghod_khind` battlefield not yet painted. 26 card paintings registered total |
+| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH4.md` | Batch 1 and 2: fully painted. Batch 3 (Kolhapur, ch5): 3 of 4 painted — **`sw_siddi_hilal` still outstanding**. Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 30 card paintings registered total |
 | Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 3 of 3 battlefields (`torna`, `pratapgad`, `maval` — Pon painted `maval` 25 Nov 2026, same session) |
 | Sound | — | none yet (icons and favicon drawn in code) |
 

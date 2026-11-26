@@ -128,7 +128,7 @@
         "type": "destroy"
       },
       "conditions": {
-        "season": "varsha_or_sharad_tbd"
+        "season": "hemanta"
       },
       "enemy": "jaoli",
       "heroCard": "sw_shivaji",

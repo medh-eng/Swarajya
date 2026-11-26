@@ -57,6 +57,14 @@
       "glyph": "आ",
       "passive": "The Sultanate's household troops and guns. (no passive yet)"
     },
+    "jaoli": {
+      "id": "jaoli",
+      "name": "Jaoli",
+      "capital": "Jaoli",
+      "color": "#6b4a2b",
+      "glyph": "जा",
+      "passive": "The Mores of Jaoli: forest fighters in a valley they know. (no passive yet)"
+    },
     "neutral": {
       "id": "neutral",
       "name": "Mercenary",
@@ -3455,6 +3463,67 @@
       "refs": [
         "C-X-ARMY"
       ]
+    },
+    {
+      "id": "jm_chandrarao",
+      "name": "Chandrarao More",
+      "sub": "Lord of Jaoli",
+      "empire": "jaoli",
+      "type": "unit",
+      "cost": 6,
+      "op": 2,
+      "atk": 4,
+      "hp": 7,
+      "range": "melee",
+      "kw": [
+        "raksha"
+      ],
+      "text": "Raksha. The valley is his.",
+      "rarity": "legendary",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1656-JAOLI"
+      ]
+    },
+    {
+      "id": "jm_hanmantrao",
+      "name": "Hanmantrao More",
+      "sub": "Captain of Jaoli",
+      "empire": "jaoli",
+      "type": "unit",
+      "cost": 4,
+      "op": 1,
+      "atk": 4,
+      "hp": 3,
+      "range": "melee",
+      "kw": [
+        "dhuan"
+      ],
+      "text": "Dhuan.",
+      "rarity": "epic",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1656-JAOLI"
+      ]
+    },
+    {
+      "id": "jm_jaoli_foot",
+      "name": "Jaoli Foot",
+      "sub": "Forest Infantry",
+      "empire": "jaoli",
+      "type": "unit",
+      "cost": 2,
+      "op": 1,
+      "atk": 2,
+      "hp": 2,
+      "range": "melee",
+      "kw": [
+        "dhuan"
+      ],
+      "text": "Dhuan. Fights from the trees.",
+      "rarity": "common",
+      "basis": "GENERIC",
+      "refs": []
     }
   ],
   "pendingArt": []

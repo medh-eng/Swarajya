@@ -764,3 +764,38 @@ ordinary face, not a copy of `sw_shivaji`'s painted likeness — the gap between
 the story.
 
 TASKS.md, STATE.md updated.
+
+## 26 Nov 2026 — session 10: batch 4 registered; chapter 3 (Jaoli) built
+
+Pon sent all five batch-4 paintings in chat. Saved them as `as_siddi_jauhar`, `sw_shiva_kashid`,
+`as_angrezi_gola`, `as_siddi_masud` and the `ghod_khind` battlefield (sizes checked: 1500×2100 and
+2560×1440), ran `npm run assets`: 30 card paintings, 6 battlefields. Chapter 6's art is now complete.
+
+Built the next campaign chapter in order, **ch03 Jaoli** (ch02 stays blocked; ch05 still waits on
+`sw_siddi_hilal`'s painting; ch06 needs the unbuilt Khind mechanic):
+- New empire `jaoli` (`EmpireId` in types.ts, `empires` in cards.json, a dark-teak frame in theme.ts),
+  so the Mores read as their own house (and the log says "Jaoli wins", not "Mercenary").
+- Ported `jm_chandrarao`, `jm_hanmantrao`, `jm_jaoli_foot` to `src/data/cards.json` (empire `jaoli`) and
+  removed them from `data/cards.draft.json` (check-refs rejects duplicate ids).
+- **Research:** Hanmantrao More confirmed in three independent sources (Purandare pp. 207-212; the Jedhe
+  chronicle as quoted in W-JAOLI; Takakhav, W-TAKAKHAV-JAOLI) → card is now HISTORY. They disagree on who
+  killed him and how (Sambhaji Kavji in battle / Raghunath Ballal Sabnis / a stabbing at a private
+  interview) → new CONTESTED #30; no text names his killer. CHRONOLOGY, PEOPLE, TASKS updated.
+- `src/campaign/jaoli.ts`: destroy objective, enemy Durg 22, season hemanta (Purandare: Javli taken
+  January 1656), briefing from Purandare's account (no marriage embassy, CONTESTED #4), EN + unreviewed MR.
+  First chapter to deck `sw_shivaji` and the Ganim units (`sw_mavla`, `sw_havaldar`, `sw_shiledar`).
+  Torna's `nextId` now points at Jaoli; Jaoli's at Pratapgad; node added to `SWARAJYA_CAMPAIGN`.
+- **Balance:** first try 0.7% player wins. A scratch sweep showed the free pre-placed `jm_jaoli_foot`
+  (Dhuan, turn 1) alone cost ~40 points; removed it and trimmed the Mores' deck to 8 foot / 2 Hanmantrao /
+  1 Chandrarao. Final: **50.0%** over 300 games (enemy Durg 21 gave 72%, 22 gives 50%). Jaoli added to
+  `tests/balance.harness.test.ts`.
+- History note (`src/data/history.json`): both accounts of how Jaoli was taken, the dispute over
+  Hanmantrao's death, Chandrarao's execution told plainly and not played (D-07), the sons' fate left
+  open (CONTESTED #27), otherSide = historians' "controversial circumstances" (W-JAOLI).
+- `tests/scenarios.test.ts`: chain and campaign order now include ch03; a new check that every id the
+  Jaoli screens draw is a loaded card (STATE lesson 4).
+
+**Verified:** `npm test` (check-refs OK, 130 passed), `npx tsc --noEmit`, `npm run build`. Real playtest
+(headless Chrome, 1600×900 and 915×412): campaign map shows Jaoli as NEXT, briefing, History panel, a
+full battle to victory in turn 11, the win screen offers Pratapgad; zero console/page errors.
+Small pre-existing layout note: at phone width the briefing's place line runs under the History button.

@@ -421,6 +421,31 @@
       "source": "Sources: standard accounts of Shivaji's early campaigns (W-SHIVAJI, W-TORNA); Babasaheb Purandare, Raja Shivachhatrapati, Vol. I.",
       "epilogue": "Torna was the first stone of Swarajya. Thirteen years later, at the foot of another fort built with its treasure, Shivaji would face the Bijapur general sent to end his rebellion."
     },
+    "ch03_jaoli": {
+      "kicker": "JAOLI · 1656",
+      "happened": "The Mores of Jaoli, Maratha lords who held a forested valley for Bijapur under the title Chandrarao, quarrelled with Shivaji over land in the Maval, sheltered a fugitive from his justice and raided Rohidkhore. After warnings went unanswered, Shivaji moved against them with the Deshmukhs of the Maval. Following Purandare's dates, Jaoli was taken in January 1656; Chandrarao fled to the fort of Rairi and surrendered there after about a month's siege, in April–May. Rairi was repaired and renamed Raigad, and the Jaoli forts passed to Swarajya.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "The seizure of Jaoli from Chandrarao More in 1656, his surrender at Rairi and the forts that followed are recorded. Murar Baji Deshpande, who had fought for the Mores, joined Shivaji's service."
+        },
+        {
+          "basis": "CONTESTED",
+          "text": "How Jaoli was taken is disputed. Purandare tells a quarrel that grew over months and then an open campaign; other Maratha accounts describe a pretended marriage embassy and a surprise attack. Accounts also differ on how the Mores' captain Hanmantrao More was killed: in the fighting, or at a private meeting."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Chandrarao was spared at first, but was later caught writing to Bijapur, fled, and was recaptured and executed in 1656. Accounts differ on what became of his sons. The game does not play this."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The assault on the Mores' stronghold is the game's own, with no numbers for either side."
+        }
+      ],
+      "otherSide": "Modern historians, among them Dipesh Chakrabarty, call the circumstances in which Shivaji obtained Jaoli controversial: the Mores were a fellow Maratha house, and the campaign ended with their lord's execution.",
+      "source": "Sources: the Jedhe chronology and N. S. Takakhav's Life of Shivaji Maharaj, on the Javli campaign (W-JAOLI, W-TAKAKHAV-JAOLI); Babasaheb Purandare, Raja Shivachhatrapati, Vol. I.",
+      "epilogue": "In the dense forest above the valley Shivaji began a new fort and named it Pratapgad. Three years later, the Bijapur court's general would come to meet him beneath its walls."
+    },
     "ch04_pratapgad": {
       "kicker": "PRATAPGAD · 10 NOVEMBER 1659",
       "happened": "The Bijapur court sent its veteran general Afzal Khan to arrest or destroy Shivaji. By agreement the two met in a pavilion below Pratapgad, each with only a sword and a small escort. Shivaji, expecting treachery, wore armour under his clothes, a tiger-claw blade on his hand and a dagger at his side. Afzal Khan was killed at the meeting, and the Maratha troops waiting nearby routed his army.",
