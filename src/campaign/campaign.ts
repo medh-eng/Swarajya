@@ -30,6 +30,8 @@ import { MAVAL_TUTORIAL } from './mavalTutorial';
 import { TORNA } from './torna';
 import { JAOLI } from './jaoli';
 import { PRATAPGAD } from './pratapgad';
+import { KOLHAPUR } from './kolhapur';
+import { PAVANKHIND } from './pavankhind';
 
 export interface CampaignNode {
   scenario: Scenario;
@@ -104,7 +106,9 @@ export const SWARAJYA_CAMPAIGN: CampaignNode[] = [
   { scenario: MAVAL_TUTORIAL, face: 'sw_jijau_counsel', blurb: "Jijabai's counsel and a mavla's first lessons." },
   { scenario: TORNA, face: 'sw_gad_torna', blurb: 'Take Torna before Bijapur reacts.' },
   { scenario: JAOLI, face: 'jm_chandrarao', blurb: 'Break the Mores in their forest valley.' },
-  { scenario: PRATAPGAD, face: 'as_afzal_khan', blurb: 'Meet Afzal Khan below Pratapgad.' }
+  { scenario: PRATAPGAD, face: 'as_afzal_khan', blurb: 'Meet Afzal Khan below Pratapgad.' },
+  { scenario: KOLHAPUR, face: 'as_rustam_zaman', blurb: 'Strike Rustam Zaman before he is ready.' },
+  { scenario: PAVANKHIND, face: 'sw_bajiprabhu', blurb: 'Hold Ghod Khind until the Raje is safe.' }
 ];
 export const SWARAJYA: Campaign = {
   id: 'swarajya', kicker: 'ACT I · THE REBEL', title: 'Hindavi Swarajya', ground: 'torna', nodes: SWARAJYA_CAMPAIGN,

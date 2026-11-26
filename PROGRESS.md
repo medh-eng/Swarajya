@@ -62,11 +62,16 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
       Unlocked `sw_shivaji`, `sw_mavla`, `sw_havaldar`, `sw_shiledar` (ported to `src/data/cards.json`).
       `tests/ganim.test.ts` (10 tests). No chapter uses these cards yet — no visible gameplay change this
       step, verified with a build/test/playtest regression check.
-- [ ] Step 2 (Khind — `frontSize`, replacing the hard-coded Yudhbhumi size of 4)
+- [x] Step 2 (Khind, 26 Nov 2026 session 11): `frontSize` on a scenario (Swarajya rules only) caps the
+      Yudhbhumi via `frontCap()`/`isKhind()` (`ruleset.ts`); AI advance limits and the search's
+      front-holding value respect it; glossary entry, briefing line, lane label "KHIND · ONLY 2";
+      `tests/khind.test.ts` (6). First used in ch06 Pavan Khind.
 - [ ] Step 3 (Ratra/night, `raid` objective, enemy Gads on the board)
 - [~] Step 4 (chapters 3, 5-11, each with its own chronology check) — **ch03 Jaoli built 26 Nov 2026
       session 10** (new `jaoli` faction, 3 Jaoli cards ported, first chapter to deck Shivaji + the Ganim
-      units; 50.0% player wins in the balance harness; real playtest clean). Ch05-11 to go.
+      units; 50.0% player wins in the balance harness; real playtest clean). **ch05 Kolhapur** (54.0%) and
+      **ch06 Panhala and the Pass / Pavan Khind** (57.3%, Khind + survive 8) built 26 Nov 2026 session 11.
+      Ch07-11 to go.
 - [ ] Step 5 (Mughal faction cards)
 - [~] Step 6 (art batches 2-4) — batch 2 (Jaoli, ch3) fully painted and registered. Batch 3 (Kolhapur,
       ch5) 3 of 4 painted 26 Nov 2026 session 9 (`sw_siddi_hilal` still outstanding); plus a bonus
@@ -81,7 +86,7 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 | New objective `capture` | [x] | [x] | [x] | [x] | built (Phase 1 step 3, session 8) |
 | Swarajya map (forts light up) | n/a | n/a | n/a | [x] | v1 built on existing `campaignScene` (Phase 1 step 8, session 8); full painted map later |
 | Marathi localization (vertical slice) | n/a | n/a | n/a | [x] | built (Phase 1 step 8, session 8) — `src/i18n.ts`; generic battle chrome still English, pending Q-05 |
-| Khind (`frontSize`) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
+| Khind (`frontSize`) | [x] | [x] | [x] | [x] | built (Phase 2 step 2, session 11) — first used in ch06 Pavan Khind |
 | Ganim keyword | [x] | [x] | [x] | [x] | built (Phase 2 step 1, session 8) — first used in ch03 Jaoli (session 10) |
 | Ratra (night) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
 | New objective `raid` | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |

@@ -15,7 +15,7 @@
    again whenever the game shows something it could not know (a card
    drawn, a hidden Yantra). All sizes are in rules.json ("ai").
    ============================================================ */
-import { isYuddhRules } from './ruleset';
+import { isKhind, frontCap, isYuddhRules } from './ruleset';
 import { CARDS } from './cards';
 import { RULES } from '../data';
 import {
@@ -72,7 +72,10 @@ export function evaluate(st: GameState, me: PlayerIndex): number {
   v += (P.yantras.length - O.yantras.length) * 0.8;
   if (st.front.units.length) {
     const side = st.front.owner === me ? 1 : -1;
-    v += side * (2 + st.front.units.length * 0.5);
+    // Khind (DESIGN 3.2): in a narrow pass the side that holds the Yudhbhumi blocks the whole road,
+    // so holding it is worth more, and each defender in it counts for more (always ×1 outside a Khind)
+    const khindW = isKhind(st) ? 4 / frontCap(st) : 1;
+    v += side * (2 + st.front.units.length * 0.5) * khindW;
   }
   if (isYuddhRules(st.rules)) {
     v += (dharmaOf(P) - dharmaOf(O)) * 0.5;

@@ -799,3 +799,31 @@ Built the next campaign chapter in order, **ch03 Jaoli** (ch02 stays blocked; ch
 (headless Chrome, 1600×900 and 915×412): campaign map shows Jaoli as NEXT, briefing, History panel, a
 full battle to victory in turn 11, the win screen offers Pratapgad; zero console/page errors.
 Small pre-existing layout note: at phone width the briefing's place line runs under the History button.
+
+## 26 Nov 2026 — session 11: Khind built; chapters 5 (Kolhapur) and 6 (Pavan Khind) built; a survive bug fixed
+Pon: "do both" (ch05 Kolhapur and the Khind mechanic that ch06 needs, then ch06).
+- **Research:** added W-SARKAR-CH4 (Sarkar, *Shivaji and His Times* ch. IV, Wikisource) as a second source
+  for C-1659-KOLHAPUR, C-1660-PANHALA-SIEGE and C-1660-PAVANKHIND. Sarkar states the Vishalgad gun signal
+  as fact; it stays TRADITION (one strand of evidence), as does Shiva Kashid's decoy ride.
+- **Cards ported** (removed from `data/cards.draft.json`): `as_rustam_zaman`, `as_fazl_khan`,
+  `sw_siddi_hilal` (unpainted, placeholder frame), `sw_bajiprabhu`, `sw_shiva_kashid` (TRADITION),
+  `as_siddi_masud`. `as_siddi_jauhar` and `as_angrezi_gola` stay in the draft (no siege part yet).
+- **Khind (Phase 2 step 2):** `frontSize` in `newGame`/`GameState` (Swarajya only); `frontCap`/`isKhind`
+  in `ruleset.ts`; `canMove`, ferry room, preset fronts, `ai.ts`'s advance limits, `search.ts`'s front
+  value. Glossary entry, briefing line, lane label "KHIND · ONLY 2". `tests/khind.test.ts` (6).
+- **ch05 Kolhapur** (`kolhapur.ts`, 28 Dec 1659, destroy, hemanta): 54.0% over 300 games.
+- **ch06 Panhala and the Pass** (`pavankhind.ts`, 12–13 July 1660, survive 8, Khind of 2, varsha, Baji
+  Prabhu preset on the front). The enemy AI never attacks Baji Prabhu, so the lever is a small Swarajya
+  deck and attrition on the Durg.
+- **Bug found by the playtest:** the result screen said VICTORY with the player's Durg at −2. In
+  `startTurn`, attrition from the draw ended the game, then the survive clock overwrote it with a win.
+  Fix: return before the clock if the game is already over (`isYuddhRules` only, so classic and the golden
+  traces are unchanged). `tests/survive-attrition.test.ts` fails without the fix. The earlier Pavan figure
+  (56%) was almost all false wins: it dropped to 0%. Rebalanced to a deck of 8 (4 Mavla): **57.3%**.
+  Other chapters unchanged (Torna 58.3, Jaoli 50.0, Kolhapur 54.0; Pratapgad 0.7, known).
+- History notes for both chapters; Pratapgad now leads to Kolhapur; campaign map nodes added.
+
+**Verified:** `npm test` (check-refs OK, 140 passed incl. golden), `npx tsc --noEmit`, `npm run build`.
+Real playtest of Pavan Khind (headless Chrome, 1600×900 and 915×412): briefing with the Khind line, History
+panel, a full battle won on turn 9 with the Durg at 3, the win text labels the gun signal as tradition,
+zero console errors. At phone width the lane label was hidden by the cards; it was shortened.

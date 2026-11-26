@@ -4,7 +4,7 @@
    never cheat. Phase 2 replaces this with a search-based AI; until
    then it must play exactly like the prototype (golden test).
    ============================================================ */
-import { isYuddhRules } from './ruleset';
+import { frontCap, isYuddhRules } from './ruleset';
 import { CARDS } from './cards';
 import {
   allUnits, applyAction, canAttack, canFallback, canMove, canPlay, findUnit, isGadCard, koshaCost, other, wouldRout
@@ -204,7 +204,7 @@ function advance(st: GameState, pIdx: PlayerIndex, level: AiLevel): void {
   while (guard++ < 12) {
     const p = st.players[pIdx];
     if (st.front.owner !== null && st.front.owner !== pIdx) break;
-    if (st.front.units.length >= 4) break;
+    if (st.front.units.length >= frontCap(st)) break;
     const movable = p.support.filter(u => canMove(st, pIdx, u.uid).ok);
     if (!movable.length) break;
     movable.sort((a, b) => (b.atk + b.hp) - (a.atk + a.hp));
@@ -272,7 +272,7 @@ function hardCombatPhase(st: GameState, pIdx: PlayerIndex): void {
   while (guard++ < 12) {
     const p = st.players[pIdx];
     if (st.front.owner !== null && st.front.owner !== pIdx) break;
-    if (st.front.units.length >= 4) break;
+    if (st.front.units.length >= frontCap(st)) break;
     const movable = p.support.filter(u => canMove(st, pIdx, u.uid).ok);
     if (!movable.length) break;
     movable.sort((a, b) => (b.atk + b.hp) - (a.atk + a.hp));

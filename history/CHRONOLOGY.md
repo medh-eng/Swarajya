@@ -253,7 +253,7 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Date:** 28 December 1659
 - **Event:** After Pratapgad the Marathas pushed south (Panhala came into Shivaji's hands; Vasota and other forts fell). The Bijapur general Rustam Zaman, with Fazl Khan (Afzal's son), came up near Miraj; Shivaji attacked first, early on 28 December, and Rustam Zaman fled the field by afternoon. Siddi Hilal fought on Shivaji's side against Rustam Zaman and Fazl Khan (one account places that fight near Raibag in early 1660) — he had served under Afzal Khan at Pratapgad weeks earlier and changed sides after that defeat (CONTESTED #29, resolved).
 - **Basis:** HISTORY (battle, result; Siddi Hilal's switch of sides) · VERIFY (troop numbers 10,000 vs 3,500 and casualty figures: do not use)
-- **Refs:** W-KOLHAPUR, W-RUSTAM, W-GOODREADS-HILAL, W-PANHALA-FORT, W-PRATAPGAD
+- **Refs:** W-KOLHAPUR, W-RUSTAM, W-GOODREADS-HILAL, W-PANHALA-FORT, W-PRATAPGAD, W-SARKAR-CH4 (second independent source for the battle and result, checked 26 Nov 2026, session 11)
 - **Game:** `ch05_kolhapur`; cards `as_rustam_zaman`, `sw_siddi_hilal`
 
 ---
@@ -264,14 +264,14 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Date:** from 2 March 1660
 - **Event:** Bijapur sent the Abyssinian general Siddi Jauhar, with Fazl Khan and Siddi Masud, to besiege Shivaji in Panhala. Siddi Jauhar bought grenades from the English at Rajapur and hired English gunners. Netaji Palkar harassed the besiegers from outside; Siddi Hilal and his son Siddi Wahwah fought with him (Wahwah was wounded and captured). At the same time the Mughals invaded from the north (see C-1660-CHAKAN).
 - **Basis:** HISTORY
-- **Refs:** W-PANHALA1660, W-SHIVAJI, W-GOODREADS-HILAL
+- **Refs:** W-PANHALA1660, W-SHIVAJI, W-GOODREADS-HILAL, W-SARKAR-CH4
 - **Game:** `ch06_pavankhind` (part 1: the breakout); card `as_angrezi_gola`
 
 ### C-1660-PAVANKHIND · The pass of Ghod Khind (Pavan Khind)
 - **Date:** night of 12–13 July 1660
 - **Event:** Shivaji slipped out of Panhala at night in rain with a small force and made for Vishalgad. Pursued by Siddi Masud, he left Baji Prabhu Deshpande and the Bandal contingent to hold the Ghod Khind (Gajapur) pass. The Jedhe chronicle records that they fought hard, Baji Prabhu and others fell, and the enemy could not climb the pass; Shivaji reached Khelna (Vishalgad). The pass is remembered as Pavan Khind ("the sacred pass").
 - **Basis:** HISTORY. TRADITION: Shiva Kashid dressed as Shivaji to draw pursuit and was killed; the cannon shots from Vishalgad signalling Shivaji's safe arrival. Show both as tradition.
-- **Refs:** W-PAVAN, W-PANHALA1660, W-BAJIPRABHU
+- **Refs:** W-PAVAN, W-PANHALA1660, W-BAJIPRABHU, W-SARKAR-CH4 (Sarkar: the escape from Panhala and Baji Prabhu at the pass; he states the Vishalgad gun signal as fact, but we keep it TRADITION as decided)
 - **Game:** `ch06_pavankhind` (part 2: hold the pass); cards `sw_bajiprabhu`, `as_siddi_masud`
 
 ### C-1660-RAJAPUR · Rajapur and the English factors

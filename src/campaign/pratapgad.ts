@@ -32,6 +32,8 @@ export const PRATAPGAD: Scenario = {
   winText: turn => `Afzal Khan's army breaks in turn ${turn}. Pratapgad's name will travel far beyond the Maval.`,
   loseText: "The line breaks below Pratapgad. The rebellion's first great test is lost.",
   goLabel: 'To the meeting below Pratapgad',
+  nextId: 'ch05_kolhapur',
+  nextLabel: 'Kolhapur',
   playerDeck, enemyDeck,
   bhet: {
     intro: "Afzal Khan's tent stands in a cleared space on the slope below the fort. You will meet him with only a few men at your side — he asks the same of you. How do you come to the meeting?",
@@ -41,6 +43,7 @@ export const PRATAPGAD: Scenario = {
   // Phase 1 step 8 (TASKS.md), unreviewed — see src/i18n.ts
   mr: {
     title: 'प्रतापगड',
+    nextLabel: 'कोल्हापूर',
     place: 'प्रतापगड किल्ल्याच्या पायथ्याशी',
     briefing: 'अफझल खान तुमचे बंड मोडून काढण्यासाठी विजापूरहून निघाला आहे. त्याने किल्ल्याच्या पायथ्याशी खासगी भेटीची मागणी केली आहे, दोघांनीही फक्त थोडे रक्षक घेऊन यावे. त्या तंबूत तुम्ही कसे जाता, हे नंतरच्या लढाईइतकेच महत्त्वाचे ठरू शकते.',
     objective: 'किल्ल्याच्या पायथ्याशी अफझल खानाला भेटा, मग त्याचे सैन्य उद्ध्वस्त करा.',

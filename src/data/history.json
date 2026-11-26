@@ -466,6 +466,52 @@
       "otherSide": "Sources unfriendly to Shivaji describe the meeting as a premeditated killing of a general who had come under a pledge of safety, not a response to an attack on him.",
       "source": "Sources: the Sabhasad chronicle; an English factor's letter of 10 December 1659 (Henry Revington); Babasaheb Purandare, Raja Shivachhatrapati, Vol. I.",
       "epilogue": "The victory at Pratapgad broke Bijapur's attempt to crush the new state in the hills, and Shivaji's name began to travel far beyond the Maval."
+    },
+    "ch05_kolhapur": {
+      "kicker": "KOLHAPUR · 1659",
+      "happened": "After Afzal Khan's death at Pratapgad in November 1659, Shivaji pushed south: Panhala came into his hands and Vasota and other forts fell. Bijapur sent the general Rustam Zaman, with Afzal Khan's son Fazl Khan, and they came up near Miraj. Shivaji did not wait: he attacked first, early on 28 December 1659, and by the afternoon Rustam Zaman had fled the field.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "The battle near Kolhapur on 28 December 1659, Shivaji's first strike and Rustam Zaman's flight are recorded, and Panhala was in Shivaji's hands by then."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "Siddi Hilal had served under Afzal Khan at Pratapgad weeks earlier and changed sides after that defeat; he fought for Shivaji against Rustam Zaman and Fazl Khan. One account places that fight near Raibag in early 1660 rather than on this day."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The cards, the dawn deployment and the turn count are the game's own. Later accounts give large numbers for both armies and the dead; they disagree, and the game shows none."
+        }
+      ],
+      "otherSide": "For Bijapur this was a second defeat in two months; its answer, early in 1660, was a new expedition under Siddi Jauhar.",
+      "source": "Sources: Jadunath Sarkar, Shivaji and His Times, ch. IV (W-SARKAR-CH4); the encyclopedia accounts of the battle and of Panhala fort (W-KOLHAPUR, W-PANHALA-FORT); Govind Pansare, Who Was Shivaji? (W-GOODREADS-HILAL).",
+      "epilogue": "From early March 1660 Siddi Jauhar, with Fazl Khan and Siddi Masud, laid siege to Shivaji in Panhala."
+    },
+    "ch06_pavankhind": {
+      "kicker": "PAVAN KHIND · 1660",
+      "happened": "From March 1660 the Bijapur general Siddi Jauhar, with Fazl Khan and Siddi Masud, besieged Shivaji in Panhala; he bought grenades from the English factors at Rajapur, and some Englishmen served his guns. Netaji Palkar harassed the besiegers from outside, while the Mughals invaded from the north. On the night of 12–13 July Shivaji slipped out of Panhala in the rain with a small force and made for Vishalgad. Pursued by Siddi Masud, he left Baji Prabhu Deshpande and the Bandal men to hold the pass of Ghod Khind. The Jedhe chronicle records that they fought hard, that Baji Prabhu and others fell, and that the enemy could not climb the pass. Shivaji reached Vishalgad.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "The escape from Panhala, Siddi Masud's pursuit, the stand at Ghod Khind, Baji Prabhu's death and Shivaji's arrival at Vishalgad are recorded. The pass is remembered as Pavan Khind, the sacred pass."
+        },
+        {
+          "basis": "TRADITION",
+          "text": "Shiva Kashid rode out dressed as the Raje to draw the pursuit and was killed. Tradition also tells that guns fired from Vishalgad told the defenders the Raje was safe. Both are told as tradition here."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "In history Baji Prabhu fell in the pass. In the game you can hold it and live; if you lose, the pass is forced, which did not happen."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The eight turns, the narrow Yudhbhumi that holds only two, and the small Swarajya deck are the game's way of showing a few men holding many. The game gives no numbers for either side."
+        }
+      ],
+      "otherSide": "For Bijapur the siege still ended in its favour: with the Mughals advancing in the north, Shivaji made terms and Panhala was handed over in September 1660.",
+      "source": "Sources: the Jedhe chronicle, as quoted in the encyclopedia account of the battle (W-PAVAN); Jadunath Sarkar, Shivaji and His Times, ch. IV (W-SARKAR-CH4); the encyclopedia accounts of the siege and of Baji Prabhu (W-PANHALA1660, W-BAJIPRABHU); Sarkar on Rajapur and the English (W-SARKAR-RAJAPUR).",
+      "epilogue": "Panhala was not regained for good until 1673. Meanwhile, in the north, the Mughal viceroy Shaista Khan took Chakan in August 1660 and settled in the Lal Mahal in Pune."
     }
   }
 }

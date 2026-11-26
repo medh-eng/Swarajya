@@ -51,8 +51,11 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
        (10 cases, incl. both AI-value branches). None of the four cards are in a vertical-slice deck yet
        (no Phase 2 chapter built), so this ships with no visible gameplay change — a build/test/playtest
        regression check only, confirming `ganimFallback()` no-ops harmlessly for every existing scenario.
-2. [ ] Khind (`frontSize`) — replaces the hard-coded Yudhbhumi size of 4 in `rules.ts` for chapters fought
-       in a narrow pass (Pavan Khind, ch06). Touches both `>= 4` checks noted in STATE.md's engine section.
+2. [x] **Khind (`frontSize`) built 26 Nov 2026, session 11.** `frontCap(st)`/`isKhind(st)` in `ruleset.ts`
+       (Swarajya rules only; classic/YUDDH always 4); used by `canMove`, ferry room, preset fronts, both AI
+       advance limits and the search's front-holding value. Glossary + briefing + lane label. `tests/khind.test.ts`.
+       Also fixed the same session: on the last turn of a `survive` chapter a Durg killed by attrition was
+       declared a win (`startTurn`, gated by `isYuddhRules`; `tests/survive-attrition.test.ts`).
 3. [ ] Ratra (night) and the `raid` objective, then enemy Gads on the board (Chakan's `durgWard`,
        Sindhudurg/Khanderi's `shipsAtk` — typed in `GadEffect` since step 2 but unapplied).
 4. [~] **Chapter 3 (Jaoli) built 26 Nov 2026, session 10** — `src/campaign/jaoli.ts`, between Torna and
@@ -60,9 +63,17 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
        `jm_hanmantrao` (now HISTORY, 3 sources), `jm_jaoli_foot` ported. Balance harness: 50.0% player wins
        (enemy Durg 22; a free pre-placed Jaoli Foot made it 1% and was removed). History note with both
        accounts (CONTESTED #4, #27, new #30). **Pon: please play it** (Campaign → Jaoli).
-       Next chapter: 5 (Kolhapur) — needs `sw_siddi_hilal` painted, and `as_rustam_zaman`/`as_fazl_khan`
-       ported; no new mechanic. Then 6 (Pavan Khind) — all art now painted, but needs step 2 (Khind) first.
-       Remaining: 5 (Kolhapur), 6 (Pavan Khind), 7 (Chakan), 8 (Umberkhind), 9 (Lal Mahal), 10
+       **Chapters 5 (Kolhapur, 54.0%) and 6 (Panhala and the Pass, 57.3%) built 26 Nov 2026, session 11.**
+       Pon: please play both (Campaign → Kolhapur, then Pavan Khind).
+       Loose ends from session 11:
+       - `sw_siddi_hilal` is decked in Kolhapur but still unpainted (draws the placeholder frame).
+       - `as_siddi_jauhar` and `as_angrezi_gola` are painted but not in the game: they need a Panhala-siege
+         part of ch06 or the grenade effect. Kept in `data/cards.draft.json`.
+       - Pavan Khind's balance is a cliff (player deck of 7 gives 0%, 8 gives 57%, 9 gives 97%): recheck at Gate.
+       - The map's Act header still says "ACT I" for the Act II chapters (5, 6).
+       - Phone width: the briefing's place/year line runs under the History button (all chapters).
+       Next chapter: 7 (Chakan) — needs Phase 2 step 3 (enemy Gads, `durgWard`) first.
+       Remaining: 7 (Chakan), 8 (Umberkhind), 9 (Lal Mahal), 10
        (Surat), 11 (Purandar treaty scene) — each needs its own chronology check (two independent sources
        per fact, D-22) before it ships, not just the mechanic that powers it.
 5. [ ] Mughal faction cards (new empire, alongside `swarajya`/`adilshahi`).

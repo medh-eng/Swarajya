@@ -223,33 +223,6 @@
       "_engine": "NEW type gad"
     },
     {
-      "id": "sw_siddi_hilal",
-      "name": "Siddi Hilal",
-      "sub": "Cavalry Commander",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 4,
-      "op": 1,
-      "atk": 3,
-      "hp": 4,
-      "range": "melee",
-      "kw": [
-        "veg"
-      ],
-      "deploy": "buffLine",
-      "text": "Vega. Deploy — your other units in this line get +1 attack.",
-      "rarity": "epic",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1659-PRATAPGAD",
-        "C-1659-KOLHAPUR",
-        "C-1660-PANHALA-SIEGE",
-        "C-1672-SALHER",
-        "C-X-OFFICERS"
-      ],
-      "phase": 2
-    },
-    {
       "id": "sw_netaji",
       "name": "Netaji Palkar",
       "sub": "Sarnaubat",
@@ -274,50 +247,6 @@
       ],
       "phase": 2,
       "_engine": "NEW deploy"
-    },
-    {
-      "id": "sw_bajiprabhu",
-      "name": "Baji Prabhu Deshpande",
-      "sub": "Holder of the Pass",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 5,
-      "op": 1,
-      "atk": 3,
-      "hp": 7,
-      "range": "melee",
-      "kw": [
-        "raksha"
-      ],
-      "text": "Raksha. Never breaks. Holds the Yudhbhumi alone if he must.",
-      "rarity": "legendary",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1660-PAVANKHIND"
-      ],
-      "phase": 2
-    },
-    {
-      "id": "sw_shiva_kashid",
-      "name": "Shiva Kashid",
-      "sub": "The Decoy",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 2,
-      "op": 1,
-      "atk": 0,
-      "hp": 3,
-      "range": "melee",
-      "kw": [
-        "raksha"
-      ],
-      "text": "Raksha. TRADITION: he rode out dressed as the Raje to draw the pursuit.",
-      "rarity": "rare",
-      "basis": "TRADITION",
-      "refs": [
-        "C-1660-PAVANKHIND"
-      ],
-      "phase": 2
     },
     {
       "id": "sw_firangoji",
@@ -694,52 +623,6 @@
       "_engine": "NEW type gad"
     },
     {
-      "id": "as_fazl_khan",
-      "name": "Fazl Khan",
-      "sub": "Afzal Khan's Son",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 4,
-      "op": 1,
-      "atk": 3,
-      "hp": 4,
-      "range": "melee",
-      "kw": [
-        "veg"
-      ],
-      "text": "Vega.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1659-KOLHAPUR",
-        "C-1660-PANHALA-SIEGE"
-      ],
-      "phase": 2
-    },
-    {
-      "id": "as_rustam_zaman",
-      "name": "Rustam Zaman",
-      "sub": "General of Bijapur",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 6,
-      "op": 2,
-      "atk": 4,
-      "hp": 6,
-      "range": "melee",
-      "kw": [
-        "veg"
-      ],
-      "deploy": "buffLine",
-      "text": "Vega. Deploy — his other units in this line get +1 attack.",
-      "rarity": "legendary",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1659-KOLHAPUR"
-      ],
-      "phase": 2
-    },
-    {
       "id": "as_siddi_jauhar",
       "name": "Siddi Jauhar",
       "sub": "Besieger of Panhala",
@@ -761,28 +644,6 @@
       ],
       "phase": 2,
       "_engine": "NEW aura (siege tick)"
-    },
-    {
-      "id": "as_siddi_masud",
-      "name": "Siddi Masud",
-      "sub": "The Pursuer",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 5,
-      "op": 1,
-      "atk": 4,
-      "hp": 4,
-      "range": "melee",
-      "kw": [
-        "veg"
-      ],
-      "text": "Vega. Hunts the road to Vishalgad.",
-      "rarity": "epic",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1660-PAVANKHIND"
-      ],
-      "phase": 2
     },
     {
       "id": "as_angrezi_gola",

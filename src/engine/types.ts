@@ -175,6 +175,8 @@ export interface GameState {
   scenarioName: string | null;
   rules?: Ruleset;
   season?: Season;
+  /** DESIGN 3.2 Khind (Swarajya rules only): how many units the Yudhbhumi holds; unset = 4 */
+  frontSize?: number;
   rng: () => number;
 }
 
@@ -231,6 +233,8 @@ export interface NewGameOptions {
       'swarajya' = everything in 'yuddh' plus the Swarajya mechanics (see isYuddhRules) */
   rules?: Ruleset;
   season?: Season;
+  /** DESIGN 3.2 Khind: a mountain pass, where the Yudhbhumi holds only this many units (Swarajya rules only; default 4) */
+  frontSize?: number;
 }
 export type Ruleset = 'classic' | 'yuddh' | 'swarajya';
 /** Ritu, the season a battle is fought in (Yuddh rules) */

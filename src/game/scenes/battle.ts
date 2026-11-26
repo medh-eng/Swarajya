@@ -18,7 +18,7 @@ import {
   CARDS, EMPIRES, RANK_NAMES, SEASONS, dharmaOf, strikeDamage, actionObservers, findUnit, aiTurn, allUnits, applyAction, canAttack, canCharge, canMove, canPlay, koshaCost,
   drainEvents, swapSides, fixTurnAfterEnd, type Action, type AiLevel, type GameEvent, type Season, type GameState, type PlayerIndex, type Target, type Unit
 } from '../../engine';
-import { mirrorAction, syncHash, isYuddhRules } from '../../engine';
+import { mirrorAction, syncHash, isYuddhRules, frontCap, isKhind } from '../../engine';
 import type { NetMsg } from '../net/link';
 import { FIRST_THRONE_SCENARIO } from '../../campaign/firstThrone';
 import type { Scenario } from '../../campaign/scenario';
@@ -36,7 +36,7 @@ import { canFullscreen, toggleFullscreen } from '../fullscreen';
 import { DurgView, HandCard, TOKEN_DH, TOKEN_DW, TokenView, drawDiyas, stopTweens } from '../cards/views';
 import { makeButton } from '../ui/button';
 import { glossPanel, inspectOverlay, type InspectExtra } from '../ui/inspect';
-import { glossFor } from '../ui/glossary';
+import { glossFor, khindText } from '../ui/glossary';
 import { epiloguePanel, historyPanel } from '../ui/historyPanel';
 import { historyOf } from '../../data';
 import { loadArt, loadBattlefield, orTimeout } from '../../assets/manifest';
@@ -463,6 +463,8 @@ export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST
     baseLevel = st.aiLevel;
     if (!sc.coached) st.aiLevel = foeLevel(baseLevel);
     drainEvents(st);
+    // Khind (DESIGN 3.2): name the narrow middle line so the player sees the pass before the rule bites
+    laneLabels[1].text = isKhind(st) ? `KHIND · ONLY ${frontCap(st)}` : 'YUDHBHUMI';
     shown = snapshot(st);
     intense = false;
     clearBoard();
@@ -509,7 +511,8 @@ export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST
     const t3 = new Text({ text: sc.briefing, style: { fontFamily: fontFor(sc.briefing, FONT_STORY), fontWeight: '500', fontSize: Math.round(30 * k), fill: INK.creamBright, wordWrap: true, wordWrapWidth: wrap, lineHeight: Math.round(42 * k) } });
     const t4 = new Text({ text: sc.objective, style: { fontFamily: fontFor(sc.objective, FONT_STORY), fontWeight: '500', fontSize: Math.round(27 * k), fontStyle: fontFor(sc.objective, FONT_STORY) === FONT_STORY ? 'italic' : 'normal', fill: INK.gold, wordWrap: true, wordWrapWidth: wrap } });
     const ss = SEASONS[st.season ?? 'sharad'];
-    const t5 = new Text({ text: `${ss.name.toUpperCase()} · ${ss.english.toUpperCase()}\n${ss.rule}`, style: { fontFamily: FONT_BODY, fontSize: Math.round(24 * k), fontWeight: '700', fill: SEASON_TINT[st.season ?? 'sharad'], wordWrap: true, wordWrapWidth: wrap, lineHeight: Math.round(32 * k) } });
+    const khindLine = isKhind(st) ? `\nKHIND · THE PASS\n${khindText(frontCap(st))}` : '';
+    const t5 = new Text({ text: `${ss.name.toUpperCase()} · ${ss.english.toUpperCase()}\n${ss.rule}${khindLine}`, style: { fontFamily: FONT_BODY, fontSize: Math.round(24 * k), fontWeight: '700', fill: SEASON_TINT[st.season ?? 'sharad'], wordWrap: true, wordWrapWidth: wrap, lineHeight: Math.round(32 * k) } });
     t2.style.fontSize = L.phone ? 76 : 86;
     while (t2.width > (L.phone ? W - tx - 24 : W - tx - 40) && +t2.style.fontSize > 48) t2.style.fontSize = +t2.style.fontSize - 2; // long titles step down to fit
     t1.position.set(tx, L.phone ? 34 : 260); t2.position.set(tx - 4, L.phone ? 64 : 296);

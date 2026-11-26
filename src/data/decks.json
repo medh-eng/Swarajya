@@ -699,5 +699,34 @@
 "as_hasham*6",
 "as_gaja*3"
 ]
+},
+"ch05_kolhapur": {
+"player": [
+"sw_shivaji*1",
+"sw_siddi_hilal*1",
+"sw_shiledar*3",
+"sw_bargir*3",
+"sw_mavla*4",
+"sw_havaldar*2",
+"sw_jijau_counsel*2"
+],
+"enemy": [
+"as_rustam_zaman*1",
+"as_fazl_khan*1",
+"as_hasham*7",
+"as_gaja*2"
+]
+},
+"ch06_pavankhind": {
+"player": [
+"sw_mavla*4",
+"sw_hetkari*3",
+"sw_shiva_kashid*1"
+],
+"enemy": [
+"as_siddi_masud*1",
+"as_hasham*8",
+"as_gaja*3"
+]
 }
 }

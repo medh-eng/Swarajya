@@ -3,9 +3,19 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 26 Nov 2026 (session 10) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (step 1 done; step 4 begun: ch03 Jaoli built)** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 26 Nov 2026 (session 11) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (steps 1–2 done; step 4: ch03 Jaoli, ch05 Kolhapur, ch06 Pavan Khind built)** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
+**Session 11 (26 Nov 2026):** **Phase 2 step 2, Khind, is built** (`frontSize`; `frontCap`/`isKhind` in
+`ruleset.ts`; Swarajya-only, golden test unchanged). **Chapter 5 Kolhapur** (destroy, Rustam-i-Zaman and
+Fazl Khan, Siddi Hilal on the Raje's side; 54.0%) and **chapter 6 Panhala and the Pass / Pavan Khind**
+(survive 8 turns in a Khind of 2, as Baji Prabhu; monsoon; 57.3%) are built and playable. Map order:
+Maval → Torna → Jaoli → Pratapgad → Kolhapur → Pavan Khind. Six cards ported (`as_rustam_zaman`,
+`as_fazl_khan`, `sw_siddi_hilal`, `sw_bajiprabhu`, `sw_shiva_kashid` (TRADITION), `as_siddi_masud`).
+The playtest found an engine bug, now fixed: on the last turn of a `survive` chapter, a Durg killed by
+attrition was shown as VICTORY (`startTurn`, gated by `isYuddhRules`, regression test added). Next:
+Phase 2 step 3 (enemy Gads / `durgWard`, Ratra, `raid`), which ch07 Chakan needs. Loose ends in TASKS.md.
+
 **Session 10 (26 Nov 2026):** art batch 4 (Pavan Khind) fully painted and registered (30 card paintings,
 6 battlefields incl. `ghod_khind`). **Chapter 3, Jaoli, built and playable** (`src/campaign/jaoli.ts`;
 map order is now Maval → Torna → Jaoli → Pratapgad): new empire `jaoli` (dark-teak frame), three Jaoli
@@ -63,9 +73,8 @@ Phase 2's first chapter.
      decision from Pon on Afzal Khan (three options written up in `TASKS.md` step 10) before another
      harness/fix pass makes sense — read that before touching `as_afzal_khan` or `ch04_pratapgad`.
    - **Continue Phase 2**: `TASKS.md` → "For Claude: Phase 2", step 1 (Ganim) is done; continue with
-     step 2 (Khind — `frontSize`, replacing the hard-coded Yudhbhumi size of 4 — two `>= 4` checks in
-     `rules.ts`, per the engine-baseline notes below), then Ratra/`raid`, then the Act I/II chapters
-     themselves. Either kind of work (finishing Phase 1 or continuing Phase 2) can proceed; they don't
+     step 3 (Ratra/`raid`, enemy Gads with `durgWard` for Chakan), then chapters 7-11. Steps 1 (Ganim)
+     and 2 (Khind) are done; chapters 3, 5 and 6 are built. Either kind of work (finishing Phase 1 or continuing Phase 2) can proceed; they don't
      block each other. durgWard/shipsAtk (Chakan, Sindhudurg, Khanderi, Panhala) are recorded in the
      `GadEffect` type but unapplied — wire them in when their chapter is built (Phase 2 step 3).
 3a. **The Bhet scene's Marathi was reviewed by reading the code, not seen live** (reaching it needs the
@@ -96,7 +105,7 @@ Phase 2's first chapter.
 | Roadmap | `docs/PLAN.md` | v1 (Phase 0 done) |
 | Chronology (single source of truth) | `history/CHRONOLOGY.md` | 73 entries; Purandare pp. 154-169, 207-284 recorded (Torna to the Pratapgad meeting); VERIFY items below |
 | Sources | `history/SOURCES.md` | P/S/W lists; primary texts still to obtain |
-| Contested points | `history/CONTESTED.md` | 29 items; #27-#29 open (Baji More's fate; elder Sambhaji and Afzal; Siddi Hilal's side in 1659) |
+| Contested points | `history/CONTESTED.md` | 30 items; #27-#29 open (Baji More's fate; elder Sambhaji and Afzal; Siddi Hilal's side in 1659) |
 | People and spellings | `history/PEOPLE.md` | v1 |
 | AI reports review | `history/AI-REPORTS-REVIEW.md` | ChatGPT and Gemini reports checked claim by claim |
 | Purandare check list | `history/PURANDARE-CHECK.md` | Rows checked from the pages Pon sent (not a gate, D-22); no more pages needed unless a point is disputed |
@@ -106,10 +115,10 @@ Phase 2's first chapter.
 | Engine (rules, AI, search) | `src/engine/` | YUDDH baseline + `ruleset.ts` (`isYuddhRules`, `isSwarajyaRules`); **Gad card type + `capture` objective** (DESIGN 3.1, 3.6; session 8); **Bhet mechanic** (`bhet.ts`: `chooseBhetStance`, `resolveBhet`; DESIGN 3.5; session 8); **Ganim keyword** (`canFallback` + `fallback` Action, `ganimFallback` AI heuristic; DESIGN 3.3; Phase 2 step 1, session 8) |
 | Renderer, scenes, UI | `src/game/` | YUDDH baseline + `scenes/swarajyaTitle.ts` (real buttons + language toggle, session 8); `scenes/bhet.ts` (parley scene, session 8); square art window for Gad; `loadBattlefield` falls back to a drawn ground; History panel supports `CONTESTED`/`otherSide`; `theme.ts`'s `hasDevanagari`/`fontFor` pick a safe font for Marathi text (session 8 step 8) |
 | Localization | `src/i18n.ts` | `Lang`/`pick`/`getLang`/`setLang`/`toggleLang` (session 8 step 8); vertical-slice-only Marathi (title, chapter text, Bhet scene) — unreviewed, pending Q-05; generic battle chrome still English |
-| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17) + `swarajya` list: 11 cards (7 Swarajya, 3 Adilshahi, 1 neutral — 4 of them Gads); decks + History notes for `ch00_maval`/`ch01_torna`/`ch03_jaoli`/`ch04_pratapgad`; empire `jaoli` + 3 `jm_` cards (session 10); `rules.json`'s `"bhet"` (AI odds, wound fraction) |
-| Campaign code | `src/campaign/` | YUDDH's kept as scaffolding (D-17) + `mavalTutorial.ts`/`torna.ts`/`pratapgad.ts` (now with `bhet` config) and `SWARAJYA`/`SWARAJYA_CAMPAIGN` (kept out of the global `CAMPAIGNS` array — see LOG.md session 8); `missions.ts` must stay (golden test) |
+| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17) + `swarajya` list: 11 cards (7 Swarajya, 3 Adilshahi, 1 neutral — 4 of them Gads); decks + History notes for `ch00_maval`/`ch01_torna`/`ch03_jaoli`/`ch04_pratapgad`/`ch05_kolhapur`/`ch06_pavankhind`; empire `jaoli` + 3 `jm_` cards (session 10); `rules.json`'s `"bhet"` (AI odds, wound fraction) |
+| Campaign code | `src/campaign/` | YUDDH's kept as scaffolding (D-17) + `mavalTutorial.ts`/`torna.ts`/`jaoli.ts`/`pratapgad.ts` (with `bhet` config)/`kolhapur.ts`/`pavankhind.ts` and `SWARAJYA`/`SWARAJYA_CAMPAIGN` (kept out of the global `CAMPAIGNS` array — see LOG.md session 8); `missions.ts` must stay (golden test) |
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → [Bhet scene when `sc.bhet` is set] → battle → next chapter, fully wired (session 8; was a placeholder) |
-| Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`, `bhet.test.ts`, `ganim.test.ts`; `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
+| Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`, `bhet.test.ts`, `ganim.test.ts`, `khind.test.ts`, `survive-attrition.test.ts`, `balance.harness.test.ts` (BALANCE=1); `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main; live at https://medh-eng.github.io/Swarajya/ (was 7 commits stale — pushed and confirmed live, session 8) |
 | Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH4.md` | Batch 1 and 2: fully painted. Batch 3 (Kolhapur, ch5): 3 of 4 painted — **`sw_siddi_hilal` still outstanding**. Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 30 card paintings registered total |
 | Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 3 of 3 battlefields (`torna`, `pratapgad`, `maval` — Pon painted `maval` 25 Nov 2026, same session) |
@@ -124,8 +133,8 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
   Swarajya mechanic lands, keep that test for games that do not use the mechanic.
 - Useful facts: objectives `survive`, `deadline` and (since session 8) `capture` exist (`Objective` in
   `types.ts`, checked in `rules.ts` at turn start, plus `capture` the instant it's achieved via
-  `checkCapture`); the Yudhbhumi size is a hard-coded 4 in `rules.ts` (two `>= 4` checks), which the
-  Khind mechanic will replace with `frontSize`; Dhuan (hidden until it strikes) is the basis for Ratra.
+  `checkCapture`); the Yudhbhumi size comes from `frontCap(st)` (`ruleset.ts`): `frontSize` in a Swarajya
+  Khind chapter, otherwise 4 — never compare against a bare 4 again; Dhuan (hidden until it strikes) is the basis for Ratra.
 - Without art, `hasArt()` is false for every card, so cards draw their placeholder frame. Battle
   backgrounds (`loadBattlefield`) still expect files in `public/assets/battlefields/`; Phase 1 needs a
   fallback or Pon's first painting before a battle scene can open.
@@ -157,6 +166,11 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
   in which case it holds the ground instead. Glossary entry + a drawn `ganim` icon (unlike Bhet/`capture`,
   this is a card keyword). Cards: `sw_shivaji`, `sw_mavla`, `sw_havaldar`, `sw_shiledar` — none in a
   vertical-slice deck yet, so no visible gameplay change until a Phase 2 chapter uses them.
+- **Khind (Phase 2 step 2, session 11, DESIGN 3.2):** `Scenario` → `newGame({ frontSize })`, stored on
+  `GameState` only under Swarajya rules. `frontCap`/`isKhind` gate `canMove` ("The pass is full"), ferry
+  room, preset fronts, the AI's two advance limits and `search.ts`'s front value (weighted 4/frontCap).
+- **Clock objectives:** `startTurn` returns before the survive/deadline/capture clock if attrition already
+  ended the game that turn (Swarajya/YUDDH only; classic keeps its order for the golden traces).
 - **Marathi (Phase 1 step 8, session 8):** `src/i18n.ts` is a from-scratch `pick(en, mr)` overlay system
   (no DOM i18n library applies to a Pixi-rendered game) — `Scenario`/`Campaign` carry an optional `mr`
   field and `localizeScenario`/`localizeCampaign` apply it once at the top of `main.ts`, so `battle.ts`
@@ -219,10 +233,8 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 - "Bahlol Khan" at Salher (Mughal) vs the Bijapuri Bahlol Khan: assumed two people.
 
 ## Next three things
-1. Claude: online research pass (no book needed) on the VERIFY items: the Fateh Khan episode at Purandar 1648 (unblocks `ch02_purandar1648`), Javli 1647, the dates for Baji More's fate and Siddi Hilal's side (CONTESTED #27-#29), then the remaining "not yet checked" chronology rows (D-22).
-2. Claude: Phase 1 step 9 (remove YUDDH scaffolding) — or continue Phase 2 with step 2, Khind
-   (`TASKS.md` → "For Claude: Phase 2"; step 1, Ganim, is done). Either is fine; step 10 (balance + Gate 1)
-   is the only remaining Phase 1 item that needs Pon, not Claude.
-3. Pon: three painted cards (sw_dadoji, sw_gopinath, sw_jijau_counsel) are only 345 px wide and tight
-   at the top — redo them at 1080 px or wider if the tool allows. Otherwise art batch 1 is complete
-   (all 20 cards + all 3 battlefields painted, `maval` added 25 Nov 2026).
+1. Pon: play Kolhapur and Pavan Khind (Campaign map). Paint `sw_siddi_hilal` (batch 3's last card).
+2. Claude: Phase 2 step 3 (enemy Gads with `durgWard`, Ratra, `raid`), then ch07 Chakan with its own
+   chronology check (two sources per fact).
+3. Claude: the VERIFY research pass (Purandar 1648 unblocks `ch02_purandar1648`; CONTESTED #27-#29), and
+   Pratapgad's balance once Pon picks an Afzal Khan option (TASKS.md Phase 1 step 10).

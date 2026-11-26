@@ -29,6 +29,8 @@ import { aiTurn, type GameState } from '../src/engine';
 import { TORNA } from '../src/campaign/torna';
 import { JAOLI } from '../src/campaign/jaoli';
 import { PRATAPGAD } from '../src/campaign/pratapgad';
+import { KOLHAPUR } from '../src/campaign/kolhapur';
+import { PAVANKHIND } from '../src/campaign/pavankhind';
 
 const BAND: [number, number] = [45, 70]; // Gate 1 band, CLAUDE.md
 
@@ -59,5 +61,7 @@ function report(label: string, mk: (seed: number) => GameState, n = 300) {
 describe.skipIf(!process.env.BALANCE)('balance harness (run with BALANCE=1)', () => {
   it('Torna', () => { report('Torna', s => TORNA.game(s)); });
   it('Jaoli', () => { report('Jaoli', s => JAOLI.game(s)); });
+  it('Kolhapur', () => { report('Kolhapur', s => KOLHAPUR.game(s)); });
+  it('Pavan Khind', () => { report('Pavan Khind', s => PAVANKHIND.game(s)); });
   it('Pratapgad', () => { report('Pratapgad', s => PRATAPGAD.game(s)); });
 });

@@ -59,10 +59,13 @@ Rajgad: draw 1 extra every second turn; Pratapgad: your Raksha units +1 hp; a se
 - A Gad cannot be targeted by orders that "destroy" (only damage), so captures are fought for.
 - Some chapters start with Gads already on the board (enemy forts to take).
 
-### 3.2 Khind: the mountain pass battlefield — S/M
+### 3.2 Khind: the mountain pass battlefield — S/M (built, session 11)
 A scenario setting `frontSize` (default 4). In a **Khind** chapter the Yudhbhumi holds only **2**
 units. Few defenders can hold many attackers (Pavan Khind), or a column can be trapped in a defile
 (Umberkhind). The engine's "Yudhbhumi is full" check reads `frontSize` instead of the fixed 4.
+Built: `frontCap(st)` returns `frontSize` in Swarajya games (4 otherwise), so classic and YUDDH games
+and the golden test are unaffected. Pavan Khind is balanced by a small Swarajya deck: the enemy AI will
+not trade into Baji Prabhu, so attrition on the Durg is what can make the pass fall.
 
 ### 3.3 Ganim: strike and fade (ganimi kava) — M
 New keyword **Ganim**: after this unit attacks, you may pull it back to your Rajya line at no cost

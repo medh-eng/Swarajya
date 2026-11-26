@@ -4,7 +4,7 @@
    Each entry is a bold heading, a short plain-language line, and
    an icon. Wording follows the Yuddh rules (src/engine/rules.ts).
    ============================================================ */
-import { CARDS, EMPIRES, RANK_NAMES, isSteadfast, isYuddhRules, routLine, type GameState, type Season, type Unit } from '../../engine';
+import { CARDS, EMPIRES, RANK_NAMES, frontCap, isKhind, isSteadfast, isYuddhRules, routLine, type GameState, type Season, type Unit } from '../../engine';
 
 export type GlossIcon = 'charge' | 'foot' | 'ranged' | 'melee' | 'raksha' | 'veg' | 'rank' | 'deploy' | 'yantra'
   | 'shakti' | 'mantra' | 'kosha' | 'op' | 'empire' | 'wound' | 'gad' | 'ganim';
@@ -66,5 +66,10 @@ export function glossFor(cardId: string, unit?: Unit, cost?: number, season?: Se
   const printed = c.cost;
   if (cost !== undefined && cost < printed) out.push({ icon: 'kosha', title: `KOSHA ${cost}, NOT ${printed}`, body: "Cheaper this turn: your empire's gift." });
   if (c.empire !== 'neutral') out.push({ icon: 'empire', title: EMPIRES[c.empire].name.toUpperCase(), body: EMPIRES[c.empire].passive });
+  if (c.type === 'unit' && state && isKhind(state)) out.push({ icon: 'foot', title: 'KHIND', body: khindText(frontCap(state)) });
   return out;
 }
+
+/** DESIGN 3.2: the plain-language rule for a Khind (mountain pass) battle, for the glossary and the briefing */
+export const khindText = (n: number): string =>
+  `A mountain pass: only ${n} unit${n === 1 ? '' : 's'} can stand on the Yudhbhumi at once. A few defenders can hold back many.`;

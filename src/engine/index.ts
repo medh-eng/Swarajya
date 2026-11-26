@@ -1,5 +1,5 @@
 export * from './types';
-export { isYuddhRules, isSwarajyaRules } from './ruleset';
+export { isYuddhRules, isSwarajyaRules, frontCap, isKhind } from './ruleset';
 export { EMPIRES, EMPIRE_ORDER, CARDS, CARD_LIST, KW_LABEL } from './cards';
 export {
   newGame, applyAction, canPlay, canMove, canAttack, canFallback, findUnit, allUnits, koshaCost, canCharge, MAX_RANK, RANK_NAMES, SEASONS, strikeDamage, dharmaOf, DHARMA_MAX,

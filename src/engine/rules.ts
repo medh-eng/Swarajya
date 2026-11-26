@@ -3,7 +3,7 @@
    Ported line-for-line from the prototype engine; the golden
    trace test proves the two produce identical games.
    ============================================================ */
-import { isSwarajyaRules, isYuddhRules } from './ruleset';
+import { frontCap, isKhind, isSwarajyaRules, isYuddhRules } from './ruleset';
 import { CARDS, CARD_LIST, EMPIRES } from './cards';
 import { RULES } from '../data';
 import type {
@@ -327,6 +327,7 @@ export function newGame(opts: NewGameOptions): GameState {
     scenarioName: opts.scenarioName || null,
     rules: opts.rules || 'classic',
     season: isYuddhRules(opts.rules) ? opts.season || 'sharad' : undefined,
+    ...(isSwarajyaRules(opts.rules) && opts.frontSize ? { frontSize: opts.frontSize } : {}),
     rng: () => 0
   } as GameState;
   st.rng = rngFactory(st.seed);
@@ -334,13 +335,13 @@ export function newGame(opts: NewGameOptions): GameState {
   (st.players as Player[]).push(makePlayer(st, 'p1', opts.enemy));
 
   const preset = opts.preset || {};
-  (preset.enemyFront || []).forEach(cardId => {
+  (preset.enemyFront || []).slice(0, frontCap(st)).forEach(cardId => {
     const u = makeUnit(st, cardId, 1);
     u.canAct = true;
     st.front.units.push(u);
   });
   if (st.front.units.length) st.front.owner = 1;
-  (preset.playerFront || []).forEach(cardId => {
+  (preset.playerFront || []).slice(0, frontCap(st)).forEach(cardId => {
     if (st.front.owner !== null) return;
     const u = makeUnit(st, cardId, 0);
     u.canAct = true;
@@ -436,6 +437,10 @@ function startTurn(st: GameState, idx: PlayerIndex, first?: boolean): void {
 
   // clock objectives, checked when a new round begins
   const o = st.objective;
+  // a Durg that fell to attrition earlier in this same turn-start has already decided the game:
+  // the clock must not overwrite that loss with a 'survived' win (found in the ch06 playtest, session 11).
+  // Classic rules keep the old order so the golden traces replay unchanged.
+  if (st.over && isYuddhRules(st.rules)) return;
   if (idx === 0 && o.turns && st.turn > o.turns) {
     if (o.type === 'survive') {
       st.over = true; st.winner = 0; st.winReason = 'survive';
@@ -543,7 +548,7 @@ export function canMove(st: GameState, pIdx: PlayerIndex, uid: number): Check {
   if (isYuddhRules(st.rules) && u.attacked) return { ok: false, reason: 'It has already attacked this turn' };
   if (p.kosha < u.op) return { ok: false, reason: 'Not enough Kosha' };
   if (st.front.owner !== null && st.front.owner !== pIdx) return { ok: false, reason: 'The enemy holds the Yudhbhumi' };
-  if (st.front.units.length >= 4) return { ok: false, reason: 'The Yudhbhumi is full' };
+  if (st.front.units.length >= frontCap(st)) return { ok: false, reason: isKhind(st) ? 'The pass is full: only ' + frontCap(st) + ' can stand in the Khind' : 'The Yudhbhumi is full' };
   return { ok: true };
 }
 
@@ -586,7 +591,7 @@ export function canPlay(st: GameState, pIdx: PlayerIndex, handIdx: number, targe
 /** units that Sindhu Nauka can ferry: ready, on the Rajya line, room and right to hold the Yudhbhumi; strongest first */
 function ferryable(st: GameState, pIdx: PlayerIndex): Unit[] {
   if (st.front.owner !== null && st.front.owner !== pIdx) return [];
-  const room = 4 - st.front.units.length;
+  const room = frontCap(st) - st.front.units.length;
   return st.players[pIdx].support.filter(u => u.canAct && !u.moved && !u.attacked).sort((a, b) => b.atk - a.atk).slice(0, Math.max(0, room));
 }
 

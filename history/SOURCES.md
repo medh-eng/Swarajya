@@ -176,6 +176,7 @@ How it is used (also in CLAUDE.md):
 | W-BHARATPEDIA-HINDAVI | Bharatpedia copy, quoting Pagadi (1975) on the letter's language — https://en.bharatpedia.org/wiki/Hindavi_Swarajya | fair (quotes S-level work) |
 | W-RAJGAD | Wikipedia, "Rajgad" (Murumbdev; timeline; cites A. R. Kulkarni 2008) — https://en.wikipedia.org/wiki/Rajgad | fair |
 | W-HISTFILES-TORNA | History Files, Marathas part 4 (Torna, Murumbgad) — https://www.historyfiles.co.uk/FeaturesFarEast/India_EarlyModern_Marathas04.htm | fair |
+| W-SARKAR-CH4 | Sarkar, *Shivaji and His Times*, Wikisource ch. IV, pp. 82–84 (Rustam-i-Zaman and Fazl Khan defeated, Panhala taken; Siddi Jauhar's siege of Panhala, the escape, Baji Prabhu at the pass; Panhala given up about 25 Aug 1660) — https://kwx.liehendr.com/content/wikisource_en_all_maxi_2022-09/A/Shivaji_and_His_Times/Chapter_4 | good (= S-SARKAR, from Persian, Marathi and English factory records) |
 | W-SARKAR-RAJAPUR | Sarkar, *Shivaji and His Times*, Wikisource pp. 263–265 and 384 (Rajapur, the English prisoners) — https://kwx.liehendr.com/content/wikisource_en_all_maxi_2022-09/A/Page%3AShivaji_and_His_Times.djvu/404 | good (= S-SARKAR, from P-EFR) |
 | W-RAJAPUR | Wikipedia, "Rajapur, Maharashtra" (the 1660 episodes) — https://en.wikipedia.org/wiki/Rajapur,_Maharashtra | fair |
 | W-TAKAKHAV-RAJAPUR | Takakhav, ch. "The Bijapur Government on its Knees, 1661-62" — https://gathacognition.com/site/htmlview/54/book_article/open_access_plus | fair (= S-TAKAKHAV) |
