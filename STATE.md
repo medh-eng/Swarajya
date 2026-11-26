@@ -103,7 +103,7 @@ Phase 2's first chapter.
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → [Bhet scene when `sc.bhet` is set] → battle → next chapter, fully wired (session 8; was a placeholder) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`, `bhet.test.ts`, `ganim.test.ts`; `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main; live at https://medh-eng.github.io/Swarajya/ (was 7 commits stale — pushed and confirmed live, session 8) |
-| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH3.md`, batch 4 next | Batch 1 and 2: fully painted. Batch 3 (Kolhapur, ch5): 3 of 4 painted (`as_rustam_zaman`, `as_fazl_khan`, `kolhapur` battlefield) — **`sw_siddi_hilal` still outstanding**. Plus a bonus early painting, `sw_bajiprabhu` (chapter 6's hero), not on any sheet yet. 26 card paintings registered total |
+| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH4.md` | Batch 1 and 2: fully painted. Batch 3 (Kolhapur, ch5): 3 of 4 painted — **`sw_siddi_hilal` still outstanding**. Batch 4 (new, session 9): rest of chapter 6 (Pavan Khind) — `sw_bajiprabhu` (hero) already painted early; `as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola` + `ghod_khind` battlefield not yet painted. 26 card paintings registered total |
 | Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 3 of 3 battlefields (`torna`, `pratapgad`, `maval` — Pon painted `maval` 25 Nov 2026, same session) |
 | Sound | — | none yet (icons and favicon drawn in code) |
 

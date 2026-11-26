@@ -19,6 +19,10 @@
       any prompt sheet yet, uploaded as `sw_baji_prabhu.png` (extra underscore; the real card id has
       none) and renamed to match before registering. Now in `card-art.json` (26 card paintings total)
       and ready to use whenever chapter 6 (Pavan Khind) is built.
+- [ ] **New:** `art/PROMPTS-BATCH4.md` written (26 Nov 2026, session 9) — the rest of chapter 6 (Panhala
+      and the Pass / Pavan Khind): `as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid` (TRADITION),
+      `as_angrezi_gola` (order card) + the `ghod_khind` battlefield. `sw_bajiprabhu` (the hero) is already
+      painted, not repeated on this sheet.
 - [x] Torna and Rajgad as per the book (D-19, D-20), 24 Nov 2026.
 - [ ] Claude: online research pass on the VERIFY items and unchecked chronology rows (D-22); ask Pon for specific book pages only for CONTESTED #27-#28 if online sources cannot settle them.
 - [x] Rewrite `ch01_torna` objective as a take-hold-fortify race now that the Gad mechanic and `capture` objective exist (25 Nov 2026, Phase 1 step 5).

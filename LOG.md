@@ -748,3 +748,19 @@ file to `sw_bajiprabhu.png` and re-ran the pipeline; now correctly registered.
 Batch 3 is 3 of 4 done — `sw_siddi_hilal` is still outstanding, not yet painted. 26 card paintings
 registered total. `node scripts/check-refs.mjs .` (implicitly via `npm test`), `npx tsc --noEmit`,
 `npm test` (129 passed), `npm run build` all pass. TASKS.md, PROGRESS.md, STATE.md updated.
+
+## 26 Nov 2026 — session 9 (cont.): wrote batch 4 (rest of chapter 6, Pavan Khind)
+
+With batch 3 at 3 of 4 (Siddi Hilal still outstanding) and Baji Prabhu already painted early for
+chapter 6, wrote `art/PROMPTS-BATCH4.md` for the rest of that chapter: `as_siddi_jauhar` (the besieger
+of Panhala), `as_siddi_masud` (the pursuer at Ghod Khind), `sw_shiva_kashid` (the TRADITION decoy —
+card text already says so), `as_angrezi_gola` (an order card, object-composed per batch 1's convention
+for orders, not a portrait), and the `ghod_khind` battlefield (a narrow monsoon-night mountain pass —
+deliberately the opposite mood from Kolhapur's wide cold dawn). Carried D-07 forward explicitly in the
+sheet's own dignity section: Baji Prabhu's and Shiva Kashid's deaths are history/tradition, not
+playable executions or massacres, and no painting shows a killing or a body. Also wrote clear direction
+for Shiva Kashid specifically: dressed to resemble Shivaji in silhouette and regalia, but with his own
+ordinary face, not a copy of `sw_shivaji`'s painted likeness — the gap between the two is the point of
+the story.
+
+TASKS.md, STATE.md updated.
