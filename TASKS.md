@@ -12,13 +12,13 @@
       `jm_jaoli_foot` — and the `jaoli` battlefield; registered via `npm run assets` 25 Nov 2026 session 8
       (cont.), 23 card paintings now in `src/assets/card-art.json`). `jm_hanmantrao` is still VERIFY (see
       the open research item below) but is painted and ready if the research confirms him.
-- [ ] **New:** `art/PROMPTS-BATCH3.md` written (25 Nov 2026, session 8, cont.) — 3 cards
-      (`as_rustam_zaman`, `as_fazl_khan`, `sw_siddi_hilal`) + 1 battlefield (`kolhapur`) for chapter 5
-      (Kolhapur) — chapter 4 (Pratapgad) is already fully painted from batch 1. `sw_siddi_hilal` was
-      initially left out pending a CONTESTED #29 check (Siddi Hilal's side in 1659 looked unresolved);
-      resolved the same session — he served Afzal Khan at Pratapgad, then switched to Shivaji's side —
-      and added to the sheet. PNGs go in `art/source/cards/` (5:7) and `art/source/battlefields/` (16:9);
-      then `npm run assets`.
+- [~] `art/PROMPTS-BATCH3.md` — 3 of 4 pieces painted and registered 26 Nov 2026 (session 9):
+      `as_rustam_zaman`, `as_fazl_khan`, the `kolhapur` battlefield. **`sw_siddi_hilal` still
+      outstanding** — not painted yet, still needed to finish this batch.
+      Pon also painted `sw_bajiprabhu` (Baji Prabhu Deshpande, chapter 6's hero) a batch early — not on
+      any prompt sheet yet, uploaded as `sw_baji_prabhu.png` (extra underscore; the real card id has
+      none) and renamed to match before registering. Now in `card-art.json` (26 card paintings total)
+      and ready to use whenever chapter 6 (Pavan Khind) is built.
 - [x] Torna and Rajgad as per the book (D-19, D-20), 24 Nov 2026.
 - [ ] Claude: online research pass on the VERIFY items and unchecked chronology rows (D-22); ask Pon for specific book pages only for CONTESTED #27-#28 if online sources cannot settle them.
 - [x] Rewrite `ch01_torna` objective as a take-hold-fortify race now that the Gad mechanic and `capture` objective exist (25 Nov 2026, Phase 1 step 5).

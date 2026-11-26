@@ -729,3 +729,22 @@ Bijapur's green, per D-21, with a note not to show the defection itself, just th
 
 `node scripts/check-refs.mjs .`, `npx tsc --noEmit`, `npm test` (129 passed), `npm run build` all pass.
 TASKS.md updated.
+
+## 26 Nov 2026 — session 9: batch 3 (3 of 4) registered; a filename mismatch caught; bonus Baji Prabhu painting
+
+Pon uploaded 4 PNGs straight to GitHub (via the web UI, not through this session) while session 8
+was between turns: `as_rustam_zaman.png`, `as_fazl_khan.png`, `kolhapur.png` (all three from batch 3)
+and `sw_baji_prabhu.png` — not from any prompt sheet; a chapter 6 (Pavan Khind) card painted early.
+Pulled the 3 new commits, ran `npm run assets`.
+
+**Caught a naming mismatch before it became a silent bug:** the uploaded file was named
+`sw_baji_prabhu.png` (with an underscore between "baji" and "prabhu"), but `data/chapters.json` and
+`data/cards.draft.json` both use the id `sw_bajiprabhu` (no underscore) for Baji Prabhu Deshpande's
+card. The asset pipeline doesn't validate filenames against real card ids — it would have happily
+registered the painting under the wrong id (`sw_baji_prabhu`) forever, disconnected from the actual
+card, and nobody would have noticed until chapter 6 was built and the art didn't show up. Renamed the
+file to `sw_bajiprabhu.png` and re-ran the pipeline; now correctly registered.
+
+Batch 3 is 3 of 4 done — `sw_siddi_hilal` is still outstanding, not yet painted. 26 card paintings
+registered total. `node scripts/check-refs.mjs .` (implicitly via `npm test`), `npx tsc --noEmit`,
+`npm test` (129 passed), `npm run build` all pass. TASKS.md, PROGRESS.md, STATE.md updated.
