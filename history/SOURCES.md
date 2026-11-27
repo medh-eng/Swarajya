@@ -111,6 +111,8 @@ How it is used (also in CLAUDE.md):
 | W-BAJIPRABHU | Wikipedia, "Baji Prabhu Deshpande" — https://en.wikipedia.org/wiki/Baji_Prabhu_Deshpande | fair |
 | W-CHAKAN | Wikipedia, "Battle of Chakan" — https://en.wikipedia.org/wiki/Battle_of_Chakan | fair |
 | W-FIRANGOJI | Wikipedia, "Firangoji Narsala" — https://en.wikipedia.org/wiki/Firangoji_Narsala | weak (needs citations) |
+| W-CHAKAN-FORT | Wikipedia, "Chakan fort" (cites Sarkar for the square plan, corner bastions and moat) — https://en.wikipedia.org/wiki/Chakan_fort | fair |
+| W-DURGBHARARI | Durg Bhari, "Chakan aka Sangramdurg" (a ground fort, height 0, nine bastions) — https://durgbharari.in/chakan-fort | fair (fort-trekking site; used only for the fort's form) |
 | W-UMBER | Wikipedia draft, "Battle of Umbarkhind" — https://www.wikipedia.com/wiki/Draft:Battle_of_Umbarkhind | fair |
 | W-UMBER-IIAB | Wikipedia (2023 copy), "Battle of Umberkhind" — https://iiab.live/kiwix/content/wikipedia_en_all_maxi_2023-05/A/Battle_of_Umberkhind | fair |
 | W-RATTIBHA-UMBER | Thread citing the Jedhe chronology date — https://en.rattibha.com/thread/1403714015688159237 | weak (use only for the date question) |

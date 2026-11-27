@@ -827,3 +827,49 @@ Pon: "do both" (ch05 Kolhapur and the Khind mechanic that ch06 needs, then ch06)
 Real playtest of Pavan Khind (headless Chrome, 1600×900 and 915×412): briefing with the Khind line, History
 panel, a full battle won on turn 9 with the Durg at 3, the win text labels the gun signal as tradition,
 zero console errors. At phone width the lane label was hidden by the cards; it was shortened.
+
+## 27 Nov 2026 — session 12: Siddi Hilal registered; balance audit; Pratapgad fixed; Easy foe; Chakan art sheet
+Pon: "here is siddi hilal, absorb it and give me prompts for next campaign. the game is not easy and still
+fights are difficult, so check the balance and card powers, if needed we can add or generate new cards."
+- **Art:** `sw_siddi_hilal` painted by Pon and registered (31 card paintings). The five batch-4 images Pon
+  re-sent earlier were already registered (session 10); `art/PROMPTS-BATCH5.md` (a one-card reprint of his
+  prompt) is now done. Batch 3 is complete. The painting is 1060 x 1484, below the sheet's 1500 x 2100 minimum,
+  like 15 earlier paintings; it displays fine, so no action.
+- **Balance audit (harness, 300 games, AI-vs-AI):** Torna 58.3, Jaoli 50.0, Kolhapur 54.0, Pavan Khind 57.3
+  (all in band); **Pratapgad 0.7 (a wall: a careful "search" AI player got only 8%).** Added a skill ladder to
+  the harness (`easy` AI = a beginner, `normal` = the standard, `search` = a careful player): the in-band chapters
+  give a careful player 97-100% but a beginner only 9-23% (Pavan Khind aside). Added a Bhet-outcome matrix for
+  Pratapgad.
+- **Why Pratapgad was a wall:** two causes, not one. (1) Afzal Khan starts on the Yudhbhumi with his buff, and
+  (2) the player deck was Maval-era (2/2 Bargir and Hetkari) against 2/3 Hasham and 4/6 Gaja. Earlier "no Afzal"
+  tests still gave only 5% with that deck, so a fix to Afzal alone could never have worked.
+- **Fix (data + one small engine rule), option (c) from session 8, plus a better deck:**
+  - New deck (24 cards): 4 Mavla, 3 Havaldar, 3 Shiledar, 1 Bargir, 3 Hetkari, 2 Jijau's Counsel, 1 Torna's
+    Treasure, 2 Pratapgad (Gad), 1 Shivaji Raje, **2 Wagh Nakh, 2 Gopinath Pant**. Enemy deck and Afzal's preset
+    untouched (his numbers stay as designed).
+  - **Wagh Nakh** (ported from the draft, art already painted): Shakti, 4 cost, "4 damage to an enemy unit; 8 if
+    it is legendary". New card field `powerVsLegendary` (`types.ts`), one branch in `rules.ts`'s data-driven
+    order case and in `ai.ts`'s `orderValue` (the AI keeps it for the legendary). `tests/wagh-nakh.test.ts` (4).
+  - **Gopinath Pant** (ported, art already painted): 2 cost, 0/2, Deploy: draw a card. The draft's "see the
+    enemy's stance odds in a Bhet" was dropped (not built), the text says only what the card does.
+  - Result: Pratapgad **58.7%** (no Bhet effect), **49% mean over the nine Bhet outcomes** (Strike v Guard is the
+    harsh one, 26%; the careful AI player gets 80%). Netaji Palkar and Moropant Pingle were considered and left
+    out: their presence at Pratapgad is single-source (Purandare), so they wait for chapters their chronology supports.
+- **Easy foe:** the briefing's Foe button now cycles Easy -> Standard -> Veteran (`difficulty.ts`: `foeMode`,
+  `setFoeMode`, `nextFoeMode`; `battle.ts`). Easy is the existing `easy` AI level. The balance band is still
+  measured at Standard; Easy exists for learning (Standard player AI beats the Easy AI 87-96% in Torna, Jaoli and
+  Kolhapur). Standing/Yash still reward only a Veteran win (unchanged).
+- **Research:** Chakan was a ground fort (`bhuikot`): square, corner bastions, moat (W-CHAKAN-FORT, citing Sarkar;
+  W-DURGBHARARI). Added both sources and a "fort's form" line to `C-1660-CHAKAN`. Some sources describe a two-day
+  assault and heavy losses at the end; the game shows no fall (D-07).
+- **Art batch 6** (`art/PROMPTS-BATCH6.md`, chapter 7 Chakan, the Mughals' first appearance): `sw_firangoji`,
+  `sw_gad_chakan` (square), `mg_shaista_khan`, `mg_rajput_officer`, `mg_surang` (the mine, object only),
+  `mg_topkhana`, optional `mg_mansabdar_sawar`, battlefield `chakan`. New Mughal palette (crimson, sandstone, ivory,
+  gold, lapis; no green, no saffron).
+- Moved `sw_wagh_nakh` and `sw_gopinath` out of `data/cards.draft.json` (check-refs flagged the duplicate ids).
+
+**Verified:** `npm test` (check-refs OK, 144 passed incl. golden), `npx tsc --noEmit`, `npm run build`. Real
+playtest (headless Chrome, 1600x900, save seeded to reach Pratapgad): Campaign -> Pratapgad -> Bhet (Guard) ->
+briefing; Foe button cycled Standard/Veteran/Easy/Standard and set the AI level each time; opening hand dealt a
+Wagh Nakh; a naive "first move" bot won a full battle vs the Easy foe in turn 12 (in an earlier run the same bot had
+Afzal Khan off the board by turn 9), VICTORY screen offered Kolhapur, zero console errors.

@@ -26,7 +26,7 @@ import type { BhetOutcome } from '../../engine/bhet';
 import { markTutorialDone } from '../../campaign/tutorial';
 import { battlesWon, empireOfBattle, markBattleWon } from '../../campaign/campaign';
 import { EMPIRES as RENOWN_EMPIRES, standing, type Gain } from '../../meta/standing';
-import { foeLevel, setVeteranFoe, veteranFoe } from '../../campaign/difficulty';
+import { foeLevel, foeMode, nextFoeMode, setFoeMode, veteranFoe } from '../../campaign/difficulty';
 import { FONT_SERIF, FONT_STORY, INK, FONT_TITLE, FONT_BODY, fontFor } from '../theme';
 import { makePan, panBar } from '../ui/pan';
 import { view, type View } from '../view';
@@ -560,10 +560,11 @@ export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST
       panel.addChild(hb);
     }
     if (!sc.coached && !duel) {
-      // the foe: Standard (the heuristic opponent the battle was balanced against) or Veteran (the search AI)
+      // the foe: Easy (a careless opponent, for learning), Standard (the heuristic opponent the battle was balanced against) or Veteran (the search AI)
       const foeButton = (): Container => {
-        const b = makeButton(veteranFoe() ? 'Foe: Veteran' : 'Foe: Standard', () => {
-          setVeteranFoe(!veteranFoe());
+        const label = { easy: 'Foe: Easy', standard: 'Foe: Standard', veteran: 'Foe: Veteran' }[foeMode()];
+        const b = makeButton(label, () => {
+          setFoeMode(nextFoeMode(foeMode()));
           st.aiLevel = foeLevel(baseLevel);
           audio.play('click');
           const nb = foeButton(); panel.addChild(nb); destroyTree(b);

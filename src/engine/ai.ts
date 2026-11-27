@@ -122,7 +122,9 @@ function orderValue(st: GameState, pIdx: PlayerIndex, entry: PlayOption): number
   if (id === 'n_aakraman' || id === 's_agni' || (entry.kind === 'removal' && entry.c.power)) {
     const v = entry.victim;
     if (!v) return 0;
-    const dmg = entry.c.power ?? (id === 's_agni' ? 5 : 2);
+    const dmg = (entry.c.powerVsLegendary && CARDS[v.cardId]?.rarity === 'legendary')
+      ? entry.c.powerVsLegendary
+      : (entry.c.power ?? (id === 's_agni' ? 5 : 2));
     return (dmg >= v.hp ? unitValue(v) + 2 : dmg * 0.6) + (entry.c.hqDamage ?? 0) * 0.5;
   }
   if (id === 'm_sindhu_nauka') return st.front.owner !== other(pIdx) && p.support.filter(u => u.canAct && !u.moved).length >= 1 ? 6.5 : 0;

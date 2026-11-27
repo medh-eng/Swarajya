@@ -52,6 +52,8 @@ export interface CardDef {
   target?: 'enemyUnit';
   trigger?: YantraTrigger;
   power?: number;
+  /** Swarajya: damage instead of `power` when the target is a Legendary unit (the Wagh Nakh) */
+  powerVsLegendary?: number;
   /** data-driven order effects (cards.json): damage to the enemy Durg, cards drawn, Dharma steps */
   hqDamage?: number;
   draw?: number;

@@ -3,9 +3,17 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 26 Nov 2026 (session 11) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (steps 1–2 done; step 4: ch03 Jaoli, ch05 Kolhapur, ch06 Pavan Khind built)** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 27 Nov 2026 (session 12) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (steps 1–2 done; step 4: ch03 Jaoli, ch05 Kolhapur, ch06 Pavan Khind built)** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
+**Session 12 (27 Nov 2026):** Pon lost every battle, so this session was a balance pass. **All five built battles are now in band**
+(Torna 58.3, Jaoli 50.0, Pratapgad 58.7, Kolhapur 54.0, Pavan Khind 57.3; 300 AI-vs-AI games each). **Pratapgad** was a wall (0.7%);
+fixed with a new 24-card Ganim deck plus two new cards, **Wagh Nakh** (`powerVsLegendary`: 4 damage, 8 to a legendary) and
+**Gopinath Pant** (draw a card), both ported from the draft and already painted. The harness gained a **skill ladder**
+(beginner / standard / careful) and a Pratapgad-by-Bhet matrix; a beginner still only wins 4–23% in four chapters, so the briefing
+has a **Foe: Easy / Standard / Veteran** button. `sw_siddi_hilal` is painted (31 card paintings). `art/PROMPTS-BATCH6.md` (chapter 7
+Chakan, first Mughal art) is written. Needs Pon: replay Pratapgad and try Foe: Easy; phone playtest; Gate 1.
+
 **Session 11 (26 Nov 2026):** **Phase 2 step 2, Khind, is built** (`frontSize`; `frontCap`/`isKhind` in
 `ruleset.ts`; Swarajya-only, golden test unchanged). **Chapter 5 Kolhapur** (destroy, Rustam-i-Zaman and
 Fazl Khan, Siddi Hilal on the Raje's side; 54.0%) and **chapter 6 Panhala and the Pass / Pavan Khind**
@@ -110,17 +118,17 @@ Phase 2's first chapter.
 | AI reports review | `history/AI-REPORTS-REVIEW.md` | ChatGPT and Gemini reports checked claim by claim |
 | Purandare check list | `history/PURANDARE-CHECK.md` | Rows checked from the pages Pon sent (not a gate, D-22); no more pages needed unless a point is disputed |
 | Chapters (design data) | `data/chapters.json` | 23 (1 blocked: `ch02_purandar1648`) |
-| Cards (design data) | `data/cards.draft.json` | 67 draft (11 ported to the game), unbalanced, not loaded |
+| Cards (design data) | `data/cards.draft.json` | 67 draft (13 ported to the game), unbalanced, not loaded |
 | Ref checker | `scripts/check-refs.mjs` | in `npm test`; passes (1 warning: `jm_hanmantrao` VERIFY) |
 | Engine (rules, AI, search) | `src/engine/` | YUDDH baseline + `ruleset.ts` (`isYuddhRules`, `isSwarajyaRules`); **Gad card type + `capture` objective** (DESIGN 3.1, 3.6; session 8); **Bhet mechanic** (`bhet.ts`: `chooseBhetStance`, `resolveBhet`; DESIGN 3.5; session 8); **Ganim keyword** (`canFallback` + `fallback` Action, `ganimFallback` AI heuristic; DESIGN 3.3; Phase 2 step 1, session 8) |
 | Renderer, scenes, UI | `src/game/` | YUDDH baseline + `scenes/swarajyaTitle.ts` (real buttons + language toggle, session 8); `scenes/bhet.ts` (parley scene, session 8); square art window for Gad; `loadBattlefield` falls back to a drawn ground; History panel supports `CONTESTED`/`otherSide`; `theme.ts`'s `hasDevanagari`/`fontFor` pick a safe font for Marathi text (session 8 step 8) |
 | Localization | `src/i18n.ts` | `Lang`/`pick`/`getLang`/`setLang`/`toggleLang` (session 8 step 8); vertical-slice-only Marathi (title, chapter text, Bhet scene) — unreviewed, pending Q-05; generic battle chrome still English |
-| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17) + `swarajya` list: 11 cards (7 Swarajya, 3 Adilshahi, 1 neutral — 4 of them Gads); decks + History notes for `ch00_maval`/`ch01_torna`/`ch03_jaoli`/`ch04_pratapgad`/`ch05_kolhapur`/`ch06_pavankhind`; empire `jaoli` + 3 `jm_` cards (session 10); `rules.json`'s `"bhet"` (AI odds, wound fraction) |
+| Game data | `src/data/*.json` | YUDDH's (scaffolding, D-17) + `swarajya` list: 13 cards (9 Swarajya, 3 Adilshahi, 1 neutral — 4 of them Gads); decks + History notes for `ch00_maval`/`ch01_torna`/`ch03_jaoli`/`ch04_pratapgad`/`ch05_kolhapur`/`ch06_pavankhind`; empire `jaoli` + 3 `jm_` cards (session 10); `rules.json`'s `"bhet"` (AI odds, wound fraction) |
 | Campaign code | `src/campaign/` | YUDDH's kept as scaffolding (D-17) + `mavalTutorial.ts`/`torna.ts`/`jaoli.ts`/`pratapgad.ts` (with `bhet` config)/`kolhapur.ts`/`pavankhind.ts` and `SWARAJYA`/`SWARAJYA_CAMPAIGN` (kept out of the global `CAMPAIGNS` array — see LOG.md session 8); `missions.ts` must stay (golden test) |
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → [Bhet scene when `sc.bhet` is set] → battle → next chapter, fully wired (session 8; was a placeholder) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`, `bhet.test.ts`, `ganim.test.ts`, `khind.test.ts`, `survive-attrition.test.ts`, `balance.harness.test.ts` (BALANCE=1); `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main; live at https://medh-eng.github.io/Swarajya/ (was 7 commits stale — pushed and confirmed live, session 8) |
-| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH4.md` | Batch 1 and 2: fully painted. Batch 3 (Kolhapur, ch5): 3 of 4 painted — **`sw_siddi_hilal` still outstanding**. Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 30 card paintings registered total |
+| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH6.md` | Batches 1–5 fully painted (Siddi Hilal done 27 Nov). **Batch 6 (chapter 7 Chakan) written, unpainted.** Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 31 card paintings registered total |
 | Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 3 of 3 battlefields (`torna`, `pratapgad`, `maval` — Pon painted `maval` 25 Nov 2026, same session) |
 | Sound | — | none yet (icons and favicon drawn in code) |
 
@@ -208,6 +216,8 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 | D-20 | **Rajgad named at once** (Purandare), no year printed for the renaming (CONTESTED #21). | 24 Nov 2026 |
 | D-21 | **Shivaji's clothes are never teal or green** (green is Bijapur's colour): saffron, yellow, cream, orange, red or maroon. Pon chose the yellow jama. | 24 Nov 2026 |
 | D-22 | **Research workflow:** Claude researches online (period sources, scholarship, reputable references; two independent sources per fact) and does not wait for the whole book. Pon is not asked to photograph Purandare; specific pages only for a specific disputed or single-source point. Purandare stays the standard where Pon supplied pages. `PURANDARE-CHECK.md` is no longer a gate. | 24 Nov 2026 |
+| D-23 | **Easy foe option.** The briefing's Foe button cycles Easy / Standard / Veteran (`src/campaign/difficulty.ts`). The balance band (45–70%) stays an AI-vs-AI measure at Standard; Easy exists because a beginner wins far less than the harness says. | 27 Nov 2026 |
+| D-24 | **Pratapgad fix:** a new Ganim deck plus Wagh Nakh (`powerVsLegendary`) and Gopinath Pant, rather than delaying Afzal or weakening his buff. Netaji Palkar and Moropant Pingle not added there (single-source). | 27 Nov 2026 |
 | D-17 | Phase 0 keeps YUDDH's content code (`src/campaign/*`, YUDDH cards and duel factions in `src/data/*.json`) as **scaffolding** so the battle screen, duel and tests keep compiling. It is not reachable from the game (the title is a placeholder). Phase 1 replaces it piece by piece with Swarajya content and deletes what is left. YUDDH's art is not copied (`src/assets/card-art.json` is empty, so cards draw their placeholder frame). | 24 Nov 2026 |
 
 

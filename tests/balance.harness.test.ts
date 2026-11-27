@@ -31,6 +31,7 @@ import { JAOLI } from '../src/campaign/jaoli';
 import { PRATAPGAD } from '../src/campaign/pratapgad';
 import { KOLHAPUR } from '../src/campaign/kolhapur';
 import { PAVANKHIND } from '../src/campaign/pavankhind';
+import { BHET_STANCES, resolveBhet } from '../src/engine/bhet';
 
 const BAND: [number, number] = [45, 70]; // Gate 1 band, CLAUDE.md
 
@@ -58,7 +59,37 @@ function report(label: string, mk: (seed: number) => GameState, n = 300) {
   return pct;
 }
 
+/** the player's win % when the AI playing the player's side is at `lvl` (the foe is always 'normal'):
+    'easy' stands in for a beginner, 'search' for a careful human. The Gate 1 band applies to 'normal'. */
+function winPct(mk: (seed: number) => GameState, lvl: 'easy' | 'normal' | 'search', n = 100): number {
+  let w = 0;
+  for (let s = 0; s < n; s++) {
+    const st = mk(s * 13 + 1);
+    let k = 0;
+    while (!st.over && k++ < 500) aiTurn(st, st.active, st.active === 0 ? lvl : 'normal');
+    if (st.winner === 0) w++;
+  }
+  return Math.round((w / n) * 100);
+}
+
 describe.skipIf(!process.env.BALANCE)('balance harness (run with BALANCE=1)', () => {
+  it('skill ladder (beginner / standard / careful player) per chapter', () => {
+    const chapters: [string, (s: number) => GameState][] = [
+      ['Torna', s => TORNA.game(s)], ['Jaoli', s => JAOLI.game(s)], ['Pratapgad', s => PRATAPGAD.game(s)],
+      ['Kolhapur', s => KOLHAPUR.game(s)], ['Pavan Khind', s => PAVANKHIND.game(s)]
+    ];
+    for (const [name, mk] of chapters)
+      console.log(`${name.padEnd(12)} beginner(easy) ${winPct(mk, 'easy')}% | standard ${winPct(mk, 'normal')}% | careful(search) ${winPct(mk, 'search', 30)}%`);
+  }, 300000);
+  it('Pratapgad by Bhet outcome (player stance x enemy stance)', () => {
+    let sum = 0;
+    for (const p of BHET_STANCES) {
+      let row = p.padEnd(7);
+      for (const e of BHET_STANCES) { const v = winPct(s => PRATAPGAD.game(s, resolveBhet(p, e)), 'normal', 100); sum += v; row += ` vs ${e}: ${v}%`; }
+      console.log(row);
+    }
+    console.log(`Pratapgad mean over the nine Bhet outcomes: ${(sum / 9).toFixed(0)}%`);
+  }, 300000);
   it('Torna', () => { report('Torna', s => TORNA.game(s)); });
   it('Jaoli', () => { report('Jaoli', s => JAOLI.game(s)); });
   it('Kolhapur', () => { report('Kolhapur', s => KOLHAPUR.game(s)); });

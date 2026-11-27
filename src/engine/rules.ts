@@ -664,7 +664,12 @@ function applyOrder(st: GameState, pIdx: PlayerIndex, cardId: string, target?: T
     default: {
       // orders described by data (cards.json): power → damage to the target, hqDamage → its Durg, draw, dharma
       const c = CARDS[cardId];
-      if (c.power && t && t.kind === 'unit') damageUnit(st, t.owner, t.uid, c.power, pIdx);
+      if (c.power && t && t.kind === 'unit') {
+        // Wagh Nakh (Swarajya): a Legendary victim takes `powerVsLegendary` instead of `power`
+        const victim = findUnit(st, t.owner, t.uid);
+        const legendary = !!victim && CARDS[victim.unit.cardId]?.rarity === 'legendary';
+        damageUnit(st, t.owner, t.uid, legendary && c.powerVsLegendary ? c.powerVsLegendary : c.power, pIdx);
+      }
       if (c.hqDamage && t && t.kind === 'unit') damageHQ(st, t.owner, c.hqDamage);
       if (c.damageAll) damageAll(st, other(pIdx), c.damageAll, pIdx);
       if (c.damageFront && st.front.owner === other(pIdx)) [...st.front.units].forEach(u => damageUnit(st, other(pIdx), u.uid, c.damageFront as number, pIdx));

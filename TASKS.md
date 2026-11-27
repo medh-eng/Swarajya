@@ -12,18 +12,22 @@
       `jm_jaoli_foot` — and the `jaoli` battlefield; registered via `npm run assets` 25 Nov 2026 session 8
       (cont.), 23 card paintings now in `src/assets/card-art.json`). `jm_hanmantrao` is still VERIFY (see
       the open research item below) but is painted and ready if the research confirms him.
-- [~] `art/PROMPTS-BATCH3.md` — 3 of 4 pieces painted and registered 26 Nov 2026 (session 9):
-      `as_rustam_zaman`, `as_fazl_khan`, the `kolhapur` battlefield. **`sw_siddi_hilal` still
-      outstanding** — not painted yet, still needed to finish this batch.
-      Pon also painted `sw_bajiprabhu` (Baji Prabhu Deshpande, chapter 6's hero) a batch early — not on
-      any prompt sheet yet, uploaded as `sw_baji_prabhu.png` (extra underscore; the real card id has
-      none) and renamed to match before registering. Now in `card-art.json` (26 card paintings total)
-      and ready to use whenever chapter 6 (Pavan Khind) is built.
+- [x] `art/PROMPTS-BATCH3.md` **fully painted and registered** (4 of 4: `as_rustam_zaman`, `as_fazl_khan`,
+      `sw_siddi_hilal` (27 Nov 2026, session 12), the `kolhapur` battlefield). `art/PROMPTS-BATCH5.md` (the
+      one-card reprint of the Siddi Hilal prompt) is done too. Pon also painted `sw_bajiprabhu` a batch
+      early. 31 card paintings in `card-art.json`.
 - [x] `art/PROMPTS-BATCH4.md` **fully painted and registered 26 Nov 2026, session 10** (all 4 cards +
       `ghod_khind`; 30 card paintings now in `card-art.json`). Written 26 Nov 2026, session 9 — the rest of chapter 6 (Panhala
       and the Pass / Pavan Khind): `as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid` (TRADITION),
       `as_angrezi_gola` (order card) + the `ghod_khind` battlefield. `sw_bajiprabhu` (the hero) is already
       painted, not repeated on this sheet.
+- [ ] **`art/PROMPTS-BATCH6.md` (new, 27 Nov 2026, session 12): chapter 7, Fifty-six Days at Chakan.**
+      6 cards + 1 optional + the `chakan` battlefield, the first Mughal art: `sw_firangoji`,
+      `sw_gad_chakan` (square), `mg_shaista_khan`, `mg_rajput_officer`, `mg_surang`, `mg_topkhana`,
+      optional `mg_mansabdar_sawar`. Chakan is a flat ground fort with a moat (not a hill fort).
+- [ ] **Pon: please play Pratapgad again** (Campaign -> Pratapgad). It was a wall (0.7%); it is now 59% before
+      the Bhet and 49% averaged over the nine Bhet outcomes. Try the new **Foe: Easy** button on the briefing
+      if it still feels hard, and tell me which chapters still feel too hard.
 - [x] Torna and Rajgad as per the book (D-19, D-20), 24 Nov 2026.
 - [ ] Claude: online research pass on the VERIFY items and unchecked chronology rows (D-22); ask Pon for specific book pages only for CONTESTED #27-#28 if online sources cannot settle them.
 - [x] Rewrite `ch01_torna` objective as a take-hold-fortify race now that the Gad mechanic and `capture` objective exist (25 Nov 2026, Phase 1 step 5).
@@ -66,7 +70,7 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
        **Chapters 5 (Kolhapur, 54.0%) and 6 (Panhala and the Pass, 57.3%) built 26 Nov 2026, session 11.**
        Pon: please play both (Campaign → Kolhapur, then Pavan Khind).
        Loose ends from session 11:
-       - `sw_siddi_hilal` is decked in Kolhapur but still unpainted (draws the placeholder frame).
+       - (done 27 Nov) `sw_siddi_hilal` is painted and registered.
        - `as_siddi_jauhar` and `as_angrezi_gola` are painted but not in the game: they need a Panhala-siege
          part of ch06 or the grenade effect. Kept in `data/cards.draft.json`.
        - Pavan Khind's balance is a cliff (player deck of 7 gives 0%, 8 gives 57%, 9 gives 97%): recheck at Gate.
@@ -77,9 +81,9 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
        (Surat), 11 (Purandar treaty scene) — each needs its own chronology check (two independent sources
        per fact, D-22) before it ships, not just the mechanic that powers it.
 5. [ ] Mughal faction cards (new empire, alongside `swarajya`/`adilshahi`).
-6. [~] Art batches 2-4 (prompt sheets after batch 1's pattern in `art/PROMPTS-BATCH1.md`). Batch 2
-       (`art/PROMPTS-BATCH2.md`, chapter 3 Jaoli, 3 cards + 1 battlefield) written 25 Nov 2026, session 8.
-       Batches 3-4 (the later Phase 2 chapters) follow once each is actually being built, same pattern.
+6. [~] Art batches 2-6 (prompt sheets after batch 1's pattern in `art/PROMPTS-BATCH1.md`). Batches 2-5 fully
+       painted and registered. Batch 6 (chapter 7 Chakan) written 27 Nov 2026, session 12, awaiting Pon's paintings;
+       the later chapters (Umberkhind, Lal Mahal, Surat, Purandar) follow the same way.
 
 ## For Claude: Phase 0 — done (24 Nov 2026, session 5)
 Engine copied at YUDDH 6f1c852; ruleset `'swarajya'`; check-refs in `npm test`; placeholder title; deploy
@@ -180,34 +184,20 @@ Every step: engine code behind `isSwarajyaRules`, an AI value, a rules test, a g
        files deliberately, not as a Phase-1-closing afterthought. `src/game/scenes/standing.ts` and
        `src/game/scenes/gallery.ts` (unreachable from the Swarajya title, confirmed not imported from
        `main.ts` or any test) are zero-risk to delete whenever someone gets to this — just not yet done.
-10. [~] Balance: Torna and Pratapgad in band (45–70%); playtests desktop and phone; Gate 1 with Pon.
-    25 Nov 2026 session 8 (cont.): Pon played the live Phase 1 site and lost all four chapters
-    (Torna, Pratapgad, and the two Bhet branches of Pratapgad) — ran out of cards in a losing
-    position. Built `tests/balance.harness.test.ts` to check this with data instead of guessing:
-    it plays a scenario hundreds of times with the in-game AI on both sides (`aiTurn()`, the same
-    function the live game calls) and reports the player's win rate. Run it with
-    `BALANCE=1 npx vitest run tests/balance.harness.test.ts --reporter=verbose` (skipped by
-    default, so `npm test` is unaffected).
-    - **Torna: FIXED.** Baseline was 10.7% player wins (`src/data/decks.json`'s `ch01_torna` deck
-      had only 6 real fighting units — 3 Bargir, 3 Hetkari — out of 13 cards, against 10 copies of
-      `as_hasham`, which is a strictly better stat-line at the same cost: 2/2/2 vs the enemy's
-      2/2/3). Swept several deck-list variants through the harness; `sw_bargir*5, sw_hetkari*5,
-      sw_jijau_counsel*2, sw_torna_hoard*1, sw_gad_torna*2` (dropped `sw_gad_rajgad` from this
-      deck — it's the next fort, not a fighting card for this battle) lands at 58.3% over 300
-      seeded games, inside the 45-70% band. Applied to `decks.json`; `npm test`, `tsc --noEmit`,
-      `npm run build` all pass.
-    - **Pratapgad: NOT fixed, root cause found.** Baseline 0.7% player wins. Swept deck sizes up to
-      absurd (7 Bargir, 7 Hetkari, double Jijau's Counsel) and it only reached 71.5% *without*
-      Afzal Khan on the field at all — the moment `preset.enemyFront: ['as_afzal_khan']` (he starts
-      already deployed, no cost paid, his own deploy buff already live) is added back, the same
-      deck drops to 29.5%. Nerfing his raw stats (atk 5→4, hp 8→6) barely moved the needle
-      (22.7% → 22.3%) — so this isn't a numbers-tuning problem, it's the encounter's structure: a
-      cost-7 legendary with `raksha`, a +1-atk-to-all-his-units deploy trigger, and free turn-1
-      deployment is overwhelming almost regardless of player deck size. Needs a design decision,
-      not a deck edit — options for Pon to pick from next session: (a) have Afzal Khan enter later
-      (e.g. turn 3) instead of pre-deployed; (b) weaken or remove the all-units buff and let his own
-      stats carry the "legendary general" feel instead; (c) give the player deck a turn-1-reachable
-      answer card (a cheap removal/Dharma order) rather than touching Afzal at all. Did not change
-      his card def or the preset — his numbers are unreviewed and he's historically significant
-      (CONTESTED-adjacent figure), so this is a call for Pon, not something to guess at silently.
-    - Still to do once Pratapgad is fixed: phone playtest (desktop only so far), then Gate 1.
+10. [~] Balance: every built chapter in band (45–70%); playtests desktop and phone; Gate 1 with Pon.
+    **27 Nov 2026 session 12: all five built battles are in band** (Torna 58.3, Jaoli 50.0, Pratapgad 58.7 and 49
+    averaged over the nine Bhet outcomes, Kolhapur 54.0, Pavan Khind 57.3; 300 games each). History of this step:
+    25 Nov (session 8, cont.): Pon played the live site and lost every battle; built `tests/balance.harness.test.ts`
+    (an AI-vs-AI win-rate checker: `BALANCE=1 npx vitest run tests/balance.harness.test.ts --reporter=verbose`,
+    skipped by default so `npm test` is unaffected) and fixed Torna (10.7% -> 58.3%, a deck-list edit).
+    - **Pratapgad: FIXED 27 Nov (session 12).** It was a wall: Afzal Khan starts deployed with his buff, and the
+      player deck was Maval-era (2/2 units against 2/3 Hasham and 4/6 Gaja). Fix = a 24-card Ganim deck with two
+      **Wagh Nakh** (new `powerVsLegendary` field: 4 damage, 8 to a legendary) and two **Gopinath Pant** (draw a
+      card); Afzal and the enemy deck unchanged. See LOG.md session 12 for the numbers and the options not taken
+      (delay Afzal, weaken his buff).
+    - **Skill ladder (new in the harness):** beginner (`easy` AI as the player) / standard / careful (`search` AI).
+      In-band chapters give a careful player 97-100% but a beginner only 4-23% (Pavan Khind 83%). Hence the new
+      **Foe: Easy** button. If Pon still finds a chapter too hard, the lever is that chapter's deck list in
+      `decks.json`, checked with the harness.
+    - Known: Pratapgad's Strike-versus-Guard Bhet outcome is 26% by design (you struck into a guarded man).
+    - Still to do: phone playtest of the new Pratapgad deck (desktop only so far), then Gate 1 with Pon.

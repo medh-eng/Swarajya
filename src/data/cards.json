@@ -3657,6 +3657,43 @@
       "refs": [
         "C-1660-PAVANKHIND"
       ]
+    },
+    {
+      "id": "sw_wagh_nakh",
+      "name": "Wagh Nakh",
+      "sub": "The Tiger Claw",
+      "empire": "swarajya",
+      "type": "order",
+      "kind": "shakti",
+      "cost": 4,
+      "target": "enemyUnit",
+      "power": 4,
+      "powerVsLegendary": 8,
+      "text": "Shakti — deal 4 damage to an enemy unit; 8 if it is legendary.",
+      "rarity": "epic",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1659-PRATAPGAD"
+      ]
+    },
+    {
+      "id": "sw_gopinath",
+      "name": "Gopinath Pant",
+      "sub": "Envoy",
+      "empire": "swarajya",
+      "type": "unit",
+      "cost": 2,
+      "op": 1,
+      "atk": 0,
+      "hp": 2,
+      "range": "melee",
+      "deploy": "draw1",
+      "text": "Deploy — draw a card. The envoy who carried the messages.",
+      "rarity": "rare",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1659-AFZAL-MARCH"
+      ]
     }
   ],
   "pendingArt": []

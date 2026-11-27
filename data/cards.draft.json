@@ -1,5 +1,5 @@
 {
-  "_about": "(Playable cards live in src/data/cards.json: 7 ported 24 Nov 2026 + 4 Gads ported 25 Nov 2026 (session 8, Phase 1 step 2) + 4 Ganim units ported 25 Nov 2026 (Phase 2, Ganim mechanic: sw_shivaji, sw_mavla, sw_havaldar, sw_shiledar), removed here.) DRAFT card roster for SWARAJYA. Not balanced, not loaded by the game. Same schema as YUDDH's src/data/cards.json, plus: refs (chronology IDs, required when basis is HISTORY or TRADITION), basis (HISTORY | TRADITION | GENERIC = a type of soldier or a game term, no claim about a person), phase (when it is needed), and _engine (NEW = needs engine work). type 'gad' is new (fort card, see DESIGN 3.1; the engine now has it). Keyword 'ganim' is new (DESIGN 3.3; the engine now has it, Phase 2). Stats move to src/data/cards.json only after balancing.",
+  "_about": "(Playable cards live in src/data/cards.json: 7 ported 24 Nov 2026 + 4 Gads ported 25 Nov 2026 (session 8, Phase 1 step 2) + 4 Ganim units ported 25 Nov 2026 (Phase 2, Ganim mechanic: sw_shivaji, sw_mavla, sw_havaldar, sw_shiledar), removed here.) DRAFT card roster for SWARAJYA. Not balanced, not loaded by the game. Same schema as YUDDH's src/data/cards.json, plus: refs (chronology IDs, required when basis is HISTORY or TRADITION), basis (HISTORY | TRADITION | GENERIC = a type of soldier or a game term, no claim about a person), phase (when it is needed), and _engine (NEW = needs engine work). type 'gad' is new (fort card, see DESIGN 3.1; the engine now has it). Keyword 'ganim' is new (DESIGN 3.3; the engine now has it, Phase 2). Stats move to src/data/cards.json only after balancing. Wagh Nakh (new `powerVsLegendary` order effect) and Gopinath Pant (Bhet-peek text dropped; plain draw) ported 27 Nov 2026 (session 12, balance pass).",
   "empires": {
     "swarajya": {
       "id": "swarajya",
@@ -113,24 +113,6 @@
       ],
       "phase": 2,
       "_engine": "NEW order effect"
-    },
-    {
-      "id": "sw_wagh_nakh",
-      "name": "Wagh Nakh",
-      "sub": "The Tiger Claw",
-      "empire": "swarajya",
-      "type": "order",
-      "kind": "shakti",
-      "cost": 4,
-      "target": "enemyUnit",
-      "text": "Shakti — deal 4 damage to an enemy unit; 6 if it is legendary.",
-      "rarity": "epic",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1659-PRATAPGAD"
-      ],
-      "phase": 1,
-      "_engine": "NEW order effect (vsLegendary)"
     },
     {
       "id": "sw_khind_ambush",
@@ -292,27 +274,6 @@
         "C-1665-PURANDAR"
       ],
       "phase": 2
-    },
-    {
-      "id": "sw_gopinath",
-      "name": "Gopinath Pant",
-      "sub": "Envoy",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 2,
-      "op": 1,
-      "atk": 0,
-      "hp": 2,
-      "range": "melee",
-      "deploy": "bhetPeek",
-      "text": "Deploy — draw a card. In a Bhet, see the enemy's stance odds.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1659-AFZAL-MARCH"
-      ],
-      "phase": 1,
-      "_engine": "NEW (Bhet hook)"
     },
     {
       "id": "sw_madari_mehtar",

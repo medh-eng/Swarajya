@@ -293,6 +293,7 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Event:** Shaista Khan, Mughal viceroy of the Deccan and Aurangzeb's maternal uncle, occupied Pune and besieged Chakan (Sangramdurg), held by the old killedar Firangoji Narsala with a small garrison. Rajput officers (Rai Singh Sisodia, Bhao Singh Hada) served in the Mughal army. A mine brought down part of the wall; after hard fighting Firangoji surrendered and was given safe passage. Shaista Khan then lived in the Lal Mahal in Pune.
 - **Basis:** HISTORY (garrison size 320 or 800 differs: do not show a number)
 - **Refs:** W-CHAKAN, W-FIRANGOJI
+- **The fort's form (for the art; added 27 Nov 2026, session 12):** Chakan was a *bhuikot*, a ground fort on flat land, not a hill fort: a square plan with bastions at the corners and a moat around it (W-CHAKAN-FORT citing Sarkar; W-DURGBHARARI agrees it is a ground fort with bastions). Firangoji is described as the elderly killedar (W-CHAKAN-FORT). The 56 days fall in the monsoon. Accounts of the end differ (W-CHAKAN-FORT/W-CHAKAN speak of a two-day assault with heavy losses); the game shows no fall and no casualties, and the epilogue says only what the Basis says: surrender and safe passage (D-07).
 - **Game:** `ch07_chakan` (survive objective); cards `sw_firangoji`, `mg_shaista_khan`, `mg_surang`
 
 ### C-1661-UMBERKHIND · The trap at Umberkhind

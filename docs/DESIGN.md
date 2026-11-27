@@ -219,6 +219,9 @@ Same method as YUDDH: AI "normal" vs "normal", 200 seeded games per chapter.
 - Ordinary battles: player 45–70%.
 - Chapters that history lost (Pavan Khind's pass, Chakan, Purandar): `survive` objectives tuned to
   40–60%; the History note says what really happened.
+- The harness also reports a skill ladder: the player-side AI at `easy` (beginner), `normal` (standard), `search`
+  (careful). Standard must sit in band; a beginner is lower by design, so the briefing offers a Foe: Easy option.
+- Pratapgad (27 Nov 2026): 58.7% before the Bhet, 49% averaged over the nine Bhet outcomes (Strike v Guard 26%).
 - Puzzles (Agra): solvable by the scripted solution in a test; not simulated.
 
 ## 10. Decisions log
@@ -229,3 +232,5 @@ Same method as YUDDH: AI "normal" vs "normal", 200 seeded games per chapter.
 - 24 Nov 2026: title **YUDDH: Swarajya** (D-14); Dadoji Kondadeo shown as Shivaji's teacher, following Purandare,
   with the dispute noted (D-15); Pon's copy of the book is the English edition, latest printing; chapter
   `ch20b_sangamner` approved (D-16). D-19/D-20 (Torna, Rajgad per Purandare), D-21 (Shivaji never in teal or green), D-22 (online research, no whole-book check). Phase 0 engine copy done (ruleset `'swarajya'`, see STATE.md).
+- 27 Nov 2026: balance pass. Easy foe option (D-23). Pratapgad rebuilt with Wagh Nakh (`powerVsLegendary`: 4, or 8
+  against a legendary) and Gopinath Pant; all five built battles in band (D-24).
