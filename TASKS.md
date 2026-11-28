@@ -21,7 +21,7 @@
       and the Pass / Pavan Khind): `as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid` (TRADITION),
       `as_angrezi_gola` (order card) + the `ghod_khind` battlefield. `sw_bajiprabhu` (the hero) is already
       painted, not repeated on this sheet.
-- [ ] **`art/PROMPTS-BATCH6.md` (new, 27 Nov 2026, session 12): chapter 7, Fifty-six Days at Chakan.**
+- [x] **`art/PROMPTS-BATCH6.md` (all eight paintings ready for review): chapter 7, Fifty-six Days at Chakan.**
       6 cards + 1 optional + the `chakan` battlefield, the first Mughal art: `sw_firangoji`,
       `sw_gad_chakan` (square), `mg_shaista_khan`, `mg_rajput_officer`, `mg_surang`, `mg_topkhana`,
       optional `mg_mansabdar_sawar`. Chakan is a flat ground fort with a moat (not a hill fort).
@@ -81,8 +81,8 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
        (Surat), 11 (Purandar treaty scene) — each needs its own chronology check (two independent sources
        per fact, D-22) before it ships, not just the mechanic that powers it.
 5. [ ] Mughal faction cards (new empire, alongside `swarajya`/`adilshahi`).
-6. [~] Art batches 2-6 (prompt sheets after batch 1's pattern in `art/PROMPTS-BATCH1.md`). Batches 2-5 fully
-       painted and registered. Batch 6 (chapter 7 Chakan) written 27 Nov 2026, session 12, awaiting Pon's paintings;
+6. [x] Art batches 2-6 (prompt sheets after batch 1's pattern in `art/PROMPTS-BATCH1.md`). Batches 2-5 fully
+       painted and registered. Batch 6 includes all seven card paintings and the Chakan battlefield;
        the later chapters (Umberkhind, Lal Mahal, Surat, Purandar) follow the same way.
 
 ## For Claude: Phase 0 — done (24 Nov 2026, session 5)

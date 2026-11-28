@@ -3,9 +3,11 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 27 Nov 2026 (session 12) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (steps 1–2 done; step 4: ch03 Jaoli, ch05 Kolhapur, ch06 Pavan Khind built)** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 28 Nov 2026 (Chakan art review) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (steps 1–2 done; step 4: ch03 Jaoli, ch05 Kolhapur, ch06 Pavan Khind built)** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
+**Chakan artwork (28 Nov 2026)**. All seven card paintings and the battlefield are ready for review. The card manifest now contains 38 paintings. Chapter 7 still needs its faction and engine work.
+
 **Session 12 (27 Nov 2026):** Pon lost every battle, so this session was a balance pass. **All five built battles are now in band**
 (Torna 58.3, Jaoli 50.0, Pratapgad 58.7, Kolhapur 54.0, Pavan Khind 57.3; 300 AI-vs-AI games each). **Pratapgad** was a wall (0.7%);
 fixed with a new 24-card Ganim deck plus two new cards, **Wagh Nakh** (`powerVsLegendary`: 4 damage, 8 to a legendary) and
@@ -128,7 +130,7 @@ Phase 2's first chapter.
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → [Bhet scene when `sc.bhet` is set] → battle → next chapter, fully wired (session 8; was a placeholder) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`, `bhet.test.ts`, `ganim.test.ts`, `khind.test.ts`, `survive-attrition.test.ts`, `balance.harness.test.ts` (BALANCE=1); `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main; live at https://medh-eng.github.io/Swarajya/ (was 7 commits stale — pushed and confirmed live, session 8) |
-| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH6.md` | Batches 1–5 fully painted (Siddi Hilal done 27 Nov). **Batch 6 (chapter 7 Chakan) written, unpainted.** Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 31 card paintings registered total |
+| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH6.md` | Batches 1–5 fully painted (Siddi Hilal done 27 Nov). **Batch 6 (chapter 7 Chakan) painted, including the optional Mansabdar Sawar.** Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 38 card paintings registered total |
 | Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 3 of 3 battlefields (`torna`, `pratapgad`, `maval` — Pon painted `maval` 25 Nov 2026, same session) |
 | Sound | — | none yet (icons and favicon drawn in code) |
 

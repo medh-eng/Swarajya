@@ -163,14 +163,14 @@ wet ground and haze) for the cards. No figures in the foreground.
 
 | # | File | Painted |
 |---|---|---|
-| 1 | `cards/sw_firangoji` | [ ] |
-| 2 | `cards/sw_gad_chakan` (square) | [ ] |
-| 3 | `cards/mg_shaista_khan` | [ ] |
-| 4 | `cards/mg_rajput_officer` | [ ] |
-| 5 | `cards/mg_surang` | [ ] |
-| 6 | `cards/mg_topkhana` | [ ] |
-| 7 | `cards/mg_mansabdar_sawar` (optional) | [ ] |
-| B6 | `battlefields/chakan` | [ ] |
+| 1 | `cards/sw_firangoji` | [x] |
+| 2 | `cards/sw_gad_chakan` (square) | [x] |
+| 3 | `cards/mg_shaista_khan` | [x] |
+| 4 | `cards/mg_rajput_officer` | [x] |
+| 5 | `cards/mg_surang` | [x] |
+| 6 | `cards/mg_topkhana` | [x] |
+| 7 | `cards/mg_mansabdar_sawar` (optional) | [x] |
+| B6 | `battlefields/chakan` | [x] |
 
 *Names to keep exactly as written (they are the card ids; a typo creates a dead entry): `sw_firangoji`,
 `sw_gad_chakan`, `mg_shaista_khan`, `mg_rajput_officer`, `mg_surang`, `mg_topkhana`,

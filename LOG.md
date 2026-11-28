@@ -873,3 +873,9 @@ playtest (headless Chrome, 1600x900, save seeded to reach Pratapgad): Campaign -
 briefing; Foe button cycled Standard/Veteran/Easy/Standard and set the AI level each time; opening hand dealt a
 Wagh Nakh; a naive "first move" bot won a full battle vs the Easy foe in turn 12 (in an earlier run the same bot had
 Afzal Khan off the board by turn 9), VICTORY screen offered Kolhapur, zero console errors.
+
+## 28 Nov 2026 · Chakan artwork for review
+
+Added the seven Batch 6 card paintings, including the optional Mansabdar Sawar, and the Chakan battlefield. Exported the PNG masters at the prompt sheet dimensions and generated the WebP assets with `npm run assets`. The card manifest now lists 38 paintings. Chapter 7 still needs its scenario and faction work.
+
+Checked all eight filenames and image pairs, the card window crops, the reference checker, TypeScript and the production build. The test suite reported 144 passed and 7 skipped.
