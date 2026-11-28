@@ -134,11 +134,11 @@ figures in the foreground.
 
 | # | File | Painted |
 |---|---|---|
-| 1 | `cards/sw_ratri_halla` | [ ] |
-| 2 | `cards/mg_gad_lalmahal` (square) | [ ] |
-| 3 | `cards/sw_bahirji` | [ ] |
-| 4 | `cards/mg_ahadi` (optional) | [ ] |
-| B8 | `battlefields/lalmahal` | [ ] |
+| 1 | `cards/sw_ratri_halla` | [x] |
+| 2 | `cards/mg_gad_lalmahal` (square) | [x] |
+| 3 | `cards/sw_bahirji` | [x] |
+| 4 | `cards/mg_ahadi` (optional) | [x] |
+| B8 | `battlefields/lalmahal` | [x] |
 
 *Names to keep exactly as written (they are the card ids; a typo creates a dead entry): `sw_ratri_halla`,
 `mg_gad_lalmahal`, `sw_bahirji`, `mg_ahadi`, `lalmahal`.*

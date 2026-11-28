@@ -16,8 +16,7 @@ Rai Bagan Bhet was dropped (D-26): her advice to ask for terms is the win text. 
 it gives the Jedhe date as 2 February 1661, so the game prints "February 1661" (CONTESTED #9 updated) and
 the disagreements over Rai Bagan's family and where the trap closed are CONTESTED #32. Session 13 built
 chapter 7 Chakan (siege mechanics, the Mughal faction). `art/PROMPTS-BATCH8.md` (chapter 9 Lal Mahal: Ratri
-Halla, the Lal Mahal Gad, Bahirji Naik, an optional Palace Guard, the `lalmahal` night battlefield) is
-written. Needs Pon: play Chakan and Umberkhind, paint batch 8, phone playtest, Gate 1.
+Halla, the Lal Mahal Gad, Bahirji Naik, an optional Palace Guard, the `lalmahal` night battlefield) has five paintings ready for review. Needs Pon: play Chakan and Umberkhind, review batch 8, phone playtest, Gate 1.
 
 Map order: Maval → Torna → Jaoli → Pratapgad → Kolhapur → Pavan Khind → Chakan → Umberkhind. All battles are in
 the 45–70% band at Standard (Torna 58.3, Jaoli 50.0, Pratapgad 58.7, Kolhapur 54.0, Pavan Khind 57.3, Chakan 56.7,
@@ -64,7 +63,7 @@ Umberkhind 56.7).
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → [Bhet scene when `sc.bhet` is set] → battle → next chapter, fully wired (session 8; was a placeholder) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`, `bhet.test.ts`, `ganim.test.ts`, `khind.test.ts`, `survive-attrition.test.ts`, `balance.harness.test.ts` (BALANCE=1); `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main; live at https://medh-eng.github.io/Swarajya/ (was 7 commits stale — pushed and confirmed live, session 8) |
-| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH8.md` | Batches 1–7 fully painted and registered (batch 7, Umberkhind, merged 28 Nov from PR #2). **Batch 8 (chapter 9 Lal Mahal) written 28 Nov, waiting for Pon.** 42 card paintings and 8 battlefields registered |
+| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH8.md` | Batches 1–7 fully painted and registered (batch 7, Umberkhind, merged 28 Nov from PR #2). **Batch 8 (chapter 9 Lal Mahal) painted, awaiting review.** 46 card paintings and 9 battlefields registered |
 | Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 3 of 3 battlefields (`torna`, `pratapgad`, `maval` — Pon painted `maval` 25 Nov 2026, same session) |
 | Sound | — | none yet (icons and favicon drawn in code) |
 
@@ -191,6 +190,6 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 - "Bahlol Khan" at Salher (Mughal) vs the Bijapuri Bahlol Khan: assumed two people.
 
 ## Next three things
-1. Pon: play Chakan and Umberkhind (Campaign map; Foe: Easy if needed). Paint art batch 8 (Lal Mahal).
+1. Pon: play Chakan and Umberkhind (Campaign map; Foe: Easy if needed). Review art batch 8 (Lal Mahal).
 2. Claude: Ratra (night) and chapter 9 The Lal Mahal (deadline), with a second good source for C-1663-LALMAHAL.
 3. Claude: ch10 Surat; the VERIFY research pass (Purandar 1648; CONTESTED #27-#29).

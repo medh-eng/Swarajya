@@ -26,7 +26,7 @@
       `sw_gad_chakan` (square), `mg_shaista_khan`, `mg_rajput_officer`, `mg_surang`, `mg_topkhana`,
       optional `mg_mansabdar_sawar`. Chakan is a flat ground fort with a moat (not a hill fort).
 - [x] **`art/PROMPTS-BATCH7.md` (all five painted, merged 28 Nov from PR #2): chapter 8, Umberkhind.**
-- [ ] **`art/PROMPTS-BATCH8.md` (written 28 Nov 2026, session 14): chapter 9, The Lal Mahal.** 3 cards + 1
+- [ ] **Review the five Lal Mahal paintings from `art/PROMPTS-BATCH8.md`.** 3 cards + 1
       optional + the `lalmahal` battlefield: `sw_ratri_halla` (order, no figures), `mg_gad_lalmahal` (square),
       `sw_bahirji`, optional `mg_ahadi`. The first night chapter; nothing of the killings is shown.
 - [ ] **Pon: please play Umberkhind** (Campaign -> after Chakan). The Mughal column is already in the pass;
