@@ -16,8 +16,8 @@ owner's Durg; `gadWard` (Firangoji: blows on your Gads are 1 weaker while he sta
 Raksha guard); orders that target an enemy Gad (`target: 'enemyGad'`, the Surang mine). Balance 56.7% (300
 games; the walls still fall in about three games in four, as in history). Chronology for Chakan now rests on
 Sarkar and Takakhav (dates CONTESTED #31: print "1660"). `art/PROMPTS-BATCH7.md` (chapter 8 Umberkhind:
-Kartalab Khan, Rai Bagan, Khind Ambush, Netaji Palkar, the `umberkhind` battlefield) is written. Needs Pon:
-play Chakan (try Foe: Easy if it is hard), paint batch 7, phone playtest, Gate 1.
+Kartalab Khan, Rai Bagan, Khind Ambush, Netaji Palkar, the `umberkhind` battlefield) has four card paintings and a battlefield ready for review. Needs Pon:
+play Chakan (try Foe: Easy if it is hard), review batch 7, phone playtest, Gate 1.
 
 Map order: Maval → Torna → Jaoli → Pratapgad → Kolhapur → Pavan Khind → Chakan. All seven battles are in the
 45–70% band at Standard (Torna 58.3, Jaoli 50.0, Pratapgad 58.7, Kolhapur 54.0, Pavan Khind 57.3, Chakan 56.7).
@@ -63,7 +63,7 @@ Map order: Maval → Torna → Jaoli → Pratapgad → Kolhapur → Pavan Khind 
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → [Bhet scene when `sc.bhet` is set] → battle → next chapter, fully wired (session 8; was a placeholder) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`, `bhet.test.ts`, `ganim.test.ts`, `khind.test.ts`, `survive-attrition.test.ts`, `balance.harness.test.ts` (BALANCE=1); `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main; live at https://medh-eng.github.io/Swarajya/ (was 7 commits stale — pushed and confirmed live, session 8) |
-| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH7.md` | **Batch 7 (chapter 8 Umberkhind) written 28 Nov, waiting for Pon.** Batches 1–5 fully painted (Siddi Hilal done 27 Nov). **Batch 6 (chapter 7 Chakan) painted, including the optional Mansabdar Sawar.** Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 38 card paintings registered total |
+| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH7.md` | **Batch 7 (chapter 8 Umberkhind) painted, awaiting art review.** Batches 1–5 fully painted (Siddi Hilal done 27 Nov). **Batch 6 (chapter 7 Chakan) painted, including the optional Mansabdar Sawar.** Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 42 card paintings registered total |
 | Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 3 of 3 battlefields (`torna`, `pratapgad`, `maval` — Pon painted `maval` 25 Nov 2026, same session) |
 | Sound | — | none yet (icons and favicon drawn in code) |
 
@@ -186,7 +186,7 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 - "Bahlol Khan" at Salher (Mughal) vs the Bijapuri Bahlol Khan: assumed two people.
 
 ## Next three things
-1. Pon: play Chakan (Campaign map, after Pavan Khind; Foe: Easy if needed). Paint art batch 7 (Umberkhind).
+1. Pon: play Chakan (Campaign map, after Pavan Khind; Foe: Easy if needed). Review art batch 7 (Umberkhind).
 2. Claude: chapter 8 Umberkhind (the onEnemyAdvance yantra, the Rai Bagan Bhet, four cards), after reading
    Takakhav ch. XVII.
 3. Claude: Ratra and `raid` for ch09 Lal Mahal; the VERIFY research pass (Purandar 1648; CONTESTED #27-#29).

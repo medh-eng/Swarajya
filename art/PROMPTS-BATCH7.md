@@ -137,11 +137,11 @@ no village. **Leave the middle band calm** (the open track and soft haze) for th
 
 | # | File | Painted |
 |---|---|---|
-| 1 | `cards/mg_kartalab_khan` | [ ] |
-| 2 | `cards/mg_rai_bagan` | [ ] |
-| 3 | `cards/sw_khind_ambush` | [ ] |
-| 4 | `cards/sw_netaji` (optional now) | [ ] |
-| B7 | `battlefields/umberkhind` | [ ] |
+| 1 | `cards/mg_kartalab_khan` | [x] |
+| 2 | `cards/mg_rai_bagan` | [x] |
+| 3 | `cards/sw_khind_ambush` | [x] |
+| 4 | `cards/sw_netaji` (optional now) | [x] |
+| B7 | `battlefields/umberkhind` | [x] |
 
 *Names to keep exactly as written (they are the card ids; a typo creates a dead entry):
 `mg_kartalab_khan`, `mg_rai_bagan`, `sw_khind_ambush`, `sw_netaji`, `umberkhind`.*

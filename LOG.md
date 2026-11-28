@@ -914,3 +914,7 @@ Checked all eight filenames and image pairs, the card window crops, the referenc
 **Verified:** see the commit. `npm test` (check-refs OK, golden included), `npx tsc --noEmit`, `npm run build`.
 Real playtest (Playwright, 1600x900 and 844x390): Campaign -> Chakan -> briefing -> battle. The fort art
 shows. Victory and defeat screens both reached. No console errors.
+
+## 28 Nov 2026 — Umberkhind artwork for review
+
+Added PNG masters and game WebPs for Kartalab Khan, Rai Bagan, Khind Ambush, Netaji Palkar and the Umberkhind battlefield. The Khind Ambush card uses a saffron cloth, basalt boulders and an empty track. The four new cards bring the art registry to 42. Chapter 8 artwork awaits Pon’s visual review.
