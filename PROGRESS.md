@@ -111,7 +111,7 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 | 6 | Panhala and the Pass | [x] | [x] | [x] | [x] 57.3% | built |
 | 7 | Fifty-six Days at Chakan | [x] | [x] | [x] | [x] 56.7% | built (session 13) |
 | 8 | Umberkhind | [x] | [x] | [x] | [x] 56.7% | built (session 14) |
-| 9 | The Lal Mahal | [ ] | [ ] | [ ] prompts (batch 8) | [ ] | planned |
+| 9 | The Lal Mahal | [ ] | [ ] | [x] five paintings ready for review | [ ] | planned |
 | 10 | Surat | [ ] | [ ] | [ ] | [ ] | planned |
 | 11 | Purandar | [ ] | [ ] | [ ] | [ ] | planned |
 | 12 | Agra | [ ] | [ ] | [ ] | n/a | planned |

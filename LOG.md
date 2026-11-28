@@ -949,3 +949,7 @@ Added PNG masters and game WebPs for Kartalab Khan, Rai Bagan, Khind Ambush, Net
 briefing → "Spring the trap" → a full game to the defeat screen at both sizes (the naive test bot lost), battlefield
 and card art shown, no console or page errors. The victory screen was not reached in the browser this time;
 the harness wins 57% of games.
+
+## Lal Mahal art review
+
+Added the Ratri Halla order, square Lal Mahal Gad, Bahirji Naik, Palace Guard and Pune night battlefield from Batch 8. PNG masters and WebP exports are ready for review. The four card paintings bring the registry to 46.
