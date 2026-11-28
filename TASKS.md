@@ -21,10 +21,15 @@
       and the Pass / Pavan Khind): `as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid` (TRADITION),
       `as_angrezi_gola` (order card) + the `ghod_khind` battlefield. `sw_bajiprabhu` (the hero) is already
       painted, not repeated on this sheet.
-- [x] **`art/PROMPTS-BATCH6.md` (all eight paintings ready for review): chapter 7, Fifty-six Days at Chakan.**
+- [x] **`art/PROMPTS-BATCH6.md` (all eight painted, merged 28 Nov from PR #1): chapter 7, Fifty-six Days at Chakan.**
       6 cards + 1 optional + the `chakan` battlefield, the first Mughal art: `sw_firangoji`,
       `sw_gad_chakan` (square), `mg_shaista_khan`, `mg_rajput_officer`, `mg_surang`, `mg_topkhana`,
       optional `mg_mansabdar_sawar`. Chakan is a flat ground fort with a moat (not a hill fort).
+- [ ] **`art/PROMPTS-BATCH7.md` (written 28 Nov 2026, session 13): chapter 8, Umberkhind.** 4 cards + the
+      `umberkhind` battlefield: `mg_kartalab_khan`, `mg_rai_bagan`, `sw_khind_ambush` (yantra, no figures),
+      `sw_netaji` (optional now). Dry-season forest pass, nobody dies.
+- [ ] **Pon: please play Chakan** (Campaign -> after Pavan Khind). Hold the fort for 10 turns; the walls are
+      meant to come under real pressure. Try **Foe: Easy** if it is too hard.
 - [ ] **Pon: please play Pratapgad again** (Campaign -> Pratapgad). It was a wall (0.7%); it is now 59% before
       the Bhet and 49% averaged over the nine Bhet outcomes. Try the new **Foe: Easy** button on the briefing
       if it still feels hard, and tell me which chapters still feel too hard.
@@ -60,8 +65,9 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
        advance limits and the search's front-holding value. Glossary + briefing + lane label. `tests/khind.test.ts`.
        Also fixed the same session: on the last turn of a `survive` chapter a Durg killed by attrition was
        declared a win (`startTurn`, gated by `isYuddhRules`; `tests/survive-attrition.test.ts`).
-3. [ ] Ratra (night) and the `raid` objective, then enemy Gads on the board (Chakan's `durgWard`,
-       Sindhudurg/Khanderi's `shipsAtk` — typed in `GadEffect` since step 2 but unapplied).
+3. [~] **Siege part done 28 Nov 2026, session 13:** `durgWard` applied; `gadWard`, `static`, `vsGad` bombard and
+       orders that target an enemy Gad (`tests/siege.test.ts`). Still open: Ratra (night) and the `raid`
+       objective (ch09 Lal Mahal), and `shipsAtk` (Sindhudurg/Khanderi).
 4. [~] **Chapter 3 (Jaoli) built 26 Nov 2026, session 10** — `src/campaign/jaoli.ts`, between Torna and
        Pratapgad on the map. New empire `jaoli` (types.ts, cards.json, theme.ts frame), `jm_chandrarao`,
        `jm_hanmantrao` (now HISTORY, 3 sources), `jm_jaoli_foot` ported. Balance harness: 50.0% player wins
@@ -76,13 +82,17 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
        - Pavan Khind's balance is a cliff (player deck of 7 gives 0%, 8 gives 57%, 9 gives 97%): recheck at Gate.
        - The map's Act header still says "ACT I" for the Act II chapters (5, 6).
        - Phone width: the briefing's place/year line runs under the History button (all chapters).
-       Next chapter: 7 (Chakan) — needs Phase 2 step 3 (enemy Gads, `durgWard`) first.
-       Remaining: 7 (Chakan), 8 (Umberkhind), 9 (Lal Mahal), 10
+       **Chapter 7 (Fifty-six Days at Chakan, 56.7%) built 28 Nov 2026, session 13.** Skill ladder: beginner 6%,
+       standard 57%, careful 83%. VERIFY: the Rajput officers' names; Firangoji at Bhupalgad.
+       Next chapter: 8 (Umberkhind): read Takakhav ch. XVII (W-TAKAKHAV-UMBER) first; needs an `onEnemyAdvance`
+       yantra for `sw_khind_ambush` and the `rai_bagan_offer` Bhet.
+       Remaining: 8 (Umberkhind), 9 (Lal Mahal), 10
        (Surat), 11 (Purandar treaty scene) — each needs its own chronology check (two independent sources
        per fact, D-22) before it ships, not just the mechanic that powers it.
-5. [ ] Mughal faction cards (new empire, alongside `swarajya`/`adilshahi`).
+5. [~] Mughal faction: empire `mughal` and 5 cards built session 13 (`mg_shaista_khan`, `mg_rajput_officer`,
+       `mg_surang`, `mg_topkhana`, `mg_mansabdar_sawar`). More arrive with each Mughal chapter.
 6. [x] Art batches 2-6 (prompt sheets after batch 1's pattern in `art/PROMPTS-BATCH1.md`). Batches 2-5 fully
-       painted and registered. Batch 6 includes all seven card paintings and the Chakan battlefield;
+       painted and registered. Batch 6 painted and merged; batch 7 (Umberkhind) written;
        the later chapters (Umberkhind, Lal Mahal, Surat, Purandar) follow the same way.
 
 ## For Claude: Phase 0 — done (24 Nov 2026, session 5)

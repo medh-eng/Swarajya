@@ -81,7 +81,8 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 ## Mechanics
 | Mechanic | Engine | AI | Tests | Glossary/UI | Status |
 |---|---|---|---|---|---|
-| Gad (fort cards, capture) | [x] | [x] | [x] | [x] | built (Phase 1 step 2, session 8) — `durgWard`/`shipsAtk` not yet applied |
+| Gad (fort cards, capture) | [x] | [x] | [x] | [x] | built (Phase 1 step 2, session 8); `durgWard` applied session 13; `shipsAtk` not yet |
+| Siege (`gadWard`, `static`, `vsGad` bombard, orders vs Gads) | [x] | [x] | [x] | [x] | built (Phase 2 step 3, session 13), first used in ch07 Chakan |
 | Bhet (parley scene) | [x] | [x] | [x] | [x] | built (Phase 1 step 6, session 8) — explained in-scene, no glossary icon |
 | New objective `capture` | [x] | [x] | [x] | [x] | built (Phase 1 step 3, session 8) |
 | Swarajya map (forts light up) | n/a | n/a | n/a | [x] | v1 built on existing `campaignScene` (Phase 1 step 8, session 8); full painted map later |
@@ -103,12 +104,12 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 | 0 | The Mavlas of the Maval (tutorial) | [x] | [x] | [x] (placeholder ground) | n/a | built, unbalanced |
 | 1 | Torna | [x] | [x] | [x] (painted) | [ ] | built, unbalanced |
 | 2 | Purandar 1648 | — | — | — | — | blocked (VERIFY) |
-| 3 | Jaoli | [ ] | [ ] | [ ] | [ ] | planned |
+| 3 | Jaoli | [x] | [x] | [x] | [x] 50.0% | built |
 | 4 | Pratapgad | [x] | [x] | [x] (painted) | [ ] | built, unbalanced (battle only — Bhet minigame not yet built, step 6) |
-| 5 | Kolhapur | [ ] | [ ] | [ ] | [ ] | planned |
-| 6 | Panhala and the Pass | [ ] | [ ] | [ ] | [ ] | planned |
-| 7 | Fifty-six Days at Chakan | [ ] | [ ] | [x] | [ ] | planned |
-| 8 | Umberkhind | [ ] | [ ] | [ ] | [ ] | planned |
+| 5 | Kolhapur | [x] | [x] | [x] | [x] 54.0% | built |
+| 6 | Panhala and the Pass | [x] | [x] | [x] | [x] 57.3% | built |
+| 7 | Fifty-six Days at Chakan | [x] | [x] | [x] | [x] 56.7% | built (session 13) |
+| 8 | Umberkhind | [ ] | [ ] | [ ] prompts (batch 7) | [ ] | planned |
 | 9 | The Lal Mahal | [ ] | [ ] | [ ] | [ ] | planned |
 | 10 | Surat | [ ] | [ ] | [ ] | [ ] | planned |
 | 11 | Purandar | [ ] | [ ] | [ ] | [ ] | planned |

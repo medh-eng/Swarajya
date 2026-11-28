@@ -3,110 +3,43 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 28 Nov 2026 (Chakan art review) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (steps 1–2 done; step 4: ch03 Jaoli, ch05 Kolhapur, ch06 Pavan Khind built)** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 28 Nov 2026 (session 13) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (steps 1–2 done, step 3 partly done, step 5 Mughal faction started; chapters 3, 5, 6 and 7 built)** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
-**Chakan artwork (28 Nov 2026)**. All seven card paintings and the battlefield are ready for review. The card manifest now contains 38 paintings. Chapter 7 still needs its faction and engine work.
+Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on the YUDDH engine
+(ruleset `'swarajya'`). **Session 13 (28 Nov 2026):** art batch 6 reviewed and merged (PR #1: 38 card
+paintings, 7 battlefields). **Chapter 7, "Fifty-six Days at Chakan", is built and playable**: you hold
+Sangramdurg as Firangoji Narsala for 10 turns against Shaista Khan's siege (monsoon). It brought the first
+**Mughal** faction (empire `mughal`, 5 cards) and the **siege mechanics**: `durgWard` Gads now protect their
+owner's Durg; `gadWard` (Firangoji: blows on your Gads are 1 weaker while he stands on the Rajya line);
+`static` siege guns that never leave the Rajya line; `vsGad` bombard (strikes a Gad from the Rajya line, over a
+Raksha guard); orders that target an enemy Gad (`target: 'enemyGad'`, the Surang mine). Balance 56.7% (300
+games; the walls still fall in about three games in four, as in history). Chronology for Chakan now rests on
+Sarkar and Takakhav (dates CONTESTED #31: print "1660"). `art/PROMPTS-BATCH7.md` (chapter 8 Umberkhind:
+Kartalab Khan, Rai Bagan, Khind Ambush, Netaji Palkar, the `umberkhind` battlefield) is written. Needs Pon:
+play Chakan (try Foe: Easy if it is hard), paint batch 7, phone playtest, Gate 1.
 
-**Session 12 (27 Nov 2026):** Pon lost every battle, so this session was a balance pass. **All five built battles are now in band**
-(Torna 58.3, Jaoli 50.0, Pratapgad 58.7, Kolhapur 54.0, Pavan Khind 57.3; 300 AI-vs-AI games each). **Pratapgad** was a wall (0.7%);
-fixed with a new 24-card Ganim deck plus two new cards, **Wagh Nakh** (`powerVsLegendary`: 4 damage, 8 to a legendary) and
-**Gopinath Pant** (draw a card), both ported from the draft and already painted. The harness gained a **skill ladder**
-(beginner / standard / careful) and a Pratapgad-by-Bhet matrix; a beginner still only wins 4–23% in four chapters, so the briefing
-has a **Foe: Easy / Standard / Veteran** button. `sw_siddi_hilal` is painted (31 card paintings). `art/PROMPTS-BATCH6.md` (chapter 7
-Chakan, first Mughal art) is written. Needs Pon: replay Pratapgad and try Foe: Easy; phone playtest; Gate 1.
-
-**Session 11 (26 Nov 2026):** **Phase 2 step 2, Khind, is built** (`frontSize`; `frontCap`/`isKhind` in
-`ruleset.ts`; Swarajya-only, golden test unchanged). **Chapter 5 Kolhapur** (destroy, Rustam-i-Zaman and
-Fazl Khan, Siddi Hilal on the Raje's side; 54.0%) and **chapter 6 Panhala and the Pass / Pavan Khind**
-(survive 8 turns in a Khind of 2, as Baji Prabhu; monsoon; 57.3%) are built and playable. Map order:
-Maval → Torna → Jaoli → Pratapgad → Kolhapur → Pavan Khind. Six cards ported (`as_rustam_zaman`,
-`as_fazl_khan`, `sw_siddi_hilal`, `sw_bajiprabhu`, `sw_shiva_kashid` (TRADITION), `as_siddi_masud`).
-The playtest found an engine bug, now fixed: on the last turn of a `survive` chapter, a Durg killed by
-attrition was shown as VICTORY (`startTurn`, gated by `isYuddhRules`, regression test added). Next:
-Phase 2 step 3 (enemy Gads / `durgWard`, Ratra, `raid`), which ch07 Chakan needs. Loose ends in TASKS.md.
-
-**Session 10 (26 Nov 2026):** art batch 4 (Pavan Khind) fully painted and registered (30 card paintings,
-6 battlefields incl. `ghod_khind`). **Chapter 3, Jaoli, built and playable** (`src/campaign/jaoli.ts`;
-map order is now Maval → Torna → Jaoli → Pratapgad): new empire `jaoli` (dark-teak frame), three Jaoli
-cards ported, the first chapter to deck `sw_shivaji` and the Ganim units; harness 50.0% player wins;
-real playtest (desktop + phone) clean. `jm_hanmantrao` promoted to HISTORY (three sources); how he died
-is CONTESTED #30. Next: ch05 Kolhapur (waits on `sw_siddi_hilal`'s painting) or Phase 2 step 2 (Khind),
-which ch06 Pavan Khind needs.
-
-YUDDH: Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on
-the YUDDH engine. The repo `medh-eng/Swarajya` holds the planning package (sourced chronology of 73
-entries, 23 chapters, 67 draft cards) and, since session 5, the YUDDH engine copied at its baseline
-with a new ruleset `'swarajya'`. `npm test` (check-refs + 119 Vitest tests incl. the 154-game golden
-replay), `npx tsc --noEmit` and `npm run build` pass. Session 6 added empires `swarajya` and
-`adilshahi` and 7 playable cards. Session 8 added the engine's first two Swarajya mechanics (Phase 1
-steps 2–3: the **Gad card type** and the **`capture` objective**), made the vertical slice playable end
-to end (steps 4–5: title → "Learn to play"/"Campaign" → briefing → battle → win/loss → next chapter, for
-`ch00_maval`, `ch01_torna`, `ch04_pratapgad`), and then (step 6, same session) built the **Bhet scene**
-(Trust/Guard/Strike) — `ch04_pratapgad` now opens on the parley itself instead of skipping straight to
-battle. Then (step 8, same session) **campaign map v1** (confirmed on the existing shared `campaignScene`,
-which already shows win/next state) and a full **Marathi localization layer** for the vertical slice's own
-text (`src/i18n.ts`, `localizeScenario`/`localizeCampaign`, a `hasDevanagari`/`fontFor` font fix) — title
-screen, the three chapters' briefing/objective text, and the Bhet scene now toggle EN/MR; generic
-YUDDH battle-screen chrome stays English pending PLAN.md's later reviewed Marathi pass (Q-05). Step 9
-(remove YUDDH scaffolding) turned out bigger than scoped: `tests/swarajya.test.ts` no longer needs
-`duel.ts`'s YUDDH factions (done), but the rest — 19 chapter files, `CAMPAIGNS`, the `"yuddh"` card pool,
-`duel.json`'s factions — is load-bearing for four *other* test files and for Phase 4's planned Duel reuse,
-so it's left for its own dedicated pass rather than forced through now (see `TASKS.md` step 9 for the
-full finding). Phase 1 now has only step 9 (the rest of it) and step 10 left (balance + Gate 1 with Pon
-— the latter needs Pon's own hands-on playtest and cannot be done by Claude alone). Step 10 is
-now under way: GitHub Pages was pointed at `main` instead of `gh-pages` (fixed by Pon in repo
-Settings), and once the live site actually loaded, Pon played it and lost all four chapters. Built
-`tests/balance.harness.test.ts` (an AI-vs-AI win-rate checker, run with `BALANCE=1 npx vitest run
-tests/balance.harness.test.ts`) to measure instead of guess: **Torna fixed** (10.7% → 58.3% player
-wins, a deck-list edit in `decks.json`), **Pratapgad still out of band** (0.7%) — the cause is
-structural (Afzal Khan deploys free on turn 1 with an all-units buff), not deck size, and needs
-Pon's design call (options in `TASKS.md` step 10). **Art batch 1 is
-complete**: all 20 card
-paintings and all 3 battlefields (`torna`, `pratapgad`, `maval`) are done (Pon), registered in
-`src/assets/card-art.json` and `public/assets/battlefields/`. GitHub Pages is switched on (Pon, 24 Nov
-2026). Phase 2 ("Act I and II", per `docs/PLAN.md`) has begun: step 1, the **Ganim keyword** (strike and
-fade — DESIGN 3.3), is built, with AI values for both the search and heuristic AI, a glossary entry and
-icon, and `sw_shivaji` (Shivaji's own playable card) plus three Mavla-army units now loaded and playable.
-No vertical-slice chapter decks them yet, so this step changed no visible gameplay — it is groundwork for
-Phase 2's first chapter.
+Map order: Maval → Torna → Jaoli → Pratapgad → Kolhapur → Pavan Khind → Chakan. All seven battles are in the
+45–70% band at Standard (Torna 58.3, Jaoli 50.0, Pratapgad 58.7, Kolhapur 54.0, Pavan Khind 57.3, Chakan 56.7).
 
 ## Start here (next session)
-1. Read this file, `TASKS.md` (sections "Phase 1" and "Phase 2"), the last three `LOG.md` entries, then `CLAUDE.md`.
+1. Read this file, `TASKS.md` ("Phase 1" and "Phase 2"), the last three `LOG.md` entries, then `CLAUDE.md`.
 2. `npm ci`, then `npm test`, `npx tsc --noEmit`, `npm run build`: all must pass before you change anything.
-3. Phase 1 steps 1–8 are done (data; Gad + capture; battle-without-art fallback; the three vertical-slice
-   scenarios wired title → campaign → battle; the Bhet scene; campaign map v1 + Marathi strings). Step 9
-   is partly done (see `TASKS.md`). Two kinds of work are open now:
-   - **Finish Phase 1**: `TASKS.md` → Phase 1, the rest of step 9 (remove the remaining YUDDH scaffolding
-     — read the finding there first, it's bigger than it looks) is Claude-doable; step 10 (balance +
-     Gate 1) needs Pon's own playtest approval. Torna is now in band; Pratapgad needs a design
-     decision from Pon on Afzal Khan (three options written up in `TASKS.md` step 10) before another
-     harness/fix pass makes sense — read that before touching `as_afzal_khan` or `ch04_pratapgad`.
-   - **Continue Phase 2**: `TASKS.md` → "For Claude: Phase 2", step 1 (Ganim) is done; continue with
-     step 3 (Ratra/`raid`, enemy Gads with `durgWard` for Chakan), then chapters 7-11. Steps 1 (Ganim)
-     and 2 (Khind) are done; chapters 3, 5 and 6 are built. Either kind of work (finishing Phase 1 or continuing Phase 2) can proceed; they don't
-     block each other. durgWard/shipsAtk (Chakan, Sindhudurg, Khanderi, Panhala) are recorded in the
-     `GadEffect` type but unapplied — wire them in when their chapter is built (Phase 2 step 3).
-3a. **The Bhet scene's Marathi was reviewed by reading the code, not seen live** (reaching it needs the
-    first two vertical-slice chapters won first) — if you're in the area, a real playtest that plays
-    through to Pratapgad in Marathi mode would close that gap. Also worth a glance: whether Marathi text
-    anywhere overflows its box at phone width (this session only checked 1600×900 desktop).
-4. **Lesson from this session, worth re-reading before adding any new scenario:** a `Scenario`'s
-   `heroCard`/`defeatCard` (and a `CampaignNode`'s `face`) are not just "an art reference" — `cardFace()`
-   looks the id up in the engine's live `CARDS` table (`src/data/cards.json`) to draw the full card
-   frame, so an id that exists only in `data/cards.draft.json` (not loaded by the game) throws
-   `TypeError: Cannot read properties of undefined (reading 'empire')` the moment that screen opens. This
-   is exactly why the mandatory real playtest (not `tsc`/`vitest`/`vite build`) exists — none of those
-   exercise `cardFace()` against real data the way clicking through the UI does. `sw_shivaji` in
-   particular is **not yet a playable card** (blocked on the unbuilt Ganim mechanic) — don't use it as a
-   portrait id until it's ported to `src/data/cards.json`.
-5. Known loose end, not a blocker: the coached tutorial's coach callout hardcodes Chanakya's portrait
-   (`cardFace('m_chanakya')` in `battle.ts`, inherited YUDDH scaffolding) instead of a Swarajya figure —
-   cosmetic only. Candidate for step 9's scaffolding removal, or parametrize it sooner if it bothers Pon
-   in a playtest.
-6. The YUDDH repo is the reference for how a finished feature looks: clone it read-only
-   (`GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/medh-eng/yuddh`; skip `art/`, it is ~1 GB).
-   Its `src/main.ts` was the pattern for this repo's `src/main.ts` (now wired, not a placeholder).
+3. Next Claude work: **chapter 8 Umberkhind** (`data/chapters.json` ch08: Khind of 2, Bhet `rai_bagan_offer`,
+   enemy starts on the front, destroy objective). Port `mg_kartalab_khan`, `mg_rai_bagan`, `sw_khind_ambush`,
+   `sw_netaji` from the draft (set their empire to `mughal`/`swarajya`; remove them from the draft file or
+   check-refs flags duplicate ids). `sw_khind_ambush` needs an `onEnemyAdvance` yantra trigger (check the
+   engine; Dhuan/deploy traps are the nearest pattern). Read Takakhav ch. XVII (W-TAKAKHAV-UMBER) first.
+   Remaining Phase 2 step 3 pieces: Ratra and `raid` (ch09 Lal Mahal needs them); `shipsAtk` is still unwired.
+4. Before adding a scenario: `heroCard`, `defeatCard` and a campaign node's `face` must be ids in
+   `src/data/cards.json` (not only the draft), or `cardFace()` throws when the screen opens. Preset cards'
+   art is preloaded by `battleArt()` (fixed session 13).
+5. The real playtest is mandatory: `tests/e2e/swarajyaPlaytest.cjs`. Campaign nodes use raw pointertap, so
+   click them by screen position. The briefing's place line overlaps the History/Foe buttons at phone width
+   in every chapter (known, cosmetic).
+6. Loose ends: the tutorial coach shows Chanakya's portrait (YUDDH scaffolding); the rest of Phase 1 step 9
+   (YUDDH scaffolding removal; read TASKS.md first). YUDDH reference clone:
+   `GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/medh-eng/yuddh` (skip `art/`).
 
 ## What exists
 | Thing | Where | State |
@@ -115,7 +48,7 @@ Phase 2's first chapter.
 | Roadmap | `docs/PLAN.md` | v1 (Phase 0 done) |
 | Chronology (single source of truth) | `history/CHRONOLOGY.md` | 73 entries; Purandare pp. 154-169, 207-284 recorded (Torna to the Pratapgad meeting); VERIFY items below |
 | Sources | `history/SOURCES.md` | P/S/W lists; primary texts still to obtain |
-| Contested points | `history/CONTESTED.md` | 30 items; #27-#29 open (Baji More's fate; elder Sambhaji and Afzal; Siddi Hilal's side in 1659) |
+| Contested points | `history/CONTESTED.md` | 31 items (#31 Chakan dates); #27-#29 open (Baji More's fate; elder Sambhaji and Afzal; Siddi Hilal's side in 1659) |
 | People and spellings | `history/PEOPLE.md` | v1 |
 | AI reports review | `history/AI-REPORTS-REVIEW.md` | ChatGPT and Gemini reports checked claim by claim |
 | Purandare check list | `history/PURANDARE-CHECK.md` | Rows checked from the pages Pon sent (not a gate, D-22); no more pages needed unless a point is disputed |
@@ -130,7 +63,7 @@ Phase 2's first chapter.
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → [Bhet scene when `sc.bhet` is set] → battle → next chapter, fully wired (session 8; was a placeholder) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`, `bhet.test.ts`, `ganim.test.ts`, `khind.test.ts`, `survive-attrition.test.ts`, `balance.harness.test.ts` (BALANCE=1); `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main; live at https://medh-eng.github.io/Swarajya/ (was 7 commits stale — pushed and confirmed live, session 8) |
-| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH6.md` | Batches 1–5 fully painted (Siddi Hilal done 27 Nov). **Batch 6 (chapter 7 Chakan) painted, including the optional Mansabdar Sawar.** Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 38 card paintings registered total |
+| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH7.md` | **Batch 7 (chapter 8 Umberkhind) written 28 Nov, waiting for Pon.** Batches 1–5 fully painted (Siddi Hilal done 27 Nov). **Batch 6 (chapter 7 Chakan) painted, including the optional Mansabdar Sawar.** Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 38 card paintings registered total |
 | Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 3 of 3 battlefields (`torna`, `pratapgad`, `maval` — Pon painted `maval` 25 Nov 2026, same session) |
 | Sound | — | none yet (icons and favicon drawn in code) |
 
@@ -179,6 +112,13 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 - **Khind (Phase 2 step 2, session 11, DESIGN 3.2):** `Scenario` → `newGame({ frontSize })`, stored on
   `GameState` only under Swarajya rules. `frontCap`/`isKhind` gate `canMove` ("The pass is full"), ferry
   room, preset fronts, the AI's two advance limits and `search.ts`'s front value (weighted 4/frontCap).
+- **Siege (session 13, Phase 2 step 3):** `durgWardOf` (each `durgWard` Gad its owner holds takes 1 off every
+  attack on that owner's Durg; it flips with the fort on capture); `gadWardOf` (non-Gad cards with `gadWard` on
+  the Rajya line take that much off each blow on their owner's Gads, in `damageUnit` and `strikeDamage`);
+  `static` (`canMove` refuses); `vsGad` adds damage against a Gad and lets the attacker bombard a Gad from the
+  Rajya line, ignoring the Raksha guard (`canAttack`); order `target: 'enemyGad'` (`canPlay`, `playableCards`,
+  `legalActions`). AI: `attackScore` uses `strikeDamage` against Gads; `gadPlayScore` values durgWard Gads.
+  All Swarajya-only; `tests/siege.test.ts`.
 - **Clock objectives:** `startTurn` returns before the survive/deadline/capture clock if attrition already
   ended the game that turn (Swarajya/YUDDH only; classic keeps its order for the golden traces).
 - **Marathi (Phase 1 step 8, session 8):** `src/i18n.ts` is a from-scratch `pick(en, mr)` overlay system
@@ -220,6 +160,7 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 | D-22 | **Research workflow:** Claude researches online (period sources, scholarship, reputable references; two independent sources per fact) and does not wait for the whole book. Pon is not asked to photograph Purandare; specific pages only for a specific disputed or single-source point. Purandare stays the standard where Pon supplied pages. `PURANDARE-CHECK.md` is no longer a gate. | 24 Nov 2026 |
 | D-23 | **Easy foe option.** The briefing's Foe button cycles Easy / Standard / Veteran (`src/campaign/difficulty.ts`). The balance band (45–70%) stays an AI-vs-AI measure at Standard; Easy exists because a beginner wins far less than the harness says. | 27 Nov 2026 |
 | D-24 | **Pratapgad fix:** a new Ganim deck plus Wagh Nakh (`powerVsLegendary`) and Gopinath Pant, rather than delaying Afzal or weakening his buff. Netaji Palkar and Moropant Pingle not added there (single-source). | 27 Nov 2026 |
+| D-25 | **Chakan as a defence:** you hold the fort for 10 turns as Firangoji; winning means holding the turns, and the History note and epilogue say the fort fell. The Mughal deck gets siege guns and the Surang mine; Rajput officers are shown but not named on cards (their names are single-source, VERIFY). | 28 Nov 2026 |
 | D-17 | Phase 0 keeps YUDDH's content code (`src/campaign/*`, YUDDH cards and duel factions in `src/data/*.json`) as **scaffolding** so the battle screen, duel and tests keep compiling. It is not reachable from the game (the title is a placeholder). Phase 1 replaces it piece by piece with Swarajya content and deletes what is left. YUDDH's art is not copied (`src/assets/card-art.json` is empty, so cards draw their placeholder frame). | 24 Nov 2026 |
 
 
@@ -245,8 +186,7 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 - "Bahlol Khan" at Salher (Mughal) vs the Bijapuri Bahlol Khan: assumed two people.
 
 ## Next three things
-1. Pon: play Kolhapur and Pavan Khind (Campaign map). Paint `sw_siddi_hilal` (batch 3's last card).
-2. Claude: Phase 2 step 3 (enemy Gads with `durgWard`, Ratra, `raid`), then ch07 Chakan with its own
-   chronology check (two sources per fact).
-3. Claude: the VERIFY research pass (Purandar 1648 unblocks `ch02_purandar1648`; CONTESTED #27-#29), and
-   Pratapgad's balance once Pon picks an Afzal Khan option (TASKS.md Phase 1 step 10).
+1. Pon: play Chakan (Campaign map, after Pavan Khind; Foe: Easy if needed). Paint art batch 7 (Umberkhind).
+2. Claude: chapter 8 Umberkhind (the onEnemyAdvance yantra, the Rai Bagan Bhet, four cards), after reading
+   Takakhav ch. XVII.
+3. Claude: Ratra and `raid` for ch09 Lal Mahal; the VERIFY research pass (Purandar 1648; CONTESTED #27-#29).

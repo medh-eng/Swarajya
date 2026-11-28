@@ -879,3 +879,38 @@ Afzal Khan off the board by turn 9), VICTORY screen offered Kolhapur, zero conso
 Added the seven Batch 6 card paintings, including the optional Mansabdar Sawar, and the Chakan battlefield. Exported the PNG masters at the prompt sheet dimensions and generated the WebP assets with `npm run assets`. The card manifest now lists 38 paintings. Chapter 7 still needs its scenario and faction work.
 
 Checked all eight filenames and image pairs, the card window crops, the reference checker, TypeScript and the production build. The test suite reported 144 passed and 7 skipped.
+
+## 28 Nov 2026 · Session 13: Chakan built (siege mechanics, Mughal faction); art batch 7 written
+
+- **Art batch 6 merged** (PR #1, merged into main): seven cards plus the `chakan` battlefield checked against the
+  prompt sheet (Firangoji old and steady, Chakan a square ground fort with a moat, the mine shows objects only, no
+  green on Shivaji's side). 38 card paintings, 7 battlefields.
+- **Siege mechanics** (Phase 2 step 3, Swarajya only, golden test unchanged):
+  - `durgWardOf`: each `durgWard` Gad takes 1 off every attack on its owner's Durg, and flips with the fort.
+  - `gadWardOf`: Firangoji on the Rajya line takes 1 off each blow on his side's Gads.
+  - `static`: siege guns cannot move.
+  - `vsGad`: extra damage to a Gad, and a bombard from the Rajya line that ignores the Raksha guard.
+  - Orders with `target: 'enemyGad'`: the Surang mine.
+  - AI values in `ai.ts` and `search.ts`, glossary entries, and `tests/siege.test.ts` (8 tests).
+- **Mughal faction:** empire `mughal` (frame in imperial red and lapis) and `mg_shaista_khan`, `mg_rajput_officer`
+  (no names printed; the names are VERIFY), `mg_surang`, `mg_topkhana`, `mg_mansabdar_sawar`. New cards:
+  `sw_firangoji` and `sw_gad_chakan`.
+- **Chapter 7, Fifty-six Days at Chakan** (`src/campaign/chakan.ts`): hold for 10 turns in the monsoon against
+  Shaista Khan, who starts with guns placed and riders on the front. Balance went from 100% to **56.7%** (300 games):
+  bigger decks on both sides, enemy presets and starting Kosha. The walls fall in about 74% of games. Skill ladder:
+  beginner 6%, standard 57%, careful 83%.
+- **Bug fixed:** `battleArt()` did not preload preset cards' art, so Sangramdurg showed a blank frame. It now
+  builds the opening game state and collects every support and front card.
+- **History:** `C-1660-CHAKAN` rewritten on Sarkar (Wikisource) and Takakhav ch. 16: Sarkar's dates, the
+  Jedhe date, the mine under the north-east tower, the surrender through a Rajput officer, Firangoji's refusal of
+  imperial service. New CONTESTED #31 (dates; the game prints "1660"). Rajput officers' names marked VERIFY in
+  PEOPLE.md. History note `ch07_chakan` includes the other side's view.
+- **Art batch 7** (`art/PROMPTS-BATCH7.md`, chapter 8 Umberkhind): `mg_kartalab_khan`, `mg_rai_bagan` (not called
+  wife or widow; the sources differ), `sw_khind_ambush` (no figures), `sw_netaji` (optional), battlefield
+  `umberkhind` (dry-season forest pass). Sources for `C-1661-UMBERKHIND` added: W-HISTFILES-MARATHAS05,
+  W-SAHASA-SKONKAN, W-TAKAKHAV-UMBER (chapter still to read).
+- D-25 (Chakan as a defence). Decks appended to `decks.json` as text, so the file was not reformatted.
+
+**Verified:** see the commit. `npm test` (check-refs OK, golden included), `npx tsc --noEmit`, `npm run build`.
+Real playtest (Playwright, 1600x900 and 844x390): Campaign -> Chakan -> briefing -> battle. The fort art
+shows. Victory and defeat screens both reached. No console errors.

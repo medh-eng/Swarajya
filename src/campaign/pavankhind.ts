@@ -39,6 +39,8 @@ export const PAVANKHIND: Scenario = {
   winText: () => 'The pass held. The Raje reached Vishalgad, and Ghod Khind is remembered as Pavan Khind, the sacred pass. (Tradition tells of guns fired from the fort as the signal.)',
   loseText: 'Siddi Masud\'s men force the pass before the Raje is safe. History went otherwise: play it again.',
   goLabel: 'Hold the pass',
+  nextId: 'ch07_chakan',
+  nextLabel: 'Fifty-six Days at Chakan',
   playerDeck, enemyDeck,
   // unreviewed Marathi, same status as the vertical slice's (Q-05) — see src/i18n.ts
   mr: {
@@ -47,6 +49,7 @@ export const PAVANKHIND: Scenario = {
     briefing: 'महिनोन्महिने सिद्दी जौहरने पन्हाळ्याला वेढा घातला आहे. पावसाळ्यातल्या एका रात्री राजे थोड्या फौजेसह निसटले आणि विशाळगडाकडे निघाले, आणि सिद्दी मसूद त्यांच्या मागावर आहे. घोडखिंडीत वाट अरुंद होऊन एक घळ बनते. तुम्ही बाजीप्रभू देशपांडे आहात: बांदलांच्या माणसांसह राजे पुढे जाईपर्यंत तुम्ही ती खिंड लढवाल.',
     objective: `${HOLD} डाव खिंड लढवा, राजे विशाळगडावर सुखरूप पोहोचेपर्यंत.`,
     goLabel: 'खिंड लढवा',
+    nextLabel: 'चाकणचे छप्पन्न दिवस',
     winText: () => 'खिंड टिकली. राजे विशाळगडावर पोहोचले, आणि तेव्हापासून घोडखिंडीला पावनखिंड म्हणतात. (परंपरेनुसार गडावरून तोफांचे बार इशारा म्हणून उडवले गेले.)',
     loseText: 'राजे सुखरूप होण्याआधी सिद्दी मसूदची माणसे खिंड फोडतात. इतिहास वेगळा घडला: पुन्हा खेळा.'
   },

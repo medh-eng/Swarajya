@@ -7,7 +7,7 @@
 import { frontCap, isYuddhRules } from './ruleset';
 import { CARDS } from './cards';
 import {
-  allUnits, applyAction, canAttack, canFallback, canMove, canPlay, findUnit, isGadCard, koshaCost, other, wouldRout
+  allUnits, applyAction, canAttack, canFallback, canMove, canPlay, findUnit, isGadCard, koshaCost, other, strikeDamage, wouldRout
 } from './rules';
 import { searchTurn } from './search';
 import type { AiLevel, CardDef, GameState, PlayerIndex, Target, Unit } from './types';
@@ -54,17 +54,18 @@ function attackScore(st: GameState, pIdx: PlayerIndex, a: Unit, target: Target, 
   const f = findUnit(st, enemy, target.uid);
   if (!f) return -1;
   const d = f.unit;
-  const kills = a.atk >= d.hp;
+  const isGad = isGadCard(d.cardId);
+  const hitDmg = isGad ? strikeDamage(st, a, d) : a.atk;
+  const kills = hitDmg >= d.hp;
   const yuddh = isYuddhRules(st.rules);
   // morale: a routed unit turns its back and strikes no counter-blow
   const retaliation = (a.range === 'melee' && d.range === 'melee' && !(yuddh && d.routed)) ? d.atk : 0;
   const weDie = retaliation >= a.hp;
-  const isGad = isGadCard(d.cardId);
   // a Gad never strikes back: beating one down captures it (DESIGN 3.1) — a fort is worth taking
   const capturePrize = isGad ? 4 + (gadWantedByObjective(st, d.cardId) ? 8 : 0) : 0;
   let s = 0;
   if (kills) s += unitValue(d) + 2.5 + capturePrize;
-  else s += Math.min(a.atk, d.hp) * 0.45;
+  else s += Math.min(hitDmg, d.hp) * (isGad ? 0.7 : 0.45);
   // a blow that breaks them takes them out of the next turn; a blow that breaks us costs us the same
   if (yuddh && !kills && wouldRout(st, d, d.hp, d.hp - a.atk)) s += unitValue(d) * 0.45 + (f.line === 'front' ? 1.2 : 0);
   if (yuddh && !weDie && retaliation && wouldRout(st, a, a.hp, a.hp - retaliation) && !kills) s -= unitValue(a) * 0.35;
@@ -102,7 +103,7 @@ function playableCards(st: GameState, pIdx: PlayerIndex): PlayOption[] {
     } else if (c.type === 'gad') {
       if (!canPlay(st, pIdx, i).ok) return;
       out.push({ i, c, target: null, kind: 'gad' });
-    } else if (c.target === 'enemyUnit') {
+    } else if (c.target === 'enemyUnit' || c.target === 'enemyGad') {
       const enemy = other(pIdx);
       allUnits(st, enemy).forEach(x => {
         const t: Target = { kind: 'unit', owner: enemy, uid: x.unit.uid };
@@ -173,6 +174,8 @@ function gadPlayScore(st: GameState, pIdx: PlayerIndex, entry: PlayOption): numb
   const cost = koshaCost(st, pIdx, c);
   let s = (c.hp ?? 0) * 0.7 - cost * 0.4 + 1.5;
   if (c.gad === 'rakshaHp' && allUnits(st, pIdx).some(x => x.unit.kw.includes('raksha'))) s += 2;
+  // walls before the Durg (Chakan): worth more the harder the enemy is pressing it
+  if (c.gad === 'durgWard') s += 1.5 + (st.front.owner === other(pIdx) ? 2 : 0);
   if (gadWantedByObjective(st, c.id)) s += 6;
   return s;
 }

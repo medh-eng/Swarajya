@@ -95,7 +95,7 @@ function legalActions(st: GameState, p: PlayerIndex): Action[] {
   const seen = new Set<string>();
   pl.hand.forEach((cardId, i) => {
     const c = CARDS[cardId];
-    if (c.target === 'enemyUnit') {
+    if (c.target === 'enemyUnit' || c.target === 'enemyGad') {
       allUnits(st, enemy).forEach(x => {
         const key = `${cardId}:${x.unit.uid}`;
         if (seen.has(key)) return;

@@ -44,6 +44,8 @@ export function glossFor(cardId: string, unit?: Unit, cost?: number, season?: Se
     if (unit?.surge !== undefined && unit.surge === turn) out.push({ icon: 'charge', title: 'GARUDA VYUHA', body: 'The eagle formation: this turn it may advance and attack.' });
     if (c.id === 'm_raja_dhwaja') out.push({ icon: 'rank', title: 'MORALE', body: 'While he stands, your other units on the Yudhbhumi deal +1 damage, and none of your units will break.' });
     if (c.vsElephant) out.push({ icon: 'ranged', title: 'ELEPHANT-SHOOTERS', body: `Trained against the great beasts: deals ${c.vsElephant} extra damage to a War Elephant.` });
+    if (c.static || c.vsGad) out.push({ icon: 'ranged', title: 'SIEGE GUNS', body: `Too heavy to leave the Rajya line. From there they bombard an enemy Gad, over the heads of any Raksha, for ${c.vsGad ?? 0} extra damage.` });
+    if (c.gadWard) out.push({ icon: 'gad', title: 'KILLEDAR', body: `While he stands on your Rajya line, every blow on your Gads is ${c.gadWard} weaker. Send him to the Yudhbhumi and the walls lose him.` });
     if (c.reprisal) out.push({ icon: 'raksha', title: 'PIKES', body: `A melee unit that advanced this turn and strikes it takes ${c.reprisal} damage.` });
     if (c.id === 'm_shalya_vaidya') out.push({ icon: 'wound', title: 'SURGEON', body: 'At the start of your turn he heals 2 health on your most wounded unit.' });
     if (c.kw?.includes('raksha')) out.push({ icon: 'raksha', title: 'RAKSHA', body: 'Guard: must be struck first in its line, and on the Rajya line it shields the Durg.' });
@@ -57,6 +59,8 @@ export function glossFor(cardId: string, unit?: Unit, cost?: number, season?: Se
     if (c.gad && c.gad !== 'none') out.push({ icon: 'gad', title: c.name.toUpperCase(), body: GAD_BENEFIT[c.gad] ?? c.text });
   } else if (c.type === 'yantra') {
     out.push({ icon: 'yantra', title: 'YANTRA', body: 'A hidden trap. It is set face-down and springs by itself when its moment comes. Setting one moves you toward Kuta.' });
+  } else if (c.target === 'enemyGad') {
+    out.push({ icon: 'shakti', title: 'AGAINST FORTS', body: 'Can only be aimed at an enemy Gad. If it beats the fort to 0, the fort is yours.' });
   } else if (c.kind === 'shakti') {
     out.push({ icon: 'shakti', title: 'SHAKTI', body: 'A great power: a costly order that can turn a whole battle.' });
   } else {

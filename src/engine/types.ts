@@ -4,7 +4,7 @@
    worker for the AI, and in node for tests and balance runs.
    ============================================================ */
 
-export type EmpireId = 'maurya' | 'gupta' | 'chalukya' | 'chola' | 'rajput' | 'swarajya' | 'adilshahi' | 'jaoli' | 'neutral';
+export type EmpireId = 'maurya' | 'gupta' | 'chalukya' | 'chola' | 'rajput' | 'swarajya' | 'adilshahi' | 'jaoli' | 'mughal' | 'neutral';
 export type PlayerIndex = 0 | 1;
 /** 'ganim' (DESIGN 3.3, strike and fade / ganimi kava): Swarajya rules only. After this unit attacks,
     its owner may pull it back to the Rajya line at no Kosha cost (if there is room) — see the
@@ -13,8 +13,8 @@ export type Keyword = 'veg' | 'raksha' | 'dhuan' | 'ganim';
 export type CardType = 'unit' | 'order' | 'yantra' | 'gad';
 /** DESIGN 3.1: the standing benefit a Gad gives the side that holds it, while it stands.
     'none' = no standing benefit (a bare fort, e.g. an enemy-held Torna waiting to be taken).
-    durgWard and shipsAtk are recorded for later chapters (Chakan, Sindhudurg, Khanderi, Panhala)
-    and are not yet applied by the engine. */
+    durgWard is wired (session 13, Chakan); shipsAtk is recorded for later chapters (Sindhudurg, Khanderi)
+    and is not yet applied by the engine. */
 export type GadEffect = 'kosha1' | 'drawEvery2' | 'rakshaHp' | 'durgWard' | 'shipsAtk' | 'none';
 export type Range = 'melee' | 'ranged';
 export type AiLevel = 'easy' | 'normal' | 'hard' | 'search';
@@ -49,7 +49,8 @@ export interface CardDef {
   glyph: string;
   text: string;
   deploy?: DeployEffect;
-  target?: 'enemyUnit';
+  /** 'enemyGad' (Swarajya): an order aimed only at an enemy fort, e.g. the Surang */
+  target?: 'enemyUnit' | 'enemyGad';
   trigger?: YantraTrigger;
   power?: number;
   /** Swarajya: damage instead of `power` when the target is a Legendary unit (the Wagh Nakh) */
@@ -71,6 +72,14 @@ export interface CardDef {
   /** Elephant-slayers: extra damage when this unit strikes a War Elephant (Yuddh rules) */
   vsElephant?: number;
   rarity?: Rarity;
+  /** Swarajya: siege guns. Cannot leave the Rajya line (no move to the Yudhbhumi) */
+  static?: boolean;
+  /** Swarajya: extra damage when this unit strikes a Gad; such a unit may also bombard an enemy Gad
+      from its own Rajya line, over the heads of any Raksha (the Imperial Topkhana) */
+  vsGad?: number;
+  /** Swarajya aura: while this unit stands on its owner's Rajya line, each blow on that owner's
+      Gads is this much weaker (Firangoji Narsala) */
+  gadWard?: number;
   /** Swarajya rules, type 'gad' only: the standing benefit this fort gives while it stands */
   gad?: GadEffect;
 }

@@ -2020,9 +2020,16 @@ export function battleScene(stage: Stage, exit: () => void, sc: Scenario = FIRST
   return s;
 }
 
-/** the art a battle needs: both decks, the two Durgs, the battlefield */
+/** the art a battle needs: both decks, the two Durgs, the battlefield, and every card the
+    scenario places on the board before the first turn (a preset fort or killedar that is in
+    neither deck, e.g. Sangramdurg at Chakan — found in the session 13 playtest) */
 export function battleArt(sc: Scenario = FIRST_THRONE_SCENARIO): string[] {
-  return [...sc.playerDeck, ...sc.enemyDeck, ...sc.durgArt, sc.heroCard, sc.defeatCard, ...(sc.duel ? sc.duel.sides.map(x => x.hero) : [])];
+  let placed: string[] = [];
+  try {
+    const st = sc.game(1);
+    placed = [...st.players.flatMap(p => p.support.map(u => u.cardId)), ...st.front.units.map(u => u.cardId)];
+  } catch { /* a scenario that cannot be built ahead of time simply preloads its decks */ }
+  return [...new Set([...sc.playerDeck, ...sc.enemyDeck, ...sc.durgArt, sc.heroCard, sc.defeatCard, ...placed, ...(sc.duel ? sc.duel.sides.map(x => x.hero) : [])])];
 }
 
 /** preload the battlefield and paintings so the board never appears without them */

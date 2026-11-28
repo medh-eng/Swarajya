@@ -234,3 +234,7 @@ Same method as YUDDH: AI "normal" vs "normal", 200 seeded games per chapter.
   `ch20b_sangamner` approved (D-16). D-19/D-20 (Torna, Rajgad per Purandare), D-21 (Shivaji never in teal or green), D-22 (online research, no whole-book check). Phase 0 engine copy done (ruleset `'swarajya'`, see STATE.md).
 - 27 Nov 2026: balance pass. Easy foe option (D-23). Pratapgad rebuilt with Wagh Nakh (`powerVsLegendary`: 4, or 8
   against a legendary) and Gopinath Pant; all five built battles in band (D-24).
+- 28 Nov 2026: siege mechanics (Swarajya only): `durgWard` Gads shield their owner's Durg by 1 per attack; `gadWard`
+  (a killedar on the Rajya line makes blows on his Gads 1 weaker); `static` siege guns stay on the Rajya line;
+  `vsGad` adds damage to Gads and may bombard a Gad from the Rajya line over a Raksha guard; orders may target an
+  enemy Gad. Chakan is played as a 10-turn defence; the fort's fall is told in the History note (D-25).

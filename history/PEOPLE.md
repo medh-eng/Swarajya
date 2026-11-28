@@ -76,7 +76,7 @@ as **two different people** until a source joins them (TASKS: verify).
 | Abul Fath | Shaista Khan's son, killed 1663 | C-1663-LALMAHAL | none | HISTORY |
 | Kartalab Khan | Uzbek general; Umberkhind 1661 | C-1661-UMBERKHIND | `mg_kartalab_khan` | HISTORY |
 | Rai Bagan | Woman commander with Kartalab Khan | C-1661-UMBERKHIND | `mg_rai_bagan` | HISTORY |
-| Rai Singh Sisodia, Bhao Singh Hada | Rajput officers at Chakan | C-1660-CHAKAN | `mg_rajput_officer` (generic) | HISTORY |
+| Rai Singh Sisodia, Bhao Singh Hada | Rajput officers at Chakan | C-1660-CHAKAN | `mg_rajput_officer` (generic, names not printed) | VERIFY (names: one source; Takakhav confirms an imperial Rajput commander took the surrender) |
 | Jaswant Singh | Maharaja of Marwar; near Pune in 1663 | C-1663-LALMAHAL | none | HISTORY |
 | Inayat Khan | Governor of Surat, 1664 | C-1664-SURAT | `mg_inayat_khan` | HISTORY |
 | Mirza Raja Jai Singh I | Of Amber; commander 1665 | C-1665-PURANDAR, C-1665-TREATY | `mg_jai_singh` | HISTORY |

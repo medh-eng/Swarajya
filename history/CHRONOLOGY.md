@@ -289,18 +289,18 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Game:** campaign map: Panhala goes dark
 
 ### C-1660-CHAKAN · Fifty-six days at Chakan
-- **Date:** 23 June – 14 August 1660
-- **Event:** Shaista Khan, Mughal viceroy of the Deccan and Aurangzeb's maternal uncle, occupied Pune and besieged Chakan (Sangramdurg), held by the old killedar Firangoji Narsala with a small garrison. Rajput officers (Rai Singh Sisodia, Bhao Singh Hada) served in the Mughal army. A mine brought down part of the wall; after hard fighting Firangoji surrendered and was given safe passage. Shaista Khan then lived in the Lal Mahal in Pune.
-- **Basis:** HISTORY (garrison size 320 or 800 differs: do not show a number)
-- **Refs:** W-CHAKAN, W-FIRANGOJI
-- **The fort's form (for the art; added 27 Nov 2026, session 12):** Chakan was a *bhuikot*, a ground fort on flat land, not a hill fort: a square plan with bastions at the corners and a moat around it (W-CHAKAN-FORT citing Sarkar; W-DURGBHARARI agrees it is a ground fort with bastions). Firangoji is described as the elderly killedar (W-CHAKAN-FORT). The 56 days fall in the monsoon. Accounts of the end differ (W-CHAKAN-FORT/W-CHAKAN speak of a two-day assault with heavy losses); the game shows no fall and no casualties, and the epilogue says only what the Basis says: surrender and safe passage (D-07).
-- **Game:** `ch07_chakan` (survive objective); cards `sw_firangoji`, `mg_shaista_khan`, `mg_surang`
+- **Date:** 1660. Sarkar, from the Mughal court history (Alamgirnama): Shaista Khan left Pune 19 June, reached Chakan 21 June; the mine was fired at 3 p.m. on 14 August and the fort taken on 15 August. Popular references: 23 June – 14 August. The Jedhe chronology (followed by Takakhav) puts the fall in Ashwin, Shaka 1582 (about October 1660). CONTESTED #31: game text prints "1660".
+- **Event:** Shaista Khan, Mughal viceroy of the Deccan and Aurangzeb's maternal uncle, took Pune and besieged Chakan (Sangramdurg), held by the old killedar Firangoji Narsala (an officer from Shahaji's time, Sarkar) with a small garrison. Shivaji, himself besieged in Panhala, could send no relief; his orders were to hold out as long as possible and then surrender (Sarkar). After weeks of trenches and bombardment a mine was fired under the tower at the north-east corner and a breach opened; the garrison held the breach overnight (Takakhav), then fell back to the citadel, which surrendered (Sarkar). Firangoji surrendered on terms through a Rajput officer of the imperial army (Takakhav). Shaista Khan received him with honour and offered him imperial service; he refused and went back to Shivaji (Sarkar, Takakhav). Shaista Khan then lived in the Lal Mahal in Pune.
+- **Basis:** HISTORY (garrison size 320 or 800 differs and Mughal casualty figures are given: do not show any number, D-04). VERIFY: the names of the Rajput officers (Rai Singh Sisodia, Bhao Singh Hada: W-CHAKAN only); that Shivaji later made Firangoji governor of Bhupalgad (Takakhav only).
+- **Refs:** W-SARKAR-CHAKAN, W-TAKAKHAV-SHAISTA, W-CHAKAN, W-FIRANGOJI
+- **The fort's form (for the art; added 27 Nov 2026, session 12):** Chakan was a *bhuikot*, a ground fort on flat land, not a hill fort: a square plan with bastions at the corners and a moat around it (W-CHAKAN-FORT citing Sarkar; W-DURGBHARARI agrees it is a ground fort with bastions). Sarkar adds high walls, a deep ditch and a single entrance on the east face. Firangoji is described as the elderly killedar (W-CHAKAN-FORT). The siege falls in the monsoon. The game shows no fall and no casualties (D-07).
+- **Game:** `ch07_chakan` (survive objective; built session 13); cards `sw_firangoji`, `sw_gad_chakan`, `mg_shaista_khan`, `mg_rajput_officer`, `mg_surang`
 
 ### C-1661-UMBERKHIND · The trap at Umberkhind
 - **Date:** usually given as 3 February 1661 (some references: 2 February); the Jedhe chronology suggests about 15 January 1661
 - **Event:** Shaista Khan sent the Uzbek general Kartalab Khan, with Rai Bagan (wife of a Berar deshmukh, a commander in her own right), to take the North Konkan. Misled about Shivaji's position, he went down by the less-used Umberkhind pass near Pen, where Maratha infantry and light cavalry ambushed his column in the forest. On Rai Bagan's advice he asked for terms; Shivaji let the army go after it gave up its baggage. Netaji Palkar was then posted to watch the pass.
 - **Basis:** HISTORY (date: CONTESTED.md #9; force sizes vary wildly: do not use)
-- **Refs:** W-UMBER, W-UMBER-IIAB, W-RATTIBHA-UMBER
+- **Refs:** W-UMBER, W-UMBER-IIAB, W-HISTFILES-MARATHAS05, W-SAHASA-SKONKAN, W-RATTIBHA-UMBER (date only); W-TAKAKHAV-UMBER (chapter to read)
 - **Game:** `ch08_umberkhind` (Khind battlefield); cards `mg_kartalab_khan`, `mg_rai_bagan`, `sw_khind_ambush`
 
 ### C-1663-LALMAHAL · The night raid on the Lal Mahal

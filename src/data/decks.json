@@ -734,5 +734,23 @@
 "as_hasham*8",
 "as_gaja*3"
 ]
+},
+"ch07_chakan": {
+"player": [
+"sw_mavla*4",
+"sw_hetkari*4",
+"sw_havaldar*3",
+"sw_bargir*3",
+"sw_shiledar*2",
+"sw_jijau_counsel*1",
+"sw_gopinath*1"
+],
+"enemy": [
+"mg_shaista_khan*1",
+"mg_rajput_officer*4",
+"mg_mansabdar_sawar*10",
+"mg_topkhana*2",
+"mg_surang*2"
+]
 }
 }

@@ -11,12 +11,13 @@ import { JAOLI } from '../src/campaign/jaoli';
 import { PRATAPGAD } from '../src/campaign/pratapgad';
 import { KOLHAPUR } from '../src/campaign/kolhapur';
 import { PAVANKHIND } from '../src/campaign/pavankhind';
+import { CHAKAN } from '../src/campaign/chakan';
 import { CARDS } from '../src/engine/cards';
 import { scenarioById, SWARAJYA_CAMPAIGN } from '../src/campaign/campaign';
 
 describe('the Swarajya vertical slice (Phase 1 step 5)', () => {
   it('every scenario builds a game from a non-empty deck on both sides', () => {
-    for (const sc of [MAVAL_TUTORIAL, TORNA, JAOLI, PRATAPGAD, KOLHAPUR, PAVANKHIND]) {
+    for (const sc of [MAVAL_TUTORIAL, TORNA, JAOLI, PRATAPGAD, KOLHAPUR, PAVANKHIND, CHAKAN]) {
       expect(sc.playerDeck.length).toBeGreaterThan(0);
       expect(sc.enemyDeck.length).toBeGreaterThan(0);
       const st = sc.game(1);
@@ -25,14 +26,16 @@ describe('the Swarajya vertical slice (Phase 1 step 5)', () => {
     }
   });
 
-  it('chains ch00_maval → ch01_torna → ch03_jaoli → ch04_pratapgad → ch05_kolhapur → ch06_pavankhind by nextId', () => {
+  it('chains ch00_maval → ch01_torna → ch03_jaoli → ch04_pratapgad → ch05_kolhapur → ch06_pavankhind → ch07_chakan by nextId', () => {
     expect(MAVAL_TUTORIAL.nextId).toBe('ch01_torna');
     expect(TORNA.nextId).toBe('ch03_jaoli');
     expect(JAOLI.nextId).toBe('ch04_pratapgad');
     expect(scenarioById('ch03_jaoli')).toBe(JAOLI);
     expect(PRATAPGAD.nextId).toBe('ch05_kolhapur');
     expect(KOLHAPUR.nextId).toBe('ch06_pavankhind');
-    expect(PAVANKHIND.nextId).toBeUndefined();
+    expect(PAVANKHIND.nextId).toBe('ch07_chakan');
+    expect(CHAKAN.nextId).toBeUndefined();
+    expect(scenarioById('ch07_chakan')).toBe(CHAKAN);
     expect(scenarioById('ch05_kolhapur')).toBe(KOLHAPUR);
     expect(scenarioById('ch06_pavankhind')).toBe(PAVANKHIND);
     expect(scenarioById('ch01_torna')).toBe(TORNA);
@@ -40,7 +43,7 @@ describe('the Swarajya vertical slice (Phase 1 step 5)', () => {
   });
 
   it('is reachable as its own campaign, in chapter order', () => {
-    expect(SWARAJYA_CAMPAIGN.map(n => n.scenario.id)).toEqual(['ch00_maval', 'ch01_torna', 'ch03_jaoli', 'ch04_pratapgad', 'ch05_kolhapur', 'ch06_pavankhind']);
+    expect(SWARAJYA_CAMPAIGN.map(n => n.scenario.id)).toEqual(['ch00_maval', 'ch01_torna', 'ch03_jaoli', 'ch04_pratapgad', 'ch05_kolhapur', 'ch06_pavankhind', 'ch07_chakan']);
   });
 
   it('ch01_torna starts with Bijapur’s fort already on the board, waiting to be captured', () => {
@@ -88,5 +91,20 @@ describe('the Swarajya vertical slice (Phase 1 step 5)', () => {
     // the siege cards were not at the pass (CHRONOLOGY C-1660-PANHALA-SIEGE vs C-1660-PAVANKHIND)
     expect(PAVANKHIND.enemyDeck).not.toContain('as_siddi_jauhar');
     expect(PAVANKHIND.enemyDeck).not.toContain('as_angrezi_gola');
+  });
+
+  it('ch07_chakan: the first Mughal chapter — a siege, held 10 turns in the monsoon, the walls and the killedar already in place', () => {
+    const st = CHAKAN.game(1);
+    expect(st.players[1].empire).toBe('mughal');
+    expect(st.objective).toEqual({ type: 'survive', turns: 10 });
+    expect(st.season).toBe('varsha');
+    expect(st.frontSize).toBeUndefined();
+    expect(st.players[0].support.map(u => u.cardId)).toEqual(['sw_gad_chakan', 'sw_firangoji']);
+    expect(st.players[1].support.map(u => u.cardId)).toEqual(['mg_topkhana']);
+    expect(st.front.owner).toBe(1);
+    const node = SWARAJYA_CAMPAIGN.find(n => n.scenario.id === 'ch07_chakan')!;
+    for (const id of [CHAKAN.heroCard, CHAKAN.defeatCard, node.face, ...CHAKAN.playerDeck, ...CHAKAN.enemyDeck]) expect(CARDS[id], id).toBeDefined();
+    // Shivaji was shut in Panhala, not at Chakan (CHRONOLOGY C-1660-PANHALA-SIEGE, C-1660-CHAKAN)
+    expect(CHAKAN.playerDeck).not.toContain('sw_shivaji');
   });
 });

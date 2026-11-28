@@ -512,6 +512,31 @@
       "otherSide": "For Bijapur the siege still ended in its favour: with the Mughals advancing in the north, Shivaji made terms and Panhala was handed over in September 1660.",
       "source": "Sources: the Jedhe chronicle, as quoted in the encyclopedia account of the battle (W-PAVAN); Jadunath Sarkar, Shivaji and His Times, ch. IV (W-SARKAR-CH4); the encyclopedia accounts of the siege and of Baji Prabhu (W-PANHALA1660, W-BAJIPRABHU); Sarkar on Rajapur and the English (W-SARKAR-RAJAPUR).",
       "epilogue": "Panhala was not regained for good until 1673. Meanwhile, in the north, the Mughal viceroy Shaista Khan took Chakan in August 1660 and settled in the Lal Mahal in Pune."
+    },
+    "ch07_chakan": {
+      "kicker": "CHAKAN · 1660",
+      "happened": "In 1660, while Shivaji was shut in Panhala by Siddi Jauhar, the Mughal viceroy Shaista Khan came down from the north, took Pune, and laid siege to Chakan, the ground fort Shivaji called Sangramdurg. Its killedar was Firangoji Narsala, an old officer from Shahaji's time, whose orders were to hold out as long as he could. For weeks the Mughals dug trenches and bombarded the walls. Then a mine was fired under the tower at the north-east corner. The garrison held the breach through the night, fell back to the citadel, and at last surrendered on terms.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "The siege, the long defence, the mine under the north-east tower and the surrender on terms are recorded in the Mughal court history (as Sarkar gives it) and by Takakhav. Firangoji surrendered through a Rajput officer of the imperial army. Shaista Khan received him with honour and offered him imperial service; he refused and went back to the Raje."
+        },
+        {
+          "basis": "CONTESTED",
+          "text": "The dates differ. Sarkar, from the Mughal record, has the siege from late June and the fort taken in mid-August 1660; the Jedhe chronology dates the fall to about October. The game prints only 1660."
+        },
+        {
+          "basis": "HISTORY",
+          "text": "In history Chakan fell. In the game you can hold it to the end; the turns you hold stand for the weeks it really held."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "The ten turns, the walls that blunt each blow on the citadel, Firangoji's watch over them, and the guns that batter the walls from far off are the game's way of showing a siege. The game gives no numbers for either side; the sources' figures for the garrison and the losses disagree."
+        }
+      ],
+      "otherSide": "For the Mughals Chakan was a hard first prize: the viceroy had not expected such a stand, and the siege took most of the rainy season. Holding it secured the road from Pune to Junnar.",
+      "source": "Sources: Jadunath Sarkar, Shivaji and His Times, ch. IV (W-SARKAR-CHAKAN, from the Mughal court history); N. S. Takakhav, Life of Shivaji Maharaj, ch. 16 (W-TAKAKHAV-SHAISTA, which follows the Jedhe chronology); the encyclopedia accounts of the battle and the fort (W-CHAKAN, W-CHAKAN-FORT).",
+      "epilogue": "Shaista Khan made the Lal Mahal in Pune, Shivaji's boyhood home, his residence. Early in 1661 he sent the Uzbek general Kartalab Khan down into the Konkan."
     }
   }
 }

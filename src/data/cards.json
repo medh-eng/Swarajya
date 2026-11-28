@@ -72,6 +72,14 @@
       "color": "#7c7466",
       "glyph": "सा",
       "passive": "Hired swords, available to every throne."
+    },
+    "mughal": {
+      "id": "mughal",
+      "name": "Mughal Empire",
+      "capital": "Aurangabad",
+      "color": "#9b2c2c",
+      "glyph": "मु",
+      "passive": "The imperial army of the Deccan: rich, patient, heavy in guns. (no passive yet)"
     }
   },
   "empireOrder": [
@@ -3694,6 +3702,143 @@
       "refs": [
         "C-1659-AFZAL-MARCH"
       ]
+    },
+    {
+      "id": "sw_firangoji",
+      "name": "Firangoji Narsala",
+      "sub": "Killedar of Chakan",
+      "empire": "swarajya",
+      "type": "unit",
+      "cost": 3,
+      "op": 1,
+      "atk": 2,
+      "hp": 5,
+      "range": "melee",
+      "kw": [
+        "raksha"
+      ],
+      "text": "Raksha. While he stands on your Rajya line, every blow on your Gads is 1 weaker.",
+      "rarity": "epic",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1660-CHAKAN"
+      ],
+      "gadWard": 1
+    },
+    {
+      "id": "sw_gad_chakan",
+      "name": "Sangramdurg",
+      "sub": "The Fort at Chakan",
+      "empire": "swarajya",
+      "type": "gad",
+      "cost": 2,
+      "hp": 10,
+      "gad": "durgWard",
+      "text": "Gad — while it stands, your Durg takes 1 less damage from each attack.",
+      "rarity": "rare",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1660-CHAKAN"
+      ]
+    },
+    {
+      "id": "mg_shaista_khan",
+      "name": "Shaista Khan",
+      "sub": "Viceroy of the Deccan",
+      "empire": "mughal",
+      "type": "unit",
+      "cost": 7,
+      "op": 2,
+      "atk": 4,
+      "hp": 8,
+      "range": "melee",
+      "kw": [
+        "raksha"
+      ],
+      "deploy": "kosha2",
+      "text": "Raksha. Deploy — gain 2 Kosha.",
+      "rarity": "legendary",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1660-CHAKAN",
+        "C-1663-LALMAHAL"
+      ]
+    },
+    {
+      "id": "mg_rajput_officer",
+      "name": "Rajput Mansabdar",
+      "sub": "Imperial Officer",
+      "empire": "mughal",
+      "type": "unit",
+      "cost": 4,
+      "op": 1,
+      "atk": 4,
+      "hp": 4,
+      "range": "melee",
+      "kw": [
+        "veg"
+      ],
+      "text": "Vega. Rajput officers served in the imperial army.",
+      "rarity": "rare",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1660-CHAKAN",
+        "C-X-OFFICERS"
+      ]
+    },
+    {
+      "id": "mg_surang",
+      "name": "Surang",
+      "sub": "The Mine",
+      "empire": "mughal",
+      "type": "order",
+      "cost": 4,
+      "text": "Shakti — deal 5 damage to an enemy Gad.",
+      "rarity": "rare",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1660-CHAKAN"
+      ],
+      "kind": "shakti",
+      "target": "enemyGad",
+      "power": 5
+    },
+    {
+      "id": "mg_topkhana",
+      "name": "Imperial Topkhana",
+      "sub": "Heavy Artillery",
+      "empire": "mughal",
+      "type": "unit",
+      "cost": 5,
+      "op": 2,
+      "atk": 4,
+      "hp": 4,
+      "range": "ranged",
+      "static": true,
+      "text": "Ranged. Siege guns: cannot move to the Yudhbhumi; bombards an enemy Gad from the Rajya line, over any Raksha, for 2 more damage.",
+      "rarity": "rare",
+      "basis": "GENERIC",
+      "refs": [],
+      "vsGad": 2
+    },
+    {
+      "id": "mg_mansabdar_sawar",
+      "name": "Mansabdar Sawar",
+      "sub": "Heavy Cavalry",
+      "empire": "mughal",
+      "type": "unit",
+      "cost": 3,
+      "op": 1,
+      "atk": 3,
+      "hp": 3,
+      "range": "melee",
+      "kw": [
+        "veg"
+      ],
+      "text": "Vega.",
+      "rarity": "common",
+      "basis": "GENERIC",
+      "refs": []
     }
   ],
   "pendingArt": []

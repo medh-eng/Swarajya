@@ -151,24 +151,6 @@
       "_engine": "NEW: grant Dhuan"
     },
     {
-      "id": "sw_gad_chakan",
-      "name": "Sangramdurg",
-      "sub": "The Fort at Chakan",
-      "empire": "swarajya",
-      "type": "gad",
-      "cost": 2,
-      "hp": 10,
-      "gad": "durgWard",
-      "text": "Gad — while it stands, your Durg takes 1 less damage from each attack.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1660-CHAKAN"
-      ],
-      "phase": 2,
-      "_engine": "NEW type gad"
-    },
-    {
       "id": "sw_gad_sindhudurg",
       "name": "Sindhudurg",
       "sub": "Sea Fort",
@@ -229,29 +211,6 @@
       ],
       "phase": 2,
       "_engine": "NEW deploy"
-    },
-    {
-      "id": "sw_firangoji",
-      "name": "Firangoji Narsala",
-      "sub": "Killedar of Chakan",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 3,
-      "op": 1,
-      "atk": 2,
-      "hp": 5,
-      "range": "melee",
-      "kw": [
-        "raksha"
-      ],
-      "text": "Raksha. While he stands on your Rajya line, your Gads take 1 less damage.",
-      "rarity": "epic",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1660-CHAKAN"
-      ],
-      "phase": 2,
-      "_engine": "NEW aura"
     },
     {
       "id": "sw_murarbaji",
@@ -685,108 +644,6 @@
         "C-1677-TIRUVADI"
       ],
       "phase": 4
-    },
-    {
-      "id": "mg_shaista_khan",
-      "name": "Shaista Khan",
-      "sub": "Viceroy of the Deccan",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 7,
-      "op": 2,
-      "atk": 4,
-      "hp": 8,
-      "range": "melee",
-      "kw": [
-        "raksha"
-      ],
-      "deploy": "kosha2",
-      "text": "Raksha. Deploy — gain 2 Kosha.",
-      "rarity": "legendary",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1660-CHAKAN",
-        "C-1663-LALMAHAL"
-      ],
-      "phase": 2
-    },
-    {
-      "id": "mg_surang",
-      "name": "Surang",
-      "sub": "The Mine",
-      "empire": "neutral",
-      "type": "order",
-      "cost": 4,
-      "text": "Deal 5 damage to an enemy Gad.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1660-CHAKAN"
-      ],
-      "phase": 2,
-      "_engine": "NEW target enemyGad"
-    },
-    {
-      "id": "mg_rajput_officer",
-      "name": "Rajput Mansabdar",
-      "sub": "Imperial Officer",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 4,
-      "op": 1,
-      "atk": 4,
-      "hp": 4,
-      "range": "melee",
-      "kw": [
-        "veg"
-      ],
-      "text": "Vega. Rajput officers served in the imperial army.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1660-CHAKAN",
-        "C-X-OFFICERS"
-      ],
-      "phase": 2
-    },
-    {
-      "id": "mg_mansabdar_sawar",
-      "name": "Mansabdar Sawar",
-      "sub": "Heavy Cavalry",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 3,
-      "op": 1,
-      "atk": 3,
-      "hp": 3,
-      "range": "melee",
-      "kw": [
-        "veg"
-      ],
-      "text": "Vega.",
-      "rarity": "common",
-      "basis": "GENERIC",
-      "refs": [],
-      "phase": 2
-    },
-    {
-      "id": "mg_topkhana",
-      "name": "Imperial Topkhana",
-      "sub": "Heavy Artillery",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 5,
-      "op": 2,
-      "atk": 4,
-      "hp": 4,
-      "range": "ranged",
-      "static": true,
-      "text": "Ranged. Cannot move to the Yudhbhumi. Deals double damage to Gads.",
-      "rarity": "rare",
-      "basis": "GENERIC",
-      "refs": [],
-      "phase": 2,
-      "_engine": "NEW flags"
     },
     {
       "id": "mg_kartalab_khan",

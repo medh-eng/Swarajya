@@ -174,6 +174,16 @@ function raksaHpBonus(st: GameState, owner: PlayerIndex): number {
   return isSwarajyaRules(st.rules) ? gadsOf(st, owner, 'rakshaHp').length : 0;
 }
 
+/** DESIGN 3.1 (`durgWard`, Chakan): how much weaker each attack on `owner`'s Durg is, one per such Gad */
+export function durgWardOf(st: GameState, owner: PlayerIndex): number {
+  return isSwarajyaRules(st.rules) ? gadsOf(st, owner, 'durgWard').length : 0;
+}
+/** Swarajya aura (`CardDef.gadWard`, Firangoji): how much weaker each blow on `owner`'s Gads is */
+export function gadWardOf(st: GameState, owner: PlayerIndex): number {
+  if (!isSwarajyaRules(st.rules)) return 0;
+  return st.players[owner].support.reduce((n, u) => n + (isGadCard(u.cardId) ? 0 : (CARDS[u.cardId]?.gadWard ?? 0)), 0);
+}
+
 /** a Gad beaten to 0 health does not fall: it flips to `attacker`'s side at a third of its
     defence, and its standing benefit (if any) now works for them. Returns false if `uid` is not
     a Gad on `owner`'s Rajya line (it can never be anywhere else), so the caller destroys it as usual. */
@@ -225,6 +235,8 @@ function checkCapture(st: GameState): void {
 function damageUnit(st: GameState, owner: PlayerIndex, uid: number, amount: number, attacker?: PlayerIndex): void {
   const f = findUnit(st, owner, uid);
   if (!f) return;
+  // Firangoji's watch on the walls: a blow aimed at a Gad (an order, a volley) is blunted
+  if (attacker !== undefined && isGadCard(f.unit.cardId)) amount = Math.max(0, amount - gadWardOf(st, owner));
   const before = f.unit.hp;
   f.unit.hp -= amount;
   if (f.unit.hp <= 0) {
@@ -481,7 +493,7 @@ export const MAX_RANK = RULES.ranks.length - 1;
 
 /** the four seasons a Yuddh battle can be fought in, and what each changes */
 /** the damage a unit deals when it strikes (Grishma haze blunts archers) */
-export function strikeDamage(st: GameState, a: Unit, target?: { cardId: string }): number {
+export function strikeDamage(st: GameState, a: Unit, target?: { cardId: string; owner?: PlayerIndex }): number {
   if (!isYuddhRules(st.rules)) return a.atk;
   let d = a.atk;
   // a standard-bearer's morale: +1 for his comrades on the Yudhbhumi
@@ -489,6 +501,11 @@ export function strikeDamage(st: GameState, a: Unit, target?: { cardId: string }
     && allUnits(st, a.owner).some(x => x.unit.cardId === 'm_raja_dhwaja')) d += 1;
   if (st.season === 'grishma' && a.range === 'ranged') d = Math.max(Math.min(1, d), d - 1);
   if (target && isElephant(target)) d += CARDS[a.cardId]?.vsElephant ?? 0;
+  // Swarajya: siege guns hit forts harder; a killedar on the walls blunts every blow on them
+  if (target && isSwarajyaRules(st.rules) && isGadCard(target.cardId)) {
+    d += CARDS[a.cardId]?.vsGad ?? 0;
+    if (target.owner !== undefined) d = Math.max(0, d - gadWardOf(st, target.owner));
+  }
   return d;
 }
 
@@ -529,10 +546,12 @@ export function canAttack(st: GameState, pIdx: PlayerIndex, attackerUid: number,
   const f = findUnit(st, target.owner, target.uid);
   if (!f) return { ok: false, reason: 'No such target' };
   if (f.unit.kw.includes('dhuan') && !f.unit.smokeBroken) return { ok: false, reason: 'Hidden by Dhuan' };
-  if (fromSupport && f.line !== 'front') return { ok: false, reason: 'From your Rajya line you can only strike the Yudhbhumi' };
+  // Swarajya: siege guns (`vsGad`) bombard an enemy Gad from their own Rajya line, over any Raksha
+  const bombard = isSwarajyaRules(st.rules) && !!CARDS[a.cardId]?.vsGad && isGadCard(f.unit.cardId);
+  if (fromSupport && f.line !== 'front' && !bombard) return { ok: false, reason: 'From your Rajya line you can only strike the Yudhbhumi' };
 
   const sameLine = f.line === 'front' ? st.front.units : st.players[target.owner].support;
-  if (hasGuard(sameLine) && !f.unit.kw.includes('raksha')) return { ok: false, reason: 'A Raksha unit shields this one' };
+  if (!bombard && hasGuard(sameLine) && !f.unit.kw.includes('raksha')) return { ok: false, reason: 'A Raksha unit shields this one' };
   return { ok: true };
 }
 
@@ -544,6 +563,7 @@ export function canMove(st: GameState, pIdx: PlayerIndex, uid: number): Check {
   if (!found || found.line !== 'support') return { ok: false, reason: 'Only from the Rajya line' };
   const u = found.unit;
   if (isGadCard(u.cardId)) return { ok: false, reason: 'A Gad cannot leave the Rajya line' };
+  if (isSwarajyaRules(st.rules) && CARDS[u.cardId]?.static) return { ok: false, reason: 'Siege guns cannot leave the Rajya line' };
   if (!u.canAct || u.moved) return { ok: false, reason: 'Already acted' };
   if (isYuddhRules(st.rules) && u.attacked) return { ok: false, reason: 'It has already attacked this turn' };
   if (p.kosha < u.op) return { ok: false, reason: 'Not enough Kosha' };
@@ -584,6 +604,11 @@ export function canPlay(st: GameState, pIdx: PlayerIndex, handIdx: number, targe
     const f = findUnit(st, target.owner, target.uid);
     if (!f || target.owner === pIdx) return { ok: false, reason: 'Choose an enemy unit' };
     if (f.unit.kw.includes('dhuan') && !f.unit.smokeBroken) return { ok: false, reason: 'Hidden by Dhuan' };
+  }
+  if (c.target === 'enemyGad') {
+    if (!target || target.kind !== 'unit' || target.owner === pIdx) return { ok: false, reason: 'Choose an enemy Gad' };
+    const f = findUnit(st, target.owner, target.uid);
+    if (!f || !isGadCard(f.unit.cardId)) return { ok: false, reason: 'Choose an enemy Gad' };
   }
   return { ok: true };
 }
@@ -788,6 +813,9 @@ export function applyActionCore(st: GameState, action: Action): Check {
       let dmg = strikeDamage(st, a) + (isYuddhRules(st.rules) && dharmaOf(p) >= DHARMA_MAX ? 1 : 0);
       const ward = fireYantra(st, action.target.owner, 'onHQAttack');
       if (ward) dmg = Math.max(0, dmg - ward.power);
+      // DESIGN 3.1, `durgWard` (Chakan): the walls of a Gad stand before the Durg
+      const walls = durgWardOf(st, action.target.owner);
+      if (walls) dmg = Math.max(0, dmg - walls);
       // the timber walls also shoot back
       if (ward && ward.card.id === 'nd_kashtha_prakara') damageUnit(st, pIdx, a.uid, 2, action.target.owner);
       log(st, dmg > 0
