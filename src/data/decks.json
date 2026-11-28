@@ -752,5 +752,23 @@
 "mg_topkhana*2",
 "mg_surang*2"
 ]
+},
+"ch08_umberkhind": {
+"player": [
+"sw_shivaji*1",
+"sw_netaji*1",
+"sw_khind_ambush*2",
+"sw_mavla*4",
+"sw_hetkari*4",
+"sw_havaldar*3",
+"sw_shiledar*3",
+"sw_bargir*2"
+],
+"enemy": [
+"mg_kartalab_khan*1",
+"mg_rai_bagan*1",
+"mg_rajput_officer*4",
+"mg_mansabdar_sawar*12"
+]
 }
 }

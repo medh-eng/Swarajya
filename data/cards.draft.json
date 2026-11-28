@@ -115,25 +115,6 @@
       "_engine": "NEW order effect"
     },
     {
-      "id": "sw_khind_ambush",
-      "name": "Khind Ambush",
-      "sub": "Stones from the Pass",
-      "empire": "swarajya",
-      "type": "yantra",
-      "kind": "yantra",
-      "cost": 2,
-      "trigger": "onEnemyAdvance",
-      "power": 3,
-      "text": "Yantra — when an enemy unit advances to the Yudhbhumi, deal 3 damage to it.",
-      "rarity": "rare",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1661-UMBERKHIND"
-      ],
-      "phase": 2,
-      "_engine": "NEW trigger onEnemyAdvance"
-    },
-    {
       "id": "sw_ratri_halla",
       "name": "Ratri Halla",
       "sub": "Night Raid",
@@ -185,32 +166,6 @@
       ],
       "phase": 4,
       "_engine": "NEW type gad"
-    },
-    {
-      "id": "sw_netaji",
-      "name": "Netaji Palkar",
-      "sub": "Sarnaubat",
-      "empire": "swarajya",
-      "type": "unit",
-      "cost": 4,
-      "op": 1,
-      "atk": 3,
-      "hp": 4,
-      "range": "melee",
-      "kw": [
-        "veg",
-        "ganim"
-      ],
-      "deploy": "enemyFrontAtkDown",
-      "text": "Vega. Ganim. Deploy — enemy units on the Yudhbhumi get −1 attack this turn.",
-      "rarity": "epic",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1660-PANHALA-SIEGE",
-        "C-1661-UMBERKHIND"
-      ],
-      "phase": 2,
-      "_engine": "NEW deploy"
     },
     {
       "id": "sw_murarbaji",
@@ -646,48 +601,6 @@
       "phase": 4
     },
     {
-      "id": "mg_kartalab_khan",
-      "name": "Kartalab Khan",
-      "sub": "Uzbek General",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 6,
-      "op": 2,
-      "atk": 4,
-      "hp": 6,
-      "range": "melee",
-      "text": "He chose the quiet road down the ghat.",
-      "rarity": "legendary",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1661-UMBERKHIND"
-      ],
-      "phase": 2
-    },
-    {
-      "id": "mg_rai_bagan",
-      "name": "Rai Bagan",
-      "sub": "Commander",
-      "empire": "neutral",
-      "type": "unit",
-      "cost": 4,
-      "op": 1,
-      "atk": 3,
-      "hp": 4,
-      "range": "melee",
-      "kw": [
-        "veg"
-      ],
-      "text": "Vega. She saw the trap first.",
-      "rarity": "epic",
-      "basis": "HISTORY",
-      "refs": [
-        "C-1661-UMBERKHIND",
-        "C-X-OFFICERS"
-      ],
-      "phase": 2
-    },
-    {
       "id": "mg_inayat_khan",
       "name": "Inayat Khan",
       "sub": "Governor of Surat",
@@ -964,6 +877,45 @@
         "C-1677-GOLCONDA"
       ],
       "phase": 4
+    },
+    {
+      "id": "mg_gad_lalmahal",
+      "name": "The Lal Mahal",
+      "sub": "The Viceroy's Quarters",
+      "empire": "mughal",
+      "type": "gad",
+      "cost": 2,
+      "hp": 8,
+      "gad": "durgWard",
+      "text": "Gad. While it stands, each attack on your Durg is 1 weaker.",
+      "rarity": "rare",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1640-PUNE",
+        "C-1663-LALMAHAL"
+      ],
+      "phase": 2,
+      "_engine": "durgWard (built session 13); Shivaji's boyhood home, held by Shaista Khan in 1663"
+    },
+    {
+      "id": "mg_ahadi",
+      "name": "Palace Guard",
+      "sub": "The Viceroy's Watch",
+      "empire": "mughal",
+      "type": "unit",
+      "cost": 2,
+      "op": 1,
+      "atk": 2,
+      "hp": 3,
+      "range": "melee",
+      "kw": [
+        "raksha"
+      ],
+      "text": "Raksha.",
+      "rarity": "common",
+      "basis": "GENERIC",
+      "refs": [],
+      "phase": 2
     }
   ]
 }

@@ -89,6 +89,7 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 | Marathi localization (vertical slice) | n/a | n/a | n/a | [x] | built (Phase 1 step 8, session 8) — `src/i18n.ts`; generic battle chrome still English, pending Q-05 |
 | Khind (`frontSize`) | [x] | [x] | [x] | [x] | built (Phase 2 step 2, session 11) — first used in ch06 Pavan Khind |
 | Ganim keyword | [x] | [x] | [x] | [x] | built (Phase 2 step 1, session 8) — first used in ch03 Jaoli (session 10) |
+| Khind Ambush (`onEnemyAdvance` Yantra) | [x] | [x] | [x] | [x] | built (session 14), first used in ch08 Umberkhind |
 | Ratra (night) | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
 | New objective `raid` | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
 | Neutral structures | [ ] | [ ] | [ ] | [ ] | planned (Phase 2) |
@@ -109,8 +110,8 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 | 5 | Kolhapur | [x] | [x] | [x] | [x] 54.0% | built |
 | 6 | Panhala and the Pass | [x] | [x] | [x] | [x] 57.3% | built |
 | 7 | Fifty-six Days at Chakan | [x] | [x] | [x] | [x] 56.7% | built (session 13) |
-| 8 | Umberkhind | [ ] | [ ] | [x] batch 7 painted, awaiting review | [ ] | planned |
-| 9 | The Lal Mahal | [ ] | [ ] | [ ] | [ ] | planned |
+| 8 | Umberkhind | [x] | [x] | [x] | [x] 56.7% | built (session 14) |
+| 9 | The Lal Mahal | [ ] | [ ] | [ ] prompts (batch 8) | [ ] | planned |
 | 10 | Surat | [ ] | [ ] | [ ] | [ ] | planned |
 | 11 | Purandar | [ ] | [ ] | [ ] | [ ] | planned |
 | 12 | Agra | [ ] | [ ] | [ ] | n/a | planned |

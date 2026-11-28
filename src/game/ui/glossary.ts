@@ -59,6 +59,7 @@ export function glossFor(cardId: string, unit?: Unit, cost?: number, season?: Se
     if (c.gad && c.gad !== 'none') out.push({ icon: 'gad', title: c.name.toUpperCase(), body: GAD_BENEFIT[c.gad] ?? c.text });
   } else if (c.type === 'yantra') {
     out.push({ icon: 'yantra', title: 'YANTRA', body: 'A hidden trap. It is set face-down and springs by itself when its moment comes. Setting one moves you toward Kuta.' });
+    if (c.trigger === 'onEnemyAdvance') out.push({ icon: 'yantra', title: 'AMBUSH', body: 'Springs when an enemy unit advances to the Yudhbhumi, and strikes that unit as it comes into the pass.' });
   } else if (c.target === 'enemyGad') {
     out.push({ icon: 'shakti', title: 'AGAINST FORTS', body: 'Can only be aimed at an enemy Gad. If it beats the fort to 0, the fort is yours.' });
   } else if (c.kind === 'shakti') {

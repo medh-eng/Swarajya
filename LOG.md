@@ -918,3 +918,34 @@ shows. Victory and defeat screens both reached. No console errors.
 ## 28 Nov 2026 — Umberkhind artwork for review
 
 Added PNG masters and game WebPs for Kartalab Khan, Rai Bagan, Khind Ambush, Netaji Palkar and the Umberkhind battlefield. The Khind Ambush card uses a saffron cloth, basalt boulders and an empty track. The four new cards bring the art registry to 42. Chapter 8 artwork awaits Pon’s visual review.
+
+## 28 Nov 2026 · Session 14: Umberkhind built (Khind Ambush); batch 7 merged; art batch 8 written
+
+- **Art batch 7 merged** (PR #2): Kartalab Khan, Rai Bagan, Khind Ambush, Netaji Palkar and the `umberkhind`
+  battlefield checked against the sheet. All dignified, right palettes, no green on Shivaji's side, no figures
+  in the ambush (it shows the saffron signal cloth and loose basalt rather than the matchlocks: accepted). 42 card
+  paintings, 8 battlefields.
+- **Khind Ambush:** new Yantra trigger `onEnemyAdvance` (`types.ts`, the `move` action in `rules.ts`, Swarajya
+  only): springs on an enemy unit as it advances to the Yudhbhumi and deals its power (3). AI value in `ai.ts`;
+  glossary entry AMBUSH; `tests/ambush.test.ts` (4).
+- **Cards ported:** `mg_kartalab_khan` (legendary, Raksha, 4/7), `mg_rai_bagan` (Vega, Deploy: draw a card),
+  `sw_khind_ambush`, `sw_netaji` (Vega, Ganim; the draft's new deploy dropped). Removed from the draft.
+- **Chapter 8, Umberkhind** (`src/campaign/umberkhind.ts`): destroy objective in a Khind of 2, the Mughal column
+  (a horseman and a Rajput officer) already in the pass. Balance: 84% → **56.7%** (300 games) by removing the
+  player's preset units and setting the camp to 22. Skill ladder: beginner 18%, standard 55%, careful 100%.
+  The draft's Rai Bagan Bhet is not built (D-26): her advice to ask for terms is the win text.
+- **History:** read Vaidya, *Shivaji the Founder of Maratha Swaraj*, ch. XVII (W-VAIDYA-UMBER; the source I
+  had listed as "Takakhav" was in fact Vaidya, fixed). It gives the Jedhe date Magha Shuddha 14, Shaka 1582 =
+  2 February 1661, so CONTESTED #9 now prints "February 1661" (was "Early 1661"). New CONTESTED #32: Rai Bagan's
+  family (widow or wife of Udaram) and whether the trap closed in the pass or at its foot. `C-1661-UMBERKHIND`
+  rewritten with Vaidya, History Files and Sahasa. History note `ch08_umberkhind` written.
+- **Art batch 8** (`art/PROMPTS-BATCH8.md`, chapter 9 Lal Mahal, the first night chapter): `sw_ratri_halla`
+  (order, no figures), `mg_gad_lalmahal` (square, enemy-held), `sw_bahirji`, optional `mg_ahadi`, battlefield
+  `lalmahal`. The two new cards were added to the draft. Bahirji's role now has a second source
+  (W-KONARDE-BAHIRJI).
+
+**Verified:** `npm test` (check-refs OK; 158 passed, 9 skipped, golden included), `npx tsc --noEmit`,
+`npm run build`. Real playtest (Playwright, 1600x900 and 844x390, save seeded through Chakan): campaign node →
+briefing → "Spring the trap" → a full game to the defeat screen at both sizes (the naive test bot lost), battlefield
+and card art shown, no console or page errors. The victory screen was not reached in the browser this time;
+the harness wins 57% of games.

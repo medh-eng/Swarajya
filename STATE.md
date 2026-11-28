@@ -3,34 +3,35 @@
 *Read this first in every session. It is a snapshot, rewritten (not appended) at the end of each
 session. History of changes lives in `LOG.md`.*
 
-**Last updated:** 28 Nov 2026 (session 13) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (steps 1–2 done, step 3 partly done, step 5 Mughal faction started; chapters 3, 5, 6 and 7 built)** · **Next gate:** Gate 1 (vertical slice)
+**Last updated:** 28 Nov 2026 (session 14) · **Phase:** 0 done → **Phase 1 nearly done (steps 9 and 10 partly done, of 10)** → **Phase 2 under way (steps 1–2 done, step 3 partly done, step 5 Mughal faction started; chapters 3, 5, 6, 7 and 8 built)** · **Next gate:** Gate 1 (vertical slice)
 
 ## In one paragraph
 Swarajya is a KARDS-style card game of Chhatrapati Shivaji Maharaj's life and wars, built on the YUDDH engine
-(ruleset `'swarajya'`). **Session 13 (28 Nov 2026):** art batch 6 reviewed and merged (PR #1: 38 card
-paintings, 7 battlefields). **Chapter 7, "Fifty-six Days at Chakan", is built and playable**: you hold
-Sangramdurg as Firangoji Narsala for 10 turns against Shaista Khan's siege (monsoon). It brought the first
-**Mughal** faction (empire `mughal`, 5 cards) and the **siege mechanics**: `durgWard` Gads now protect their
-owner's Durg; `gadWard` (Firangoji: blows on your Gads are 1 weaker while he stands on the Rajya line);
-`static` siege guns that never leave the Rajya line; `vsGad` bombard (strikes a Gad from the Rajya line, over a
-Raksha guard); orders that target an enemy Gad (`target: 'enemyGad'`, the Surang mine). Balance 56.7% (300
-games; the walls still fall in about three games in four, as in history). Chronology for Chakan now rests on
-Sarkar and Takakhav (dates CONTESTED #31: print "1660"). `art/PROMPTS-BATCH7.md` (chapter 8 Umberkhind:
-Kartalab Khan, Rai Bagan, Khind Ambush, Netaji Palkar, the `umberkhind` battlefield) has four card paintings and a battlefield ready for review. Needs Pon:
-play Chakan (try Foe: Easy if it is hard), review batch 7, phone playtest, Gate 1.
+(ruleset `'swarajya'`). **Session 14 (28 Nov 2026):** art batch 7 reviewed and merged (PR #2: 42 card
+paintings, 8 battlefields). **Chapter 8, Umberkhind, is built and playable**: Kartalab Khan's column is
+already in a Khind of 2 when the battle opens, and you break it as Shivaji. The new **Khind Ambush** Yantra
+(`onEnemyAdvance` trigger) strikes each enemy unit as it advances into the pass. Four cards ported:
+`mg_kartalab_khan`, `mg_rai_bagan`, `sw_khind_ambush`, `sw_netaji`. Balance 56.7% (300 games). The draft's
+Rai Bagan Bhet was dropped (D-26): her advice to ask for terms is the win text. History: Vaidya ch. XVII read;
+it gives the Jedhe date as 2 February 1661, so the game prints "February 1661" (CONTESTED #9 updated) and
+the disagreements over Rai Bagan's family and where the trap closed are CONTESTED #32. Session 13 built
+chapter 7 Chakan (siege mechanics, the Mughal faction). `art/PROMPTS-BATCH8.md` (chapter 9 Lal Mahal: Ratri
+Halla, the Lal Mahal Gad, Bahirji Naik, an optional Palace Guard, the `lalmahal` night battlefield) is
+written. Needs Pon: play Chakan and Umberkhind, paint batch 8, phone playtest, Gate 1.
 
-Map order: Maval → Torna → Jaoli → Pratapgad → Kolhapur → Pavan Khind → Chakan. All seven battles are in the
-45–70% band at Standard (Torna 58.3, Jaoli 50.0, Pratapgad 58.7, Kolhapur 54.0, Pavan Khind 57.3, Chakan 56.7).
+Map order: Maval → Torna → Jaoli → Pratapgad → Kolhapur → Pavan Khind → Chakan → Umberkhind. All battles are in
+the 45–70% band at Standard (Torna 58.3, Jaoli 50.0, Pratapgad 58.7, Kolhapur 54.0, Pavan Khind 57.3, Chakan 56.7,
+Umberkhind 56.7).
 
 ## Start here (next session)
 1. Read this file, `TASKS.md` ("Phase 1" and "Phase 2"), the last three `LOG.md` entries, then `CLAUDE.md`.
 2. `npm ci`, then `npm test`, `npx tsc --noEmit`, `npm run build`: all must pass before you change anything.
-3. Next Claude work: **chapter 8 Umberkhind** (`data/chapters.json` ch08: Khind of 2, Bhet `rai_bagan_offer`,
-   enemy starts on the front, destroy objective). Port `mg_kartalab_khan`, `mg_rai_bagan`, `sw_khind_ambush`,
-   `sw_netaji` from the draft (set their empire to `mughal`/`swarajya`; remove them from the draft file or
-   check-refs flags duplicate ids). `sw_khind_ambush` needs an `onEnemyAdvance` yantra trigger (check the
-   engine; Dhuan/deploy traps are the nearest pattern). Read Takakhav ch. XVII (W-TAKAKHAV-UMBER) first.
-   Remaining Phase 2 step 3 pieces: Ratra and `raid` (ch09 Lal Mahal needs them); `shipsAtk` is still unwired.
+3. Next Claude work: **chapter 9 The Lal Mahal** (`data/chapters.json` ch09: deadline 7 turns, Ratra). Needs
+   **Ratra** (night; DESIGN 3.x; Dhuan, hidden until it strikes, is the nearest engine pattern) and the
+   order `sw_ratri_halla` (Durg damage plus Dhuan for your front units). Draft cards ready: `sw_ratri_halla`,
+   `sw_bahirji` (needs a `revealYantrasDraw` deploy), `mg_gad_lalmahal` (durgWard, enemy-held), `mg_ahadi`.
+   Check C-1663-LALMAHAL's sources (only W-LALMAHAL is "good") before shipping; the wedding-procession
+   disguise is TRADITION. Then ch10 Surat. `shipsAtk` is still unwired.
 4. Before adding a scenario: `heroCard`, `defeatCard` and a campaign node's `face` must be ids in
    `src/data/cards.json` (not only the draft), or `cardFace()` throws when the screen opens. Preset cards'
    art is preloaded by `battleArt()` (fixed session 13).
@@ -48,7 +49,7 @@ Map order: Maval → Torna → Jaoli → Pratapgad → Kolhapur → Pavan Khind 
 | Roadmap | `docs/PLAN.md` | v1 (Phase 0 done) |
 | Chronology (single source of truth) | `history/CHRONOLOGY.md` | 73 entries; Purandare pp. 154-169, 207-284 recorded (Torna to the Pratapgad meeting); VERIFY items below |
 | Sources | `history/SOURCES.md` | P/S/W lists; primary texts still to obtain |
-| Contested points | `history/CONTESTED.md` | 31 items (#31 Chakan dates); #27-#29 open (Baji More's fate; elder Sambhaji and Afzal; Siddi Hilal's side in 1659) |
+| Contested points | `history/CONTESTED.md` | 32 items (#31 Chakan dates; #32 Rai Bagan and where the Umberkhind trap closed); #27-#29 open (Baji More's fate; elder Sambhaji and Afzal; Siddi Hilal's side in 1659) |
 | People and spellings | `history/PEOPLE.md` | v1 |
 | AI reports review | `history/AI-REPORTS-REVIEW.md` | ChatGPT and Gemini reports checked claim by claim |
 | Purandare check list | `history/PURANDARE-CHECK.md` | Rows checked from the pages Pon sent (not a gate, D-22); no more pages needed unless a point is disputed |
@@ -63,7 +64,7 @@ Map order: Maval → Torna → Jaoli → Pratapgad → Kolhapur → Pavan Khind 
 | Main / wiring | `src/main.ts` | title → campaign (Swarajya-only pool) → [Bhet scene when `sc.bhet` is set] → battle → next chapter, fully wired (session 8; was a placeholder) |
 | Tests | `tests/` | golden, rules, morale, search, duel, net, standing, rewards, seleucid, duelBalance, `swarajya.test.ts`, `gad.test.ts`, `scenarios.test.ts`, `bhet.test.ts`, `ganim.test.ts`, `khind.test.ts`, `survive-attrition.test.ts`, `balance.harness.test.ts` (BALANCE=1); `tests/e2e/swarajyaPlaytest.cjs` for the mandatory real playtest |
 | Deploy | `.github/workflows/deploy.yml` | test + build + publish to `gh-pages` on every push to main; live at https://medh-eng.github.io/Swarajya/ (was 7 commits stale — pushed and confirmed live, session 8) |
-| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH7.md` | **Batch 7 (chapter 8 Umberkhind) painted, awaiting art review.** Batches 1–5 fully painted (Siddi Hilal done 27 Nov). **Batch 6 (chapter 7 Chakan) painted, including the optional Mansabdar Sawar.** Batch 4 (chapter 6, Pavan Khind): fully painted and registered session 10 (`as_siddi_jauhar`, `as_siddi_masud`, `sw_shiva_kashid`, `as_angrezi_gola`, `ghod_khind`; `sw_bajiprabhu` earlier). 42 card paintings registered total |
+| Art prompts | `art/PROMPTS-BATCH1.md` through `BATCH8.md` | Batches 1–7 fully painted and registered (batch 7, Umberkhind, merged 28 Nov from PR #2). **Batch 8 (chapter 9 Lal Mahal) written 28 Nov, waiting for Pon.** 42 card paintings and 8 battlefields registered |
 | Art (painted) | `art/source/cards/`, `art/source/battlefields/` | Batch 1 complete: 20 of 20 cards, 3 of 3 battlefields (`torna`, `pratapgad`, `maval` — Pon painted `maval` 25 Nov 2026, same session) |
 | Sound | — | none yet (icons and favicon drawn in code) |
 
@@ -119,6 +120,9 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
   Rajya line, ignoring the Raksha guard (`canAttack`); order `target: 'enemyGad'` (`canPlay`, `playableCards`,
   `legalActions`). AI: `attackScore` uses `strikeDamage` against Gads; `gadPlayScore` values durgWard Gads.
   All Swarajya-only; `tests/siege.test.ts`.
+- **Ambush (session 14):** Yantra trigger `onEnemyAdvance` (`types.ts`): in the `move` action, under Swarajya
+  rules, an enemy Khind Ambush springs and deals its `power` to the unit that just advanced (`damageUnit`, then
+  `checkDeath`). AI: `orderValue` sets it while the enemy has units to send. `tests/ambush.test.ts`.
 - **Clock objectives:** `startTurn` returns before the survive/deadline/capture clock if attrition already
   ended the game that turn (Swarajya/YUDDH only; classic keeps its order for the golden traces).
 - **Marathi (Phase 1 step 8, session 8):** `src/i18n.ts` is a from-scratch `pick(en, mr)` overlay system
@@ -161,6 +165,7 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 | D-23 | **Easy foe option.** The briefing's Foe button cycles Easy / Standard / Veteran (`src/campaign/difficulty.ts`). The balance band (45–70%) stays an AI-vs-AI measure at Standard; Easy exists because a beginner wins far less than the harness says. | 27 Nov 2026 |
 | D-24 | **Pratapgad fix:** a new Ganim deck plus Wagh Nakh (`powerVsLegendary`) and Gopinath Pant, rather than delaying Afzal or weakening his buff. Netaji Palkar and Moropant Pingle not added there (single-source). | 27 Nov 2026 |
 | D-25 | **Chakan as a defence:** you hold the fort for 10 turns as Firangoji; winning means holding the turns, and the History note and epilogue say the fort fell. The Mughal deck gets siege guns and the Surang mine; Rajput officers are shown but not named on cards (their names are single-source, VERIFY). | 28 Nov 2026 |
+| D-26 | **Umberkhind without the Bhet:** the draft's Rai Bagan Bhet is not built. Her advice to ask for terms comes at the end, so it is the win text and the History note. The column starts in a Khind of 2 and the player's Khind Ambush strikes each unit that advances. | 28 Nov 2026 |
 | D-17 | Phase 0 keeps YUDDH's content code (`src/campaign/*`, YUDDH cards and duel factions in `src/data/*.json`) as **scaffolding** so the battle screen, duel and tests keep compiling. It is not reachable from the game (the title is a placeholder). Phase 1 replaces it piece by piece with Swarajya content and deletes what is left. YUDDH's art is not copied (`src/assets/card-art.json` is empty, so cards draw their placeholder frame). | 24 Nov 2026 |
 
 
@@ -186,7 +191,6 @@ YUDDH `medh-eng/Yuddh` commit `6f1c852ee493ef03d104efd5535c1ed81bc737ae` (file `
 - "Bahlol Khan" at Salher (Mughal) vs the Bijapuri Bahlol Khan: assumed two people.
 
 ## Next three things
-1. Pon: play Chakan (Campaign map, after Pavan Khind; Foe: Easy if needed). Review art batch 7 (Umberkhind).
-2. Claude: chapter 8 Umberkhind (the onEnemyAdvance yantra, the Rai Bagan Bhet, four cards), after reading
-   Takakhav ch. XVII.
-3. Claude: Ratra and `raid` for ch09 Lal Mahal; the VERIFY research pass (Purandar 1648; CONTESTED #27-#29).
+1. Pon: play Chakan and Umberkhind (Campaign map; Foe: Easy if needed). Paint art batch 8 (Lal Mahal).
+2. Claude: Ratra (night) and chapter 9 The Lal Mahal (deadline), with a second good source for C-1663-LALMAHAL.
+3. Claude: ch10 Surat; the VERIFY research pass (Purandar 1648; CONTESTED #27-#29).

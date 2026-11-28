@@ -25,9 +25,12 @@
       6 cards + 1 optional + the `chakan` battlefield, the first Mughal art: `sw_firangoji`,
       `sw_gad_chakan` (square), `mg_shaista_khan`, `mg_rajput_officer`, `mg_surang`, `mg_topkhana`,
       optional `mg_mansabdar_sawar`. Chakan is a flat ground fort with a moat (not a hill fort).
-- [ ] **Review the five paintings for `art/PROMPTS-BATCH7.md`: chapter 8, Umberkhind.** 4 cards + the
-      `umberkhind` battlefield: `mg_kartalab_khan`, `mg_rai_bagan`, `sw_khind_ambush` (yantra, no figures),
-      `sw_netaji` (optional now). Dry-season forest pass, nobody dies.
+- [x] **`art/PROMPTS-BATCH7.md` (all five painted, merged 28 Nov from PR #2): chapter 8, Umberkhind.**
+- [ ] **`art/PROMPTS-BATCH8.md` (written 28 Nov 2026, session 14): chapter 9, The Lal Mahal.** 3 cards + 1
+      optional + the `lalmahal` battlefield: `sw_ratri_halla` (order, no figures), `mg_gad_lalmahal` (square),
+      `sw_bahirji`, optional `mg_ahadi`. The first night chapter; nothing of the killings is shown.
+- [ ] **Pon: please play Umberkhind** (Campaign -> after Chakan). The Mughal column is already in the pass;
+      set a Khind Ambush before they send more.
 - [ ] **Pon: please play Chakan** (Campaign -> after Pavan Khind). Hold the fort for 10 turns; the walls are
       meant to come under real pressure. Try **Foe: Easy** if it is too hard.
 - [ ] **Pon: please play Pratapgad again** (Campaign -> Pratapgad). It was a wall (0.7%); it is now 59% before
@@ -84,13 +87,14 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
        - Phone width: the briefing's place/year line runs under the History button (all chapters).
        **Chapter 7 (Fifty-six Days at Chakan, 56.7%) built 28 Nov 2026, session 13.** Skill ladder: beginner 6%,
        standard 57%, careful 83%. VERIFY: the Rajput officers' names; Firangoji at Bhupalgad.
-       Next chapter: 8 (Umberkhind): read Takakhav ch. XVII (W-TAKAKHAV-UMBER) first; needs an `onEnemyAdvance`
-       yantra for `sw_khind_ambush` and the `rai_bagan_offer` Bhet.
-       Remaining: 8 (Umberkhind), 9 (Lal Mahal), 10
+       **Chapter 8 (Umberkhind, 56.7%) built 28 Nov 2026, session 14** (Khind Ambush `onEnemyAdvance`; no Bhet, D-26).
+       Skill ladder: beginner 18%, standard 55%, careful 100%.
+       Next chapter: 9 (Lal Mahal): needs Ratra, `sw_ratri_halla`'s Dhuan grant and `sw_bahirji`'s deploy.
+       Remaining: 9 (Lal Mahal), 10
        (Surat), 11 (Purandar treaty scene) — each needs its own chronology check (two independent sources
        per fact, D-22) before it ships, not just the mechanic that powers it.
 5. [~] Mughal faction: empire `mughal` and 5 cards built session 13 (`mg_shaista_khan`, `mg_rajput_officer`,
-       `mg_surang`, `mg_topkhana`, `mg_mansabdar_sawar`). More arrive with each Mughal chapter.
+       `mg_surang`, `mg_topkhana`, `mg_mansabdar_sawar`); session 14 added `mg_kartalab_khan`, `mg_rai_bagan`.
 6. [x] Art batches 2-6 (prompt sheets after batch 1's pattern in `art/PROMPTS-BATCH1.md`). Batches 2-5 fully
        painted and registered. Batch 6 painted and merged; batch 7 (Umberkhind) painted and awaiting review;
        the later chapters (Umberkhind, Lal Mahal, Surat, Purandar) follow the same way.

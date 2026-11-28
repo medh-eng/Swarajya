@@ -33,6 +33,7 @@ import { PRATAPGAD } from './pratapgad';
 import { KOLHAPUR } from './kolhapur';
 import { PAVANKHIND } from './pavankhind';
 import { CHAKAN } from './chakan';
+import { UMBERKHIND } from './umberkhind';
 
 export interface CampaignNode {
   scenario: Scenario;
@@ -110,7 +111,8 @@ export const SWARAJYA_CAMPAIGN: CampaignNode[] = [
   { scenario: PRATAPGAD, face: 'as_afzal_khan', blurb: 'Meet Afzal Khan below Pratapgad.' },
   { scenario: KOLHAPUR, face: 'as_rustam_zaman', blurb: 'Strike Rustam Zaman before he is ready.' },
   { scenario: PAVANKHIND, face: 'sw_bajiprabhu', blurb: 'Hold Ghod Khind until the Raje is safe.' },
-  { scenario: CHAKAN, face: 'sw_firangoji', blurb: 'Hold Chakan against Shaista Khan\'s siege.' }
+  { scenario: CHAKAN, face: 'sw_firangoji', blurb: 'Hold Chakan against Shaista Khan\'s siege.' },
+  { scenario: UMBERKHIND, face: 'sw_netaji', blurb: 'Trap Kartalab Khan in the forest pass.' }
 ];
 export const SWARAJYA: Campaign = {
   id: 'swarajya', kicker: 'ACT I · THE REBEL', title: 'Hindavi Swarajya', ground: 'torna', nodes: SWARAJYA_CAMPAIGN,

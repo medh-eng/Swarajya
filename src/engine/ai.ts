@@ -148,6 +148,8 @@ function orderValue(st: GameState, pIdx: PlayerIndex, entry: PlayOption): number
   if (id === 'ch_vyapari') return 5.5;
   if (id === 'nd_nanda_kosha') return p.hand.some(h => CARDS[h].cost > p.kosha && CARDS[h].cost <= p.kosha + 2) ? 6 : 0;
   if (id === 'nd_kashtha_prakara') return p.yantras.length >= 2 ? 0 : 3.5;
+  // a Khind Ambush is worth setting while the enemy still has units to send into the pass
+  if (id === 'sw_khind_ambush') return p.yantras.length >= 2 || p.yantras.some(y => y.cardId === id) ? 0 : (st.players[enemy].support.some(u => !isGadCard(u.cardId)) || st.players[enemy].hand.length > 0 ? 4 : 1.5);
   if (id === 'm_garuda_vyuha') return allUnits(st, pIdx).filter(x => x.unit.canAct && !x.unit.attacked).length >= 2 ? 7 : 0;
   if (id === 'm_makara_vyuha') return st.front.owner === pIdx && st.front.units.length >= 2 ? 6 : 0;
   return 3;

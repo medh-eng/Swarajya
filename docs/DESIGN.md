@@ -238,3 +238,5 @@ Same method as YUDDH: AI "normal" vs "normal", 200 seeded games per chapter.
   (a killedar on the Rajya line makes blows on his Gads 1 weaker); `static` siege guns stay on the Rajya line;
   `vsGad` adds damage to Gads and may bombard a Gad from the Rajya line over a Raksha guard; orders may target an
   enemy Gad. Chakan is played as a 10-turn defence; the fort's fall is told in the History note (D-25).
+- 28 Nov 2026: Yantra trigger `onEnemyAdvance` (Khind Ambush: 3 damage to the unit that advances). Umberkhind has no
+  Bhet; Rai Bagan's advice is the win text (D-26).

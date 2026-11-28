@@ -786,6 +786,11 @@ export function applyActionCore(st: GameState, action: Action): Check {
     u.moved = true;
     log(st, `${u.name} advances to the Yudhbhumi.`, pIdx);
     pushEvent(st, { t: 'move', owner: pIdx, uid: u.uid });
+    // Swarajya: a Khind Ambush springs on a unit as it comes into the pass
+    if (isSwarajyaRules(st.rules)) {
+      const trap = fireYantra(st, other(pIdx), 'onEnemyAdvance');
+      if (trap) { damageUnit(st, pIdx, u.uid, trap.power, other(pIdx)); checkDeath(st); }
+    }
     return { ok: true };
   }
 

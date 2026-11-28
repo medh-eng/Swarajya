@@ -297,11 +297,11 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 - **Game:** `ch07_chakan` (survive objective; built session 13); cards `sw_firangoji`, `sw_gad_chakan`, `mg_shaista_khan`, `mg_rajput_officer`, `mg_surang`
 
 ### C-1661-UMBERKHIND · The trap at Umberkhind
-- **Date:** usually given as 3 February 1661 (some references: 2 February); the Jedhe chronology suggests about 15 January 1661
-- **Event:** Shaista Khan sent the Uzbek general Kartalab Khan, with Rai Bagan (wife of a Berar deshmukh, a commander in her own right), to take the North Konkan. Misled about Shivaji's position, he went down by the less-used Umberkhind pass near Pen, where Maratha infantry and light cavalry ambushed his column in the forest. On Rai Bagan's advice he asked for terms; Shivaji let the army go after it gave up its baggage. Netaji Palkar was then posted to watch the pass.
-- **Basis:** HISTORY (date: CONTESTED.md #9; force sizes vary wildly: do not use)
-- **Refs:** W-UMBER, W-UMBER-IIAB, W-HISTFILES-MARATHAS05, W-SAHASA-SKONKAN, W-RATTIBHA-UMBER (date only); W-TAKAKHAV-UMBER (chapter to read)
-- **Game:** `ch08_umberkhind` (Khind battlefield); cards `mg_kartalab_khan`, `mg_rai_bagan`, `sw_khind_ambush`
+- **Date:** 2 or 3 February 1661 (Jedhe chronology: Magha Shuddha 14, Shaka 1582, which Vaidya converts to 2 February 1661; most references 3 February). The game prints "February 1661" (CONTESTED #9).
+- **Event:** Shaista Khan sent the Uzbek general Kartalab Khan to take Shivaji's North Konkan holdings. With him was Rai Bagan, a woman commander from a Berar deshmukh family (her family details differ: CONTESTED #32); some Maratha chiefs also served in the force. Misled about Shivaji's position, he went down by the little-used Umberkhind pass towards Pen, so narrow that men came down one by one. Shivaji's men, hidden in the forest and hills on all sides, closed in with shot and arrows. On Rai Bagan's advice Kartalab Khan asked for terms; Shivaji let the army go back by the same path after it gave up its baggage. Netaji Palkar was sent to see the truce kept and then posted to watch the Mughals while Shivaji turned to the South Konkan.
+- **Basis:** HISTORY (date: CONTESTED #9; where exactly the trap closed: CONTESTED #32; force sizes vary wildly: do not use)
+- **Refs:** W-VAIDYA-UMBER, W-HISTFILES-MARATHAS05, W-SAHASA-SKONKAN, W-UMBER, W-UMBER-IIAB, W-RATTIBHA-UMBER (date question only)
+- **Game:** `ch08_umberkhind` (Khind of 2); cards `mg_kartalab_khan`, `mg_rai_bagan`, `sw_khind_ambush`, `sw_netaji`
 
 ### C-1663-LALMAHAL · The night raid on the Lal Mahal
 - **Date:** night of 5–6 April 1663
@@ -566,7 +566,7 @@ Dates: the Government of Maharashtra and most references give Julian-calendar da
 ### C-X-BAHIRJI · Bahirji Naik and the intelligence network
 - **Event:** Bahirji Naik headed Shivaji's intelligence; Maratha victories are credited to his information gathering. Little is documented about his life.
 - **Basis:** HISTORY (role) · TRADITION (specific exploits)
-- **Refs:** W-BAHIRJI
+- **Refs:** W-BAHIRJI, W-KONARDE-BAHIRJI
 - **Game:** card `sw_bahirji` (effect: scouting, no invented exploit in its text)
 
 ### C-X-ASHTAPRADHAN · The Council of Eight

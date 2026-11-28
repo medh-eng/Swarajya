@@ -537,6 +537,27 @@
       "otherSide": "For the Mughals Chakan was a hard first prize: the viceroy had not expected such a stand, and the siege took most of the rainy season. Holding it secured the road from Pune to Junnar.",
       "source": "Sources: Jadunath Sarkar, Shivaji and His Times, ch. IV (W-SARKAR-CHAKAN, from the Mughal court history); N. S. Takakhav, Life of Shivaji Maharaj, ch. 16 (W-TAKAKHAV-SHAISTA, which follows the Jedhe chronology); the encyclopedia accounts of the battle and the fort (W-CHAKAN, W-CHAKAN-FORT).",
       "epilogue": "Shaista Khan made the Lal Mahal in Pune, Shivaji's boyhood home, his residence. Early in 1661 he sent the Uzbek general Kartalab Khan down into the Konkan."
+    },
+    "ch08_umberkhind": {
+      "kicker": "UMBERKHIND · 1661",
+      "happened": "Early in 1661 Shaista Khan, holding Pune, sent the Uzbek general Kartalab Khan to take the Raje's lands in the North Konkan. Rai Bagan, a commander in her own right, rode with him. Believing Shivaji was far away, Kartalab Khan took the little-used Umberkhind pass down towards Pen, a path so narrow that men came down one by one. Shivaji's men were waiting in the forest and the hills on every side. When the drums sounded, shot and arrows came from all round in the midday heat, and the column could not even see who was firing.",
+      "changed": [
+        {
+          "basis": "HISTORY",
+          "text": "On Rai Bagan's advice Kartalab Khan asked for terms. Shivaji granted them: the army went back up the pass the way it had come, leaving its baggage behind. Netaji Palkar was sent to see the truce kept, then posted to watch the Mughals while the Raje turned to the South Konkan."
+        },
+        {
+          "basis": "CONTESTED",
+          "text": "The Jedhe chronology dates it to Magha Shuddha 14, Shaka 1582, which Vaidya gives as 2 February 1661; most references say 3 February. The sources also differ on Rai Bagan's family, and on whether the trap closed in the pass itself or on a small plain at its foot."
+        },
+        {
+          "basis": "INVENTED",
+          "text": "In the game you break the column in battle; in history it was surrounded and let go, and the win text says so. The Khind Ambush card, the cards' numbers and Rai Bagan's place in the Mughal deck are the game's own. No figures are given for either side: the sources' numbers disagree wildly."
+        }
+      ],
+      "otherSide": "For the Mughals it was an embarrassment rather than a disaster: the column came home, but without its baggage and without reaching the Konkan. Rai Bagan is remembered on that side for the clear head that saved the army.",
+      "source": "Sources: C. V. Vaidya, Shivaji the Founder of Maratha Swaraj, ch. XVII (W-VAIDYA-UMBER, with the Jedhe date); History Files, The Marathas part 5 (W-HISTFILES-MARATHAS05); Sahasa, Conquest of South Konkan (W-SAHASA-SKONKAN); the encyclopedia accounts of the battle (W-UMBER, W-UMBER-IIAB).",
+      "epilogue": "While Netaji Palkar watched the Mughals, Shivaji swept down the South Konkan coast. Two years later, in April 1663, he struck at Shaista Khan himself, at night, in the Lal Mahal."
     }
   }
 }

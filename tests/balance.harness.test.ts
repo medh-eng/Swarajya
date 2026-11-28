@@ -32,6 +32,7 @@ import { PRATAPGAD } from '../src/campaign/pratapgad';
 import { KOLHAPUR } from '../src/campaign/kolhapur';
 import { PAVANKHIND } from '../src/campaign/pavankhind';
 import { CHAKAN } from '../src/campaign/chakan';
+import { UMBERKHIND } from '../src/campaign/umberkhind';
 import { BHET_STANCES, resolveBhet } from '../src/engine/bhet';
 
 const BAND: [number, number] = [45, 70]; // Gate 1 band, CLAUDE.md
@@ -77,7 +78,8 @@ describe.skipIf(!process.env.BALANCE)('balance harness (run with BALANCE=1)', ()
   it('skill ladder (beginner / standard / careful player) per chapter', () => {
     const chapters: [string, (s: number) => GameState][] = [
       ['Torna', s => TORNA.game(s)], ['Jaoli', s => JAOLI.game(s)], ['Pratapgad', s => PRATAPGAD.game(s)],
-      ['Kolhapur', s => KOLHAPUR.game(s)], ['Pavan Khind', s => PAVANKHIND.game(s)], ['Chakan', s => CHAKAN.game(s)]
+      ['Kolhapur', s => KOLHAPUR.game(s)], ['Pavan Khind', s => PAVANKHIND.game(s)], ['Chakan', s => CHAKAN.game(s)],
+      ['Umberkhind', s => UMBERKHIND.game(s)]
     ];
     for (const [name, mk] of chapters)
       console.log(`${name.padEnd(12)} beginner(easy) ${winPct(mk, 'easy')}% | standard ${winPct(mk, 'normal')}% | careful(search) ${winPct(mk, 'search', 30)}%`);
@@ -96,5 +98,6 @@ describe.skipIf(!process.env.BALANCE)('balance harness (run with BALANCE=1)', ()
   it('Kolhapur', () => { report('Kolhapur', s => KOLHAPUR.game(s)); });
   it('Pavan Khind', () => { report('Pavan Khind', s => PAVANKHIND.game(s)); });
   it('Chakan', () => { report('Chakan', s => CHAKAN.game(s)); });
+  it('Umberkhind', () => { report('Umberkhind', s => UMBERKHIND.game(s)); });
   it('Pratapgad', () => { report('Pratapgad', s => PRATAPGAD.game(s)); });
 });

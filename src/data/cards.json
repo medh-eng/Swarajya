@@ -3839,6 +3839,89 @@
       "rarity": "common",
       "basis": "GENERIC",
       "refs": []
+    },
+    {
+      "id": "mg_kartalab_khan",
+      "name": "Kartalab Khan",
+      "sub": "Uzbek General",
+      "empire": "mughal",
+      "type": "unit",
+      "cost": 6,
+      "op": 2,
+      "atk": 4,
+      "hp": 7,
+      "range": "melee",
+      "kw": [
+        "raksha"
+      ],
+      "text": "Raksha. He chose the quiet road down the ghat.",
+      "rarity": "legendary",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1661-UMBERKHIND"
+      ]
+    },
+    {
+      "id": "mg_rai_bagan",
+      "name": "Rai Bagan",
+      "sub": "Commander",
+      "empire": "mughal",
+      "type": "unit",
+      "cost": 4,
+      "op": 1,
+      "atk": 3,
+      "hp": 4,
+      "range": "melee",
+      "kw": [
+        "veg"
+      ],
+      "deploy": "draw1",
+      "text": "Vega. Deploy: draw a card. She saw the trap first.",
+      "rarity": "epic",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1661-UMBERKHIND"
+      ]
+    },
+    {
+      "id": "sw_khind_ambush",
+      "name": "Khind Ambush",
+      "sub": "Stones from the Pass",
+      "empire": "swarajya",
+      "type": "yantra",
+      "kind": "yantra",
+      "cost": 2,
+      "trigger": "onEnemyAdvance",
+      "power": 3,
+      "text": "Yantra: when an enemy unit advances to the Yudhbhumi, deal 3 damage to it.",
+      "rarity": "rare",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1661-UMBERKHIND"
+      ]
+    },
+    {
+      "id": "sw_netaji",
+      "name": "Netaji Palkar",
+      "sub": "Sarnaubat",
+      "empire": "swarajya",
+      "type": "unit",
+      "cost": 4,
+      "op": 1,
+      "atk": 3,
+      "hp": 4,
+      "range": "melee",
+      "kw": [
+        "veg",
+        "ganim"
+      ],
+      "text": "Vega. Ganim. The general of the fast horse.",
+      "rarity": "epic",
+      "basis": "HISTORY",
+      "refs": [
+        "C-1660-PANHALA-SIEGE",
+        "C-1661-UMBERKHIND"
+      ]
     }
   ],
   "pendingArt": []

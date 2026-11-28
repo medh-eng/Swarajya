@@ -20,7 +20,7 @@ export type Range = 'melee' | 'ranged';
 export type AiLevel = 'easy' | 'normal' | 'hard' | 'search';
 export type Line = 'support' | 'front';
 export type DeployEffect = 'draw1' | 'drawKosha' | 'kosha1' | 'buffLine' | 'buffAll' | 'kosha2' | 'setYantra' | 'hillVolley' | 'elephantBuff' | 'drawHeal';
-export type YantraTrigger = 'onEnemyDeploy' | 'onHQAttack' | 'onUnitAttack';
+export type YantraTrigger = 'onEnemyDeploy' | 'onHQAttack' | 'onUnitAttack' | 'onEnemyAdvance';
 export type Rarity = 'common' | 'rare' | 'epic' | 'legendary';
 
 export interface Empire {

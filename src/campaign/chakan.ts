@@ -43,6 +43,8 @@ export const CHAKAN: Scenario = {
   winText: () => 'Chakan is still yours when the turns run out. In history it held for close to two months, far longer than the viceroy had planned. Read the History note for how it ended.',
   loseText: 'The citadel is taken before its time. History gave Firangoji longer than this: play it again.',
   goLabel: 'Man the walls',
+  nextId: 'ch08_umberkhind',
+  nextLabel: 'Umberkhind',
   playerDeck, enemyDeck,
   // unreviewed Marathi, same status as the vertical slice's (Q-05) — see src/i18n.ts
   mr: {
@@ -51,6 +53,7 @@ export const CHAKAN: Scenario = {
     briefing: 'राजे पन्हाळ्यात अडकले असताना मोगल सुभेदार शाहिस्तेखान उत्तरेतून उतरला आणि त्याने पुणे घेतले. चाकण त्याच्या वाटेत उभा आहे: मोकळ्या मैदानातला, खंदकाने वेढलेला चौकोनी भुईकोट. राजे मदत पाठवू शकत नाहीत. तुम्ही फिरंगोजी नरसाळा, जुने किल्लेदार आहात, आणि जितका काळ शक्य तितका किल्ला लढवा असा तुम्हाला हुकूम आहे. पावसाळा आला आहे, आणि बादशाही तोफाही.',
     objective: `${HOLD} डाव चाकण लढवा. बालेकिल्ला उभा ठेवा; तट तुमच्या ताब्यात असेपर्यंत तुम्हाला साथ देतील.`,
     goLabel: 'तटावर चला',
+    nextLabel: 'उंबरखिंड',
     winText: () => 'डाव संपले तरी चाकण तुमचाच आहे. इतिहासात तो जवळजवळ दोन महिने टिकला, सुभेदाराच्या अंदाजापेक्षा कितीतरी जास्त. शेवट कसा झाला ते इतिहासाच्या टिपेत वाचा.',
     loseText: 'बालेकिल्ला वेळेआधीच पडतो. इतिहासाने फिरंगोजींना यापेक्षा जास्त काळ दिला: पुन्हा खेळा.'
   },
