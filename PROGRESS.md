@@ -107,7 +107,7 @@ Status words: planned · in progress · built · balanced · approved (by Pon at
 | 4 | Pratapgad | [x] | [x] | [x] (painted) | [ ] | built, unbalanced (battle only — Bhet minigame not yet built, step 6) |
 | 5 | Kolhapur | [ ] | [ ] | [ ] | [ ] | planned |
 | 6 | Panhala and the Pass | [ ] | [ ] | [ ] | [ ] | planned |
-| 7 | Fifty-six Days at Chakan | [ ] | [ ] | [ ] | [ ] | planned |
+| 7 | Fifty-six Days at Chakan | [ ] | [ ] | [x] | [ ] | planned |
 | 8 | Umberkhind | [ ] | [ ] | [ ] | [ ] | planned |
 | 9 | The Lal Mahal | [ ] | [ ] | [ ] | [ ] | planned |
 | 10 | Surat | [ ] | [ ] | [ ] | [ ] | planned |
