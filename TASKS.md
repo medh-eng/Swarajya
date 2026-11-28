@@ -25,7 +25,7 @@
       6 cards + 1 optional + the `chakan` battlefield, the first Mughal art: `sw_firangoji`,
       `sw_gad_chakan` (square), `mg_shaista_khan`, `mg_rajput_officer`, `mg_surang`, `mg_topkhana`,
       optional `mg_mansabdar_sawar`. Chakan is a flat ground fort with a moat (not a hill fort).
-- [ ] **`art/PROMPTS-BATCH7.md` (written 28 Nov 2026, session 13): chapter 8, Umberkhind.** 4 cards + the
+- [ ] **Review the five paintings for `art/PROMPTS-BATCH7.md`: chapter 8, Umberkhind.** 4 cards + the
       `umberkhind` battlefield: `mg_kartalab_khan`, `mg_rai_bagan`, `sw_khind_ambush` (yantra, no figures),
       `sw_netaji` (optional now). Dry-season forest pass, nobody dies.
 - [ ] **Pon: please play Chakan** (Campaign -> after Pavan Khind). Hold the fort for 10 turns; the walls are
@@ -92,7 +92,7 @@ Read `docs/PLAN.md`'s Phase 2 section, `docs/DESIGN.md` §3 (new mechanics: Khin
 5. [~] Mughal faction: empire `mughal` and 5 cards built session 13 (`mg_shaista_khan`, `mg_rajput_officer`,
        `mg_surang`, `mg_topkhana`, `mg_mansabdar_sawar`). More arrive with each Mughal chapter.
 6. [x] Art batches 2-6 (prompt sheets after batch 1's pattern in `art/PROMPTS-BATCH1.md`). Batches 2-5 fully
-       painted and registered. Batch 6 painted and merged; batch 7 (Umberkhind) written;
+       painted and registered. Batch 6 painted and merged; batch 7 (Umberkhind) painted and awaiting review;
        the later chapters (Umberkhind, Lal Mahal, Surat, Purandar) follow the same way.
 
 ## For Claude: Phase 0 — done (24 Nov 2026, session 5)
